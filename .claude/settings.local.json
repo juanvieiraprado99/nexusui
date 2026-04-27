@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+      "Bash(npm install *)",
+      "Bash(npx nx *)",
+      "Bash(npx postcss *)",
+      "Bash(node_modules/.bin/tailwindcss --help)",
+      "Bash(node_modules/.bin/tailwindcss -i apps/web/src/styles.css -o /tmp/tw-out.css)"
+    ]
+  }
+}

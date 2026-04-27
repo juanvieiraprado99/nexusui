@@ -1,0 +1,44 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+dist
+tmp
+out-tsc
+*.js.map
+
+# Nx cache
+.nx/cache
+.nx/workspace-data
+
+# Angular
+.angular
+*.ngfactory.js
+*.ngstyle.js
+
+# Registry output (generated)
+apps/web/public/r/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+__screenshots__/
+apps/web/src/styles.generated.css
+/docs
+CLAUDE.md

@@ -1,0 +1,11 @@
+apps/
+libs/
+tools/
+scripts/
+docs/
+.github/
+*.spec.ts
+*.test.ts
+tsconfig.spec.json
+jest.config*
+vitest.config*

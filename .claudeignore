@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.nx/
+coverage/
+apps/web/src/styles.generated.css
+apps/web/public/r/
+package-lock.json

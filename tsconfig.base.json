@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@nexus/*": ["libs/nexus/src/*"],
+      "@cli/*": ["packages/cli/src/*"],
+      "@blocks/*": ["libs/blocks/src/*"],
+      "nexus": ["libs/nexus/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
