@@ -67,6 +67,10 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "dependsOn": ["tailwind"],
+      "options": {
+        "port": 4222
+      },
       "configurations": {
         "production": {
           "buildTarget": "web:build:production"

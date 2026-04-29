@@ -8,9 +8,12 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "concurrently \"nx serve web\" \"nx run web:build-registry:watch\" \"nx run web:serve-registry\"",
-    "dev:cli": "nx build cli --configuration=development && cd packages/cli/dist && npm link",
-    "generate:component": "nx g ./tools/generators/component:component"
+    "start": "concurrently \"npx nx serve web\" \"npx nx run web:tailwind-watch\" \"npm run build:registry:watch\"",
+    "dev:cli": "npx tsc -p packages/cli/tsconfig.json && node scripts/inject-registry-url.js http://localhost:4222/r && cd packages/cli && npm link",
+    "build:cli": "npx tsc -p packages/cli/tsconfig.json && node scripts/inject-registry-url.js https://nexus-ui.dev/r",
+    "generate:component": "nx g ./tools/generators/component:component",
+    "build:registry": "npx tsx scripts/build-registry.cts",
+    "build:registry:watch": "npx tsx --watch scripts/build-registry.cts"
   },
   "devDependencies": {
     "@angular-devkit/core": "~21.2.0",
