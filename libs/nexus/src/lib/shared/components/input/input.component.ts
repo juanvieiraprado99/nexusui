@@ -1,15 +1,14 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
+  Component,
+  computed,
   input,
   model,
   output,
-  computed,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { mergeClasses } from '../../utils/merge-classes';
 import { injectFormControl } from '../../utils/form-control';
+import { mergeClasses } from '../../utils/merge-classes';
 import { inputVariants, type InputVariants } from './input.variants';
 
 let _inputIdCounter = 0;
@@ -18,7 +17,7 @@ let _inputIdCounter = 0;
   selector: 'n-input',
   standalone: true,
   template: `
-    <div [class]="wrapperClasses()" data-slot="input-root">
+    <div [class]="wrapperClasses()" data-slot="root">
 
       @if (nLabel()) {
         <label [for]="inputId()" [class]="labelClasses()" data-slot="label">
@@ -29,7 +28,7 @@ let _inputIdCounter = 0;
         </label>
       }
 
-      <div class="relative flex items-center" data-slot="input-wrapper">
+      <div class="relative flex items-center" data-slot="control-wrapper">
         <input
           [id]="inputId()"
           [type]="nType()"
@@ -41,7 +40,7 @@ let _inputIdCounter = 0;
           [attr.aria-invalid]="hasError() ? true : null"
           [attr.aria-required]="nRequired() ? true : null"
           [attr.aria-busy]="nLoading() ? true : null"
-          data-slot="input"
+          data-slot="control"
           [class]="inputClasses()"
           [value]="nValue()"
           (input)="handleInput($event)"
@@ -78,7 +77,6 @@ let _inputIdCounter = 0;
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
   host: { class: 'contents' },
 })
 export class InputComponent implements ControlValueAccessor {
@@ -92,7 +90,6 @@ export class InputComponent implements ControlValueAccessor {
   readonly nError       = input<string | null>(null);
   readonly nHint        = input<string | null>(null);
   readonly nClass       = input<string>('');
-  readonly nInputClass  = input<string>('');
   readonly nAriaLabel   = input<string>('');
   readonly nId          = input<string>('');
 
@@ -131,7 +128,6 @@ export class InputComponent implements ControlValueAccessor {
     mergeClasses(
       inputVariants({ nSize: this.nSize() }),
       this.nLoading() && 'pr-9',
-      this.nInputClass(),
     ),
   );
 

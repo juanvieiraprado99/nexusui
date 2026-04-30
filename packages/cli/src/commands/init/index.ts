@@ -378,6 +378,8 @@ function patchTsconfig(cwd: string, baseUrl: string, aliases: { utils: string; c
   if (!paths[compsAlias]) paths[compsAlias] = [`${aliasToFsPath(aliases.components, baseUrl)}/*`];
   if (!paths['@/*'])      paths['@/*']      = [`${baseUrl}/*`];
 
+  if (!compilerOptions['baseUrl']) compilerOptions['baseUrl'] = '.';
+
   compilerOptions['paths'] = paths;
   config['compilerOptions'] = compilerOptions;
 

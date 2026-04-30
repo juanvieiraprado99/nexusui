@@ -15,7 +15,7 @@
 
 | Output    | Type    | Quando emite                                  |
 |-----------|---------|-----------------------------------------------|
-| `onClick` | `Event` | Clique válido: não `nDisabled` nem `nLoading` |
+| `nClick`  | `Event` | Clique válido: não `nDisabled` nem `nLoading` |
 
 ## Selector
 

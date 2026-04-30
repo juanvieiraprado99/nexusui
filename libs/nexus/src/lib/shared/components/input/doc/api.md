@@ -14,8 +14,7 @@
 | `nRequired`    | `boolean`                                                                                | `false`     | Marks field as required; sets `aria-required` and renders `*`       |
 | `nError`       | `string \| null`                                                                         | `null`      | Error message. Sets `aria-invalid` and renders error text.          |
 | `nHint`        | `string \| null`                                                                         | `null`      | Hint text shown below the input (hidden when `nError` is set).      |
-| `nClass`       | `string`                                                                                 | `''`        | Extra classes applied to the outer wrapper `<div>`                  |
-| `nInputClass`  | `string`                                                                                 | `''`        | Extra classes applied to the native `<input>` element               |
+| `nClass`       | `string`                                                                                 | `''`        | Extra classes applied to the outer wrapper `<div>` (target inner slots via `[data-slot="control"]`) |
 | `nAriaLabel`   | `string`                                                                                 | `''`        | `aria-label` for inputs without a visible `nLabel`                  |
 | `nId`          | `string`                                                                                 | `''`        | Override the auto-generated input ID (useful for stable SSR IDs)    |
 
@@ -47,11 +46,11 @@
 
 ## Data Slots
 
-| Attribute                   | Element  | Purpose                            |
-|-----------------------------|----------|------------------------------------|
-| `data-slot="input-root"`    | `div`    | Outermost wrapper                  |
-| `data-slot="label"`         | `label`  | Label element                      |
-| `data-slot="input-wrapper"` | `div`    | Flex row containing input + spinner|
-| `data-slot="input"`         | `input`  | The native input element           |
-| `data-slot="error"`         | `p`      | Error message paragraph            |
-| `data-slot="hint"`          | `p`      | Hint message paragraph             |
+| Attribute                      | Element  | Purpose                            |
+|--------------------------------|----------|------------------------------------|
+| `data-slot="root"`             | `div`    | Outermost wrapper                  |
+| `data-slot="label"`            | `label`  | Label element                      |
+| `data-slot="control-wrapper"`  | `div`    | Flex row containing input + spinner|
+| `data-slot="control"`          | `input`  | The native input element           |
+| `data-slot="error"`            | `p`      | Error message paragraph            |
+| `data-slot="hint"`             | `p`      | Hint message paragraph             |

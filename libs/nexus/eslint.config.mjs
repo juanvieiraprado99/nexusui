@@ -26,15 +26,15 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'lib',
-          style: 'camelCase',
+          prefix: ['n'],
+          style: 'kebab-case',
         },
       ],
       '@angular-eslint/component-selector': [
         'error',
         {
           type: 'element',
-          prefix: 'lib',
+          prefix: ['n', 'demo'],
           style: 'kebab-case',
         },
       ],

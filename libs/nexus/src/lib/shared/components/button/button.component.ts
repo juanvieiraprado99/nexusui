@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, input, computed, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, output } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { buttonVariants, type ButtonVariants } from './button.variants';
 
@@ -12,7 +12,6 @@ import { buttonVariants, type ButtonVariants } from './button.variants';
     <ng-content />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
   host: {
     '[class]': 'classes()',
     '[attr.type]': 'nType()',
@@ -31,7 +30,7 @@ export class ButtonComponent {
   readonly nLoading    = input<boolean>(false);
   readonly nDisabled   = input<boolean>(false);
 
-  readonly onClick = output<Event>();
+  readonly nClick = output<Event>();
 
   protected readonly classes = computed(() =>
     mergeClasses(buttonVariants({ nVariant: this.nVariant(), nSize: this.nSize() }), this.nClass()),
@@ -42,6 +41,6 @@ export class ButtonComponent {
       event.preventDefault();
       return;
     }
-    this.onClick.emit(event);
+    this.nClick.emit(event);
   }
 }

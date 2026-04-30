@@ -3,7 +3,13 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "@angular/cdk": "^21.0.0",
+    "@angular/forms": "^21.2.0",
+    "class-variance-authority": "^0.7.0",
+    "tailwind-merge": "^3.0.0",
+    "clsx": "^2.0.0",
+    "rxjs": "^7.8.0"
   },
   "sideEffects": false
 }
