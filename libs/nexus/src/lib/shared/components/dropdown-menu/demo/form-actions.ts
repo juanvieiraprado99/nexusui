@@ -25,7 +25,7 @@ import { DropdownMenuTriggerDirective } from '../dropdown-menu-trigger.directive
   ],
   template: `
     <form [formGroup]="form" (ngSubmit)="publish()" class="flex flex-col gap-3 max-w-sm">
-      <n-input formControlName="title" nLabel="Título" nRequired />
+      <n-input formControlName="title" nLabel="Título" [nRequired]="true" />
       <n-input formControlName="slug" nLabel="Slug" />
 
       <div class="flex items-center gap-2">

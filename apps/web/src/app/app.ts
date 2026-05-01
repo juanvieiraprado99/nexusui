@@ -11,7 +11,10 @@ import { DarkModeToggle } from './shared/components/dark-mode-toggle/dark-mode-t
     <header class="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
       <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
         <a routerLink="/" class="font-semibold text-lg">nexus-ui</a>
-        <dark-mode-toggle />
+        <div class="flex items-center gap-4">
+          <a routerLink="/playground" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Playground</a>
+          <dark-mode-toggle />
+        </div>
       </div>
     </header>
     <main>

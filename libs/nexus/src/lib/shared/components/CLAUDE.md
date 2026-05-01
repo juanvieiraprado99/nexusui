@@ -232,6 +232,13 @@ export class FooComponent implements ControlValueAccessor {
 
 `injectFormControl` está em `libs/nexus/src/lib/shared/utils/form-control.ts` e expõe: `controlInvalid`, `controlTouched`, `disabledByForm`, `notifyChange`, `notifyTouched`, `setOnChange`, `setOnTouched`, `setDisabledByForm`.
 
+> **Regra — Form-field wrapper inputs:** Todo componente que implementa `ControlValueAccessor`
+> **deve** expor `nLabel`, `nError`, `nHint`, `nRequired` e `nAriaLabel` com os mesmos tipos e
+> defaults do `InputComponent`. O template segue a ordem da seção 11
+> (label → control-wrapper → error → hint). Componentes compostos que usam `<ng-content />`
+> em vez de controle nativo devem propagar `hasError`, `required`, `describedBy`, `labelId` e
+> `ariaLabel` pelo context token para que os sub-componentes vinculem os atributos ARIA corretos.
+
 ---
 
 ## 10. Acessibilidade — checklist obrigatória
@@ -361,6 +368,8 @@ Teste em projeto separado: `nexus-ui-cli add {name}` deve baixar e copiar os arq
 - [ ] Apenas `nClass` exposto. Slots internos via `data-slot` da lista canônica.
 - [ ] IDs: counter module-scope + input `nId` opcional. `errorId`/`hintId` derivados.
 - [ ] Form components: `injectFormControl` + `ControlValueAccessor`.
+- [ ] Form components: inputs `nLabel`, `nError`, `nHint`, `nRequired`, `nAriaLabel` presentes.
+- [ ] Compostos: context token expõe `hasError`, `required`, `describedBy`, `labelId`, `ariaLabel`.
 - [ ] Checklist ARIA aplicada (seção 10).
 - [ ] Ordem do template (seção 11) respeitada em form components.
 - [ ] Pelo menos uma demo por variação relevante em `demo/`.

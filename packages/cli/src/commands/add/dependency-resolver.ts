@@ -25,6 +25,21 @@ function isInstalled(name: string, config: Config, cwd: string): boolean {
   return fs.readdirSync(dir).length > 0;
 }
 
+function getInstalledPackages(cwd: string): Set<string> {
+  const pkgPath = path.join(cwd, 'package.json');
+  if (!fs.existsSync(pkgPath)) return new Set();
+  try {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    return new Set([
+      ...Object.keys(pkg.dependencies ?? {}),
+      ...Object.keys(pkg.devDependencies ?? {}),
+      ...Object.keys(pkg.peerDependencies ?? {}),
+    ]);
+  } catch {
+    return new Set();
+  }
+}
+
 export async function resolveDependencies(
   selected: string[],
   config: Config,
@@ -34,6 +49,7 @@ export async function resolveDependencies(
   const toInstall: string[] = [];
   const npmPackages = new Set<string>();
   const visited = new Set<string>();
+  const installedPackages = getInstalledPackages(cwd);
 
   function visit(name: string) {
     if (visited.has(name)) return;
@@ -52,7 +68,9 @@ export async function resolveDependencies(
     }
 
     for (const pkg of entry.dependencies ?? []) {
-      npmPackages.add(pkg);
+      if (!installedPackages.has(pkg)) {
+        npmPackages.add(pkg);
+      }
     }
   }
 

@@ -44,7 +44,10 @@
       "Bash(xargs -I{} cat {})",
       "Bash(npx tsx *)",
       "Bash(git *)",
-      "Bash(xargs ls *)"
+      "Bash(xargs ls *)",
+      "Bash(xargs cat *)",
+      "Bash(npm start *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4222/playground)"
     ]
   }
 }

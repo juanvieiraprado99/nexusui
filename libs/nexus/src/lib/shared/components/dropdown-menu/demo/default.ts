@@ -22,7 +22,7 @@ import { DropdownMenuTriggerDirective } from '../dropdown-menu-trigger.directive
         <n-dropdown-menu-item (nSelect)="action('perfil')">Perfil</n-dropdown-menu-item>
         <n-dropdown-menu-item (nSelect)="action('billing')">Cobrança</n-dropdown-menu-item>
         <n-dropdown-menu-item (nSelect)="action('team')">Equipe</n-dropdown-menu-item>
-        <n-dropdown-menu-item nDisabled>Indisponível</n-dropdown-menu-item>
+        <n-dropdown-menu-item [nDisabled]="true">Indisponível</n-dropdown-menu-item>
       </n-dropdown-menu-content>
     </n-dropdown-menu>
   `,
