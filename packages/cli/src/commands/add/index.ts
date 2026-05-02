@@ -18,7 +18,7 @@ export const addCommand = new Command('add')
 
     const config = readConfig(cwd);
     if (!config) {
-      console.error(chalk.red('No components.json found. Run nexus-ui-cli init first.'));
+      console.error(chalk.red('No components.json found. Run nexus init first.'));
       process.exit(1);
     }
 

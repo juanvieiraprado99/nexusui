@@ -1,0 +1,40 @@
+{
+  "name": "label",
+  "type": "registry:component",
+  "basePath": "components/label",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "label.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';\nimport { mergeClasses } from '../../utils/merge-classes';\n\n@Component({\n  selector: 'n-label',\n  standalone: true,\n  template: `\n    <label\n      [attr.for]=\"nFor() || null\"\n      [attr.id]=\"nId() || null\"\n      [class]=\"classes()\"\n      data-slot=\"label\"\n    >\n      <ng-content />\n      @if (nRequired()) {\n        <span class=\"ml-0.5 text-destructive\" aria-hidden=\"true\">*</span>\n      }\n    </label>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { class: 'contents' },\n})\nexport class LabelComponent {\n  readonly nFor      = input<string>('');\n  readonly nId       = input<string>('');\n  readonly nRequired = input<boolean>(false);\n  readonly nDisabled = input<boolean>(false);\n  readonly nClass    = input<string>('');\n\n  protected readonly classes = computed(() =>\n    mergeClasses(\n      'block text-sm font-medium leading-none mb-1.5',\n      this.nDisabled() && 'cursor-not-allowed opacity-50',\n      this.nClass(),\n    ),\n  );\n}\n"
+    },
+    {
+      "name": "index.ts",
+      "content": "export * from './label.component';\n"
+    }
+  ],
+  "docs": {
+    "overview": "# Label\n\nLabel tipográfico acessível para campos de formulário. Usado internamente por `n-input`, `n-checkbox`, `n-datepicker` e `n-combobox`, ou diretamente quando você monta o controle por conta própria.\n\n## Quando usar\n\n- Você quer renderizar uma `<label>` consistente acima de um controle nativo (`<input>`, `<select>`, `<textarea>`).\n- Você está construindo um componente composto e precisa de uma label que respeita os estilos da nexus-ui.\n\n## Uso básico\n\n```html\n<n-label nFor=\"email\">Email</n-label>\n<input id=\"email\" type=\"email\" />\n```\n\n## Required\n\nRenderiza um indicador `*` em `text-destructive`. Marcado com `aria-hidden=\"true\"` — o `aria-required` real fica no controle.\n\n```html\n<n-label nFor=\"name\" [nRequired]=\"true\">Nome</n-label>\n```\n\n## Disabled\n\nAplica `cursor-not-allowed` e `opacity-50`. Espelhe o estado real do controle.\n\n```html\n<n-label nFor=\"city\" [nDisabled]=\"true\">Cidade</n-label>\n```\n\n## Customização\n\nUse `nClass` para adicionar/sobrescrever utilitários (resolvido via `tailwind-merge`):\n\n```html\n<n-label nClass=\"mb-0 inline\">Inline</n-label>\n```\n\n## Acessibilidade\n\n- `for` apontando para o `id` do controle.\n- `id` opcional (`nId`) para uso com `aria-labelledby` em controles compostos.\n",
+    "api": "# Label — API\n\n## Inputs\n\n| Input        | Tipo      | Default | Descrição                                                       |\n|--------------|-----------|---------|-----------------------------------------------------------------|\n| `nFor`       | `string`  | `''`    | Valor do atributo `for` — referencia o `id` do controle.        |\n| `nId`        | `string`  | `''`    | `id` da própria `<label>` — útil para `aria-labelledby`.        |\n| `nRequired`  | `boolean` | `false` | Renderiza indicador `*` ao final do texto.                      |\n| `nDisabled`  | `boolean` | `false` | Aplica visual desabilitado.                                     |\n| `nClass`     | `string`  | `''`    | Classes adicionais; resolvidas via `tailwind-merge`.            |\n\n## Slots\n\n| `data-slot` | Elemento  | Descrição                          |\n|-------------|-----------|------------------------------------|\n| `label`     | `<label>` | Elemento label visível ao usuário. |\n\n## Conteúdo\n\nUse `<ng-content />` — qualquer markup interno (texto, ícones, tooltips) é projetado.\n"
+  },
+  "demos": [
+    {
+      "name": "default.ts",
+      "content": "import { Component } from '@angular/core';\nimport { LabelComponent } from '../label.component';\n\n@Component({\n  selector: 'demo-label-default',\n  standalone: true,\n  imports: [LabelComponent],\n  template: `\n    <n-label nFor=\"email\">Email</n-label>\n    <input id=\"email\" type=\"email\" class=\"border rounded px-2 py-1\" />\n  `,\n})\nexport class LabelDefaultDemo {}\n"
+    },
+    {
+      "name": "disabled.ts",
+      "content": "import { Component } from '@angular/core';\nimport { LabelComponent } from '../label.component';\n\n@Component({\n  selector: 'demo-label-disabled',\n  standalone: true,\n  imports: [LabelComponent],\n  template: `\n    <n-label nFor=\"city\" [nDisabled]=\"true\">Cidade</n-label>\n    <input id=\"city\" type=\"text\" disabled class=\"border rounded px-2 py-1\" />\n  `,\n})\nexport class LabelDisabledDemo {}\n"
+    },
+    {
+      "name": "required.ts",
+      "content": "import { Component } from '@angular/core';\nimport { LabelComponent } from '../label.component';\n\n@Component({\n  selector: 'demo-label-required',\n  standalone: true,\n  imports: [LabelComponent],\n  template: `\n    <n-label nFor=\"name\" [nRequired]=\"true\">Nome</n-label>\n    <input id=\"name\" type=\"text\" required class=\"border rounded px-2 py-1\" />\n  `,\n})\nexport class LabelRequiredDemo {}\n"
+    },
+    {
+      "name": "with-input.ts",
+      "content": "import { Component, signal } from '@angular/core';\nimport { InputComponent } from '../../input/input.component';\nimport { LabelComponent } from '../label.component';\n\n@Component({\n  selector: 'demo-label-with-input',\n  standalone: true,\n  imports: [LabelComponent, InputComponent],\n  template: `\n    <div class=\"flex flex-col gap-1\">\n      <n-label nFor=\"custom-input\" [nRequired]=\"true\">Apelido</n-label>\n      <n-input nId=\"custom-input\" [(nValue)]=\"value\" nPlaceholder=\"@usuario\" />\n    </div>\n  `,\n})\nexport class LabelWithInputDemo {\n  value = signal('');\n}\n"
+    }
+  ]
+}

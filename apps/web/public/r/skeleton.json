@@ -1,0 +1,33 @@
+{
+  "name": "skeleton",
+  "type": "registry:component",
+  "basePath": "components/skeleton",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "skeleton.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';\r\nimport { mergeClasses } from '../../utils/merge-classes';\r\n\r\n@Component({\r\n  selector: 'n-skeleton',\r\n  standalone: true,\r\n  template: ``,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  host: { '[class]': 'classes()' },\r\n})\r\nexport class SkeletonComponent {\r\n  readonly nShape = input<'default' | 'circle'>('default');\r\n  readonly nClass = input<string>('');\r\n\r\n  protected readonly classes = computed(() =>\r\n    mergeClasses(\r\n      'block animate-pulse bg-muted',\r\n      this.nShape() === 'circle' ? 'rounded-full' : 'rounded-md',\r\n      this.nClass(),\r\n    ),\r\n  );\r\n}\r\n"
+    },
+    {
+      "name": "index.ts",
+      "content": "export * from './skeleton.component';\r\n"
+    }
+  ],
+  "docs": {},
+  "demos": [
+    {
+      "name": "card.ts",
+      "content": "import { Component } from '@angular/core';\r\nimport { SkeletonComponent } from '../skeleton.component';\r\n\r\n@Component({\r\n  selector: 'demo-skeleton-card',\r\n  standalone: true,\r\n  imports: [SkeletonComponent],\r\n  template: `\r\n    <div class=\"flex items-center gap-4 w-72\">\r\n      <n-skeleton nShape=\"circle\" nClass=\"h-12 w-12 shrink-0\" />\r\n      <div class=\"flex flex-col gap-2 flex-1\">\r\n        <n-skeleton nClass=\"h-4 w-full\" />\r\n        <n-skeleton nClass=\"h-4 w-4/5\" />\r\n        <n-skeleton nClass=\"h-3 w-1/2\" />\r\n      </div>\r\n    </div>\r\n  `,\r\n})\r\nexport class SkeletonCardDemo {}\r\n"
+    },
+    {
+      "name": "default.ts",
+      "content": "import { Component } from '@angular/core';\r\nimport { SkeletonComponent } from '../skeleton.component';\r\n\r\n@Component({\r\n  selector: 'demo-skeleton-default',\r\n  standalone: true,\r\n  imports: [SkeletonComponent],\r\n  template: `\r\n    <div class=\"flex flex-col gap-2 w-64\">\r\n      <n-skeleton nClass=\"h-4 w-full\" />\r\n      <n-skeleton nClass=\"h-4 w-full\" />\r\n      <n-skeleton nClass=\"h-4 w-3/4\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class SkeletonDefaultDemo {}\r\n"
+    },
+    {
+      "name": "shapes.ts",
+      "content": "import { Component } from '@angular/core';\r\nimport { SkeletonComponent } from '../skeleton.component';\r\n\r\n@Component({\r\n  selector: 'demo-skeleton-shapes',\r\n  standalone: true,\r\n  imports: [SkeletonComponent],\r\n  template: `\r\n    <div class=\"flex items-center gap-6\">\r\n      <n-skeleton nShape=\"circle\" nClass=\"h-16 w-16\" />\r\n      <n-skeleton nShape=\"circle\" nClass=\"h-10 w-10\" />\r\n      <n-skeleton nShape=\"circle\" nClass=\"h-8 w-8\" />\r\n      <n-skeleton nClass=\"h-16 w-16\" />\r\n      <n-skeleton nClass=\"h-10 w-24\" />\r\n      <n-skeleton nClass=\"h-8 w-32\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class SkeletonShapesDemo {}\r\n"
+    }
+  ]
+}

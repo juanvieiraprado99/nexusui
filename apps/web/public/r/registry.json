@@ -1,0 +1,182 @@
+{
+  "$schema": "https://nexus-ui.dev/schema/registry.json",
+  "name": "@nexus",
+  "homepage": "https://nexus-ui.dev",
+  "version": "0.0.1",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:component",
+      "files": [
+        "merge-classes.ts",
+        "number.ts",
+        "form-control.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "button.component.ts",
+        "button.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "label.component.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "input.component.ts",
+        "input.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "combobox.component.ts",
+        "combobox-trigger.component.ts",
+        "combobox-content.component.ts",
+        "combobox-item.component.ts",
+        "combobox-group.component.ts",
+        "combobox-empty.component.ts",
+        "combobox.tokens.ts",
+        "combobox.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "checkbox.component.ts",
+        "checkbox.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "radio",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "skeleton"
+      ],
+      "files": [
+        "radio.component.ts",
+        "radio-group.component.ts",
+        "radio.tokens.ts",
+        "radio.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "skeleton.component.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "datepicker",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "datepicker.component.ts",
+        "datepicker-calendar.component.ts",
+        "datepicker.tokens.ts",
+        "datepicker.variants.ts",
+        "datepicker.utils.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "separator.component.ts",
+        "separator.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "select.component.ts",
+        "select-trigger.component.ts",
+        "select-content.component.ts",
+        "select-item.component.ts",
+        "select-group.component.ts",
+        "select-empty.component.ts",
+        "select.tokens.ts",
+        "select.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "dropdown-menu.component.ts",
+        "dropdown-menu-trigger.directive.ts",
+        "dropdown-menu-content.component.ts",
+        "dropdown-menu-item.component.ts",
+        "dropdown-menu-label.component.ts",
+        "dropdown-menu-separator.component.ts",
+        "dropdown-menu-group.component.ts",
+        "dropdown-menu-shortcut.component.ts",
+        "dropdown-menu-sub.component.ts",
+        "dropdown-menu-sub-trigger.component.ts",
+        "dropdown-menu-sub-content.component.ts",
+        "dropdown-menu.variants.ts",
+        "dropdown-menu.tokens.ts",
+        "index.ts"
+      ]
+    }
+  ]
+}

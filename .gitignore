@@ -18,9 +18,6 @@ out-tsc
 *.ngfactory.js
 *.ngstyle.js
 
-# Registry output (generated)
-apps/web/public/r/
-
 # Env files
 .env
 .env.local

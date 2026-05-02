@@ -1,0 +1,28 @@
+{
+  "name": "utils",
+  "type": "registry:component",
+  "basePath": "utils",
+  "dependencies": [
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "name": "merge-classes.ts",
+      "content": "import { twMerge } from 'tailwind-merge';\r\nimport clsx, { type ClassValue } from 'clsx';\r\n\r\nexport function mergeClasses(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n"
+    },
+    {
+      "name": "number.ts",
+      "content": "export function clamp(value: number, min: number, max: number): number {\r\n  return Math.min(Math.max(value, min), max);\r\n}\r\n"
+    },
+    {
+      "name": "form-control.ts",
+      "content": "import { inject, signal, DestroyRef, afterNextRender, Signal } from '@angular/core';\r\nimport { takeUntilDestroyed } from '@angular/core/rxjs-interop';\r\nimport { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';\r\n\r\nexport type FormControlRef<T> = {\r\n  readonly controlInvalid: Signal<boolean>;\r\n  readonly controlTouched: Signal<boolean>;\r\n  readonly disabledByForm: Signal<boolean>;\r\n  setOnChange(fn: (v: T) => void): void;\r\n  setOnTouched(fn: () => void): void;\r\n  setDisabledByForm(v: boolean): void;\r\n  notifyChange(value: T): void;\r\n  notifyTouched(): void;\r\n};\r\n\r\nexport function injectFormControl<T = string>(valueAccessor: ControlValueAccessor): FormControlRef<T> {\r\n  const ngControl  = inject(NgControl, { optional: true, self: true });\r\n  const formDir    = inject(FormGroupDirective, { optional: true });\r\n  const destroyRef = inject(DestroyRef);\r\n\r\n  if (ngControl) {\r\n    ngControl.valueAccessor = valueAccessor;\r\n  }\r\n\r\n  const controlInvalid = signal(false);\r\n  const controlTouched = signal(false);\r\n  const disabledByForm = signal(false);\r\n\r\n  let _onChange: (v: T) => void = () => {};\r\n  let _onTouched: () => void    = () => {};\r\n\r\n  // afterNextRender garante que FormControlName.ngOnInit() já rodou\r\n  // e ngControl.control está disponível\r\n  afterNextRender(() => {\r\n    const control = ngControl?.control;\r\n    if (control) {\r\n      control.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(() => {\r\n        controlInvalid.set(control.invalid);\r\n        controlTouched.set(control.touched);\r\n      });\r\n    }\r\n    formDir?.ngSubmit.pipe(takeUntilDestroyed(destroyRef)).subscribe(() => {\r\n      controlTouched.set(true);\r\n      if (ngControl?.control) controlInvalid.set(ngControl.control.invalid);\r\n    });\r\n  });\r\n\r\n  return {\r\n    controlInvalid: controlInvalid.asReadonly(),\r\n    controlTouched: controlTouched.asReadonly(),\r\n    disabledByForm: disabledByForm.asReadonly(),\r\n    setOnChange(fn)       { _onChange = fn; },\r\n    setOnTouched(fn)      { _onTouched = fn; },\r\n    setDisabledByForm(v)  { disabledByForm.set(v); },\r\n    notifyChange(value)   { _onChange(value); },\r\n    notifyTouched()       { _onTouched(); },\r\n  };\r\n}\r\n"
+    },
+    {
+      "name": "index.ts",
+      "content": "export * from './merge-classes';\r\nexport * from './number';\r\nexport * from './form-control';\r\n"
+    }
+  ],
+  "docs": {}
+}

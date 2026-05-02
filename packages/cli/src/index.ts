@@ -6,9 +6,9 @@ import { addCommand } from './commands/add/index';
 const program = new Command();
 
 program
-  .name('nexus-ui-cli')
+  .name('nexus')
   .description('CLI for installing nexus-ui components into Angular projects')
-  .version('0.0.1');
+  .version('0.0.1-alpha.2');
 
 program.addCommand(initCommand);
 program.addCommand(addCommand);
