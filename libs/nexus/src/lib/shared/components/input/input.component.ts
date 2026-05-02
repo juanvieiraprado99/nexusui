@@ -9,6 +9,7 @@ import {
 import { ControlValueAccessor } from '@angular/forms';
 import { injectFormControl } from '../../utils/form-control';
 import { mergeClasses } from '../../utils/merge-classes';
+import { LabelComponent } from '../label';
 import { inputVariants, type InputVariants } from './input.variants';
 
 let _inputIdCounter = 0;
@@ -16,16 +17,14 @@ let _inputIdCounter = 0;
 @Component({
   selector: 'n-input',
   standalone: true,
+  imports: [LabelComponent],
   template: `
     <div [class]="wrapperClasses()" data-slot="root">
 
       @if (nLabel()) {
-        <label [for]="inputId()" [class]="labelClasses()" data-slot="label">
+        <n-label [nFor]="inputId()" [nRequired]="nRequired()" [nDisabled]="isDisabled()">
           {{ nLabel() }}
-          @if (nRequired()) {
-            <span class="ml-0.5 text-destructive" aria-hidden="true">*</span>
-          }
-        </label>
+        </n-label>
       }
 
       <div class="relative flex items-center" data-slot="control-wrapper">
@@ -112,13 +111,6 @@ export class InputComponent implements ControlValueAccessor {
     if (this.nHint()) return this.hintId();
     return null;
   });
-
-  protected readonly labelClasses = computed(() =>
-    mergeClasses(
-      'block text-sm font-medium leading-none mb-1.5',
-      this.isDisabled() && 'cursor-not-allowed opacity-50',
-    ),
-  );
 
   protected readonly wrapperClasses = computed(() =>
     mergeClasses('flex flex-col', this.nClass()),

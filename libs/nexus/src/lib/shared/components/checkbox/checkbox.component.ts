@@ -9,6 +9,7 @@ import {
 import { ControlValueAccessor } from '@angular/forms';
 import { injectFormControl } from '../../utils/form-control';
 import { mergeClasses } from '../../utils/merge-classes';
+import { LabelComponent } from '../label';
 import { checkboxVariants, type CheckboxVariants } from './checkbox.variants';
 
 let _checkboxIdCounter = 0;
@@ -16,6 +17,7 @@ let _checkboxIdCounter = 0;
 @Component({
   selector: 'n-checkbox',
   standalone: true,
+  imports: [LabelComponent],
   template: `
     <div [class]="wrapperClasses()" data-slot="root">
       <div class="flex items-center gap-2" data-slot="control-wrapper">
@@ -67,12 +69,14 @@ let _checkboxIdCounter = 0;
         </div>
 
         @if (nLabel()) {
-          <label [for]="checkboxId()" [class]="labelClasses()" data-slot="label">
+          <n-label
+            [nFor]="checkboxId()"
+            [nRequired]="nRequired()"
+            [nDisabled]="isDisabled()"
+            nClass="mb-0 cursor-pointer select-none"
+          >
             {{ nLabel() }}
-            @if (nRequired()) {
-              <span class="ml-0.5 text-destructive" aria-hidden="true">*</span>
-            }
-          </label>
+          </n-label>
         }
       </div>
 
@@ -125,13 +129,6 @@ export class CheckboxComponent implements ControlValueAccessor {
 
   protected readonly wrapperClasses = computed(() =>
     mergeClasses('flex flex-col', this.nClass()),
-  );
-
-  protected readonly labelClasses = computed(() =>
-    mergeClasses(
-      'text-sm font-medium leading-none cursor-pointer select-none',
-      this.isDisabled() && 'cursor-not-allowed opacity-50',
-    ),
   );
 
   protected readonly checkboxClasses = computed(() =>

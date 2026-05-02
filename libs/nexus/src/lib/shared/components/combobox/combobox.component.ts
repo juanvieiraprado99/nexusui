@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { injectFormControl } from '../../utils/form-control';
-import { mergeClasses } from '../../utils/merge-classes';
+import { LabelComponent } from '../label';
 import { COMBOBOX_CONTEXT, type ComboboxContext } from './combobox.tokens';
 
 let _comboboxIdCounter = 0;
@@ -18,20 +18,14 @@ let _comboboxIdCounter = 0;
 @Component({
   selector: 'n-combobox',
   standalone: true,
+  imports: [LabelComponent],
   template: `
     <div class="flex flex-col" data-slot="root">
 
       @if (nLabel()) {
-        <label
-          [id]="labelId()"
-          [class]="labelClasses()"
-          data-slot="label"
-        >
+        <n-label [nId]="labelId()" [nRequired]="nRequired()" [nDisabled]="_isDisabled()">
           {{ nLabel() }}
-          @if (nRequired()) {
-            <span class="ml-0.5 text-destructive" aria-hidden="true">*</span>
-          }
-        </label>
+        </n-label>
       }
 
       <ng-content />
@@ -93,7 +87,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   private readonly _triggerEl  = signal<HTMLElement | null>(null);
   private readonly _selectedLabel = signal('');
   private readonly _visibilityFns = signal<Array<() => boolean>>([]);
-  private readonly _isDisabled = computed(() => this.nDisabled() || this._form.disabledByForm());
+  protected readonly _isDisabled = computed(() => this.nDisabled() || this._form.disabledByForm());
   private readonly _visibleCount = computed(() =>
     this._visibilityFns().reduce((n, fn) => n + (fn() ? 1 : 0), 0),
   );
@@ -113,13 +107,6 @@ export class ComboboxComponent implements ControlValueAccessor {
     if (this.nHint())   return this.hintId();
     return null;
   });
-  protected readonly labelClasses = computed(() =>
-    mergeClasses(
-      'block text-sm font-medium leading-none mb-1.5',
-      this._isDisabled() && 'cursor-not-allowed opacity-50',
-    ),
-  );
-
   readonly context: ComboboxContext = {
     open: this._open,
     query: this._query.asReadonly(),
