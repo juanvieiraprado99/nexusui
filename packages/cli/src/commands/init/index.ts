@@ -554,6 +554,6 @@ export const initCommand = new Command('init')
     console.log(chalk.green.bold('nexus-ui initialized!'));
     console.log('');
     console.log('Next steps:');
-    console.log(`  ${chalk.cyan('nexus add button')}   — add your first component`);
-    console.log(`  ${chalk.cyan('nexus add')}           — browse all available components`);
+    console.log(`  ${chalk.cyan('npx @nexuslabs/cli@alpha add button')}   — add your first component`);
+    console.log(`  ${chalk.cyan('npx @nexuslabs/cli@alpha add')}           — browse all available components`);
   });

@@ -65,6 +65,7 @@ let _datepickerIdCounter = 0;
         [attr.aria-describedby]="describedBy()"
         [attr.aria-invalid]="hasError() ? true : null"
         [attr.aria-required]="nRequired() ? true : null"
+        [attr.data-state]="open() ? 'open' : 'closed'"
         [disabled]="isDisabled()"
         [class]="triggerClasses()"
         (click)="toggle()"

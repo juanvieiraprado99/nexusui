@@ -76,6 +76,7 @@
     "express": "^4.21.2",
     "marked": "^18.0.2",
     "rxjs": "~7.8.0",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

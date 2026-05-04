@@ -6,6 +6,7 @@ export const datepickerTriggerVariants = cva(
     'text-sm text-foreground',
     'transition-all duration-200',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:border-ring',
+    'data-[state=open]:ring-2 data-[state=open]:ring-ring data-[state=open]:ring-offset-2 data-[state=open]:border-ring data-[state=open]:outline-none',
     'disabled:cursor-not-allowed disabled:opacity-50',
     'aria-invalid:border-destructive aria-invalid:ring-destructive',
     'cursor-pointer',

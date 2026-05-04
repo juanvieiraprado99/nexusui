@@ -47,7 +47,19 @@
       "Bash(xargs ls *)",
       "Bash(xargs cat *)",
       "Bash(npm start *)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4222/playground)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4222/playground)",
+      "mcp__plugin_context-mode_context-mode__ctx_execute_file",
+      "Bash(Get-ChildItem -Path 'C:\\\\repos\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components' -Directory)",
+      "Bash(Select-Object -ExpandProperty Name)",
+      "mcp__plugin_context-mode_context-mode__ctx_execute",
+      "Bash(findstr select *)",
+      "Bash(npm publish *)",
+      "Bash(npm whoami *)",
+      "Bash(npm view *)",
+      "Bash(npm pkg *)",
+      "Bash(curl -sI https://registry.npmjs.org/@nexuslabs/cli)",
+      "Bash(curl -s https://www.npmjs.com/package/@nexuslabs/cli -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(curl -sI https://raw.githubusercontent.com/juanvieiraprado99/nexusui/main/apps/web/public/r/utils.json)"
     ]
   }
 }

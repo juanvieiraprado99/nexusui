@@ -1,6 +1,6 @@
 # Padrão de autoria de componentes — `libs/nexus/src/lib/shared/components/`
 
-> Este documento é **obrigatório** para qualquer novo componente desta pasta. Como o `nexus-ui-cli` **copia** estes arquivos para o projeto do usuário (estilo shadcn/ui), divergências de padrão se transformam em código que o usuário herda. Consistência aqui é UX para quem consome.
+> Este documento é **obrigatório** para qualquer novo componente desta pasta. Como o CLI `@nexuslabs/cli` (executado via `npx @nexuslabs/cli@alpha add ...`) **copia** estes arquivos para o projeto do usuário (estilo shadcn/ui), divergências de padrão se transformam em código que o usuário herda. Consistência aqui é UX para quem consome.
 
 ---
 
@@ -34,7 +34,7 @@ Cada componente vive em `libs/nexus/src/lib/shared/components/{name}/`:
     └── api.md              # tabela de inputs/outputs/data-slots
 ```
 
-Após criar o componente, **adicione a entrada em** `packages/cli/src/core/registry/registry-data.ts` — sem isso o CLI e o build de registry não enxergam o componente, e o usuário final não consegue rodar `nexus-ui-cli add {name}`. Veja a seção **13. Registro no CLI** abaixo.
+Após criar o componente, **adicione a entrada em** `packages/cli/src/core/registry/registry-data.ts` — sem isso o CLI e o build de registry não enxergam o componente, e o usuário final não consegue rodar `npx @nexuslabs/cli@alpha add {name}`. Veja a seção **13. Registro no CLI** abaixo.
 
 ---
 
@@ -320,7 +320,7 @@ export class InputDefaultDemo {
 Todo componente novo **precisa** de uma entrada em `packages/cli/src/core/registry/registry-data.ts`. Sem isso:
 
 - `npm run build:registry` não emite `apps/web/public/r/{name}.json`.
-- `nexus-ui-cli add {name}` falha com `component not found`.
+- `npx @nexuslabs/cli@alpha add {name}` falha com `component not found`.
 - Componente fica invisível para qualquer projeto que consome a lib.
 
 ### Forma da entrada
@@ -355,7 +355,7 @@ npm run build:registry          # gera apps/web/public/r/{name}.json
 npx nx build nexus              # valida que a lib compila
 ```
 
-Teste em projeto separado: `nexus-ui-cli add {name}` deve baixar e copiar os arquivos sem erro.
+Teste em projeto separado: `npx @nexuslabs/cli@alpha add {name}` deve baixar e copiar os arquivos sem erro.
 
 ---
 
@@ -376,5 +376,5 @@ Teste em projeto separado: `nexus-ui-cli add {name}` deve baixar e copiar os arq
 - [ ] `doc/overview.md` + `doc/api.md` atualizados (incluindo tabela de `data-slot`).
 - [ ] Entrada adicionada em `packages/cli/src/core/registry/registry-data.ts` (seção 13) — `name`, `basePath`, `files`, `registryDependencies`, `dependencies`.
 - [ ] `npm run build:registry` rodado sem erros — `apps/web/public/r/{name}.json` gerado.
-- [ ] `nexus-ui-cli add {name}` testado em projeto separado.
+- [ ] `npx @nexuslabs/cli@alpha add {name}` testado em projeto separado.
 - [ ] `npx nx lint nexus && npx nx test nexus && npx nx build nexus` passam.

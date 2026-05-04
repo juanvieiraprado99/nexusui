@@ -13,7 +13,7 @@ Não usar para selecionar valor único de formulário — use `n-select` (em bre
 ## Instalação
 
 ```bash
-nexus add dropdown-menu
+npx @nexuslabs/cli@alpha add dropdown-menu
 ```
 
 CLI baixa também `utils` e instala `@angular/cdk` + `class-variance-authority`.

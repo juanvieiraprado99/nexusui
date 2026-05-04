@@ -3,9 +3,10 @@ import { cva, type VariantProps } from 'class-variance-authority';
 export const selectTriggerVariants = cva(
   [
     'relative flex w-full cursor-default items-center gap-2 rounded-md border border-input bg-background px-3 text-sm ring-offset-background',
-    'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+    'transition-all duration-200',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:border-ring',
     'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
-    'data-[invalid]:border-destructive data-[invalid]:focus:ring-destructive',
+    'data-[invalid]:border-destructive data-[invalid]:focus-visible:ring-destructive',
   ],
   {
     variants: {

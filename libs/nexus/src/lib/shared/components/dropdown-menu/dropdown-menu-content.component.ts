@@ -86,6 +86,7 @@ export class DropdownMenuContentComponent implements AfterViewInit, OnDestroy {
 
   constructor() {
     effect(() => {
+      const trigger = this.ctx.triggerEl();
       if (this.ctx.open()) this.attach();
       else this.detach();
     });

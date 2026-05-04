@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Goal
 
-Build **nexus-ui**: a shadcn/ui-style component library for **Angular 21**. Components are not installed via `npm install` — a CLI (`nexus-ui-cli`) copies component source files directly into the user's project. Each component becomes the user's own code.
+Build **nexus-ui**: a shadcn/ui-style component library for **Angular 21**. Components are not installed via `npm install` — a CLI (`@nexuslabs/cli`, run via `npx`) copies component source files directly into the user's project. Each component becomes the user's own code.
 
 ## Status
 
@@ -27,7 +27,7 @@ Monorepo layout (Nx 22 + npm workspaces):
 ```
 apps/web/              # Angular SSR docs site — serves registry JSON at /r/
 libs/nexus/            # Component source (truth)
-packages/cli/          # nexus-ui-cli (published to npm)
+packages/cli/          # @nexuslabs/cli (published to npm — invoked via npx)
 scripts/build-registry.cts       # generates apps/web/public/r/*.json from libs/nexus
 scripts/inject-registry-url.js   # patches __REGISTRY_URL__ in CLI dist at build time
 tools/generators/      # Nx schematics (generate:component)
@@ -103,11 +103,20 @@ npx nx test nexus     # Vitest
 
 ### CLI end-user flow (tested in a separate Angular project)
 
+The CLI is published as `@nexuslabs/cli` and invoked via `npx` — **no global install required**. The bin name is `nexus`, so once fetched by `npx`, the entry point runs as `nexus <command>`.
+
 ```bash
-nexus-ui-cli init          # one-time setup: components.json, Tailwind, tsconfig paths, utils
-nexus-ui-cli add button    # add a component (resolves registryDependencies recursively)
-nexus-ui-cli add --all     # add all registered components
+# Pre-release (current)
+npx @nexuslabs/cli@alpha init           # one-time setup: components.json, Tailwind, tsconfig paths, utils
+npx @nexuslabs/cli@alpha add button     # add a component (resolves registryDependencies recursively)
+npx @nexuslabs/cli@alpha add --all      # add all registered components
+
+# Once stable (post-alpha)
+npx @nexuslabs/cli@latest init
+npx @nexuslabs/cli@latest add button
 ```
+
+> Always pass `@alpha` (or `@latest`) so `npx` doesn't reuse an old cached version.
 
 ## Known Traps
 
