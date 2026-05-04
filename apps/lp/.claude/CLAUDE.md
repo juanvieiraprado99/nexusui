@@ -48,6 +48,12 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use the async pipe to handle observables
 - Do not assume globals like (`new Date()`) are available.
 
+## CLI Commands for Components
+
+- Init: `npx @nexuslabs/cli init`
+- Add component: `npx @nexuslabs/cli add <component-name>`
+- Always use `@nexuslabs/cli` package via `npx` — never use `nexus-ui-cli` or any other CLI name.
+
 ## Services
 
 - Design services around a single responsibility

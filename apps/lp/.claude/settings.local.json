@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(findstr \"animate\")",
+      "Bash(npm install *)",
+      "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+      "Bash(Get-ChildItem *)",
+      "Bash(dir /s /b \"C:\\\\repos\\\\nexus\\\\nexusui\\\\apps\\\\web\\\\src\\\\app\\\\domain\\\\pages\")",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\apps\\\\web\\\\src\\\\app\\\\domain\\\\pages\\\\playground\" | ForEach-Object { $_.FullName })"
+    ]
+  }
+}
