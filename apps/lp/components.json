@@ -1,0 +1,14 @@
+{
+  "$schema": "https://nexus-ui.dev/schema/components.json",
+  "packageManager": "npm",
+  "registryUrl": "https://raw.githubusercontent.com/juanvieiraprado99/nexusui/main/apps/web/public/r",
+  "tailwind": {
+    "css": "src/styles.css",
+    "baseColor": "stone"
+  },
+  "baseUrl": "src/app",
+  "aliases": {
+    "components": "@/shared/components",
+    "utils": "@/shared/utils"
+  }
+}
