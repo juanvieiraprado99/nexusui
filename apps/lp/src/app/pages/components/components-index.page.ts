@@ -68,7 +68,7 @@ interface ComponentEntry {
 export class ComponentsIndexPage {
   protected readonly components: ComponentEntry[] = [
     { name: 'Accordion' }, { name: 'Alert' }, { name: 'Alert Dialog' },
-    { name: 'Aspect Ratio' }, { name: 'Avatar' }, { name: 'Badge' },
+    { name: 'Aspect Ratio' }, { name: 'Avatar', slug: 'avatar', ready: true }, { name: 'Badge', slug: 'badge', ready: true },
     { name: 'Breadcrumb' }, { name: 'Button', slug: 'button', ready: true }, { name: 'Button Group' },
     { name: 'Calendar' }, { name: 'Card' }, { name: 'Carousel' },
     { name: 'Chart' }, { name: 'Checkbox', slug: 'checkbox', ready: true }, { name: 'Collapsible' },

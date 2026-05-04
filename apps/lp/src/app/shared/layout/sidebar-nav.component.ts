@@ -74,6 +74,8 @@ export class SidebarNavComponent {
     {
       title: 'Components',
       items: [
+        { label: 'Avatar', path: '/components/avatar' },
+        { label: 'Badge', path: '/components/badge' },
         { label: 'Button', path: '/components/button' },
         { label: 'Checkbox', path: '/components/checkbox' },
         { label: 'Combobox', path: '/components/combobox' },

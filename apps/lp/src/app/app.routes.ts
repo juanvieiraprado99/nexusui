@@ -66,5 +66,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/components/skeleton/skeleton-doc.page').then((m) => m.SkeletonDocPage),
   },
+  {
+    path: 'components/avatar',
+    loadComponent: () =>
+      import('./pages/components/avatar/avatar-doc.page').then((m) => m.AvatarDocPage),
+  },
+  {
+    path: 'components/badge',
+    loadComponent: () =>
+      import('./pages/components/badge/badge-doc.page').then((m) => m.BadgeDocPage),
+  },
   { path: '**', redirectTo: '' },
 ];

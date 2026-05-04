@@ -119,6 +119,25 @@ export const registry: ComponentRegistry[] = [
     ],
   },
   {
+    name: 'badge',
+    basePath: 'components/badge',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority'],
+    files: ['badge.component.ts', 'badge.variants.ts', 'index.ts'],
+  },
+  {
+    name: 'avatar',
+    basePath: 'components/avatar',
+    registryDependencies: ['utils', 'badge'],
+    dependencies: ['class-variance-authority', '@angular/common'],
+    files: [
+      'avatar.component.ts',
+      'avatar-group.component.ts',
+      'avatar.variants.ts',
+      'index.ts',
+    ],
+  },
+  {
     name: 'dropdown-menu',
     basePath: 'components/dropdown-menu',
     registryDependencies: ['utils'],

@@ -13,7 +13,8 @@
     "build:cli": "npx tsc -p packages/cli/tsconfig.json && node scripts/inject-registry-url.js https://raw.githubusercontent.com/juanvieiraprado99/nexusui/main/apps/web/public/r",
     "generate:component": "nx g ./tools/generators/component:component",
     "build:registry": "npx tsx scripts/build-registry.cts",
-    "build:registry:watch": "npx tsx --watch scripts/build-registry.cts"
+    "build:registry:watch": "npx tsx --watch scripts/build-registry.cts",
+    "start-lp": "npx nx run nexus-lp:start"
   },
   "devDependencies": {
     "@angular-devkit/core": "~21.2.0",

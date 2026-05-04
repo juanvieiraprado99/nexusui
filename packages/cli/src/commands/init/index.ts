@@ -12,6 +12,12 @@ import { getRegistryUrl } from '../../utils/registry';
 const BASE_COLORS = ['slate', 'zinc', 'neutral', 'stone', 'gray'] as const;
 type BaseColor = (typeof BASE_COLORS)[number];
 
+const PRIMARY_COLORS = [
+  'blue', 'indigo', 'violet', 'purple', 'green', 'emerald',
+  'teal', 'sky', 'cyan', 'red', 'rose', 'orange', 'amber', 'pink',
+] as const;
+type PrimaryColor = (typeof PRIMARY_COLORS)[number];
+
 const NEXUS_THEME_MARKER = '/* nexus-ui theme */';
 
 function detectPackageManager(cwd: string): string {
@@ -46,7 +52,8 @@ function detectAngularProject(cwd: string): {
   }
 }
 
-function buildThemeCss(baseColor: BaseColor): string {
+function buildThemeCss(baseColor: BaseColor, primaryColor?: PrimaryColor): string {
+  const resolvedPrimary = primaryColor ?? 'blue';
   const themes: Record<BaseColor, { light: Record<string, string>; dark: Record<string, string> }> = {
     slate: {
       light: {
@@ -277,6 +284,14 @@ function buildThemeCss(baseColor: BaseColor): string {
 
   const { light, dark } = themes[baseColor];
 
+  // Override primary/ring with Tailwind v4 CSS vars so components follow the user's chosen color
+  light['--primary'] = `var(--color-${resolvedPrimary}-600)`;
+  light['--primary-foreground'] = 'oklch(1 0 0)';
+  light['--ring'] = `var(--color-${resolvedPrimary}-500)`;
+  dark['--primary'] = `var(--color-${resolvedPrimary}-400)`;
+  dark['--primary-foreground'] = 'oklch(0.145 0 0)';
+  dark['--ring'] = `var(--color-${resolvedPrimary}-400)`;
+
   const toVars = (tokens: Record<string, string>) =>
     Object.entries(tokens)
       .map(([k, v]) => `    ${k}: ${v};`)
@@ -333,8 +348,8 @@ ${toVars(dark)}
 `;
 }
 
-function patchStylesCss(stylesPath: string, baseColor: BaseColor): void {
-  const theme = buildThemeCss(baseColor);
+function patchStylesCss(stylesPath: string, baseColor: BaseColor, primaryColor?: PrimaryColor): void {
+  const theme = buildThemeCss(baseColor, primaryColor);
 
   if (!fs.existsSync(stylesPath)) {
     fs.mkdirSync(path.dirname(stylesPath), { recursive: true });
@@ -388,6 +403,29 @@ function patchTsconfig(cwd: string, baseUrl: string, aliases: { utils: string; c
 
 function patchPostcss(cwd: string): void {
   const postcssPath = path.join(cwd, 'postcss.config.js');
+  const requiredPlugin = `'@tailwindcss/postcss'`;
+
+  if (fs.existsSync(postcssPath)) {
+    const existing = fs.readFileSync(postcssPath, 'utf-8');
+    if (existing.includes('@tailwindcss/postcss')) return;
+
+    // Inject plugin into existing plugins object
+    const patched = existing.replace(
+      /(plugins\s*:\s*\{)([\s\S]*?)(\})/,
+      (_, open, inner, close) => `${open}${inner}    ${requiredPlugin}: {},\n  ${close}`,
+    );
+
+    if (patched !== existing) {
+      fs.writeFileSync(postcssPath, patched, 'utf-8');
+    } else {
+      // Could not find plugins block — append warning comment and bail
+      console.warn(
+        `[nexus-ui] Could not patch postcss.config.js automatically. Add '@tailwindcss/postcss' to its plugins manually.`,
+      );
+    }
+    return;
+  }
+
   const content = `module.exports = {\n  plugins: {\n    '@tailwindcss/postcss': {},\n  },\n};\n`;
   fs.writeFileSync(postcssPath, content, 'utf-8');
 }
@@ -461,6 +499,13 @@ export const initCommand = new Command('init')
         initial: 0,
       },
       {
+        type: 'select',
+        name: 'primaryColor',
+        message: 'Which primary color for components?',
+        choices: PRIMARY_COLORS.map((c) => ({ title: c, value: c })),
+        initial: 0,
+      },
+      {
         type: 'text',
         name: 'stylesPath',
         message: 'Where is your global styles file?',
@@ -492,6 +537,7 @@ export const initCommand = new Command('init')
       tailwind: {
         css: answers.stylesPath as string,
         baseColor: answers.baseColor as string,
+        primaryColor: answers.primaryColor as string,
       },
       baseUrl,
       aliases: {
@@ -537,7 +583,7 @@ export const initCommand = new Command('init')
 
     const configSpinner = ora('Configuring project...').start();
     patchPostcss(cwd);
-    patchStylesCss(answers.stylesPath as string, answers.baseColor as BaseColor);
+    patchStylesCss(answers.stylesPath as string, answers.baseColor as BaseColor, answers.primaryColor as PrimaryColor);
     patchTsconfig(cwd, baseUrl, config.aliases);
     patchAngularJson(cwd, answers.stylesPath as string);
     configSpinner.succeed('Project configured');

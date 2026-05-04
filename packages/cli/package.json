@@ -1,6 +1,6 @@
 {
   "name": "@nexuslabs/cli",
-  "version": "0.0.1-alpha.2",
+  "version": "0.0.1-alpha.3",
   "description": "CLI for installing nexus-ui components into Angular projects",
   "bin": {
     "nexus": "dist/index.js"

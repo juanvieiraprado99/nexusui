@@ -72,6 +72,19 @@ import { SelectSelectAllDemo } from '@nexus/lib/shared/components/select/demo/se
 import { SelectWithFormDemo } from '@nexus/lib/shared/components/select/demo/with-form';
 import { SelectLoadingDemo } from '@nexus/lib/shared/components/select/demo/loading';
 
+// Badge demos
+import { BadgeDefaultDemo } from '@nexus/lib/shared/components/badge/demo/default';
+import { BadgeVariantsDemo } from '@nexus/lib/shared/components/badge/demo/variants';
+import { BadgeWithAvatarDemo } from '@nexus/lib/shared/components/badge/demo/with-avatar';
+
+// Avatar demos
+import { AvatarDefaultDemo } from '@nexus/lib/shared/components/avatar/demo/default';
+import { AvatarFallbackDemo } from '@nexus/lib/shared/components/avatar/demo/fallback';
+import { AvatarSizesDemo } from '@nexus/lib/shared/components/avatar/demo/sizes';
+import { AvatarShapesDemo } from '@nexus/lib/shared/components/avatar/demo/shapes';
+import { AvatarStatusDemo } from '@nexus/lib/shared/components/avatar/demo/status';
+import { AvatarGroupDemo } from '@nexus/lib/shared/components/avatar/demo/group';
+
 // Radio demos
 import { RadioDefaultDemo } from '@nexus/lib/shared/components/radio/demo/default';
 import { RadioCardDemo } from '@nexus/lib/shared/components/radio/demo/card';
@@ -97,6 +110,8 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     DropdownMenuDefaultDemo, DropdownMenuDestructiveItemDemo, DropdownMenuFormActionsDemo,
     DropdownMenuWithGroupsDemo, DropdownMenuWithShortcutsDemo, DropdownMenuWithSubmenuDemo,
     SkeletonDefaultDemo, SkeletonCardDemo, SkeletonShapesDemo,
+    BadgeDefaultDemo, BadgeVariantsDemo, BadgeWithAvatarDemo,
+    AvatarDefaultDemo, AvatarFallbackDemo, AvatarSizesDemo, AvatarShapesDemo, AvatarStatusDemo, AvatarGroupDemo,
     RadioDefaultDemo, RadioCardDemo, RadioColorsDemo, RadioDisabledDemo,
     RadioHorizontalDemo, RadioLoadingDemo, RadioReactiveFormDemo,
     RadioRichDescriptionDemo, RadioSizesDemo,
@@ -351,6 +366,74 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Form Actions</span>
             <div class="flex items-center justify-center min-h-16">
               <demo-dropdown-menu-form-actions />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Badge -->
+      <section>
+        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Badge</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-badge-default />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Variants</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-badge-variants />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Avatar</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-badge-with-avatar />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Avatar -->
+      <section>
+        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Avatar</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-avatar-default />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Fallback</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-avatar-fallback />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-avatar-sizes />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Shapes</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-avatar-shapes />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Status</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-avatar-status />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Group</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-avatar-group />
             </div>
           </div>
         </div>

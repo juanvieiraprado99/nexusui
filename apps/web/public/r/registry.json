@@ -156,6 +156,32 @@
       ]
     },
     {
+      "name": "badge",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "badge.component.ts",
+        "badge.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "badge"
+      ],
+      "files": [
+        "avatar.component.ts",
+        "avatar-group.component.ts",
+        "avatar.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "dropdown-menu",
       "type": "registry:component",
       "registryDependencies": [

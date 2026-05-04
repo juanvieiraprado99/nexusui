@@ -1,0 +1,43 @@
+{
+  "name": "badge",
+  "type": "registry:component",
+  "basePath": "components/badge",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "name": "badge.component.ts",
+      "content": "import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';\nimport { mergeClasses } from '../../utils/merge-classes';\nimport { badgeVariants, type BadgeVariants } from './badge.variants';\n\n@Component({\n  selector: 'n-badge',\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  template: `<ng-content />`,\n  host: {\n    '[class]': 'classes()',\n    'data-slot': 'badge',\n  },\n})\nexport class BadgeComponent {\n  readonly nVariant = input<BadgeVariants['nVariant']>('default');\n  readonly nClass   = input<string>('');\n\n  protected readonly classes = computed(() =>\n    mergeClasses(badgeVariants({ nVariant: this.nVariant() }), this.nClass()),\n  );\n}\n"
+    },
+    {
+      "name": "badge.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nexport const badgeVariants = cva(\n  'inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors select-none',\n  {\n    variants: {\n      nVariant: {\n        default:     'border-transparent bg-primary text-primary-foreground',\n        secondary:   'border-transparent bg-secondary text-secondary-foreground',\n        destructive: 'border-transparent bg-destructive text-destructive-foreground',\n        outline:     'border-border text-foreground',\n        success:     'border-transparent bg-green-500 text-white',\n        warning:     'border-transparent bg-amber-400 text-white',\n      },\n    },\n    defaultVariants: {\n      nVariant: 'default',\n    },\n  },\n);\n\nexport type BadgeVariants = VariantProps<typeof badgeVariants>;\n"
+    },
+    {
+      "name": "index.ts",
+      "content": "export * from './badge.component';\nexport * from './badge.variants';\n"
+    }
+  ],
+  "docs": {
+    "overview": "# Badge\n\nExibe um rótulo visual compacto — status, categoria, contagem ou qualquer label contextual.\n\n## Usage\n\n```ts\nimport { BadgeComponent } from '@/shared/components/badge';\n```\n\n```html\n<n-badge>New</n-badge>\n```\n\n## Examples\n\n### Variants\n\n```html\n<n-badge nVariant=\"default\">Default</n-badge>\n<n-badge nVariant=\"secondary\">Secondary</n-badge>\n<n-badge nVariant=\"destructive\">Destructive</n-badge>\n<n-badge nVariant=\"outline\">Outline</n-badge>\n<n-badge nVariant=\"success\">Success</n-badge>\n<n-badge nVariant=\"warning\">Warning</n-badge>\n```\n\n### Com Avatar\n\nO `n-avatar-badge` usa `BadgeComponent` internamente para renderizar o indicador de status no avatar.\n\n```html\n<n-avatar nName=\"João Prado\">\n  <n-avatar-badge nStatus=\"online\" />\n</n-avatar>\n\n<!-- status como badge de texto ao lado -->\n<n-badge nVariant=\"success\">Online</n-badge>\n```\n",
+    "api": "# Badge API\n\n## `n-badge`\n\n### Inputs\n\n| Input      | Tipo                                                                          | Default     | Descrição                                  |\n|------------|-------------------------------------------------------------------------------|-------------|--------------------------------------------|\n| `nVariant` | `'default' \\| 'secondary' \\| 'destructive' \\| 'outline' \\| 'success' \\| 'warning'` | `'default'` | Variante visual                      |\n| `nClass`   | `string`                                                                      | `''`        | Classes extras (merged via tailwind-merge) |\n\n### Conteúdo\n\nTexto ou elementos via `<ng-content />`.\n\n### `data-slot`\n\n| Slot    | Elemento       |\n|---------|----------------|\n| `badge` | host `n-badge` |\n\n## Relação com Avatar\n\n`n-avatar-badge` usa `BadgeComponent` internamente. O mapeamento de status → variante:\n\n| Status    | Variant       |\n|-----------|---------------|\n| `online`  | `success`     |\n| `offline` | `secondary`   |\n| `away`    | `warning`     |\n| `busy`    | `destructive` |\n"
+  },
+  "demos": [
+    {
+      "name": "default.ts",
+      "content": "import { Component } from '@angular/core';\nimport { BadgeComponent } from '../badge.component';\n\n@Component({\n  selector: 'demo-badge-default',\n  standalone: true,\n  imports: [BadgeComponent],\n  template: `<n-badge>Badge</n-badge>`,\n})\nexport class BadgeDefaultDemo {}\n"
+    },
+    {
+      "name": "variants.ts",
+      "content": "import { Component } from '@angular/core';\nimport { BadgeComponent } from '../badge.component';\n\n@Component({\n  selector: 'demo-badge-variants',\n  standalone: true,\n  imports: [BadgeComponent],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-3\">\n      <n-badge nVariant=\"default\">Default</n-badge>\n      <n-badge nVariant=\"secondary\">Secondary</n-badge>\n      <n-badge nVariant=\"destructive\">Destructive</n-badge>\n      <n-badge nVariant=\"outline\">Outline</n-badge>\n      <n-badge nVariant=\"success\">Success</n-badge>\n      <n-badge nVariant=\"warning\">Warning</n-badge>\n    </div>\n  `,\n})\nexport class BadgeVariantsDemo {}\n"
+    },
+    {
+      "name": "with-avatar.ts",
+      "content": "import { Component } from '@angular/core';\nimport { BadgeComponent } from '../badge.component';\nimport { AvatarComponent } from '../../avatar/avatar.component';\n\n@Component({\n  selector: 'demo-badge-with-avatar',\n  standalone: true,\n  imports: [BadgeComponent, AvatarComponent],\n  template: `\n    <div class=\"flex items-center gap-4\">\n      <div class=\"flex items-center gap-3\">\n        <n-avatar nName=\"João Prado\">\n          <n-badge nVariant=\"success\" nClass=\"absolute bottom-0 right-0 size-3 rounded-full p-0 border-0 ring-2 ring-background\" />\n        </n-avatar>\n        <div class=\"flex flex-col gap-1\">\n          <span class=\"text-sm font-medium\">João Prado</span>\n          <n-badge nVariant=\"success\">Online</n-badge>\n        </div>\n      </div>\n      <div class=\"flex items-center gap-3\">\n        <n-avatar nName=\"Maria Silva\">\n          <n-badge nVariant=\"warning\" nClass=\"absolute bottom-0 right-0 size-3 rounded-full p-0 border-0 ring-2 ring-background\" />\n        </n-avatar>\n        <div class=\"flex flex-col gap-1\">\n          <span class=\"text-sm font-medium\">Maria Silva</span>\n          <n-badge nVariant=\"warning\">Ausente</n-badge>\n        </div>\n      </div>\n    </div>\n  `,\n})\nexport class BadgeWithAvatarDemo {}\n"
+    }
+  ]
+}
