@@ -85,6 +85,27 @@ import { AvatarShapesDemo } from '@nexus/lib/shared/components/avatar/demo/shape
 import { AvatarStatusDemo } from '@nexus/lib/shared/components/avatar/demo/status';
 import { AvatarGroupDemo } from '@nexus/lib/shared/components/avatar/demo/group';
 
+// Breadcrumb demos
+import { BreadcrumbDefaultDemo } from '@nexus/lib/shared/components/breadcrumb/demo/default';
+import { BreadcrumbCustomSeparatorDemo } from '@nexus/lib/shared/components/breadcrumb/demo/custom-separator';
+import { BreadcrumbWithEllipsisDemo } from '@nexus/lib/shared/components/breadcrumb/demo/with-ellipsis';
+import { BreadcrumbSizesDemo } from '@nexus/lib/shared/components/breadcrumb/demo/sizes';
+
+// Accordion demos
+import { AccordionDefaultDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-default';
+import { AccordionMultipleDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-multiple';
+import { AccordionDisabledDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-disabled';
+import { AccordionCustomIconDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-custom-icon';
+
+// Switch demos
+import { SwitchDemoDefault } from '@nexus/lib/shared/components/switch/demo/default';
+import { SwitchDemoSizes } from '@nexus/lib/shared/components/switch/demo/sizes';
+import { SwitchDemoColors } from '@nexus/lib/shared/components/switch/demo/colors';
+import { SwitchDemoIcons } from '@nexus/lib/shared/components/switch/demo/icons';
+import { SwitchDemoLoading } from '@nexus/lib/shared/components/switch/demo/loading';
+import { SwitchDemoLabelInside } from '@nexus/lib/shared/components/switch/demo/label-inside';
+import { SwitchDemoDisabled } from '@nexus/lib/shared/components/switch/demo/disabled';
+
 // Radio demos
 import { RadioDefaultDemo } from '@nexus/lib/shared/components/radio/demo/default';
 import { RadioCardDemo } from '@nexus/lib/shared/components/radio/demo/card';
@@ -112,6 +133,10 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     SkeletonDefaultDemo, SkeletonCardDemo, SkeletonShapesDemo,
     BadgeDefaultDemo, BadgeVariantsDemo, BadgeWithAvatarDemo,
     AvatarDefaultDemo, AvatarFallbackDemo, AvatarSizesDemo, AvatarShapesDemo, AvatarStatusDemo, AvatarGroupDemo,
+    BreadcrumbDefaultDemo, BreadcrumbCustomSeparatorDemo, BreadcrumbWithEllipsisDemo, BreadcrumbSizesDemo,
+    AccordionDefaultDemo, AccordionMultipleDemo, AccordionDisabledDemo, AccordionCustomIconDemo,
+    SwitchDemoDefault, SwitchDemoSizes, SwitchDemoColors, SwitchDemoIcons,
+    SwitchDemoLoading, SwitchDemoLabelInside, SwitchDemoDisabled,
     RadioDefaultDemo, RadioCardDemo, RadioColorsDemo, RadioDisabledDemo,
     RadioHorizontalDemo, RadioLoadingDemo, RadioReactiveFormDemo,
     RadioRichDescriptionDemo, RadioSizesDemo,
@@ -130,6 +155,68 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
         <h1 class="text-3xl font-bold tracking-tight">Playground</h1>
         <p class="mt-1 text-muted-foreground text-sm">All components, all demos.</p>
       </div>
+
+      <!-- Breadcrumb -->
+      <section id="breadcrumb">
+        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Breadcrumb</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-breadcrumb-default />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Custom Separator</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-breadcrumb-custom-separator />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Ellipsis</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-breadcrumb-with-ellipsis />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-breadcrumb-sizes />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accordion -->
+      <section id="accordion">
+        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Accordion</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default (single)</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-accordion-default class="w-full max-w-md" />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Multiple</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-accordion-multiple class="w-full max-w-md" />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled Item</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-accordion-disabled class="w-full max-w-md" />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Plus/Minus Icon</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-accordion-custom-icon class="w-full max-w-md" />
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Button -->
       <section>
@@ -495,6 +582,55 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Reactive Form</span>
             <div class="flex items-center justify-center min-h-16">
               <demo-radio-reactive-form />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Switch -->
+      <section id="switch">
+        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Switch</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-switch-default />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-switch-sizes />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Colors</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-switch-colors />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-switch-disabled />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Loading</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-switch-loading />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Icons</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-switch-icons />
+            </div>
+          </div>
+          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
+            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Track Labels</span>
+            <div class="flex items-center justify-center min-h-16">
+              <demo-switch-label-inside />
             </div>
           </div>
         </div>

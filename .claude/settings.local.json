@@ -61,7 +61,10 @@
       "Bash(curl -s https://www.npmjs.com/package/@nexuslabs/cli -o /dev/null -w \"%{http_code}\\\\n\")",
       "Bash(curl -sI https://raw.githubusercontent.com/juanvieiraprado99/nexusui/main/apps/web/public/r/utils.json)",
       "Bash(xargs grep *)",
-      "Bash(xargs wc *)"
+      "Bash(xargs wc *)",
+      "Bash(dir C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\select\\\\ *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\accordion\" -ErrorAction SilentlyContinue | Select-Object -Property Name, @{N='Type';E={if\\($_.PSIsContainer\\) {'Dir'} else {'File'}}} | Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\switch\" -ErrorAction SilentlyContinue | Select-Object -Property Name, @{N='Type';E={if\\($_.PSIsContainer\\) {'Dir'} else {'File'}}} | Format-Table -AutoSize)"
     ]
   }
 }

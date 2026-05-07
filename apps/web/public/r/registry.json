@@ -182,6 +182,47 @@
       ]
     },
     {
+      "name": "switch",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "switch.component.ts",
+        "switch.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "accordion.component.ts",
+        "accordion-item.component.ts",
+        "accordion-trigger.component.ts",
+        "accordion-content.component.ts",
+        "accordion.tokens.ts",
+        "accordion.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "breadcrumb.component.ts",
+        "breadcrumb.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "dropdown-menu",
       "type": "registry:component",
       "registryDependencies": [
