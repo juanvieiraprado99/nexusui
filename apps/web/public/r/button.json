@@ -33,7 +33,7 @@
     },
     {
       "name": "loading.ts",
-      "content": "import { Component } from '@angular/core';\r\nimport { ButtonComponent } from '../button.component';\r\n\r\n@Component({\r\n  selector: 'demo-button-loading',\r\n  standalone: true,\r\n  imports: [ButtonComponent],\r\n  template: `<n-button [nLoading]=\"true\">Salvando...</n-button>`,\r\n})\r\nexport class ButtonDemoLoading {}\r\n"
+      "content": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '../button.component';\n\n@Component({\n  selector: 'demo-button-loading',\n  standalone: true,\n  imports: [ButtonComponent],\n  template: `<n-button [nLoading]=\"true\">Salvando...</n-button>`,\n})\nexport class ButtonDemoLoading {}\n"
     },
     {
       "name": "size.ts",

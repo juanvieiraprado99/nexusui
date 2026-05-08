@@ -89,7 +89,10 @@ export class SidebarNavComponent {
         { label: 'Select', path: '/components/select' },
         { label: 'Separator', path: '/components/separator' },
         { label: 'Skeleton', path: '/components/skeleton' },
+        { label: 'Slider', path: '/components/slider' },
+        { label: 'Sonner', path: '/components/sonner' },
         { label: 'Switch', path: '/components/switch' },
+        { label: 'Textarea', path: '/components/textarea' },
       ],
     },
   ];

@@ -125,6 +125,13 @@ import { SonnerDemoPromise } from '@nexus/lib/shared/components/sonner/demo/prom
 import { SonnerDemoVariants } from '@nexus/lib/shared/components/sonner/demo/variants';
 import { SonnerComponent } from '@nexus/lib/shared/components/sonner/sonner.component';
 
+// Pagination demos
+import { PaginationCompactDemo } from '@nexus/lib/shared/components/pagination/demo/compact';
+import { PaginationDefaultDemo } from '@nexus/lib/shared/components/pagination/demo/default';
+import { PaginationDisabledDemo } from '@nexus/lib/shared/components/pagination/demo/disabled';
+import { PaginationSizesDemo } from '@nexus/lib/shared/components/pagination/demo/sizes';
+import { PaginationWithPageSizeDemo } from '@nexus/lib/shared/components/pagination/demo/with-page-size';
+
 // Radio demos
 import { RadioCardDemo } from '@nexus/lib/shared/components/radio/demo/card';
 import { RadioColorsDemo } from '@nexus/lib/shared/components/radio/demo/colors';
@@ -202,6 +209,11 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     SonnerDemoVariants,
     SonnerDemoPromise,
     SonnerComponent,
+    PaginationDefaultDemo,
+    PaginationSizesDemo,
+    PaginationCompactDemo,
+    PaginationDisabledDemo,
+    PaginationWithPageSizeDemo,
     RadioDefaultDemo,
     RadioCardDemo,
     RadioColorsDemo,
@@ -312,6 +324,48 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
             <div class="flex min-h-16 items-center justify-center">
               <demo-breadcrumb-sizes />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pagination -->
+      <section id="pagination">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Pagination</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Smart truncation — sibling + boundary ellipsis.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-pagination-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-pagination-sizes />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Compact</span>
+            <p class="text-muted-foreground text-xs">Prev / "X / Y" / Next — ideal para mobile.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-pagination-compact />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-pagination-disabled />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Page Size Selector</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nTotalItems</code> + dropdown de itens por página.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-pagination-with-page-size />
             </div>
           </div>
         </div>

@@ -189,6 +189,13 @@ export const registry: ComponentRegistry[] = [
     files: ['sonner.component.ts', 'sonner.variants.ts', 'index.ts'],
   },
   {
+    name: 'pagination',
+    basePath: 'components/pagination',
+    registryDependencies: ['utils', 'select'],
+    dependencies: ['class-variance-authority'],
+    files: ['pagination.component.ts', 'pagination.variants.ts', 'index.ts'],
+  },
+  {
     name: 'dropdown-menu',
     basePath: 'components/dropdown-menu',
     registryDependencies: ['utils'],

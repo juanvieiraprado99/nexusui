@@ -92,6 +92,21 @@ export const routes: Routes = [
       import('./pages/components/badge/badge-doc.page').then((m) => m.BadgeDocPage),
   },
   {
+    path: 'components/slider',
+    loadComponent: () =>
+      import('./pages/components/slider/slider-doc.page').then((m) => m.SliderDocPage),
+  },
+  {
+    path: 'components/sonner',
+    loadComponent: () =>
+      import('./pages/components/sonner/sonner-doc.page').then((m) => m.SonnerDocPage),
+  },
+  {
+    path: 'components/textarea',
+    loadComponent: () =>
+      import('./pages/components/textarea/textarea-doc.page').then((m) => m.TextareaDocPage),
+  },
+  {
     path: 'get-started',
     loadComponent: () =>
       import('./pages/get-started/get-started.page').then((m) => m.GetStartedPage),

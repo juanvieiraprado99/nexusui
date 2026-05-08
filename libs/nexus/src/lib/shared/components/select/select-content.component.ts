@@ -151,7 +151,7 @@ export class SelectContentComponent implements AfterViewInit, OnDestroy {
     const width = trigger.getBoundingClientRect().width;
     const positions = this.buildPositions();
     const config = new OverlayConfig({
-      minWidth: this.ctx.matchTriggerWidth() ? width : undefined,
+      width: this.ctx.matchTriggerWidth() ? width : undefined,
       positionStrategy: this._overlay
         .position()
         .flexibleConnectedTo(trigger)

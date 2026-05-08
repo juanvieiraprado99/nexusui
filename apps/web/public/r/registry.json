@@ -261,6 +261,19 @@
       ]
     },
     {
+      "name": "pagination",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "select"
+      ],
+      "files": [
+        "pagination.component.ts",
+        "pagination.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "dropdown-menu",
       "type": "registry:component",
       "registryDependencies": [

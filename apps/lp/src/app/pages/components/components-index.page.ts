@@ -81,9 +81,9 @@ export class ComponentsIndexPage {
     { name: 'Pagination' }, { name: 'Popover' }, { name: 'Progress' },
     { name: 'Radio Group', slug: 'radio-group', ready: true }, { name: 'Resizable' }, { name: 'Scroll Area' },
     { name: 'Select', slug: 'select', ready: true }, { name: 'Separator', slug: 'separator', ready: true }, { name: 'Sheet' },
-    { name: 'Sidebar' }, { name: 'Skeleton', slug: 'skeleton', ready: true }, { name: 'Slider' },
-    { name: 'Sonner' }, { name: 'Spinner' }, { name: 'Switch', slug: 'switch', ready: true },
-    { name: 'Table' }, { name: 'Tabs' }, { name: 'Textarea' },
+    { name: 'Sidebar' }, { name: 'Skeleton', slug: 'skeleton', ready: true }, { name: 'Slider', slug: 'slider', ready: true },
+    { name: 'Sonner', slug: 'sonner', ready: true }, { name: 'Spinner' }, { name: 'Switch', slug: 'switch', ready: true },
+    { name: 'Table' }, { name: 'Tabs' }, { name: 'Textarea', slug: 'textarea', ready: true },
     { name: 'Toast' }, { name: 'Toggle' }, { name: 'Toggle Group' },
     { name: 'Tooltip' }, { name: 'Typography' },
   ];

@@ -83,7 +83,10 @@
       "mcp__context7__resolve-library-id",
       "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:tutkli.github.io)"
+      "WebFetch(domain:tutkli.github.io)",
+      "Bash(mv libs/nexus/src/lib/shared/components/toast libs/nexus/src/lib/shared/components/sonner)",
+      "Bash(git rm *)",
+      "PowerShell(Move-Item *)"
     ]
   }
 }

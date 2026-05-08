@@ -103,7 +103,7 @@ export class ComboboxContentComponent implements AfterViewInit, OnDestroy {
     const width = trigger.getBoundingClientRect().width;
     const positions = this.buildPositions();
     const config = new OverlayConfig({
-      minWidth: width,
+      width: width,
       positionStrategy: this._overlay
         .position()
         .flexibleConnectedTo(trigger)
