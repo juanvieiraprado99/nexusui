@@ -1,4 +1,4 @@
-﻿import { FocusableOption } from '@angular/cdk/a11y';
+import { FocusableOption } from '@angular/cdk/a11y';
 import {
   ChangeDetectionStrategy,
   Component,

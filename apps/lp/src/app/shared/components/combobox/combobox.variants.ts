@@ -3,7 +3,8 @@ import { cva, type VariantProps } from 'class-variance-authority';
 export const comboboxTriggerVariants = cva(
   [
     'relative flex w-full cursor-default items-center gap-2 rounded-md border border-input bg-background px-3 text-sm ring-offset-background',
-    'focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
+    'transition-all duration-200',
+    'focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:border-ring',
     'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
   ],
   {
@@ -22,7 +23,7 @@ export type ComboboxTriggerVariants = VariantProps<typeof comboboxTriggerVariant
 
 export const comboboxContentVariants = cva(
   [
-    'z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md',
+    'z-50 min-w-[8rem] w-full overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md',
     'animate-in fade-in-0 zoom-in-95',
     'data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2',
     'data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2',
