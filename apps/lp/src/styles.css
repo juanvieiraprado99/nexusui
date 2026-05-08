@@ -64,6 +64,49 @@
   }
 }
 
+/* Shiki syntax highlighting */
+.shiki,
+.shiki pre {
+  background: transparent !important;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  font-family: var(--font-mono);
+  overflow-x: auto;
+}
+
+.shiki code {
+  counter-reset: line;
+  display: block;
+  padding: 1rem 0;
+}
+
+.shiki code .line {
+  display: inline-block;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.shiki code .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1.5rem;
+  margin-right: 1.5rem;
+  text-align: right;
+  color: rgb(113 113 122 / 0.5);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.dark .shiki code .line::before {
+  color: rgb(113 113 122 / 0.5);
+}
+
+:root:not(.dark) .shiki code .line::before {
+  color: rgb(161 161 170 / 0.8);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -67,14 +67,39 @@ export const routes: Routes = [
       import('./pages/components/skeleton/skeleton-doc.page').then((m) => m.SkeletonDocPage),
   },
   {
+    path: 'components/accordion',
+    loadComponent: () =>
+      import('./pages/components/accordion/accordion-doc.page').then((m) => m.AccordionDocPage),
+  },
+  {
     path: 'components/avatar',
     loadComponent: () =>
       import('./pages/components/avatar/avatar-doc.page').then((m) => m.AvatarDocPage),
   },
   {
+    path: 'components/breadcrumb',
+    loadComponent: () =>
+      import('./pages/components/breadcrumb/breadcrumb-doc.page').then((m) => m.BreadcrumbDocPage),
+  },
+  {
+    path: 'components/switch',
+    loadComponent: () =>
+      import('./pages/components/switch/switch-doc.page').then((m) => m.SwitchDocPage),
+  },
+  {
     path: 'components/badge',
     loadComponent: () =>
       import('./pages/components/badge/badge-doc.page').then((m) => m.BadgeDocPage),
+  },
+  {
+    path: 'get-started',
+    loadComponent: () =>
+      import('./pages/get-started/get-started.page').then((m) => m.GetStartedPage),
+  },
+  {
+    path: 'installation',
+    loadComponent: () =>
+      import('./pages/installation/installation.page').then((m) => m.InstallationPage),
   },
   { path: '**', redirectTo: '' },
 ];

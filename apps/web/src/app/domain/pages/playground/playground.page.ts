@@ -12,30 +12,30 @@ import { InputDemoDisabled } from '@nexus/lib/shared/components/input/demo/disab
 import { InputDemoError } from '@nexus/lib/shared/components/input/demo/error';
 import { InputDemoLoading } from '@nexus/lib/shared/components/input/demo/loading';
 import { InputDemoSizes } from '@nexus/lib/shared/components/input/demo/sizes';
-import { InputDemoWithLabel } from '@nexus/lib/shared/components/input/demo/with-label';
 import { InputDemoWithForm } from '@nexus/lib/shared/components/input/demo/with-form';
+import { InputDemoWithLabel } from '@nexus/lib/shared/components/input/demo/with-label';
 
 // Combobox demos
-import { ComboboxDefaultDemo } from '@nexus/lib/shared/components/combobox/demo/default';
 import { ComboboxAsyncDemo } from '@nexus/lib/shared/components/combobox/demo/async';
 import { ComboboxClearableDemo } from '@nexus/lib/shared/components/combobox/demo/clearable';
+import { ComboboxDefaultDemo } from '@nexus/lib/shared/components/combobox/demo/default';
 import { ComboboxDisabledDemo } from '@nexus/lib/shared/components/combobox/demo/disabled';
 import { ComboboxMultiSelectDemo } from '@nexus/lib/shared/components/combobox/demo/multi-select';
 import { ComboboxWithFormDemo } from '@nexus/lib/shared/components/combobox/demo/with-form';
 import { ComboboxWithGroupsDemo } from '@nexus/lib/shared/components/combobox/demo/with-groups';
 
 // Skeleton demos
-import { SkeletonDefaultDemo } from '@nexus/lib/shared/components/skeleton/demo/default';
 import { SkeletonCardDemo } from '@nexus/lib/shared/components/skeleton/demo/card';
+import { SkeletonDefaultDemo } from '@nexus/lib/shared/components/skeleton/demo/default';
 import { SkeletonShapesDemo } from '@nexus/lib/shared/components/skeleton/demo/shapes';
 
 // Checkbox demos
 import { CheckboxDemoDefault } from '@nexus/lib/shared/components/checkbox/demo/default';
-import { CheckboxDemoWithLabel } from '@nexus/lib/shared/components/checkbox/demo/with-label';
+import { CheckboxDemoDisabled } from '@nexus/lib/shared/components/checkbox/demo/disabled';
 import { CheckboxDemoIndeterminate } from '@nexus/lib/shared/components/checkbox/demo/indeterminate';
 import { CheckboxDemoSizes } from '@nexus/lib/shared/components/checkbox/demo/sizes';
-import { CheckboxDemoDisabled } from '@nexus/lib/shared/components/checkbox/demo/disabled';
 import { CheckboxDemoWithForm } from '@nexus/lib/shared/components/checkbox/demo/with-form';
+import { CheckboxDemoWithLabel } from '@nexus/lib/shared/components/checkbox/demo/with-label';
 
 // Dropdown Menu demos
 import { DropdownMenuDefaultDemo } from '@nexus/lib/shared/components/dropdown-menu/demo/default';
@@ -47,30 +47,30 @@ import { DropdownMenuWithSubmenuDemo } from '@nexus/lib/shared/components/dropdo
 
 // Datepicker demos
 import { DatepickerDefaultDemo } from '@nexus/lib/shared/components/datepicker/demo/default';
-import { DatepickerWithLabelDemo } from '@nexus/lib/shared/components/datepicker/demo/with-label';
-import { DatepickerWithFormDemo } from '@nexus/lib/shared/components/datepicker/demo/with-form';
-import { DatepickerMinMaxDemo } from '@nexus/lib/shared/components/datepicker/demo/min-max';
 import { DatepickerDisabledWeekendsDemo } from '@nexus/lib/shared/components/datepicker/demo/disabled-weekends';
-import { DatepickerSizesDemo } from '@nexus/lib/shared/components/datepicker/demo/sizes';
 import { DatepickerErrorDemo } from '@nexus/lib/shared/components/datepicker/demo/error';
 import { DatepickerInlineCalendarDemo } from '@nexus/lib/shared/components/datepicker/demo/inline-calendar';
+import { DatepickerMinMaxDemo } from '@nexus/lib/shared/components/datepicker/demo/min-max';
+import { DatepickerSizesDemo } from '@nexus/lib/shared/components/datepicker/demo/sizes';
+import { DatepickerWithFormDemo } from '@nexus/lib/shared/components/datepicker/demo/with-form';
+import { DatepickerWithLabelDemo } from '@nexus/lib/shared/components/datepicker/demo/with-label';
 
 // Separator demos
 import { SeparatorDefaultDemo } from '@nexus/lib/shared/components/separator/demo/default';
-import { SeparatorVerticalDemo } from '@nexus/lib/shared/components/separator/demo/vertical';
-import { SeparatorWithLabelDemo } from '@nexus/lib/shared/components/separator/demo/with-label';
-import { SeparatorWithIconDemo } from '@nexus/lib/shared/components/separator/demo/with-icon';
-import { SeparatorVariantsDemo } from '@nexus/lib/shared/components/separator/demo/variants';
 import { SeparatorGradientDemo } from '@nexus/lib/shared/components/separator/demo/gradient';
+import { SeparatorVariantsDemo } from '@nexus/lib/shared/components/separator/demo/variants';
+import { SeparatorVerticalDemo } from '@nexus/lib/shared/components/separator/demo/vertical';
+import { SeparatorWithIconDemo } from '@nexus/lib/shared/components/separator/demo/with-icon';
+import { SeparatorWithLabelDemo } from '@nexus/lib/shared/components/separator/demo/with-label';
 
 // Select demos
 import { SelectDefaultDemo } from '@nexus/lib/shared/components/select/demo/default';
-import { SelectMultipleDemo } from '@nexus/lib/shared/components/select/demo/multiple';
 import { SelectGroupsDemo } from '@nexus/lib/shared/components/select/demo/groups';
-import { SelectWithIconsDemo } from '@nexus/lib/shared/components/select/demo/with-icons';
+import { SelectLoadingDemo } from '@nexus/lib/shared/components/select/demo/loading';
+import { SelectMultipleDemo } from '@nexus/lib/shared/components/select/demo/multiple';
 import { SelectSelectAllDemo } from '@nexus/lib/shared/components/select/demo/select-all';
 import { SelectWithFormDemo } from '@nexus/lib/shared/components/select/demo/with-form';
-import { SelectLoadingDemo } from '@nexus/lib/shared/components/select/demo/loading';
+import { SelectWithIconsDemo } from '@nexus/lib/shared/components/select/demo/with-icons';
 
 // Badge demos
 import { BadgeDefaultDemo } from '@nexus/lib/shared/components/badge/demo/default';
@@ -80,36 +80,55 @@ import { BadgeWithAvatarDemo } from '@nexus/lib/shared/components/badge/demo/wit
 // Avatar demos
 import { AvatarDefaultDemo } from '@nexus/lib/shared/components/avatar/demo/default';
 import { AvatarFallbackDemo } from '@nexus/lib/shared/components/avatar/demo/fallback';
-import { AvatarSizesDemo } from '@nexus/lib/shared/components/avatar/demo/sizes';
-import { AvatarShapesDemo } from '@nexus/lib/shared/components/avatar/demo/shapes';
-import { AvatarStatusDemo } from '@nexus/lib/shared/components/avatar/demo/status';
 import { AvatarGroupDemo } from '@nexus/lib/shared/components/avatar/demo/group';
+import { AvatarShapesDemo } from '@nexus/lib/shared/components/avatar/demo/shapes';
+import { AvatarSizesDemo } from '@nexus/lib/shared/components/avatar/demo/sizes';
+import { AvatarStatusDemo } from '@nexus/lib/shared/components/avatar/demo/status';
 
 // Breadcrumb demos
-import { BreadcrumbDefaultDemo } from '@nexus/lib/shared/components/breadcrumb/demo/default';
 import { BreadcrumbCustomSeparatorDemo } from '@nexus/lib/shared/components/breadcrumb/demo/custom-separator';
-import { BreadcrumbWithEllipsisDemo } from '@nexus/lib/shared/components/breadcrumb/demo/with-ellipsis';
+import { BreadcrumbDefaultDemo } from '@nexus/lib/shared/components/breadcrumb/demo/default';
 import { BreadcrumbSizesDemo } from '@nexus/lib/shared/components/breadcrumb/demo/sizes';
+import { BreadcrumbWithEllipsisDemo } from '@nexus/lib/shared/components/breadcrumb/demo/with-ellipsis';
 
 // Accordion demos
-import { AccordionDefaultDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-default';
-import { AccordionMultipleDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-multiple';
-import { AccordionDisabledDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-disabled';
 import { AccordionCustomIconDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-custom-icon';
+import { AccordionDefaultDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-default';
+import { AccordionDisabledDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-disabled';
+import { AccordionMultipleDemo } from '@nexus/lib/shared/components/accordion/demo/accordion-multiple';
+
+// Textarea demos
+import { TextareaAutoResizeDemo } from '@nexus/lib/shared/components/textarea/demo/auto-resize';
+import { TextareaCharCountDemo } from '@nexus/lib/shared/components/textarea/demo/char-count';
+import { TextareaDefaultDemo } from '@nexus/lib/shared/components/textarea/demo/default';
+import { TextareaDisabledDemo } from '@nexus/lib/shared/components/textarea/demo/disabled';
+
+// Slider demos
+import { SliderDefaultDemo } from '@nexus/lib/shared/components/slider/demo/default';
+import { SliderRangeDemo } from '@nexus/lib/shared/components/slider/demo/range';
+import { SliderVerticalDemo } from '@nexus/lib/shared/components/slider/demo/vertical';
+import { SliderWithInputsDemo } from '@nexus/lib/shared/components/slider/demo/with-inputs';
+import { SliderWithMarksDemo } from '@nexus/lib/shared/components/slider/demo/with-marks';
 
 // Switch demos
-import { SwitchDemoDefault } from '@nexus/lib/shared/components/switch/demo/default';
-import { SwitchDemoSizes } from '@nexus/lib/shared/components/switch/demo/sizes';
 import { SwitchDemoColors } from '@nexus/lib/shared/components/switch/demo/colors';
-import { SwitchDemoIcons } from '@nexus/lib/shared/components/switch/demo/icons';
-import { SwitchDemoLoading } from '@nexus/lib/shared/components/switch/demo/loading';
-import { SwitchDemoLabelInside } from '@nexus/lib/shared/components/switch/demo/label-inside';
+import { SwitchDemoDefault } from '@nexus/lib/shared/components/switch/demo/default';
 import { SwitchDemoDisabled } from '@nexus/lib/shared/components/switch/demo/disabled';
+import { SwitchDemoIcons } from '@nexus/lib/shared/components/switch/demo/icons';
+import { SwitchDemoLabelInside } from '@nexus/lib/shared/components/switch/demo/label-inside';
+import { SwitchDemoLoading } from '@nexus/lib/shared/components/switch/demo/loading';
+import { SwitchDemoSizes } from '@nexus/lib/shared/components/switch/demo/sizes';
+
+// Toast demos
+import { ToastDemoDefault } from '@nexus/lib/shared/components/toast/demo/default';
+import { ToastDemoPromise } from '@nexus/lib/shared/components/toast/demo/promise';
+import { ToastDemoVariants } from '@nexus/lib/shared/components/toast/demo/variants';
+import { ToastComponent } from '@nexus/lib/shared/components/toast/toast.component';
 
 // Radio demos
-import { RadioDefaultDemo } from '@nexus/lib/shared/components/radio/demo/default';
 import { RadioCardDemo } from '@nexus/lib/shared/components/radio/demo/card';
 import { RadioColorsDemo } from '@nexus/lib/shared/components/radio/demo/colors';
+import { RadioDefaultDemo } from '@nexus/lib/shared/components/radio/demo/default';
 import { RadioDisabledDemo } from '@nexus/lib/shared/components/radio/demo/disabled';
 import { RadioHorizontalDemo } from '@nexus/lib/shared/components/radio/demo/horizontal';
 import { RadioLoadingDemo } from '@nexus/lib/shared/components/radio/demo/loading';
@@ -122,65 +141,176 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ButtonDemoDefault, ButtonDemoLoading, ButtonDemoSize, ButtonDemoVariants,
-    InputDemoDefault, InputDemoDisabled, InputDemoError, InputDemoLoading, InputDemoSizes, InputDemoWithLabel, InputDemoWithForm,
-    ComboboxDefaultDemo, ComboboxAsyncDemo, ComboboxClearableDemo, ComboboxDisabledDemo,
-    ComboboxMultiSelectDemo, ComboboxWithFormDemo, ComboboxWithGroupsDemo,
-    CheckboxDemoDefault, CheckboxDemoWithLabel, CheckboxDemoIndeterminate,
-    CheckboxDemoSizes, CheckboxDemoDisabled, CheckboxDemoWithForm,
-    DropdownMenuDefaultDemo, DropdownMenuDestructiveItemDemo, DropdownMenuFormActionsDemo,
-    DropdownMenuWithGroupsDemo, DropdownMenuWithShortcutsDemo, DropdownMenuWithSubmenuDemo,
-    SkeletonDefaultDemo, SkeletonCardDemo, SkeletonShapesDemo,
-    BadgeDefaultDemo, BadgeVariantsDemo, BadgeWithAvatarDemo,
-    AvatarDefaultDemo, AvatarFallbackDemo, AvatarSizesDemo, AvatarShapesDemo, AvatarStatusDemo, AvatarGroupDemo,
-    BreadcrumbDefaultDemo, BreadcrumbCustomSeparatorDemo, BreadcrumbWithEllipsisDemo, BreadcrumbSizesDemo,
-    AccordionDefaultDemo, AccordionMultipleDemo, AccordionDisabledDemo, AccordionCustomIconDemo,
-    SwitchDemoDefault, SwitchDemoSizes, SwitchDemoColors, SwitchDemoIcons,
-    SwitchDemoLoading, SwitchDemoLabelInside, SwitchDemoDisabled,
-    RadioDefaultDemo, RadioCardDemo, RadioColorsDemo, RadioDisabledDemo,
-    RadioHorizontalDemo, RadioLoadingDemo, RadioReactiveFormDemo,
-    RadioRichDescriptionDemo, RadioSizesDemo,
-    DatepickerDefaultDemo, DatepickerWithLabelDemo, DatepickerWithFormDemo,
-    DatepickerMinMaxDemo, DatepickerDisabledWeekendsDemo, DatepickerSizesDemo,
-    DatepickerErrorDemo, DatepickerInlineCalendarDemo,
-    SelectDefaultDemo, SelectMultipleDemo, SelectGroupsDemo, SelectWithIconsDemo,
-    SelectSelectAllDemo, SelectWithFormDemo, SelectLoadingDemo,
-    SeparatorDefaultDemo, SeparatorVerticalDemo, SeparatorWithLabelDemo,
-    SeparatorWithIconDemo, SeparatorVariantsDemo, SeparatorGradientDemo,
+    ButtonDemoDefault,
+    ButtonDemoLoading,
+    ButtonDemoSize,
+    ButtonDemoVariants,
+    InputDemoDefault,
+    InputDemoDisabled,
+    InputDemoError,
+    InputDemoLoading,
+    InputDemoSizes,
+    InputDemoWithLabel,
+    InputDemoWithForm,
+    ComboboxDefaultDemo,
+    ComboboxAsyncDemo,
+    ComboboxClearableDemo,
+    ComboboxDisabledDemo,
+    ComboboxMultiSelectDemo,
+    ComboboxWithFormDemo,
+    ComboboxWithGroupsDemo,
+    CheckboxDemoDefault,
+    CheckboxDemoWithLabel,
+    CheckboxDemoIndeterminate,
+    CheckboxDemoSizes,
+    CheckboxDemoDisabled,
+    CheckboxDemoWithForm,
+    DropdownMenuDefaultDemo,
+    DropdownMenuDestructiveItemDemo,
+    DropdownMenuFormActionsDemo,
+    DropdownMenuWithGroupsDemo,
+    DropdownMenuWithShortcutsDemo,
+    DropdownMenuWithSubmenuDemo,
+    SkeletonDefaultDemo,
+    SkeletonCardDemo,
+    SkeletonShapesDemo,
+    BadgeDefaultDemo,
+    BadgeVariantsDemo,
+    BadgeWithAvatarDemo,
+    AvatarDefaultDemo,
+    AvatarFallbackDemo,
+    AvatarSizesDemo,
+    AvatarShapesDemo,
+    AvatarStatusDemo,
+    AvatarGroupDemo,
+    BreadcrumbDefaultDemo,
+    BreadcrumbCustomSeparatorDemo,
+    BreadcrumbWithEllipsisDemo,
+    BreadcrumbSizesDemo,
+    AccordionDefaultDemo,
+    AccordionMultipleDemo,
+    AccordionDisabledDemo,
+    AccordionCustomIconDemo,
+    SwitchDemoDefault,
+    SwitchDemoSizes,
+    SwitchDemoColors,
+    SwitchDemoIcons,
+    SwitchDemoLoading,
+    SwitchDemoLabelInside,
+    SwitchDemoDisabled,
+    ToastDemoDefault,
+    ToastDemoVariants,
+    ToastDemoPromise,
+    ToastComponent,
+    RadioDefaultDemo,
+    RadioCardDemo,
+    RadioColorsDemo,
+    RadioDisabledDemo,
+    RadioHorizontalDemo,
+    RadioLoadingDemo,
+    RadioReactiveFormDemo,
+    RadioRichDescriptionDemo,
+    RadioSizesDemo,
+    DatepickerDefaultDemo,
+    DatepickerWithLabelDemo,
+    DatepickerWithFormDemo,
+    DatepickerMinMaxDemo,
+    DatepickerDisabledWeekendsDemo,
+    DatepickerSizesDemo,
+    DatepickerErrorDemo,
+    DatepickerInlineCalendarDemo,
+    SelectDefaultDemo,
+    SelectMultipleDemo,
+    SelectGroupsDemo,
+    SelectWithIconsDemo,
+    SelectSelectAllDemo,
+    SelectWithFormDemo,
+    SelectLoadingDemo,
+    TextareaDefaultDemo,
+    TextareaAutoResizeDemo,
+    TextareaCharCountDemo,
+    TextareaDisabledDemo,
+    SliderDefaultDemo,
+    SliderRangeDemo,
+    SliderWithMarksDemo,
+    SliderWithInputsDemo,
+    SliderVerticalDemo,
+    SeparatorDefaultDemo,
+    SeparatorVerticalDemo,
+    SeparatorWithLabelDemo,
+    SeparatorWithIconDemo,
+    SeparatorVariantsDemo,
+    SeparatorGradientDemo,
   ],
   template: `
-    <div class="max-w-5xl mx-auto px-6 py-12 space-y-16">
-
+    <div class="mx-auto max-w-5xl space-y-16 px-6 py-12">
       <div>
         <h1 class="text-3xl font-bold tracking-tight">Playground</h1>
-        <p class="mt-1 text-muted-foreground text-sm">All components, all demos.</p>
+        <p class="text-muted-foreground mt-1 text-sm">All components, all demos.</p>
       </div>
+
+      <!-- Toast (toaster único compartilhado por todas as demos) -->
+      <n-toaster nPosition="bottom-right" [nCloseButton]="false" [nRichColors]="false" />
+
+      <!-- Toast -->
+      <section id="toast">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Toast</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Notificação básica com título e descrição.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-toast-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Promise</span>
+            <p class="text-muted-foreground text-xs">
+              loading → success/error automático via
+              <code class="bg-muted rounded px-1 font-mono">toast.promise()</code>.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-toast-promise />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants + Ação</span>
+            <p class="text-muted-foreground text-xs">
+              success, error, warning, info — com <code class="bg-muted rounded px-1 font-mono">nRichColors</code> e
+              botão de ação inline.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-toast-variants />
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Breadcrumb -->
       <section id="breadcrumb">
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Breadcrumb</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Breadcrumb</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-breadcrumb-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Custom Separator</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Custom Separator</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-breadcrumb-custom-separator />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Ellipsis</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Ellipsis</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-breadcrumb-with-ellipsis />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-breadcrumb-sizes />
             </div>
           </div>
@@ -189,29 +319,29 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Accordion -->
       <section id="accordion">
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Accordion</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default (single)</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Accordion</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default (single)</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-accordion-default class="w-full max-w-md" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Multiple</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Multiple</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-accordion-multiple class="w-full max-w-md" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled Item</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled Item</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-accordion-disabled class="w-full max-w-md" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Plus/Minus Icon</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Plus/Minus Icon</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-accordion-custom-icon class="w-full max-w-md" />
             </div>
           </div>
@@ -220,29 +350,29 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Button -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Button</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Button</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-button-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Loading</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-button-loading />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-button-size />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Variants</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-button-variants />
             </div>
           </div>
@@ -251,48 +381,116 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Input -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Input</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Input</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-input-default class="w-full max-w-sm" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-input-disabled class="w-full max-w-sm" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Error</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Error</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-input-error class="w-full max-w-sm" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Loading</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-input-loading class="w-full max-w-sm" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-input-sizes class="w-full max-w-sm" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Label</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Label</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-input-with-label class="w-full max-w-sm" />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Form</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-input-with-form class="w-full max-w-sm" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Textarea -->
+      <section id="textarea">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Textarea</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-textarea-default class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-textarea-disabled class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Auto Resize</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-textarea-auto-resize class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Char Count</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-textarea-char-count class="w-full max-w-sm" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slider -->
+      <section id="slider">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Slider</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-slider-default class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Range</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-slider-range class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Marks</span>
+            <div class="flex min-h-20 items-center justify-center">
+              <demo-slider-with-marks class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Inputs</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-slider-with-inputs class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Vertical (Equalizer)</span>
+            <div class="flex min-h-52 items-center justify-center">
+              <demo-slider-vertical />
             </div>
           </div>
         </div>
@@ -300,47 +498,47 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Combobox -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Combobox</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Combobox</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-combobox-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Async</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Async</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-combobox-async />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Clearable</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Clearable</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-combobox-clearable />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-combobox-disabled />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Multi Select</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Multi Select</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-combobox-multi-select />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Form</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-combobox-with-form />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Groups</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Groups</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-combobox-with-groups />
             </div>
           </div>
@@ -349,23 +547,23 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Skeleton -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Skeleton</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Skeleton</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-skeleton-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Card</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Card</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-skeleton-card />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Shapes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Shapes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-skeleton-shapes />
             </div>
           </div>
@@ -374,41 +572,41 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Checkbox -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Checkbox</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Checkbox</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-checkbox-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-checkbox-sizes />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-checkbox-disabled />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Label</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Label</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-checkbox-with-label />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Indeterminate</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Indeterminate</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-checkbox-indeterminate />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Form</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-checkbox-with-form />
             </div>
           </div>
@@ -417,41 +615,41 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Dropdown Menu -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Dropdown Menu</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Dropdown Menu</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-dropdown-menu-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Destructive Item</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Destructive Item</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-dropdown-menu-destructive-item />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Groups</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Groups</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-dropdown-menu-with-groups />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Shortcuts</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Shortcuts</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-dropdown-menu-with-shortcuts />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Submenu</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Submenu</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-dropdown-menu-with-submenu />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Form Actions</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Form Actions</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-dropdown-menu-form-actions />
             </div>
           </div>
@@ -460,23 +658,23 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Badge -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Badge</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Badge</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-badge-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Variants</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-badge-variants />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Avatar</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Avatar</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-badge-with-avatar />
             </div>
           </div>
@@ -485,41 +683,41 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Avatar -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Avatar</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Avatar</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-avatar-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Fallback</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Fallback</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-avatar-fallback />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-avatar-sizes />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Shapes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Shapes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-avatar-shapes />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Status</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Status</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-avatar-status />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Group</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Group</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-avatar-group />
             </div>
           </div>
@@ -528,59 +726,59 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Radio -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Radio</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Radio</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-sizes />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Colors</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Colors</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-colors />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-disabled />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Horizontal</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Horizontal</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-horizontal />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Loading</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-loading />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Rich Description</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Rich Description</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-rich-description />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Card</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Card</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-card />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Reactive Form</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Reactive Form</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-radio-reactive-form />
             </div>
           </div>
@@ -589,47 +787,47 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Switch -->
       <section id="switch">
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Switch</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Switch</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-switch-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-switch-sizes />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Colors</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Colors</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-switch-colors />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-switch-disabled />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Loading</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-switch-loading />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Icons</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Icons</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-switch-icons />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Track Labels</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Track Labels</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-switch-label-inside />
             </div>
           </div>
@@ -638,41 +836,41 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Separator -->
       <section id="separator">
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Separator</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Separator</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-separator-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Vertical</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Vertical</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-separator-vertical />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Label</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Label</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-separator-with-label />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Icon</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Icon</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-separator-with-icon />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Variants</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-separator-variants />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Gradient</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Gradient</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-separator-gradient />
             </div>
           </div>
@@ -681,47 +879,47 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Select -->
       <section id="select">
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Select</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Select</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-select-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Multiple</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Multiple</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-select-multiple />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Groups</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Groups</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-select-groups />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Icons + Description</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Icons + Description</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-select-with-icons />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Select All + Max</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Select All + Max</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-select-select-all />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Loading</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-select-loading />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Form</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-select-with-form />
             </div>
           </div>
@@ -730,59 +928,58 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
       <!-- Datepicker -->
       <section>
-        <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-border">Datepicker</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Default</span>
-            <div class="flex items-center justify-center min-h-16">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Datepicker</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-datepicker-default />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Label</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Label</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-datepicker-with-label />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Min / Max</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Min / Max</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-datepicker-min-max />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Disabled Weekends</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled Weekends</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-datepicker-disabled-weekends />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sizes</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-datepicker-sizes />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Error</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Error</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-datepicker-error />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">With Form</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-datepicker-with-form />
             </div>
           </div>
-          <div class="rounded-lg border border-border p-6 flex flex-col gap-3 sm:col-span-2">
-            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Inline Calendar</span>
-            <div class="flex items-center justify-center min-h-16">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Inline Calendar</span>
+            <div class="flex min-h-16 items-center justify-center">
               <demo-datepicker-inline-calendar />
             </div>
           </div>
         </div>
       </section>
-
     </div>
   `,
 })

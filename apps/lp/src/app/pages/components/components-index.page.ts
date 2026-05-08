@@ -67,9 +67,9 @@ interface ComponentEntry {
 })
 export class ComponentsIndexPage {
   protected readonly components: ComponentEntry[] = [
-    { name: 'Accordion' }, { name: 'Alert' }, { name: 'Alert Dialog' },
+    { name: 'Accordion', slug: 'accordion', ready: true }, { name: 'Alert' }, { name: 'Alert Dialog' },
     { name: 'Aspect Ratio' }, { name: 'Avatar', slug: 'avatar', ready: true }, { name: 'Badge', slug: 'badge', ready: true },
-    { name: 'Breadcrumb' }, { name: 'Button', slug: 'button', ready: true }, { name: 'Button Group' },
+    { name: 'Breadcrumb', slug: 'breadcrumb', ready: true }, { name: 'Button', slug: 'button', ready: true }, { name: 'Button Group' },
     { name: 'Calendar' }, { name: 'Card' }, { name: 'Carousel' },
     { name: 'Chart' }, { name: 'Checkbox', slug: 'checkbox', ready: true }, { name: 'Collapsible' },
     { name: 'Combobox', slug: 'combobox', ready: true }, { name: 'Command' }, { name: 'Context Menu' },
@@ -82,7 +82,7 @@ export class ComponentsIndexPage {
     { name: 'Radio Group', slug: 'radio-group', ready: true }, { name: 'Resizable' }, { name: 'Scroll Area' },
     { name: 'Select', slug: 'select', ready: true }, { name: 'Separator', slug: 'separator', ready: true }, { name: 'Sheet' },
     { name: 'Sidebar' }, { name: 'Skeleton', slug: 'skeleton', ready: true }, { name: 'Slider' },
-    { name: 'Sonner' }, { name: 'Spinner' }, { name: 'Switch' },
+    { name: 'Sonner' }, { name: 'Spinner' }, { name: 'Switch', slug: 'switch', ready: true },
     { name: 'Table' }, { name: 'Tabs' }, { name: 'Textarea' },
     { name: 'Toast' }, { name: 'Toggle' }, { name: 'Toggle Group' },
     { name: 'Tooltip' }, { name: 'Typography' },

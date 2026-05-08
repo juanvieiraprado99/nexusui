@@ -223,6 +223,44 @@
       ]
     },
     {
+      "name": "textarea",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "textarea.component.ts",
+        "textarea.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "slider.component.ts",
+        "slider.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "toast.component.ts",
+        "toast.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "dropdown-menu",
       "type": "registry:component",
       "registryDependencies": [

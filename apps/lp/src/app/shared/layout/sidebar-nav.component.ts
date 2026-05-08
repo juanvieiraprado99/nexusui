@@ -18,30 +18,30 @@ interface NavSection {
   imports: [RouterLink, RouterLinkActive],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <nav aria-label="Documentation" class="flex flex-col gap-6 py-8 pr-6 text-sm">
+    <nav aria-label="Documentation" class="flex flex-col gap-4 py-8 pr-6 text-sm">
       @for (section of sections; track section.title) {
         <div>
-          <h4 class="mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{{ section.title }}</h4>
+          <h4 class="mb-1 px-2 text-xs font-medium text-muted-foreground/70">{{ section.title }}</h4>
           <ul class="flex flex-col">
             @for (item of section.items; track item.label) {
               <li>
                 @if (item.disabled || !item.path) {
-                  <span class="flex items-center justify-between rounded-md px-2 py-1.5 text-muted-foreground/60 cursor-not-allowed">
+                  <span class="flex items-center rounded-md px-2 py-1.5 text-foreground/30 cursor-not-allowed">
                     {{ item.label }}
                     @if (item.badge) {
-                      <span class="ml-2 inline-block h-1.5 w-1.5 rounded-full bg-sky-500" aria-label="soon"></span>
+                      <span class="ml-auto rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-medium leading-none text-muted-foreground">{{ item.badge }}</span>
                     }
                   </span>
                 } @else {
                   <a
                     [routerLink]="item.path"
-                    routerLinkActive="bg-muted text-foreground font-medium"
+                    routerLinkActive="bg-accent text-accent-foreground font-medium"
                     [routerLinkActiveOptions]="{ exact: false }"
-                    class="flex items-center justify-between rounded-md px-2 py-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                    class="flex items-center rounded-md px-2 py-1.5 text-foreground/70 hover:text-foreground hover:bg-accent/50 transition-colors"
                   >
                     {{ item.label }}
                     @if (item.badge) {
-                      <span class="ml-2 inline-block h-1.5 w-1.5 rounded-full bg-sky-500" [attr.aria-label]="item.badge"></span>
+                      <span class="ml-auto rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-medium leading-none text-muted-foreground" [attr.aria-label]="item.badge">{{ item.badge }}</span>
                     }
                   </a>
                 }
@@ -58,9 +58,9 @@ export class SidebarNavComponent {
     {
       title: 'Sections',
       items: [
-        { label: 'Introduction', path: '/' },
+        { label: 'Get Started', path: '/get-started' },
         { label: 'Components', path: '/components' },
-        { label: 'Installation', disabled: true },
+        { label: 'Installation', path: '/installation' },
         { label: 'Theming', disabled: true },
         { label: 'CLI', disabled: true, badge: 'new' },
         { label: 'RTL', disabled: true },
@@ -74,8 +74,10 @@ export class SidebarNavComponent {
     {
       title: 'Components',
       items: [
+        { label: 'Accordion', path: '/components/accordion' },
         { label: 'Avatar', path: '/components/avatar' },
         { label: 'Badge', path: '/components/badge' },
+        { label: 'Breadcrumb', path: '/components/breadcrumb' },
         { label: 'Button', path: '/components/button' },
         { label: 'Checkbox', path: '/components/checkbox' },
         { label: 'Combobox', path: '/components/combobox' },
@@ -87,6 +89,7 @@ export class SidebarNavComponent {
         { label: 'Select', path: '/components/select' },
         { label: 'Separator', path: '/components/separator' },
         { label: 'Skeleton', path: '/components/skeleton' },
+        { label: 'Switch', path: '/components/switch' },
       ],
     },
   ];

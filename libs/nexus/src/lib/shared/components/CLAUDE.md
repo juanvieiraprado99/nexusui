@@ -185,6 +185,7 @@ Componentes **compostos** (mais de um nó relevante no template) marcam cada slo
 | `item`                | item de lista (option, menu item, accordion item)            |
 | `sub-trigger`         | item que abre submenu (dropdown-menu, navigation-menu)       |
 | `sub-content`         | painel de submenu aberto a partir de `sub-trigger`           |
+| `char-count`          | contador de caracteres (textarea com `nCharCount=true`)      |
 
 > Nomes são canônicos — **não** crie variantes (`input-root`, `wrapper`, etc.). Se um componente novo precisa de um slot fora desta lista, adicione-o aqui antes de usar.
 
@@ -359,7 +360,19 @@ Teste em projeto separado: `npx @nexuslabs/cli@alpha add {name}` deve baixar e c
 
 ---
 
-## 14. Checklist final (pré-PR)
+## 14. Playground — `apps/web`
+
+Ao criar qualquer componente novo, **perguntar ao usuário** se deseja adicionar exemplos no playground:
+
+```
+apps/web/src/app/domain/pages/playground/playground.page.ts
+```
+
+O playground serve para testar os componentes visualmente no app de docs. Se o usuário confirmar, adicionar uma seção demonstrando as variações do componente nesse arquivo.
+
+---
+
+## 15. Checklist final (pré-PR)
 
 - [ ] Decoradores: `standalone`, `OnPush`, **sem** `ViewEncapsulation.None`.
 - [ ] Seletor `n-{name}`. Inputs/outputs com prefixo `n`.

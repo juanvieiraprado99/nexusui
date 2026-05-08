@@ -64,7 +64,26 @@
       "Bash(xargs wc *)",
       "Bash(dir C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\select\\\\ *)",
       "PowerShell(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\accordion\" -ErrorAction SilentlyContinue | Select-Object -Property Name, @{N='Type';E={if\\($_.PSIsContainer\\) {'Dir'} else {'File'}}} | Format-Table -AutoSize)",
-      "PowerShell(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\switch\" -ErrorAction SilentlyContinue | Select-Object -Property Name, @{N='Type';E={if\\($_.PSIsContainer\\) {'Dir'} else {'File'}}} | Format-Table -AutoSize)"
+      "PowerShell(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\switch\" -ErrorAction SilentlyContinue | Select-Object -Property Name, @{N='Type';E={if\\($_.PSIsContainer\\) {'Dir'} else {'File'}}} | Format-Table -AutoSize)",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app\\\\shared\" -Recurse -Include \"*sidebar*\")",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app\\\\pages\\\\components\" -Recurse -Filter \"*.ts\")",
+      "Bash(Select-Object FullName)",
+      "Bash(Get-ChildItem -Path 'C:\\\\repos\\\\nexusui\\\\apps\\\\lp' -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexusui\\\\apps\\\\lp\\\\src\" -Recurse -Directory)",
+      "Bash(Sort-Object)",
+      "Bash(Select-Object -Unique)",
+      "Bash(type \"C:\\\\repos\\\\nexusui\\\\apps\\\\lp\\\\app.config.ts\")",
+      "Bash(type \"C:\\\\repos\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app.config.ts\")",
+      "WebSearch",
+      "Bash(dir \"C:\\\\repos\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app\\\\pages\\\\*-doc.page.ts\")",
+      "PowerShell(Get-ChildItem -Path 'C:\\\\repos\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components' -Directory | ForEach-Object { $_.Name })",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\" -Directory)",
+      "mcp__context7__resolve-library-id",
+      "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:tutkli.github.io)"
     ]
   }
 }

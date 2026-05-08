@@ -167,6 +167,28 @@ export const registry: ComponentRegistry[] = [
     files: ['breadcrumb.component.ts', 'breadcrumb.variants.ts', 'index.ts'],
   },
   {
+    name: 'textarea',
+    basePath: 'components/textarea',
+    registryDependencies: ['utils', 'label'],
+    dependencies: ['class-variance-authority', '@angular/forms'],
+    devDependencies: [],
+    files: ['textarea.component.ts', 'textarea.variants.ts', 'index.ts'],
+  },
+  {
+    name: 'slider',
+    basePath: 'components/slider',
+    registryDependencies: ['utils', 'label'],
+    dependencies: ['class-variance-authority', '@angular/forms'],
+    files: ['slider.component.ts', 'slider.variants.ts', 'index.ts'],
+  },
+  {
+    name: 'toast',
+    basePath: 'components/toast',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority', 'ngx-sonner'],
+    files: ['toast.component.ts', 'toast.variants.ts', 'index.ts'],
+  },
+  {
     name: 'dropdown-menu',
     basePath: 'components/dropdown-menu',
     registryDependencies: ['utils'],
