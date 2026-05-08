@@ -86,7 +86,10 @@
       "WebFetch(domain:tutkli.github.io)",
       "Bash(mv libs/nexus/src/lib/shared/components/toast libs/nexus/src/lib/shared/components/sonner)",
       "Bash(git rm *)",
-      "PowerShell(Move-Item *)"
+      "PowerShell(Move-Item *)",
+      "Bash(Remove-Item -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\package-lock.json\" -Force)",
+      "Bash(Write-Host \"Deleted package-lock.json\")",
+      "Bash(npm ls *)"
     ]
   }
 }

@@ -8,10 +8,13 @@ export type ResolvedDeps = {
   npmPackages: string[];
 };
 
+const SAFE_NAME_RE = /^[a-z0-9][a-z0-9-_]*$/;
+
 function getTargetDir(name: string, config: Config, cwd: string): string {
   const paths = resolvedPaths(config, cwd);
   const entry = localRegistry.find((c) => c.name === name);
-  const basePath = entry?.basePath ?? name;
+  if (!entry) throw new Error(`Component "${name}" not found in registry`);
+  const basePath = entry.basePath;
 
   if (basePath === 'utils') return paths.utils;
   if (basePath === 'core') return paths.core;
@@ -55,6 +58,7 @@ export async function resolveDependencies(
     if (visited.has(name)) return;
     visited.add(name);
 
+    if (!SAFE_NAME_RE.test(name)) throw new Error(`Invalid component name: "${name}"`);
     const entry = localRegistry.find((c) => c.name === name);
     if (!entry) throw new Error(`Component "${name}" not found in registry`);
 

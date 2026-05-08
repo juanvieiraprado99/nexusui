@@ -26,11 +26,15 @@ export async function installComponent(
 
   fs.mkdirSync(targetDir, { recursive: true });
 
+  const resolvedTarget = path.resolve(targetDir);
   const written: string[] = [];
   try {
     for (const file of item.files) {
+      const filePath = path.resolve(targetDir, file.name);
+      if (!filePath.startsWith(resolvedTarget + path.sep) && filePath !== resolvedTarget) {
+        throw new Error(`Unsafe file path in registry response: ${file.name}`);
+      }
       const content = transformContent(file.content, config);
-      const filePath = path.join(targetDir, file.name);
       fs.mkdirSync(path.dirname(filePath), { recursive: true });
       fs.writeFileSync(filePath, content, 'utf-8');
       written.push(filePath);
