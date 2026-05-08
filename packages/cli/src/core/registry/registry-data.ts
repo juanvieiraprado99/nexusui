@@ -182,11 +182,11 @@ export const registry: ComponentRegistry[] = [
     files: ['slider.component.ts', 'slider.variants.ts', 'index.ts'],
   },
   {
-    name: 'toast',
-    basePath: 'components/toast',
+    name: 'sonner',
+    basePath: 'components/sonner',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', 'ngx-sonner'],
-    files: ['toast.component.ts', 'toast.variants.ts', 'index.ts'],
+    files: ['sonner.component.ts', 'sonner.variants.ts', 'index.ts'],
   },
   {
     name: 'dropdown-menu',

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { toast } from 'ngx-sonner';
 
 @Component({
-  selector: 'demo-toast-default',
+  selector: 'demo-sonner-default',
   standalone: true,
   imports: [],
   template: `
@@ -15,7 +15,7 @@ import { toast } from 'ngx-sonner';
     </button>
   `,
 })
-export class ToastDemoDefault {
+export class SonnerDemoDefault {
   show(): void {
     toast('Evento agendado', { description: 'Sexta-feira, 09 de maio de 2025 às 17h' });
   }

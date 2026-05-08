@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { NgxSonnerToaster } from 'ngx-sonner';
 import { mergeClasses } from '../../utils/merge-classes';
-import { toastVariants, type ToastVariants } from './toast.variants';
+import { sonnerVariants, type SonnerVariants } from './sonner.variants';
 
 export type ToastPosition =
   | 'top-left'
@@ -18,7 +18,7 @@ export type ToastPosition =
   | 'bottom-right';
 
 @Component({
-  selector: 'n-toast, n-toaster',
+  selector: 'n-sonner, n-toaster',
   standalone: true,
   imports: [NgxSonnerToaster],
   template: `
@@ -39,9 +39,9 @@ export type ToastPosition =
   // ViewEncapsulation.None needed: ngx-sonner injects global CSS that must be unscoped
   encapsulation: ViewEncapsulation.None,
 })
-export class ToastComponent {
+export class SonnerComponent {
   readonly nClass = input<string>('');
-  readonly nVariant = input<ToastVariants['nVariant']>('default');
+  readonly nVariant = input<SonnerVariants['nVariant']>('default');
   readonly nTheme = input<'light' | 'dark' | 'system'>('system');
   readonly nPosition = input<ToastPosition>('bottom-right');
   readonly nRichColors = input<boolean>(false);
@@ -53,6 +53,6 @@ export class ToastComponent {
   readonly nDir = input<'ltr' | 'rtl' | 'auto'>('auto');
 
   protected readonly classes = computed(() =>
-    mergeClasses('toaster group', toastVariants({ nVariant: this.nVariant() }), this.nClass()),
+    mergeClasses('toaster group', sonnerVariants({ nVariant: this.nVariant() }), this.nClass()),
   );
 }

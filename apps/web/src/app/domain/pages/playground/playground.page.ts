@@ -119,11 +119,11 @@ import { SwitchDemoLabelInside } from '@nexus/lib/shared/components/switch/demo/
 import { SwitchDemoLoading } from '@nexus/lib/shared/components/switch/demo/loading';
 import { SwitchDemoSizes } from '@nexus/lib/shared/components/switch/demo/sizes';
 
-// Toast demos
-import { ToastDemoDefault } from '@nexus/lib/shared/components/toast/demo/default';
-import { ToastDemoPromise } from '@nexus/lib/shared/components/toast/demo/promise';
-import { ToastDemoVariants } from '@nexus/lib/shared/components/toast/demo/variants';
-import { ToastComponent } from '@nexus/lib/shared/components/toast/toast.component';
+// Sonner demos
+import { SonnerDemoDefault } from '@nexus/lib/shared/components/sonner/demo/default';
+import { SonnerDemoPromise } from '@nexus/lib/shared/components/sonner/demo/promise';
+import { SonnerDemoVariants } from '@nexus/lib/shared/components/sonner/demo/variants';
+import { SonnerComponent } from '@nexus/lib/shared/components/sonner/sonner.component';
 
 // Radio demos
 import { RadioCardDemo } from '@nexus/lib/shared/components/radio/demo/card';
@@ -198,10 +198,10 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     SwitchDemoLoading,
     SwitchDemoLabelInside,
     SwitchDemoDisabled,
-    ToastDemoDefault,
-    ToastDemoVariants,
-    ToastDemoPromise,
-    ToastComponent,
+    SonnerDemoDefault,
+    SonnerDemoVariants,
+    SonnerDemoPromise,
+    SonnerComponent,
     RadioDefaultDemo,
     RadioCardDemo,
     RadioColorsDemo,
@@ -249,18 +249,18 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
         <p class="text-muted-foreground mt-1 text-sm">All components, all demos.</p>
       </div>
 
-      <!-- Toast (toaster único compartilhado por todas as demos) -->
-      <n-toaster nPosition="bottom-right" [nCloseButton]="false" [nRichColors]="false" />
+      <!-- Sonner (toaster único compartilhado por todas as demos) -->
+      <n-sonner nPosition="bottom-right" [nCloseButton]="false" [nRichColors]="false" />
 
-      <!-- Toast -->
-      <section id="toast">
-        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Toast</h2>
+      <!-- Sonner -->
+      <section id="sonner">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Sonner</h2>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
             <p class="text-muted-foreground text-xs">Notificação básica com título e descrição.</p>
             <div class="flex min-h-16 items-center justify-center">
-              <demo-toast-default />
+              <demo-sonner-default />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
@@ -270,7 +270,7 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
               <code class="bg-muted rounded px-1 font-mono">toast.promise()</code>.
             </p>
             <div class="flex min-h-16 items-center justify-center">
-              <demo-toast-promise />
+              <demo-sonner-promise />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
@@ -280,7 +280,7 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
               botão de ação inline.
             </p>
             <div class="flex min-h-16 items-center justify-center">
-              <demo-toast-variants />
+              <demo-sonner-variants />
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { toast } from 'ngx-sonner';
 
 @Component({
-  selector: 'demo-toast-variants',
+  selector: 'demo-sonner-variants',
   standalone: true,
   imports: [],
   template: `
@@ -16,7 +16,7 @@ import { toast } from 'ngx-sonner';
     </div>
   `,
 })
-export class ToastDemoVariants {
+export class SonnerDemoVariants {
   showDefault(): void {
     toast('Informação geral');
   }

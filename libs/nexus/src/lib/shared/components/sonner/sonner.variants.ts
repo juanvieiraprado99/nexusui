@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export const toastVariants = cva(
+export const sonnerVariants = cva(
   'group group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
   {
     variants: {
@@ -16,4 +16,4 @@ export const toastVariants = cva(
   },
 );
 
-export type ToastVariants = VariantProps<typeof toastVariants>;
+export type SonnerVariants = VariantProps<typeof sonnerVariants>;

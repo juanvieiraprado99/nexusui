@@ -249,14 +249,14 @@
       ]
     },
     {
-      "name": "toast",
+      "name": "sonner",
       "type": "registry:component",
       "registryDependencies": [
         "utils"
       ],
       "files": [
-        "toast.component.ts",
-        "toast.variants.ts",
+        "sonner.component.ts",
+        "sonner.variants.ts",
         "index.ts"
       ]
     },

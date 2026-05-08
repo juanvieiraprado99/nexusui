@@ -11,7 +11,7 @@ function fakeApiCall(shouldFail: boolean): Promise<{ name: string }> {
 }
 
 @Component({
-  selector: 'demo-toast-promise',
+  selector: 'demo-sonner-promise',
   standalone: true,
   imports: [],
   template: `
@@ -33,7 +33,7 @@ function fakeApiCall(shouldFail: boolean): Promise<{ name: string }> {
     </div>
   `,
 })
-export class ToastDemoPromise {
+export class SonnerDemoPromise {
   upload(shouldFail: boolean): void {
     toast.promise(fakeApiCall(shouldFail), {
       loading: 'Enviando arquivo...',
