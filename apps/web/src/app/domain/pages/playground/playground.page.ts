@@ -132,6 +132,21 @@ import { PaginationDisabledDemo } from '@nexus/lib/shared/components/pagination/
 import { PaginationSizesDemo } from '@nexus/lib/shared/components/pagination/demo/sizes';
 import { PaginationWithPageSizeDemo } from '@nexus/lib/shared/components/pagination/demo/with-page-size';
 
+// Dialog demos
+import { DialogAlertDemo } from '@nexus/lib/shared/components/dialog/demo/alert-dialog';
+import { DialogDefaultDemo } from '@nexus/lib/shared/components/dialog/demo/default';
+import { DialogScrollableDemo } from '@nexus/lib/shared/components/dialog/demo/scrollable';
+import { DialogSizesDemo } from '@nexus/lib/shared/components/dialog/demo/sizes';
+import { DialogWithFormDemo } from '@nexus/lib/shared/components/dialog/demo/with-form';
+
+// Input OTP demos
+import { InputOtpDemoDefault } from '@nexus/lib/shared/components/input-otp/demo/default';
+import { InputOtpDemoSizes } from '@nexus/lib/shared/components/input-otp/demo/sizes';
+import { InputOtpDemoMasked } from '@nexus/lib/shared/components/input-otp/demo/masked';
+import { InputOtpDemoWithSeparator } from '@nexus/lib/shared/components/input-otp/demo/with-separator';
+import { InputOtpDemoWithForm } from '@nexus/lib/shared/components/input-otp/demo/with-form';
+import { InputOtpDemoAutoSubmit } from '@nexus/lib/shared/components/input-otp/demo/auto-submit';
+
 // Radio demos
 import { RadioCardDemo } from '@nexus/lib/shared/components/radio/demo/card';
 import { RadioColorsDemo } from '@nexus/lib/shared/components/radio/demo/colors';
@@ -178,6 +193,11 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     DropdownMenuWithGroupsDemo,
     DropdownMenuWithShortcutsDemo,
     DropdownMenuWithSubmenuDemo,
+    DialogDefaultDemo,
+    DialogSizesDemo,
+    DialogScrollableDemo,
+    DialogAlertDemo,
+    DialogWithFormDemo,
     SkeletonDefaultDemo,
     SkeletonCardDemo,
     SkeletonShapesDemo,
@@ -214,6 +234,12 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     PaginationCompactDemo,
     PaginationDisabledDemo,
     PaginationWithPageSizeDemo,
+    InputOtpDemoDefault,
+    InputOtpDemoSizes,
+    InputOtpDemoMasked,
+    InputOtpDemoWithSeparator,
+    InputOtpDemoWithForm,
+    InputOtpDemoAutoSubmit,
     RadioDefaultDemo,
     RadioCardDemo,
     RadioColorsDemo,
@@ -482,6 +508,59 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
         </div>
       </section>
 
+      <!-- Input OTP -->
+      <section id="input-otp">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Input OTP</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">6-digit numeric OTP with two-way binding.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-otp-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <p class="text-muted-foreground text-xs">sm / default / lg slot sizes.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-otp-sizes />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Masked (PIN)</span>
+            <p class="text-muted-foreground text-xs">4-digit PIN — slots render as password dots.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-otp-masked />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Auto-submit</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">(nComplete)</code> fires when last slot filled.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-otp-auto-submit />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Separator</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nSeparatorIndex</code> splits slots into visual groups.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-otp-with-separator />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
+            <p class="text-muted-foreground text-xs">Full reactive forms integration via <code class="bg-muted rounded px-1 font-mono">formControlName</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-otp-with-form />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Textarea -->
       <section id="textarea">
         <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Textarea</h2>
@@ -705,6 +784,52 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Form Actions</span>
             <div class="flex min-h-16 items-center justify-center">
               <demo-dropdown-menu-form-actions />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dialog -->
+      <section id="dialog">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Dialog</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Dialog básico com header, body e footer.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-dialog-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <p class="text-muted-foreground text-xs">sm / default / lg / xl / full.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-dialog-sizes />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Scrollable</span>
+            <p class="text-muted-foreground text-xs">Conteúdo longo com scroll interno — header e footer fixos.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-dialog-scrollable />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Alert Dialog</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nRole="alertdialog"</code> — Escape e backdrop desabilitados.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-dialog-alert />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form + Persistent</span>
+            <p class="text-muted-foreground text-xs">
+              Formulário reativo + <code class="bg-muted rounded px-1 font-mono">nPersistent</code> — clique fora para ver o shake.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-dialog-with-form />
             </div>
           </div>
         </div>

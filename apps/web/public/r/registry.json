@@ -51,6 +51,19 @@
       ]
     },
     {
+      "name": "input-otp",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "input-otp.component.ts",
+        "input-otp.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "combobox",
       "type": "registry:component",
       "registryDependencies": [
@@ -293,6 +306,27 @@
         "dropdown-menu-sub-content.component.ts",
         "dropdown-menu.variants.ts",
         "dropdown-menu.tokens.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
+      "files": [
+        "dialog.component.ts",
+        "dialog-trigger.directive.ts",
+        "dialog-content.component.ts",
+        "dialog-header.component.ts",
+        "dialog-footer.component.ts",
+        "dialog-title.component.ts",
+        "dialog-description.component.ts",
+        "dialog-close.directive.ts",
+        "dialog.context.ts",
+        "dialog.variants.ts",
         "index.ts"
       ]
     }

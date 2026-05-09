@@ -1,12 +1,14 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { ConnectedPosition, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
+  PLATFORM_ID,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
@@ -51,6 +53,8 @@ export class DropdownMenuSubContentComponent implements AfterViewInit, OnDestroy
   protected readonly ctx = inject(DROPDOWN_MENU_SUB_CONTEXT);
   private readonly _overlay = inject(Overlay);
   private readonly _vcr = inject(ViewContainerRef);
+  private readonly _document = inject(DOCUMENT);
+  private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   protected readonly items = contentChildren(DropdownMenuItemComponent, { descendants: true });
 
@@ -105,12 +109,14 @@ export class DropdownMenuSubContentComponent implements AfterViewInit, OnDestroy
     this._overlayRef = this._overlay.create(config);
     this._overlayRef.attach(this._portal);
 
-    this._outsideSub = fromEvent<MouseEvent>(document, 'mousedown').subscribe((e) => {
-      const tgt = e.target as Node;
-      if (this._panelEl?.nativeElement.contains(tgt)) return;
-      if (trigger.contains(tgt)) return;
-      this.ctx.close(false);
-    });
+    if (this._isBrowser) {
+      this._outsideSub = fromEvent<MouseEvent>(this._document, 'mousedown').subscribe((e) => {
+        const tgt = e.target as Node;
+        if (this._panelEl?.nativeElement.contains(tgt)) return;
+        if (trigger.contains(tgt)) return;
+        this.ctx.close(false);
+      });
+    }
 
     queueMicrotask(() => {
       const items = this.items();

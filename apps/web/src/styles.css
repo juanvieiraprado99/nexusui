@@ -126,3 +126,39 @@
 @utility animate-error-in {
   animation: error-in 0.2s ease-out forwards;
 }
+
+@keyframes dialog-shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-8px); }
+  35%       { transform: translateX(8px); }
+  55%       { transform: translateX(-6px); }
+  75%       { transform: translateX(6px); }
+}
+
+[data-shaking] {
+  animation: dialog-shake 0.4s ease-in-out;
+}
+
+/* Dialog panel — enter via @starting-style, no animation-restart risk */
+[data-slot="content"][data-dialog] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@starting-style {
+  [data-slot="content"][data-dialog] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Dialog backdrop — enter via @starting-style */
+[data-dialog-backdrop] {
+  opacity: 1;
+}
+
+@starting-style {
+  [data-dialog-backdrop] {
+    opacity: 0;
+  }
+}

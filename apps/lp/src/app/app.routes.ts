@@ -42,9 +42,19 @@ export const routes: Routes = [
       import('./pages/components/input/input-doc.page').then((m) => m.InputDocPage),
   },
   {
+    path: 'components/input-otp',
+    loadComponent: () =>
+      import('./pages/components/input-otp/input-otp-doc.page').then((m) => m.InputOtpDocPage),
+  },
+  {
     path: 'components/label',
     loadComponent: () =>
       import('./pages/components/label/label-doc.page').then((m) => m.LabelDocPage),
+  },
+  {
+    path: 'components/pagination',
+    loadComponent: () =>
+      import('./pages/components/pagination/pagination-doc.page').then((m) => m.PaginationDocPage),
   },
   {
     path: 'components/radio-group',

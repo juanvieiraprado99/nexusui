@@ -89,7 +89,21 @@
       "PowerShell(Move-Item *)",
       "Bash(Remove-Item -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\package-lock.json\" -Force)",
       "Bash(Write-Host \"Deleted package-lock.json\")",
-      "Bash(npm ls *)"
+      "Bash(npm ls *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\" -Recurse -Filter \"*.ts\")",
+      "Bash(Get-Content -Path \"libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\button\\\\button.component.ts\" -TotalCount 50)",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\" -Force)",
+      "Bash(Select-Object Name, FullName)",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\" -Directory)",
+      "Bash(Get-ChildItem -Directory \"C:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\")",
+      "Bash(Select-String \"viewChild|afterNextRender|afterRender\")",
+      "Bash(Get-ChildItem -Recurse -Depth 3)",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app\\\\shared\\\\components\" -Directory)",
+      "Bash(npx ng *)",
+      "Bash(Get-ChildItem *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app\\\\shared\\\\components\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)"
     ]
   }
 }
