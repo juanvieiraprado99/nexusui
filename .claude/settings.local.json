@@ -103,7 +103,10 @@
       "Bash(Get-ChildItem *)",
       "Bash(Get-ChildItem -Path \"C:\\\\repos\\\\nexus\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app\\\\shared\\\\components\" -Force)",
       "Bash(Select-Object Name, PSIsContainer)",
-      "Bash(Format-Table -AutoSize)"
+      "Bash(Format-Table -AutoSize)",
+      "Bash(Remove-Item \"C:\\\\repos\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\datepicker\\\\demo\\\\inline-calendar.ts\" -Force)",
+      "Bash(Remove-Item \"C:\\\\repos\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\datepicker\\\\datepicker-calendar.component.ts\" -Force)",
+      "Bash(Write-Output \"Deleted\")"
     ]
   }
 }

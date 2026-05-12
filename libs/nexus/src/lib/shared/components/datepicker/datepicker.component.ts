@@ -15,7 +15,6 @@ import {
   ViewChild,
   ViewContainerRef,
   computed,
-  forwardRef,
   inject,
   input,
   model,
@@ -27,13 +26,9 @@ import { Subscription } from 'rxjs';
 import { injectFormControl } from '../../utils/form-control';
 import { mergeClasses } from '../../utils/merge-classes';
 import { LabelComponent } from '../label';
-import { DatepickerCalendarComponent } from './datepicker-calendar.component';
-import {
-  DATEPICKER_CTX,
-  type DatepickerContext,
-  type DatepickerSize,
-  type DisabledDateFn,
-} from './datepicker.tokens';
+import { CalendarComponent } from '../calendar/calendar.component';
+import type { CalendarValue } from '../calendar/calendar.types';
+import type { DatepickerSize, DisabledDateFn } from './datepicker.tokens';
 import { datepickerTriggerVariants } from './datepicker.variants';
 import { formatDate, startOfDay } from './datepicker.utils';
 
@@ -42,7 +37,7 @@ let _datepickerIdCounter = 0;
 @Component({
   selector: 'n-datepicker',
   standalone: true,
-  imports: [DatepickerCalendarComponent, LabelComponent],
+  imports: [CalendarComponent, LabelComponent],
   template: `
     <div class="flex flex-col" data-slot="root">
 
@@ -88,12 +83,50 @@ let _datepickerIdCounter = 0;
       </button>
 
       <ng-template #panel>
-        <n-datepicker-calendar
-          [nId]="contentId()"
-          [nClass]="'min-w-[18rem]'"
-          [nAutoFocus]="true"
-          (nClear)="clear()"
-        />
+        <div
+          [id]="contentId()"
+          data-slot="content"
+          role="dialog"
+          aria-label="Calendário"
+          class="rounded-md border border-border bg-popover shadow-md"
+        >
+          <n-calendar
+            nMode="single"
+            [nValue]="nValue()"
+            [nMin]="nMin()"
+            [nMax]="nMax()"
+            [nDisabledDate]="nDisabledDate()"
+            [nLocale]="nLocale()"
+            [nWeekStartsOn]="nWeekStartsOn()"
+            [nDisabled]="isDisabled()"
+            (nChange)="onCalendarChange($event)"
+          />
+          @if (nShowToday() || nClearable()) {
+            <div class="mx-3 mb-3 flex items-center justify-between border-t border-border pt-3">
+              @if (nShowToday()) {
+                <button
+                  type="button"
+                  class="text-xs font-medium text-primary hover:underline disabled:opacity-30 disabled:cursor-not-allowed"
+                  [disabled]="isTodayDisabled()"
+                  (click)="selectToday()"
+                >
+                  Hoje
+                </button>
+              } @else {
+                <span></span>
+              }
+              @if (nClearable()) {
+                <button
+                  type="button"
+                  class="text-xs font-medium text-muted-foreground hover:text-foreground hover:underline"
+                  (click)="clear()"
+                >
+                  Limpar
+                </button>
+              }
+            </div>
+          }
+        </div>
       </ng-template>
 
       @if (hasError()) {
@@ -112,13 +145,6 @@ let _datepickerIdCounter = 0;
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'contents' },
-  providers: [
-    {
-      provide: DATEPICKER_CTX,
-      useFactory: (cmp: DatepickerComponent) => cmp.context,
-      deps: [forwardRef(() => DatepickerComponent)],
-    },
-  ],
 })
 export class DatepickerComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
   readonly nValue        = model<Date | null>(null);
@@ -158,6 +184,8 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
   private _portal: TemplatePortal | null = null;
   private _backdropSub?: Subscription;
 
+  private readonly _today = computed(() => startOfDay(new Date()));
+
   protected readonly datepickerId = computed(() => this.nId() || this._staticId);
   protected readonly contentId    = computed(() => `${this.datepickerId()}-content`);
   protected readonly errorId      = computed(() => `${this.datepickerId()}-error`);
@@ -189,16 +217,15 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
     ),
   );
 
-  readonly context: DatepickerContext = {
-    value: this.nValue,
-    min: this.nMin,
-    max: this.nMax,
-    disabledDate: this.nDisabledDate,
-    locale: this.nLocale,
-    weekStartsOn: this.nWeekStartsOn,
-    disabled: this.isDisabled,
-    selectDate: (date: Date) => this.commit(date),
-  };
+  protected readonly isTodayDisabled = computed(() => {
+    const today = this._today();
+    const min = this.nMin();
+    const max = this.nMax();
+    if (min && today < min) return true;
+    if (max && today > max) return true;
+    const fn = this.nDisabledDate();
+    return fn ? fn(today) : false;
+  });
 
   ngAfterViewInit(): void {
     this._portal = new TemplatePortal(this._panelTpl, this._vcr);
@@ -228,6 +255,16 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
     this.detach();
     this._form.notifyTouched();
     if (returnFocus) queueMicrotask(() => this._triggerEl?.nativeElement.focus());
+  }
+
+  protected onCalendarChange(value: CalendarValue): void {
+    if (value instanceof Date) {
+      this.commit(value);
+    }
+  }
+
+  protected selectToday(): void {
+    this.commit(this._today());
   }
 
   protected clear(): void {

@@ -6,6 +6,13 @@ import { ButtonDemoLoading } from '@nexus/lib/shared/components/button/demo/load
 import { ButtonDemoSize } from '@nexus/lib/shared/components/button/demo/size';
 import { ButtonDemoVariants } from '@nexus/lib/shared/components/button/demo/variants';
 
+// Button Group demos
+import { ButtonGroupDefaultDemo } from '@nexus/lib/shared/components/button-group/demo/default';
+import { ButtonGroupVerticalDemo } from '@nexus/lib/shared/components/button-group/demo/vertical';
+import { ButtonGroupSizesDemo } from '@nexus/lib/shared/components/button-group/demo/sizes';
+import { ButtonGroupVariantsDemo } from '@nexus/lib/shared/components/button-group/demo/variants';
+import { ButtonGroupDisabledDemo } from '@nexus/lib/shared/components/button-group/demo/disabled';
+
 // Input demos
 import { InputDemoDefault } from '@nexus/lib/shared/components/input/demo/default';
 import { InputDemoDisabled } from '@nexus/lib/shared/components/input/demo/disabled';
@@ -45,11 +52,17 @@ import { DropdownMenuWithGroupsDemo } from '@nexus/lib/shared/components/dropdow
 import { DropdownMenuWithShortcutsDemo } from '@nexus/lib/shared/components/dropdown-menu/demo/with-shortcuts';
 import { DropdownMenuWithSubmenuDemo } from '@nexus/lib/shared/components/dropdown-menu/demo/with-submenu';
 
+// Calendar demos
+import { CalendarDefaultDemo } from '@nexus/lib/shared/components/calendar/demo/default';
+import { CalendarDisabledDemo } from '@nexus/lib/shared/components/calendar/demo/disabled';
+import { CalendarMultipleDemo } from '@nexus/lib/shared/components/calendar/demo/multiple';
+import { CalendarRangeDemo } from '@nexus/lib/shared/components/calendar/demo/range';
+import { CalendarWithFormDemo } from '@nexus/lib/shared/components/calendar/demo/with-form';
+
 // Datepicker demos
 import { DatepickerDefaultDemo } from '@nexus/lib/shared/components/datepicker/demo/default';
 import { DatepickerDisabledWeekendsDemo } from '@nexus/lib/shared/components/datepicker/demo/disabled-weekends';
 import { DatepickerErrorDemo } from '@nexus/lib/shared/components/datepicker/demo/error';
-import { DatepickerInlineCalendarDemo } from '@nexus/lib/shared/components/datepicker/demo/inline-calendar';
 import { DatepickerMinMaxDemo } from '@nexus/lib/shared/components/datepicker/demo/min-max';
 import { DatepickerSizesDemo } from '@nexus/lib/shared/components/datepicker/demo/sizes';
 import { DatepickerWithFormDemo } from '@nexus/lib/shared/components/datepicker/demo/with-form';
@@ -132,6 +145,12 @@ import { PaginationDisabledDemo } from '@nexus/lib/shared/components/pagination/
 import { PaginationSizesDemo } from '@nexus/lib/shared/components/pagination/demo/sizes';
 import { PaginationWithPageSizeDemo } from '@nexus/lib/shared/components/pagination/demo/with-page-size';
 
+// Alert demos
+import { AlertDefaultDemo } from '@nexus/lib/shared/components/alert/demo/default';
+import { AlertVariantsDemo } from '@nexus/lib/shared/components/alert/demo/variants';
+import { AlertDismissibleDemo } from '@nexus/lib/shared/components/alert/demo/dismissible';
+import { AlertAutoDismissDemo } from '@nexus/lib/shared/components/alert/demo/auto-dismiss';
+
 // Dialog demos
 import { DialogAlertDemo } from '@nexus/lib/shared/components/dialog/demo/alert-dialog';
 import { DialogDefaultDemo } from '@nexus/lib/shared/components/dialog/demo/default';
@@ -167,6 +186,11 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     ButtonDemoLoading,
     ButtonDemoSize,
     ButtonDemoVariants,
+    ButtonGroupDefaultDemo,
+    ButtonGroupVerticalDemo,
+    ButtonGroupSizesDemo,
+    ButtonGroupVariantsDemo,
+    ButtonGroupDisabledDemo,
     InputDemoDefault,
     InputDemoDisabled,
     InputDemoError,
@@ -193,6 +217,10 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     DropdownMenuWithGroupsDemo,
     DropdownMenuWithShortcutsDemo,
     DropdownMenuWithSubmenuDemo,
+    AlertDefaultDemo,
+    AlertVariantsDemo,
+    AlertDismissibleDemo,
+    AlertAutoDismissDemo,
     DialogDefaultDemo,
     DialogSizesDemo,
     DialogScrollableDemo,
@@ -249,6 +277,11 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     RadioReactiveFormDemo,
     RadioRichDescriptionDemo,
     RadioSizesDemo,
+    CalendarDefaultDemo,
+    CalendarMultipleDemo,
+    CalendarRangeDemo,
+    CalendarWithFormDemo,
+    CalendarDisabledDemo,
     DatepickerDefaultDemo,
     DatepickerWithLabelDemo,
     DatepickerWithFormDemo,
@@ -256,7 +289,6 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     DatepickerDisabledWeekendsDemo,
     DatepickerSizesDemo,
     DatepickerErrorDemo,
-    DatepickerInlineCalendarDemo,
     SelectDefaultDemo,
     SelectMultipleDemo,
     SelectGroupsDemo,
@@ -319,6 +351,41 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             </p>
             <div class="flex min-h-16 items-center justify-center">
               <demo-sonner-variants />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alert -->
+      <section id="alert">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Alert</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Basic alert with title and description.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-alert-default class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
+            <p class="text-muted-foreground text-xs">default · info · success · warning · destructive.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-alert-variants class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Dismissible</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nDismissible</code> shows × button, emits <code class="bg-muted rounded px-1 font-mono">nDismiss</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-alert-dismissible class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Auto-dismiss</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAutoDismissDuration</code> hides after N ms.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-alert-auto-dismiss class="w-full" />
             </div>
           </div>
         </div>
@@ -454,6 +521,48 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
             <div class="flex min-h-16 items-center justify-center">
               <demo-button-variants />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Button Group -->
+      <section id="button-group">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Button Group</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Botões conectados horizontalmente com bordas colapsadas.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-group-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Vertical</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nOrientation="vertical"</code> — empilhado.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-group-vertical />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nSize</code> no grupo propaga para todos os botões.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-group-sizes />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nVariant</code> no grupo propaga para todos os botões.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-group-variants />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nDisabled</code> desabilita todos os botões filhos.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-group-disabled />
             </div>
           </div>
         </div>
@@ -1151,10 +1260,41 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
               <demo-datepicker-with-form />
             </div>
           </div>
-          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
-            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Inline Calendar</span>
+        </div>
+      </section>
+
+      <!-- Calendar -->
+      <section class="flex flex-col gap-6">
+        <h2 class="text-foreground text-xl font-semibold">Calendar</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default (Single)</span>
             <div class="flex min-h-16 items-center justify-center">
-              <demo-datepicker-inline-calendar />
+              <demo-calendar-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Multiple</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-calendar-multiple />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Range</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-calendar-range />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-calendar-with-form />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-calendar-disabled />
             </div>
           </div>
         </div>

@@ -28,26 +28,3 @@ export const datepickerTriggerVariants = cva(
 );
 
 export type DatepickerTriggerVariants = VariantProps<typeof datepickerTriggerVariants>;
-
-export const datepickerDayVariants = cva(
-  [
-    'inline-flex h-9 w-9 items-center justify-center rounded-md text-sm',
-    'transition-colors',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-    'disabled:cursor-not-allowed disabled:opacity-30',
-  ],
-  {
-    variants: {
-      state: {
-        default: 'hover:bg-accent hover:text-accent-foreground cursor-pointer',
-        selected: 'bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer',
-        today: 'border border-primary text-foreground hover:bg-accent cursor-pointer',
-        outside: 'text-muted-foreground/40 hover:bg-accent/40 cursor-pointer',
-        disabled: 'text-muted-foreground/30 cursor-not-allowed',
-      },
-    },
-    defaultVariants: { state: 'default' },
-  },
-);
-
-export type DatepickerDayVariants = VariantProps<typeof datepickerDayVariants>;

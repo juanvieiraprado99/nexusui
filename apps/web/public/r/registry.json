@@ -15,6 +15,18 @@
       ]
     },
     {
+      "name": "alert",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "alert.component.ts",
+        "alert.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:component",
       "registryDependencies": [
@@ -23,6 +35,20 @@
       "files": [
         "button.component.ts",
         "button.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
+      "files": [
+        "button-group.component.ts",
+        "button-group.variants.ts",
+        "button-group.tokens.ts",
         "index.ts"
       ]
     },
@@ -122,15 +148,32 @@
       ]
     },
     {
+      "name": "calendar",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
+      "files": [
+        "calendar.component.ts",
+        "calendar-grid.component.ts",
+        "calendar-navigation.component.ts",
+        "calendar.types.ts",
+        "calendar.utils.ts",
+        "calendar.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "datepicker",
       "type": "registry:component",
       "registryDependencies": [
         "utils",
-        "label"
+        "label",
+        "calendar"
       ],
       "files": [
         "datepicker.component.ts",
-        "datepicker-calendar.component.ts",
         "datepicker.tokens.ts",
         "datepicker.variants.ts",
         "datepicker.utils.ts",

@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, input, computed, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, output, inject } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { buttonVariants, type ButtonVariants } from './button.variants';
+import { BUTTON_GROUP_CONTEXT } from '../button-group/button-group.tokens';
 
 @Component({
   selector: 'n-button, button[n-button], a[n-button]',
@@ -16,13 +17,15 @@ import { buttonVariants, type ButtonVariants } from './button.variants';
     '[class]': 'classes()',
     '[attr.type]': 'nType()',
     '[attr.role]': '"button"',
-    '[attr.disabled]': 'nDisabled() || nLoading() ? true : null',
+    '[attr.disabled]': 'isDisabled() || nLoading() ? true : null',
     '[attr.aria-busy]': 'nLoading()',
-    '[attr.aria-disabled]': 'nDisabled() || nLoading()',
+    '[attr.aria-disabled]': 'isDisabled() || nLoading()',
     '(click)': 'handleClick($event)',
   },
 })
 export class ButtonComponent {
+  private readonly group = inject(BUTTON_GROUP_CONTEXT, { optional: true });
+
   readonly nVariant    = input<ButtonVariants['nVariant']>('default');
   readonly nSize       = input<ButtonVariants['nSize']>('default');
   readonly nType = input<'button' | 'submit' | 'reset'>('button');
@@ -32,12 +35,20 @@ export class ButtonComponent {
 
   readonly nClick = output<Event>();
 
+  protected readonly isDisabled = computed(() => this.nDisabled() || (this.group?.nDisabled() ?? false));
+
   protected readonly classes = computed(() =>
-    mergeClasses(buttonVariants({ nVariant: this.nVariant(), nSize: this.nSize() }), this.nClass()),
+    mergeClasses(
+      buttonVariants({
+        nVariant: this.group?.nVariant() ?? this.nVariant(),
+        nSize: this.group?.nSize() ?? this.nSize(),
+      }),
+      this.nClass(),
+    ),
   );
 
   protected handleClick(event: Event): void {
-    if (this.nDisabled() || this.nLoading()) {
+    if (this.isDisabled() || this.nLoading()) {
       event.preventDefault();
       return;
     }
