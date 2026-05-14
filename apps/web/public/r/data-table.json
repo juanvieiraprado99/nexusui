@@ -42,7 +42,10 @@
       "content": "export * from './data-table.component';\nexport * from './data-table-empty.component';\nexport * from './data-table-column-toggle.component';\nexport * from './data-table.tokens';\nexport * from './data-table.types';\nexport * from './data-table.variants';\n"
     }
   ],
-  "docs": {},
+  "docs": {
+    "overview": "# Data Table\n\nA powerful data table component with sorting, filtering, column visibility toggle, row selection, and CSV export built on Angular CDK and signals.\n\n## Usage\n\n```typescript\nimport { NDataTableComponent } from '@/shared/components/data-table';\n\n@Component({\n  imports: [NDataTableComponent],\n  template: `\n    <n-data-table\n      [data]=\"rows\"\n      [columns]=\"columns\"\n    />\n  `\n})\nexport class MyComponent {\n  columns = [\n    { key: 'name', header: 'Name', sortable: true },\n    { key: 'email', header: 'Email', sortable: true },\n  ];\n  rows = [\n    { name: 'Alice', email: 'alice@example.com' },\n    { name: 'Bob',   email: 'bob@example.com'   },\n  ];\n}\n```\n",
+    "api": "# Data Table API\n\n## NDataTableComponent Inputs\n\n| Input | Type | Default | Description |\n|-------|------|---------|-------------|\n| `nData` | `T[]` | `[]` | Array of row data |\n| `nColumns` | `ColumnDef<T>[]` | `[]` | Column definitions |\n| `nPageSize` | `number` | `10` | Rows per page |\n| `nSelectable` | `boolean` | `false` | Enable row selection |\n| `nExportCsv` | `boolean` | `false` | Show CSV export button |\n| `nFilterable` | `boolean` | `true` | Show global filter input |\n| `nClass` | `string` | `''` | Additional CSS classes |\n\n## ColumnDef<T>\n\n| Property | Type | Required | Description |\n|----------|------|----------|-------------|\n| `key` | `keyof T` | yes | Data property key |\n| `header` | `string` | yes | Column header label |\n| `sortable` | `boolean` | no | Enable sorting for this column |\n| `visible` | `boolean` | no | Initial visibility (default true) |\n| `cell` | `(row: T) => string` | no | Custom cell renderer |\n\n## NDataTableComponent Outputs\n\n| Output | Type | Description |\n|--------|------|-------------|\n| `nSelectionChange` | `EventEmitter<T[]>` | Emits selected rows when selection changes |\n"
+  },
   "demos": [
     {
       "name": "custom-cell.ts",

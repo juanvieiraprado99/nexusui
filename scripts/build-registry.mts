@@ -1,9 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-
-// Using relative path — tsx resolves this directly without needing tsconfig paths
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { registry } = require('../packages/cli/src/core/registry/registry-data');
+import registryModule from '../packages/cli/src/core/registry/registry-data';
+const { registry } = registryModule as { registry: unknown[] };
 
 type ComponentRegistry = {
   name: string;
@@ -25,7 +23,7 @@ type RegistryItem = {
   demos?: { name: string; content: string }[];
 };
 
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = path.resolve(import.meta.dirname, '..');
 const LIB_PATH = path.resolve(ROOT, 'libs/nexus/src/lib/shared');
 const OUTPUT_PATH = path.resolve(ROOT, 'apps/web/public/r');
 

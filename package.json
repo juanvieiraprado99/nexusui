@@ -11,8 +11,8 @@
     "start": "concurrently \"npx nx serve web\" \"npx nx run web:tailwind-watch\" \"npm run build:registry:watch\"",
     "dev:cli": "npx tsc -p packages/cli/tsconfig.json && node scripts/inject-registry-url.js http://localhost:4222/r && cd packages/cli && npm link",
     "build:cli": "npx tsc -p packages/cli/tsconfig.json && node scripts/inject-registry-url.js https://raw.githubusercontent.com/juanvieiraprado99/nexusui/main/apps/web/public/r",
-    "build:registry": "npx tsx scripts/build-registry.cts",
-    "build:registry:watch": "npx tsx --watch scripts/build-registry.cts",
+    "build:registry": "npx tsx scripts/build-registry.mts",
+    "build:registry:watch": "npx tsx --watch scripts/build-registry.mts",
     "start-lp": "npx nx run nexus-lp:start --port 4201"
   },
   "devDependencies": {

@@ -121,7 +121,9 @@
       "PowerShell(Copy-Item *)",
       "PowerShell(Get-NetTCPConnection *)",
       "Bash(Sort-Object FullName)",
-      "Bash(npx vitest *)"
+      "Bash(npx vitest *)",
+      "Bash(Select-String '\"type\"')",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d.get\\('devDependencies',{}\\).get\\('tsx','not found'\\)\\)\")"
     ]
   }
 }

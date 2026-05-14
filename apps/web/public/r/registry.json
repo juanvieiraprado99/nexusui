@@ -15,18 +15,6 @@
       ]
     },
     {
-      "name": "alert",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "alert.component.ts",
-        "alert.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
       "name": "button",
       "type": "registry:component",
       "registryDependencies": [
@@ -39,16 +27,51 @@
       ]
     },
     {
-      "name": "button-group",
+      "name": "badge",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "badge.component.ts",
+        "badge.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "separator.component.ts",
+        "separator.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "skeleton.component.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "avatar",
       "type": "registry:component",
       "registryDependencies": [
         "utils",
-        "button"
+        "badge"
       ],
       "files": [
-        "button-group.component.ts",
-        "button-group.variants.ts",
-        "button-group.tokens.ts",
+        "avatar.component.ts",
+        "avatar-group.component.ts",
+        "avatar.variants.ts",
         "index.ts"
       ]
     },
@@ -60,6 +83,18 @@
       ],
       "files": [
         "label.component.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "card.component.ts",
+        "card.variants.ts",
         "index.ts"
       ]
     },
@@ -137,58 +172,15 @@
       ]
     },
     {
-      "name": "skeleton",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "skeleton.component.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "calendar",
+      "name": "switch",
       "type": "registry:component",
       "registryDependencies": [
         "utils",
-        "button"
+        "label"
       ],
       "files": [
-        "calendar.component.ts",
-        "calendar-grid.component.ts",
-        "calendar-navigation.component.ts",
-        "calendar.types.ts",
-        "calendar.utils.ts",
-        "calendar.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "datepicker",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils",
-        "label",
-        "calendar"
-      ],
-      "files": [
-        "datepicker.component.ts",
-        "datepicker.tokens.ts",
-        "datepicker.variants.ts",
-        "datepicker.utils.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "separator",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "separator.component.ts",
-        "separator.variants.ts",
+        "switch.component.ts",
+        "switch.variants.ts",
         "index.ts"
       ]
     },
@@ -208,85 +200,6 @@
         "select-empty.component.ts",
         "select.tokens.ts",
         "select.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "card",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "card.component.ts",
-        "card.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "badge",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "badge.component.ts",
-        "badge.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "avatar",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils",
-        "badge"
-      ],
-      "files": [
-        "avatar.component.ts",
-        "avatar-group.component.ts",
-        "avatar.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "switch",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils",
-        "label"
-      ],
-      "files": [
-        "switch.component.ts",
-        "switch.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "accordion",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "accordion.component.ts",
-        "accordion-item.component.ts",
-        "accordion-trigger.component.ts",
-        "accordion-content.component.ts",
-        "accordion.tokens.ts",
-        "accordion.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "breadcrumb",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "breadcrumb.component.ts",
-        "breadcrumb.variants.ts",
         "index.ts"
       ]
     },
@@ -317,69 +230,35 @@
       ]
     },
     {
-      "name": "sonner",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "sonner.component.ts",
-        "sonner.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "pagination",
+      "name": "datepicker",
       "type": "registry:component",
       "registryDependencies": [
         "utils",
-        "select"
+        "label",
+        "calendar"
       ],
       "files": [
-        "pagination.component.ts",
-        "pagination.variants.ts",
+        "datepicker.component.ts",
+        "datepicker.tokens.ts",
+        "datepicker.variants.ts",
+        "datepicker.utils.ts",
         "index.ts"
       ]
     },
     {
-      "name": "dropdown-menu",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "dropdown-menu.component.ts",
-        "dropdown-menu-trigger.directive.ts",
-        "dropdown-menu-content.component.ts",
-        "dropdown-menu-item.component.ts",
-        "dropdown-menu-label.component.ts",
-        "dropdown-menu-separator.component.ts",
-        "dropdown-menu-group.component.ts",
-        "dropdown-menu-shortcut.component.ts",
-        "dropdown-menu-sub.component.ts",
-        "dropdown-menu-sub-trigger.component.ts",
-        "dropdown-menu-sub-content.component.ts",
-        "dropdown-menu.variants.ts",
-        "dropdown-menu.tokens.ts",
-        "index.ts"
-      ]
-    },
-    {
-      "name": "data-table",
+      "name": "calendar",
       "type": "registry:component",
       "registryDependencies": [
         "utils",
-        "checkbox",
-        "skeleton",
-        "dropdown-menu"
+        "button"
       ],
       "files": [
-        "data-table.component.ts",
-        "data-table-empty.component.ts",
-        "data-table-column-toggle.component.ts",
-        "data-table.tokens.ts",
-        "data-table.types.ts",
-        "data-table.variants.ts",
+        "calendar.component.ts",
+        "calendar-grid.component.ts",
+        "calendar-navigation.component.ts",
+        "calendar.types.ts",
+        "calendar.utils.ts",
+        "calendar.variants.ts",
         "index.ts"
       ]
     },
@@ -425,21 +304,6 @@
       ]
     },
     {
-      "name": "collapsible",
-      "type": "registry:component",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        "collapsible.component.ts",
-        "collapsible-trigger.component.ts",
-        "collapsible-content.component.ts",
-        "collapsible.tokens.ts",
-        "collapsible.variants.ts",
-        "index.ts"
-      ]
-    },
-    {
       "name": "popover",
       "type": "registry:component",
       "registryDependencies": [
@@ -452,6 +316,29 @@
         "popover-close.directive.ts",
         "popover.context.ts",
         "popover.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "dropdown-menu.component.ts",
+        "dropdown-menu-trigger.directive.ts",
+        "dropdown-menu-content.component.ts",
+        "dropdown-menu-item.component.ts",
+        "dropdown-menu-label.component.ts",
+        "dropdown-menu-separator.component.ts",
+        "dropdown-menu-group.component.ts",
+        "dropdown-menu-shortcut.component.ts",
+        "dropdown-menu-sub.component.ts",
+        "dropdown-menu-sub-trigger.component.ts",
+        "dropdown-menu-sub-content.component.ts",
+        "dropdown-menu.variants.ts",
+        "dropdown-menu.tokens.ts",
         "index.ts"
       ]
     },
@@ -482,6 +369,69 @@
       ]
     },
     {
+      "name": "data-table",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "checkbox",
+        "skeleton",
+        "dropdown-menu"
+      ],
+      "files": [
+        "data-table.component.ts",
+        "data-table-empty.component.ts",
+        "data-table-column-toggle.component.ts",
+        "data-table.tokens.ts",
+        "data-table.types.ts",
+        "data-table.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "accordion.component.ts",
+        "accordion-item.component.ts",
+        "accordion-trigger.component.ts",
+        "accordion-content.component.ts",
+        "accordion.tokens.ts",
+        "accordion.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "collapsible.component.ts",
+        "collapsible-trigger.component.ts",
+        "collapsible-content.component.ts",
+        "collapsible.tokens.ts",
+        "collapsible.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "select"
+      ],
+      "files": [
+        "pagination.component.ts",
+        "pagination.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "sidebar",
       "type": "registry:component",
       "registryDependencies": [
@@ -506,6 +456,56 @@
         "sidebar-menu-badge.component.ts",
         "sidebar-menu-action.component.ts",
         "sidebar-separator.component.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "breadcrumb.component.ts",
+        "breadcrumb.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
+      "files": [
+        "button-group.component.ts",
+        "button-group.variants.ts",
+        "button-group.tokens.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "alert.component.ts",
+        "alert.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "sonner.component.ts",
+        "sonner.variants.ts",
         "index.ts"
       ]
     }

@@ -23,7 +23,10 @@
       "content": "export * from './sonner.component';\nexport * from './sonner.variants';\nexport { toast } from 'ngx-sonner';\n"
     }
   ],
-  "docs": {},
+  "docs": {
+    "overview": "# Sonner (Toast)\n\nA toast notification component powered by the Sonner library. Displays transient feedback messages.\n\n## Usage\n\nAdd `<n-sonner />` once to your root component, then use the `toast` function anywhere.\n\n```typescript\nimport { NToasterComponent } from '@/shared/components/sonner';\nimport { toast } from 'sonner';\n\n@Component({\n  imports: [NToasterComponent],\n  template: `<n-sonner />`\n})\nexport class AppComponent {\n  showToast() {\n    toast('Event has been created');\n    toast.success('Saved successfully');\n    toast.error('Something went wrong');\n    toast.warning('Low disk space');\n    toast.info('Update available');\n  }\n}\n```\n",
+    "api": "# Sonner API\n\n## NToasterComponent Inputs\n\n| Input | Type | Default | Description |\n|-------|------|---------|-------------|\n| `nPosition` | `ToastPosition` | `'bottom-right'` | Where toasts appear on screen |\n| `nExpand` | `boolean` | `false` | Expand all toasts instead of stacking |\n| `nRichColors` | `boolean` | `false` | Use semantic colors for success/error/warning |\n| `nDuration` | `number` | `4000` | Auto-dismiss duration in ms |\n| `nVisibleToasts` | `number` | `3` | Max number of visible toasts |\n\n## Toast positions\n\n`'top-left'` | `'top-center'` | `'top-right'` | `'bottom-left'` | `'bottom-center'` | `'bottom-right'`\n\n## toast() API\n\n| Call | Description |\n|------|-------------|\n| `toast(message)` | Default toast |\n| `toast.success(message)` | Success variant |\n| `toast.error(message)` | Error variant |\n| `toast.warning(message)` | Warning variant |\n| `toast.info(message)` | Info variant |\n| `toast.promise(promise, opts)` | Loading → success/error lifecycle |\n| `toast.dismiss(id?)` | Dismiss one or all toasts |\n"
+  },
   "demos": [
     {
       "name": "default.ts",
