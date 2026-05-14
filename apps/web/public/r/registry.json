@@ -212,6 +212,18 @@
       ]
     },
     {
+      "name": "card",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "card.component.ts",
+        "card.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "badge",
       "type": "registry:component",
       "registryDependencies": [
@@ -353,6 +365,25 @@
       ]
     },
     {
+      "name": "data-table",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "checkbox",
+        "skeleton",
+        "dropdown-menu"
+      ],
+      "files": [
+        "data-table.component.ts",
+        "data-table-empty.component.ts",
+        "data-table-column-toggle.component.ts",
+        "data-table.tokens.ts",
+        "data-table.types.ts",
+        "data-table.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "dialog",
       "type": "registry:component",
       "registryDependencies": [
@@ -370,6 +401,111 @@
         "dialog-close.directive.ts",
         "dialog.context.ts",
         "dialog.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "drawer.component.ts",
+        "drawer-trigger.directive.ts",
+        "drawer-content.component.ts",
+        "drawer-header.component.ts",
+        "drawer-footer.component.ts",
+        "drawer-title.component.ts",
+        "drawer-description.component.ts",
+        "drawer-close.directive.ts",
+        "drawer.context.ts",
+        "drawer.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "collapsible.component.ts",
+        "collapsible-trigger.component.ts",
+        "collapsible-content.component.ts",
+        "collapsible.tokens.ts",
+        "collapsible.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "popover.component.ts",
+        "popover-trigger.directive.ts",
+        "popover-content.component.ts",
+        "popover-close.directive.ts",
+        "popover.context.ts",
+        "popover.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "context-menu.component.ts",
+        "context-menu.tokens.ts",
+        "context-menu.variants.ts",
+        "context-menu-trigger.directive.ts",
+        "context-menu-content.component.ts",
+        "context-menu-item.component.ts",
+        "context-menu-checkbox-item.component.ts",
+        "context-menu-radio-group.component.ts",
+        "context-menu-radio-item.component.ts",
+        "context-menu-sub.component.ts",
+        "context-menu-sub-trigger.component.ts",
+        "context-menu-sub-content.component.ts",
+        "context-menu-label.component.ts",
+        "context-menu-separator.component.ts",
+        "context-menu-shortcut.component.ts",
+        "context-menu-group.component.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "sidebar.context.ts",
+        "sidebar.variants.ts",
+        "sidebar-provider.component.ts",
+        "sidebar.component.ts",
+        "sidebar-trigger.component.ts",
+        "sidebar-rail.component.ts",
+        "sidebar-header.component.ts",
+        "sidebar-content.component.ts",
+        "sidebar-footer.component.ts",
+        "sidebar-group.component.ts",
+        "sidebar-group-label.component.ts",
+        "sidebar-group-action.component.ts",
+        "sidebar-menu.component.ts",
+        "sidebar-menu-item.component.ts",
+        "sidebar-menu-button.component.ts",
+        "sidebar-menu-badge.component.ts",
+        "sidebar-menu-action.component.ts",
+        "sidebar-separator.component.ts",
         "index.ts"
       ]
     }

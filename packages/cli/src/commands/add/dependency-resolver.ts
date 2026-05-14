@@ -52,11 +52,15 @@ export async function resolveDependencies(
   const toInstall: string[] = [];
   const npmPackages = new Set<string>();
   const visited = new Set<string>();
+  const visiting = new Set<string>();
   const installedPackages = getInstalledPackages(cwd);
 
   function visit(name: string) {
     if (visited.has(name)) return;
-    visited.add(name);
+    if (visiting.has(name)) {
+      throw new Error(`Circular dependency detected: ${[...visiting, name].join(' → ')}`);
+    }
+    visiting.add(name);
 
     if (!SAFE_NAME_RE.test(name)) throw new Error(`Invalid component name: "${name}"`);
     const entry = localRegistry.find((c) => c.name === name);
@@ -65,6 +69,9 @@ export async function resolveDependencies(
     for (const dep of entry.registryDependencies ?? []) {
       visit(dep);
     }
+
+    visited.add(name);
+    visiting.delete(name);
 
     const installed = isInstalled(name, config, cwd);
     if (!installed || options.overwrite) {

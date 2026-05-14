@@ -1,0 +1,45 @@
+import type { ComponentRegistry } from './types';
+
+export const navigationRegistry: ComponentRegistry[] = [
+  {
+    name: 'sidebar',
+    basePath: 'components/sidebar',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority', '@angular/common'],
+    files: [
+      'sidebar.context.ts',
+      'sidebar.variants.ts',
+      'sidebar-provider.component.ts',
+      'sidebar.component.ts',
+      'sidebar-trigger.component.ts',
+      'sidebar-rail.component.ts',
+      'sidebar-header.component.ts',
+      'sidebar-content.component.ts',
+      'sidebar-footer.component.ts',
+      'sidebar-group.component.ts',
+      'sidebar-group-label.component.ts',
+      'sidebar-group-action.component.ts',
+      'sidebar-menu.component.ts',
+      'sidebar-menu-item.component.ts',
+      'sidebar-menu-button.component.ts',
+      'sidebar-menu-badge.component.ts',
+      'sidebar-menu-action.component.ts',
+      'sidebar-separator.component.ts',
+      'index.ts',
+    ],
+  },
+  {
+    name: 'breadcrumb',
+    basePath: 'components/breadcrumb',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority'],
+    files: ['breadcrumb.component.ts', 'breadcrumb.variants.ts', 'index.ts'],
+  },
+  {
+    name: 'button-group',
+    basePath: 'components/button-group',
+    registryDependencies: ['utils', 'button'],
+    dependencies: ['class-variance-authority'],
+    files: ['button-group.component.ts', 'button-group.variants.ts', 'button-group.tokens.ts', 'index.ts'],
+  },
+];

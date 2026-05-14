@@ -63,19 +63,31 @@ function fetchJson<T>(url: string): Promise<T> {
   });
 }
 
-export async function fetchRegistryIndex(registryUrl?: string): Promise<RegistryIndex> {
+export async function fetchRegistryIndex(
+  registryUrl?: string,
+  opts?: { noCache?: boolean },
+): Promise<RegistryIndex> {
   const base = registryUrl ?? getRegistryUrl();
+  const skipCache = opts?.noCache === true || process.env['NEXUS_DISABLE_CACHE'] === '1';
   const now = Date.now();
-  if (indexCache && indexCache.base === base && now - indexCache.timestamp < CACHE_TTL) {
+  if (!skipCache && indexCache && indexCache.base === base && now - indexCache.timestamp < CACHE_TTL) {
     return indexCache.data;
   }
   const url = `${base}/registry.json`;
   const data = await fetchJson<RegistryIndex>(url);
-  indexCache = { base, data, timestamp: now };
+  if (!skipCache) {
+    indexCache = { base, data, timestamp: now };
+  }
   return data;
 }
 
-export async function fetchComponent(name: string, registryUrl?: string): Promise<RegistryItem> {
+export async function fetchComponent(
+  name: string,
+  registryUrl?: string,
+  opts?: { noCache?: boolean },
+): Promise<RegistryItem> {
+  // noCache is accepted for API consistency but component fetches are not cached
+  void opts;
   const base = registryUrl ?? getRegistryUrl();
   const url = `${base}/${name}.json`;
   return fetchJson<RegistryItem>(url);

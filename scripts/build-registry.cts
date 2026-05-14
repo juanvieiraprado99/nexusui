@@ -94,7 +94,43 @@ function buildComponentJson(component: ComponentRegistry): RegistryItem | null {
   };
 }
 
+function transformContent(content: string, utils: string, components: string): string {
+  let out = content;
+  out = out.replace(/from ['"]\.\.\/\.\.\/utils\/([\w\-./]+)['"]/g, (_m, p) => `from '${utils}/${p}'`);
+  out = out.replace(/from ['"]\.\.\/([\w\-]+)['"]/g, (_m, p) => `from '${components}/${p}'`);
+  out = out.replace(/from ['"]@\/shared\/utils\/([\w\-./]+)['"]/g, (_m, p) => `from '${utils}/${p}'`);
+  out = out.replace(/from ['"]@\/shared\/components\/([\w\-./]+)['"]/g, (_m, p) => `from '${components}/${p}'`);
+  return out;
+}
+
+function dryRunTransformCheck(items: RegistryItem[], strict: boolean): boolean {
+  const DUMMY_UTILS = '@app/shared/utils';
+  const DUMMY_COMPS = '@app/shared/components';
+  const BROKEN = [
+    /from ['"]\.\.\/\.\.\/utils\//,
+    /from ['"]@\/shared\/utils\//,
+    /from ['"]@\/shared\/components\//,
+    /from ['"]\.\.\//,
+  ];
+  let hasErrors = false;
+  for (const item of items) {
+    for (const file of item.files) {
+      const transformed = transformContent(file.content, DUMMY_UTILS, DUMMY_COMPS);
+      for (const re of BROKEN) {
+        const match = transformed.split('\n').find((line) => re.test(line));
+        if (match) {
+          console.error(`  [transform-error] ${item.name}/${file.name}: ${match.trim()}`);
+          hasErrors = true;
+        }
+      }
+    }
+  }
+  return hasErrors;
+}
+
 function main() {
+  const strict = process.argv.includes('--strict');
+
   fs.mkdirSync(OUTPUT_PATH, { recursive: true });
 
   const items: RegistryItem[] = [];
@@ -103,6 +139,23 @@ function main() {
 
   for (const component of registry as ComponentRegistry[]) {
     process.stdout.write(`  ${component.name}... `);
+
+    // Pre-flight: validate that every listed file exists on disk
+    const sourceDir = getSourceDir(component);
+    if (fs.existsSync(sourceDir)) {
+      for (const fileName of component.files) {
+        const filePath = path.join(sourceDir, fileName);
+        if (!fs.existsSync(filePath)) {
+          const msg = `[preflight] ${component.name}/${fileName} listed in registry but not found on disk`;
+          if (strict) {
+            throw new Error(msg);
+          } else {
+            console.warn(`\n  [warn] ${msg}`);
+          }
+        }
+      }
+    }
+
     const item = buildComponentJson(component);
     if (!item) continue;
 
@@ -129,6 +182,14 @@ function main() {
   fs.writeFileSync(indexPath, JSON.stringify(index, null, 2) + '\n');
 
   console.log(`\nDone! ${items.length} components → ${OUTPUT_PATH}`);
+
+  if (process.argv.includes('--dry-run-transform')) {
+    console.log('\nRunning dry-run transform check...');
+    const hasErrors = dryRunTransformCheck(items, strict);
+    if (hasErrors && strict) {
+      process.exit(1);
+    }
+  }
 }
 
 main();

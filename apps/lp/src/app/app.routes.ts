@@ -117,6 +117,54 @@ export const routes: Routes = [
       import('./pages/components/textarea/textarea-doc.page').then((m) => m.TextareaDocPage),
   },
   {
+    path: 'components/alert',
+    loadComponent: () => import('./pages/components/alert/alert-doc.page').then((m) => m.AlertDocPage),
+  },
+  {
+    path: 'components/card',
+    loadComponent: () => import('./pages/components/card/card-doc.page').then((m) => m.CardDocPage),
+  },
+  {
+    path: 'components/collapsible',
+    loadComponent: () => import('./pages/components/collapsible/collapsible-doc.page').then((m) => m.CollapsibleDocPage),
+  },
+  {
+    path: 'components/context-menu',
+    loadComponent: () => import('./pages/components/context-menu/context-menu-doc.page').then((m) => m.ContextMenuDocPage),
+  },
+  {
+    path: 'components/data-table',
+    loadComponent: () => import('./pages/components/data-table/data-table-doc.page').then((m) => m.DataTableDocPage),
+  },
+  {
+    path: 'components/drawer',
+    loadComponent: () => import('./pages/components/drawer/drawer-doc.page').then((m) => m.DrawerDocPage),
+  },
+  {
+    path: 'components/popover',
+    loadComponent: () => import('./pages/components/popover/popover-doc.page').then((m) => m.PopoverDocPage),
+  },
+  {
+    path: 'components/sidebar',
+    loadComponent: () => import('./pages/components/sidebar/sidebar-doc.page').then((m) => m.SidebarDocPage),
+  },
+  {
+    path: 'components/button-group',
+    loadComponent: () => import('./pages/components/button-group/button-group-doc.page').then((m) => m.ButtonGroupDocPage),
+  },
+  {
+    path: 'components/dialog',
+    loadComponent: () => import('./pages/components/dialog/dialog-doc.page').then((m) => m.DialogDocPage),
+  },
+  {
+    path: 'components/calendar',
+    loadComponent: () => import('./pages/components/calendar/calendar-doc.page').then((m) => m.CalendarDocPage),
+  },
+  {
+    path: 'cli',
+    loadComponent: () => import('./pages/cli/cli.page').then((m) => m.CliPage),
+  },
+  {
     path: 'get-started',
     loadComponent: () =>
       import('./pages/get-started/get-started.page').then((m) => m.GetStartedPage),

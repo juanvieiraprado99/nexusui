@@ -106,7 +106,22 @@
       "Bash(Format-Table -AutoSize)",
       "Bash(Remove-Item \"C:\\\\repos\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\datepicker\\\\demo\\\\inline-calendar.ts\" -Force)",
       "Bash(Remove-Item \"C:\\\\repos\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\\\\datepicker\\\\datepicker-calendar.component.ts\" -Force)",
-      "Bash(Write-Output \"Deleted\")"
+      "Bash(Write-Output \"Deleted\")",
+      "Bash(Remove-Item -Recurse -Force \".nx\\\\workspace-data\" -ErrorAction SilentlyContinue)",
+      "Bash(drawer)",
+      "Bash(collapsible)",
+      "Bash(disclosure\")",
+      "Bash(powershell *)",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\repos\\\\nexus\\\\nexusui\\\\libs\\\\nexus\\\\src\\\\lib\\\\shared\\\\components\" | Where-Object { $_.PSIsContainer } | Select-Object -ExpandProperty Name)",
+      "Bash(New-Item -ItemType Directory -Force \"C:\\\\repos\\\\nexus\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app\\\\shared\\\\components\\\\calendar\")",
+      "Bash(Out-Null)",
+      "Bash(New-Item -ItemType Directory -Force \"C:\\\\repos\\\\nexus\\\\nexusui\\\\apps\\\\lp\\\\src\\\\app\\\\pages\\\\components\\\\calendar\")",
+      "Bash(Write-Host \"dirs created\")",
+      "PowerShell(New-Item *)",
+      "PowerShell(Copy-Item *)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "Bash(Sort-Object FullName)",
+      "Bash(npx vitest *)"
     ]
   }
 }

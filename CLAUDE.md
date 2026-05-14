@@ -89,8 +89,10 @@ npm run build:cli
 npm run build:registry
 # one-shot: generate apps/web/public/r/*.json
 
-npm run generate:component -- --name=foo
-# Nx schematic: scaffolds libs/nexus component files + registry-data.ts entry
+# npm run generate:component -- --name=foo
+# NOTE: Nx schematic (tools/generators/) is not yet implemented.
+# To add a new component, manually create the files under libs/nexus/src/lib/shared/components/{name}/
+# and add an entry to packages/cli/src/core/registry/data/<category>.ts
 ```
 
 ### Nx targets on `libs/nexus`

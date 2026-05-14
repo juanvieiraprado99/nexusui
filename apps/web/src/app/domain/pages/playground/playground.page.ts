@@ -151,6 +151,18 @@ import { AlertVariantsDemo } from '@nexus/lib/shared/components/alert/demo/varia
 import { AlertDismissibleDemo } from '@nexus/lib/shared/components/alert/demo/dismissible';
 import { AlertAutoDismissDemo } from '@nexus/lib/shared/components/alert/demo/auto-dismiss';
 
+// Card demos
+import { CardDemoDefault } from '@nexus/lib/shared/components/card/demo/default';
+import { CardDemoVariants } from '@nexus/lib/shared/components/card/demo/variants';
+import { CardDemoClickable } from '@nexus/lib/shared/components/card/demo/clickable';
+import { CardDemoLoading } from '@nexus/lib/shared/components/card/demo/loading';
+
+// Drawer demos
+import { DrawerDefaultDemo } from '@nexus/lib/shared/components/drawer/demo/default';
+import { DrawerPositionsDemo } from '@nexus/lib/shared/components/drawer/demo/positions';
+import { DrawerSizesDemo } from '@nexus/lib/shared/components/drawer/demo/sizes';
+import { DrawerNavigationDemo } from '@nexus/lib/shared/components/drawer/demo/navigation';
+
 // Dialog demos
 import { DialogAlertDemo } from '@nexus/lib/shared/components/dialog/demo/alert-dialog';
 import { DialogDefaultDemo } from '@nexus/lib/shared/components/dialog/demo/default';
@@ -165,6 +177,40 @@ import { InputOtpDemoMasked } from '@nexus/lib/shared/components/input-otp/demo/
 import { InputOtpDemoWithSeparator } from '@nexus/lib/shared/components/input-otp/demo/with-separator';
 import { InputOtpDemoWithForm } from '@nexus/lib/shared/components/input-otp/demo/with-form';
 import { InputOtpDemoAutoSubmit } from '@nexus/lib/shared/components/input-otp/demo/auto-submit';
+
+// Collapsible demos
+import { CollapsibleDefaultDemo } from '@nexus/lib/shared/components/collapsible/demo/default';
+import { CollapsibleControlledDemo } from '@nexus/lib/shared/components/collapsible/demo/controlled';
+import { CollapsibleLazyDemo } from '@nexus/lib/shared/components/collapsible/demo/lazy';
+import { CollapsibleVariantsDemo } from '@nexus/lib/shared/components/collapsible/demo/variants';
+
+// Context Menu demos
+import { ContextMenuDefaultDemo } from '@nexus/lib/shared/components/context-menu/demo/default';
+import { ContextMenuWithCheckboxesDemo } from '@nexus/lib/shared/components/context-menu/demo/with-checkboxes';
+import { ContextMenuWithRadioGroupDemo } from '@nexus/lib/shared/components/context-menu/demo/with-radio-group';
+import { ContextMenuWithSubmenuDemo } from '@nexus/lib/shared/components/context-menu/demo/with-submenu';
+import { ContextMenuWithShortcutsDemo } from '@nexus/lib/shared/components/context-menu/demo/with-shortcuts';
+
+// Data Table demos
+import { DataTableDefaultDemo } from '@nexus/lib/shared/components/data-table/demo/default';
+import { DataTableSortableDemo } from '@nexus/lib/shared/components/data-table/demo/sortable';
+import { DataTableWithSelectionDemo } from '@nexus/lib/shared/components/data-table/demo/with-selection';
+import { DataTableLoadingDemo } from '@nexus/lib/shared/components/data-table/demo/loading';
+import { DataTableWithFilterDemo } from '@nexus/lib/shared/components/data-table/demo/with-filter';
+import { DataTableServerSideDemo } from '@nexus/lib/shared/components/data-table/demo/server-side';
+import { DataTableCustomCellDemo } from '@nexus/lib/shared/components/data-table/demo/custom-cell';
+import { DataTableServerSidePaginatedDemo } from '@nexus/lib/shared/components/data-table/demo/server-side-paginated';
+import { DataTableWithPaginationDemo } from '@nexus/lib/shared/components/data-table/demo/with-pagination';
+
+// Popover demos
+import { PopoverDefaultDemo } from '@nexus/lib/shared/components/popover/demo/default';
+import { PopoverWithFormDemo } from '@nexus/lib/shared/components/popover/demo/with-form';
+import { PopoverPlacementDemo } from '@nexus/lib/shared/components/popover/demo/placement';
+import { PopoverHoverDemo } from '@nexus/lib/shared/components/popover/demo/hover';
+
+// Sidebar demos
+import { SidebarDefaultDemo } from '@nexus/lib/shared/components/sidebar/demo/default';
+import { SidebarCollapsibleGroupsDemo } from '@nexus/lib/shared/components/sidebar/demo/collapsible-groups';
 
 // Radio demos
 import { RadioCardDemo } from '@nexus/lib/shared/components/radio/demo/card';
@@ -221,6 +267,14 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     AlertVariantsDemo,
     AlertDismissibleDemo,
     AlertAutoDismissDemo,
+    CardDemoDefault,
+    CardDemoVariants,
+    CardDemoClickable,
+    CardDemoLoading,
+    DrawerDefaultDemo,
+    DrawerPositionsDemo,
+    DrawerSizesDemo,
+    DrawerNavigationDemo,
     DialogDefaultDemo,
     DialogSizesDemo,
     DialogScrollableDemo,
@@ -246,6 +300,15 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     AccordionMultipleDemo,
     AccordionDisabledDemo,
     AccordionCustomIconDemo,
+    CollapsibleDefaultDemo,
+    CollapsibleControlledDemo,
+    CollapsibleLazyDemo,
+    CollapsibleVariantsDemo,
+    ContextMenuDefaultDemo,
+    ContextMenuWithCheckboxesDemo,
+    ContextMenuWithRadioGroupDemo,
+    ContextMenuWithSubmenuDemo,
+    ContextMenuWithShortcutsDemo,
     SwitchDemoDefault,
     SwitchDemoSizes,
     SwitchDemoColors,
@@ -268,6 +331,15 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     InputOtpDemoWithSeparator,
     InputOtpDemoWithForm,
     InputOtpDemoAutoSubmit,
+    DataTableDefaultDemo,
+    DataTableSortableDemo,
+    DataTableWithSelectionDemo,
+    DataTableLoadingDemo,
+    DataTableWithFilterDemo,
+    DataTableServerSideDemo,
+    DataTableCustomCellDemo,
+    DataTableServerSidePaginatedDemo,
+    DataTableWithPaginationDemo,
     RadioDefaultDemo,
     RadioCardDemo,
     RadioColorsDemo,
@@ -311,6 +383,12 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     SeparatorWithIconDemo,
     SeparatorVariantsDemo,
     SeparatorGradientDemo,
+    PopoverDefaultDemo,
+    PopoverWithFormDemo,
+    PopoverPlacementDemo,
+    PopoverHoverDemo,
+    SidebarDefaultDemo,
+    SidebarCollapsibleGroupsDemo,
   ],
   template: `
     <div class="mx-auto max-w-5xl space-y-16 px-6 py-12">
@@ -386,6 +464,41 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAutoDismissDuration</code> hides after N ms.</p>
             <div class="flex min-h-16 items-center justify-center">
               <demo-alert-auto-dismiss class="w-full" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card -->
+      <section id="card">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Card</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Header + Content + Footer com sub-componentes compostos.</p>
+            <div class="flex min-h-40 items-center justify-center">
+              <demo-card-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
+            <p class="text-muted-foreground text-xs">default · elevated · filled · ghost.</p>
+            <div class="flex min-h-40 items-center justify-center">
+              <demo-card-variants />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Clickable + Selected</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nClickable</code> + <code class="bg-muted rounded px-1 font-mono">nSelected</code> — seletor de plano com teclado.</p>
+            <div class="flex min-h-40 items-center justify-center">
+              <demo-card-clickable />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nLoading</code> — overlay animado sobre conteúdo existente.</p>
+            <div class="flex min-h-40 items-center justify-center">
+              <demo-card-loading />
             </div>
           </div>
         </div>
@@ -490,6 +603,41 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Plus/Minus Icon</span>
             <div class="flex min-h-16 items-center justify-center">
               <demo-accordion-custom-icon class="w-full max-w-md" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Collapsible -->
+      <section id="collapsible">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Collapsible</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Single-item expand/collapse com chevron animado.</p>
+            <div class="flex min-h-24 items-center justify-center">
+              <demo-collapsible-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Controlled</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">[(nOpen)]</code> two-way binding com controle externo.</p>
+            <div class="flex min-h-24 items-center justify-center">
+              <demo-collapsible-controlled />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Lazy</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nLazy</code> — desmonta o conteúdo ao fechar.</p>
+            <div class="flex min-h-24 items-center justify-center">
+              <demo-collapsible-lazy />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
+            <p class="text-muted-foreground text-xs">default · bordered · card — padding herdado via contexto.</p>
+            <div class="flex min-h-24 items-center justify-center">
+              <demo-collapsible-variants />
             </div>
           </div>
         </div>
@@ -898,6 +1046,85 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
         </div>
       </section>
 
+      <!-- Context Menu -->
+      <section id="context-menu">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Context Menu</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Right-click na área — itens padrão + item destructive.</p>
+            <div class="flex min-h-48 items-center justify-center">
+              <demo-context-menu-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Checkbox Items</span>
+            <p class="text-muted-foreground text-xs">Toggle de opções sem fechar o menu — <code class="bg-muted rounded px-1 font-mono">[(nChecked)]</code>.</p>
+            <div class="flex min-h-48 items-center justify-center">
+              <demo-context-menu-with-checkboxes />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Radio Group</span>
+            <p class="text-muted-foreground text-xs">Seleção exclusiva via <code class="bg-muted rounded px-1 font-mono">n-context-menu-radio-group</code> + <code class="bg-muted rounded px-1 font-mono">[(nValue)]</code>.</p>
+            <div class="flex min-h-48 items-center justify-center">
+              <demo-context-menu-with-radio-group />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Submenu</span>
+            <p class="text-muted-foreground text-xs">Menu aninhado via <code class="bg-muted rounded px-1 font-mono">n-context-menu-sub</code> — conectado ao trigger element.</p>
+            <div class="flex min-h-48 items-center justify-center">
+              <demo-context-menu-with-submenu />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Shortcuts</span>
+            <p class="text-muted-foreground text-xs">Atalhos de teclado via <code class="bg-muted rounded px-1 font-mono">n-context-menu-shortcut</code> alinhados à direita.</p>
+            <div class="flex min-h-48 items-center justify-center">
+              <demo-context-menu-with-shortcuts />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Drawer -->
+      <section id="drawer">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Drawer</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Drawer básico com header, body scrollável e footer.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-drawer-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Positions</span>
+            <p class="text-muted-foreground text-xs">left · right · top · bottom — animação deslizante por borda.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-drawer-positions />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <p class="text-muted-foreground text-xs">sm / md / lg / xl / full — largura (left/right) ou altura (top/bottom).</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-drawer-sizes />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Navigation</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nRole="navigation"</code> — menu lateral com links.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-drawer-navigation />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Dialog -->
       <section id="dialog">
         <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Dialog</h2>
@@ -1263,6 +1490,58 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
         </div>
       </section>
 
+      <!-- Data Table -->
+      <section id="data-table">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Data Table</h2>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Tabela básica com dados estáticos.</p>
+            <demo-data-table-default />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sortable</span>
+            <p class="text-muted-foreground text-xs">Colunas com <code class="bg-muted rounded px-1 font-mono">sortable: true</code> — clique no header para ordenar asc/desc/none.</p>
+            <demo-data-table-sortable />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Row Selection</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nSelectable</code> + <code class="bg-muted rounded px-1 font-mono">[(nSelectedRows)]</code> — checkbox individual e select-all com indeterminate.</p>
+            <demo-data-table-with-selection />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading (Skeleton)</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nLoading</code> exibe skeleton rows — <code class="bg-muted rounded px-1 font-mono">nSkeletonRows</code> controla quantidade.</p>
+            <demo-data-table-loading />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Filter + Column Toggle</span>
+            <p class="text-muted-foreground text-xs">Busca global via <code class="bg-muted rounded px-1 font-mono">nFilterValue</code> + <code class="bg-muted rounded px-1 font-mono">n-data-table-column-toggle</code> para visibilidade de colunas.</p>
+            <demo-data-table-with-filter />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Server-side (sem paginação)</span>
+            <p class="text-muted-foreground text-xs">Busca real na API JSONPlaceholder <code class="bg-muted rounded px-1 font-mono">/users</code> — sort e filter via query params, debounce 400ms.</p>
+            <demo-data-table-server-side />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Server-side + Paginação</span>
+            <p class="text-muted-foreground text-xs">API JSONPlaceholder <code class="bg-muted rounded px-1 font-mono">/posts</code> — 100 posts com <code class="bg-muted rounded px-1 font-mono">_page</code> + <code class="bg-muted rounded px-1 font-mono">_limit</code>, total via <code class="bg-muted rounded px-1 font-mono">X-Total-Count</code>, integração com <code class="bg-muted rounded px-1 font-mono">n-pagination</code>.</p>
+            <demo-data-table-server-side-paginated />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Paginação Client-side</span>
+            <p class="text-muted-foreground text-xs">Dados estáticos com <code class="bg-muted rounded px-1 font-mono">n-pagination</code> — slice no componente, sem requisição extra.</p>
+            <demo-data-table-with-pagination />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Custom Cell Templates</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">cellTemplate</code> na definição de coluna — <code class="bg-muted rounded px-1 font-mono">ng-template</code> com contexto <code class="bg-muted rounded px-1 font-mono">$implicit</code> + <code class="bg-muted rounded px-1 font-mono">row</code>.</p>
+            <demo-data-table-custom-cell />
+          </div>
+        </div>
+      </section>
+
       <!-- Calendar -->
       <section class="flex flex-col gap-6">
         <h2 class="text-foreground text-xl font-semibold">Calendar</h2>
@@ -1296,6 +1575,64 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <div class="flex min-h-16 items-center justify-center">
               <demo-calendar-disabled />
             </div>
+          </div>
+        </div>
+      </section>
+      <!-- Popover -->
+      <section id="popover">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Popover</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Clique para abrir. Fecha ao clicar fora ou pressionar <code class="bg-muted rounded px-1 font-mono">Esc</code>.</p>
+            <div class="flex min-h-20 items-center justify-center">
+              <demo-popover-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Hover</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nTrigger="hover"</code> — abre ao passar o mouse, fecha ao sair.</p>
+            <div class="flex min-h-20 items-center justify-center">
+              <demo-popover-hover />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Placement</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nSide</code>: top · bottom · left · right. Flip automático se não couber.</p>
+            <div class="flex min-h-20 items-center justify-center">
+              <demo-popover-placement />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nModal</code> + <code class="bg-muted rounded px-1 font-mono">nPersistent</code> — focus trap, não fecha ao clicar fora.</p>
+            <div class="flex min-h-20 items-center justify-center">
+              <demo-popover-with-form />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar -->
+      <section id="sidebar">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Sidebar</h2>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default — Rail Mode (icon)</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nCollapsible="icon"</code> — colapsa para tira de ícones.
+              Use <kbd class="rounded border border-border px-1 text-xs">Ctrl+B</kbd> ou clique no trigger.
+              Estado salvo em <code class="bg-muted rounded px-1 font-mono">localStorage</code>.
+            </p>
+            <demo-sidebar-default />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Collapsible Groups — Offcanvas</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nCollapsible="offcanvas"</code> — sidebar some completamente.
+              Grupos de navegação com estado ativo.
+            </p>
+            <demo-sidebar-collapsible-groups />
           </div>
         </div>
       </section>

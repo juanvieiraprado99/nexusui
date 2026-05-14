@@ -3,6 +3,8 @@ import chalk from 'chalk';
 import ora from 'ora';
 import prompts from 'prompts';
 import { execSync } from 'child_process';
+import * as fs from 'fs';
+import * as path from 'path';
 import { readConfig } from '../../utils/config';
 import { fetchRegistryIndex } from '../../utils/registry';
 import { resolveDependencies } from './dependency-resolver';
@@ -13,7 +15,9 @@ export const addCommand = new Command('add')
   .argument('[components...]', 'Component names to add')
   .option('--overwrite', 'Overwrite existing components', false)
   .option('--all', 'Install all available components', false)
-  .action(async (components: string[], options: { overwrite: boolean; all: boolean }) => {
+  .option('--no-cache', 'Bypass registry cache', false)
+  .action(async (components: string[], options: { overwrite: boolean; all: boolean; cache: boolean }) => {
+    const noCache = !options.cache;
     const cwd = process.cwd();
 
     const config = readConfig(cwd);
@@ -27,7 +31,7 @@ export const addCommand = new Command('add')
     if (options.all) {
       const spinner = ora('Fetching registry...').start();
       try {
-        const index = await fetchRegistryIndex(config.registryUrl);
+        const index = await fetchRegistryIndex(config.registryUrl, { noCache });
         selected = index.items.map((i) => i.name);
         spinner.succeed('Registry fetched');
       } catch (err) {
@@ -39,7 +43,7 @@ export const addCommand = new Command('add')
       const spinner = ora('Fetching registry...').start();
       let index;
       try {
-        index = await fetchRegistryIndex(config.registryUrl);
+        index = await fetchRegistryIndex(config.registryUrl, { noCache });
         spinner.succeed('Registry fetched');
       } catch (err) {
         spinner.fail('Failed to fetch registry');
@@ -98,6 +102,8 @@ export const addCommand = new Command('add')
 
     if (resolved.npmPackages.length > 0) {
       const installSpinner = ora('Installing npm packages...').start();
+      const pkgJsonPath = path.join(cwd, 'package.json');
+      const pkgJsonBackup = fs.existsSync(pkgJsonPath) ? fs.readFileSync(pkgJsonPath, 'utf-8') : null;
       try {
         execSync(`${config.packageManager} install ${resolved.npmPackages.join(' ')}`, {
           cwd,
@@ -105,6 +111,9 @@ export const addCommand = new Command('add')
         });
         installSpinner.succeed('npm packages installed');
       } catch (err) {
+        if (pkgJsonBackup !== null) {
+          fs.writeFileSync(pkgJsonPath, pkgJsonBackup, 'utf-8');
+        }
         installSpinner.fail('Failed to install npm packages');
         console.error(chalk.red(String(err)));
         process.exit(1);
