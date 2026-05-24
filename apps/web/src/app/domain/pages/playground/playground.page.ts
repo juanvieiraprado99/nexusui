@@ -8,10 +8,10 @@ import { ButtonDemoVariants } from '@nexus/lib/shared/components/button/demo/var
 
 // Button Group demos
 import { ButtonGroupDefaultDemo } from '@nexus/lib/shared/components/button-group/demo/default';
-import { ButtonGroupVerticalDemo } from '@nexus/lib/shared/components/button-group/demo/vertical';
+import { ButtonGroupDisabledDemo } from '@nexus/lib/shared/components/button-group/demo/disabled';
 import { ButtonGroupSizesDemo } from '@nexus/lib/shared/components/button-group/demo/sizes';
 import { ButtonGroupVariantsDemo } from '@nexus/lib/shared/components/button-group/demo/variants';
-import { ButtonGroupDisabledDemo } from '@nexus/lib/shared/components/button-group/demo/disabled';
+import { ButtonGroupVerticalDemo } from '@nexus/lib/shared/components/button-group/demo/vertical';
 
 // Input demos
 import { InputDemoDefault } from '@nexus/lib/shared/components/input/demo/default';
@@ -146,22 +146,22 @@ import { PaginationSizesDemo } from '@nexus/lib/shared/components/pagination/dem
 import { PaginationWithPageSizeDemo } from '@nexus/lib/shared/components/pagination/demo/with-page-size';
 
 // Alert demos
-import { AlertDefaultDemo } from '@nexus/lib/shared/components/alert/demo/default';
-import { AlertVariantsDemo } from '@nexus/lib/shared/components/alert/demo/variants';
-import { AlertDismissibleDemo } from '@nexus/lib/shared/components/alert/demo/dismissible';
 import { AlertAutoDismissDemo } from '@nexus/lib/shared/components/alert/demo/auto-dismiss';
+import { AlertDefaultDemo } from '@nexus/lib/shared/components/alert/demo/default';
+import { AlertDismissibleDemo } from '@nexus/lib/shared/components/alert/demo/dismissible';
+import { AlertVariantsDemo } from '@nexus/lib/shared/components/alert/demo/variants';
 
 // Card demos
-import { CardDemoDefault } from '@nexus/lib/shared/components/card/demo/default';
-import { CardDemoVariants } from '@nexus/lib/shared/components/card/demo/variants';
 import { CardDemoClickable } from '@nexus/lib/shared/components/card/demo/clickable';
+import { CardDemoDefault } from '@nexus/lib/shared/components/card/demo/default';
 import { CardDemoLoading } from '@nexus/lib/shared/components/card/demo/loading';
+import { CardDemoVariants } from '@nexus/lib/shared/components/card/demo/variants';
 
 // Drawer demos
 import { DrawerDefaultDemo } from '@nexus/lib/shared/components/drawer/demo/default';
+import { DrawerNavigationDemo } from '@nexus/lib/shared/components/drawer/demo/navigation';
 import { DrawerPositionsDemo } from '@nexus/lib/shared/components/drawer/demo/positions';
 import { DrawerSizesDemo } from '@nexus/lib/shared/components/drawer/demo/sizes';
-import { DrawerNavigationDemo } from '@nexus/lib/shared/components/drawer/demo/navigation';
 
 // Dialog demos
 import { DialogAlertDemo } from '@nexus/lib/shared/components/dialog/demo/alert-dialog';
@@ -171,16 +171,16 @@ import { DialogSizesDemo } from '@nexus/lib/shared/components/dialog/demo/sizes'
 import { DialogWithFormDemo } from '@nexus/lib/shared/components/dialog/demo/with-form';
 
 // Input OTP demos
-import { InputOtpDemoDefault } from '@nexus/lib/shared/components/input-otp/demo/default';
-import { InputOtpDemoSizes } from '@nexus/lib/shared/components/input-otp/demo/sizes';
-import { InputOtpDemoMasked } from '@nexus/lib/shared/components/input-otp/demo/masked';
-import { InputOtpDemoWithSeparator } from '@nexus/lib/shared/components/input-otp/demo/with-separator';
-import { InputOtpDemoWithForm } from '@nexus/lib/shared/components/input-otp/demo/with-form';
 import { InputOtpDemoAutoSubmit } from '@nexus/lib/shared/components/input-otp/demo/auto-submit';
+import { InputOtpDemoDefault } from '@nexus/lib/shared/components/input-otp/demo/default';
+import { InputOtpDemoMasked } from '@nexus/lib/shared/components/input-otp/demo/masked';
+import { InputOtpDemoSizes } from '@nexus/lib/shared/components/input-otp/demo/sizes';
+import { InputOtpDemoWithForm } from '@nexus/lib/shared/components/input-otp/demo/with-form';
+import { InputOtpDemoWithSeparator } from '@nexus/lib/shared/components/input-otp/demo/with-separator';
 
 // Collapsible demos
-import { CollapsibleDefaultDemo } from '@nexus/lib/shared/components/collapsible/demo/default';
 import { CollapsibleControlledDemo } from '@nexus/lib/shared/components/collapsible/demo/controlled';
+import { CollapsibleDefaultDemo } from '@nexus/lib/shared/components/collapsible/demo/default';
 import { CollapsibleLazyDemo } from '@nexus/lib/shared/components/collapsible/demo/lazy';
 import { CollapsibleVariantsDemo } from '@nexus/lib/shared/components/collapsible/demo/variants';
 
@@ -188,29 +188,81 @@ import { CollapsibleVariantsDemo } from '@nexus/lib/shared/components/collapsibl
 import { ContextMenuDefaultDemo } from '@nexus/lib/shared/components/context-menu/demo/default';
 import { ContextMenuWithCheckboxesDemo } from '@nexus/lib/shared/components/context-menu/demo/with-checkboxes';
 import { ContextMenuWithRadioGroupDemo } from '@nexus/lib/shared/components/context-menu/demo/with-radio-group';
-import { ContextMenuWithSubmenuDemo } from '@nexus/lib/shared/components/context-menu/demo/with-submenu';
 import { ContextMenuWithShortcutsDemo } from '@nexus/lib/shared/components/context-menu/demo/with-shortcuts';
+import { ContextMenuWithSubmenuDemo } from '@nexus/lib/shared/components/context-menu/demo/with-submenu';
+
+// Table demos
+import { TableBorderedDemo } from '@nexus/lib/shared/components/table/demo/bordered';
+import { TableCompactDemo } from '@nexus/lib/shared/components/table/demo/compact';
+import { TableDefaultDemo } from '@nexus/lib/shared/components/table/demo/default';
+import { TableScrollableDemo } from '@nexus/lib/shared/components/table/demo/scrollable';
+import { TableStripedDemo } from '@nexus/lib/shared/components/table/demo/striped';
+import { TableWithCaptionDemo } from '@nexus/lib/shared/components/table/demo/with-caption';
+import { TableWithFooterDemo } from '@nexus/lib/shared/components/table/demo/with-footer';
 
 // Data Table demos
-import { DataTableDefaultDemo } from '@nexus/lib/shared/components/data-table/demo/default';
-import { DataTableSortableDemo } from '@nexus/lib/shared/components/data-table/demo/sortable';
-import { DataTableWithSelectionDemo } from '@nexus/lib/shared/components/data-table/demo/with-selection';
-import { DataTableLoadingDemo } from '@nexus/lib/shared/components/data-table/demo/loading';
-import { DataTableWithFilterDemo } from '@nexus/lib/shared/components/data-table/demo/with-filter';
-import { DataTableServerSideDemo } from '@nexus/lib/shared/components/data-table/demo/server-side';
 import { DataTableCustomCellDemo } from '@nexus/lib/shared/components/data-table/demo/custom-cell';
+import { DataTableDefaultDemo } from '@nexus/lib/shared/components/data-table/demo/default';
+import { DataTableLoadingDemo } from '@nexus/lib/shared/components/data-table/demo/loading';
+import { DataTableServerSideDemo } from '@nexus/lib/shared/components/data-table/demo/server-side';
 import { DataTableServerSidePaginatedDemo } from '@nexus/lib/shared/components/data-table/demo/server-side-paginated';
+import { DataTableSortableDemo } from '@nexus/lib/shared/components/data-table/demo/sortable';
+import { DataTableWithFilterDemo } from '@nexus/lib/shared/components/data-table/demo/with-filter';
 import { DataTableWithPaginationDemo } from '@nexus/lib/shared/components/data-table/demo/with-pagination';
+import { DataTableWithSelectionDemo } from '@nexus/lib/shared/components/data-table/demo/with-selection';
 
 // Popover demos
 import { PopoverDefaultDemo } from '@nexus/lib/shared/components/popover/demo/default';
-import { PopoverWithFormDemo } from '@nexus/lib/shared/components/popover/demo/with-form';
-import { PopoverPlacementDemo } from '@nexus/lib/shared/components/popover/demo/placement';
 import { PopoverHoverDemo } from '@nexus/lib/shared/components/popover/demo/hover';
+import { PopoverPlacementDemo } from '@nexus/lib/shared/components/popover/demo/placement';
+import { PopoverWithFormDemo } from '@nexus/lib/shared/components/popover/demo/with-form';
 
 // Sidebar demos
-import { SidebarDefaultDemo } from '@nexus/lib/shared/components/sidebar/demo/default';
 import { SidebarCollapsibleGroupsDemo } from '@nexus/lib/shared/components/sidebar/demo/collapsible-groups';
+import { SidebarDefaultDemo } from '@nexus/lib/shared/components/sidebar/demo/default';
+
+// Form demos
+import { FormDemoDefault } from '@nexus/lib/shared/components/form/demo/default';
+import { FormDemoRequired } from '@nexus/lib/shared/components/form/demo/required';
+import { FormDemoValidation } from '@nexus/lib/shared/components/form/demo/validation';
+
+// Progress Bar demos
+import { ProgressBarDemoAnimations } from '@nexus/lib/shared/components/progress-bar/demo/animations';
+import { ProgressBarDemoDefault } from '@nexus/lib/shared/components/progress-bar/demo/default';
+import { ProgressBarDemoIndeterminate } from '@nexus/lib/shared/components/progress-bar/demo/indeterminate';
+import { ProgressBarDemoShowValue } from '@nexus/lib/shared/components/progress-bar/demo/show-value';
+import { ProgressBarDemoSizes } from '@nexus/lib/shared/components/progress-bar/demo/sizes';
+import { ProgressBarDemoStriped } from '@nexus/lib/shared/components/progress-bar/demo/striped';
+import { ProgressBarDemoVariants } from '@nexus/lib/shared/components/progress-bar/demo/variants';
+
+// Tabs demos
+import { TabsControlledDemo } from '@nexus/lib/shared/components/tabs/demo/tabs-controlled';
+import { TabsDefaultDemo } from '@nexus/lib/shared/components/tabs/demo/tabs-default';
+import { TabsVariantsDemo } from '@nexus/lib/shared/components/tabs/demo/tabs-variants';
+import { TabsVerticalDemo } from '@nexus/lib/shared/components/tabs/demo/tabs-vertical';
+
+// Signature demos
+import { SignatureDemoDefault } from '@nexus/lib/shared/components/signature/demo/default';
+import { SignatureDemoOutputFormats } from '@nexus/lib/shared/components/signature/demo/output-formats';
+import { SignatureDemoWithForm } from '@nexus/lib/shared/components/signature/demo/with-form';
+
+// Input Group demos
+import { InputGroupClearableDemo } from '@nexus/lib/shared/components/input-group/demo/clearable';
+import { InputGroupCopyableDemo } from '@nexus/lib/shared/components/input-group/demo/copyable';
+import { InputGroupDefaultDemo } from '@nexus/lib/shared/components/input-group/demo/default';
+import { InputGroupDisabledDemo } from '@nexus/lib/shared/components/input-group/demo/disabled';
+import { InputGroupLoadingDemo } from '@nexus/lib/shared/components/input-group/demo/loading';
+import { InputGroupSizesDemo } from '@nexus/lib/shared/components/input-group/demo/sizes';
+import { InputGroupTextareaDemo } from '@nexus/lib/shared/components/input-group/demo/textarea';
+import { InputGroupWithButtonDemo } from '@nexus/lib/shared/components/input-group/demo/with-button';
+import { InputGroupWithIconDemo } from '@nexus/lib/shared/components/input-group/demo/with-icon';
+
+// Color Picker demos
+import { ColorPickerDefaultDemo } from '@nexus/lib/shared/components/color-picker/demo/default';
+import { ColorPickerFormatsDemo } from '@nexus/lib/shared/components/color-picker/demo/formats';
+import { ColorPickerInlineDemo } from '@nexus/lib/shared/components/color-picker/demo/inline';
+import { ColorPickerWithAlphaDemo } from '@nexus/lib/shared/components/color-picker/demo/with-alpha';
+import { ColorPickerWithPresetsDemo } from '@nexus/lib/shared/components/color-picker/demo/with-presets';
 
 // Radio demos
 import { RadioCardDemo } from '@nexus/lib/shared/components/radio/demo/card';
@@ -331,6 +383,13 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     InputOtpDemoWithSeparator,
     InputOtpDemoWithForm,
     InputOtpDemoAutoSubmit,
+    TableDefaultDemo,
+    TableStripedDemo,
+    TableBorderedDemo,
+    TableCompactDemo,
+    TableWithCaptionDemo,
+    TableWithFooterDemo,
+    TableScrollableDemo,
     DataTableDefaultDemo,
     DataTableSortableDemo,
     DataTableWithSelectionDemo,
@@ -389,6 +448,37 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     PopoverHoverDemo,
     SidebarDefaultDemo,
     SidebarCollapsibleGroupsDemo,
+    FormDemoDefault,
+    FormDemoValidation,
+    FormDemoRequired,
+    ProgressBarDemoDefault,
+    ProgressBarDemoSizes,
+    ProgressBarDemoVariants,
+    ProgressBarDemoIndeterminate,
+    ProgressBarDemoShowValue,
+    ProgressBarDemoStriped,
+    ProgressBarDemoAnimations,
+    TabsDefaultDemo,
+    TabsVariantsDemo,
+    TabsVerticalDemo,
+    TabsControlledDemo,
+    SignatureDemoDefault,
+    SignatureDemoWithForm,
+    SignatureDemoOutputFormats,
+    InputGroupDefaultDemo,
+    InputGroupWithButtonDemo,
+    InputGroupWithIconDemo,
+    InputGroupClearableDemo,
+    InputGroupCopyableDemo,
+    InputGroupDisabledDemo,
+    InputGroupLoadingDemo,
+    InputGroupSizesDemo,
+    InputGroupTextareaDemo,
+    ColorPickerDefaultDemo,
+    ColorPickerWithAlphaDemo,
+    ColorPickerWithPresetsDemo,
+    ColorPickerInlineDemo,
+    ColorPickerFormatsDemo,
   ],
   template: `
     <div class="mx-auto max-w-5xl space-y-16 px-6 py-12">
@@ -813,6 +903,76 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <p class="text-muted-foreground text-xs">Full reactive forms integration via <code class="bg-muted rounded px-1 font-mono">formControlName</code>.</p>
             <div class="flex min-h-16 items-center justify-center">
               <demo-input-otp-with-form />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Input Group -->
+      <section id="input-group">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Input Group</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Addon de texto antes do campo via <code class="bg-muted rounded px-1 font-mono">nAddonBefore</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-group-default class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Com Ícone</span>
+            <p class="text-muted-foreground text-xs">Addon com <code class="bg-muted rounded px-1 font-mono">TemplateRef</code> — SVG inline passado via <code class="bg-muted rounded px-1 font-mono">[nAddonBefore]</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-group-with-icon class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Com Botão</span>
+            <p class="text-muted-foreground text-xs">Addon com <code class="bg-muted rounded px-1 font-mono">n-button</code> via <code class="bg-muted rounded px-1 font-mono">[nAddonAfter]</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-group-with-button class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Clearable</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nClearable</code> — botão X aparece ao digitar, limpa o campo.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-group-clearable class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Copyable</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nCopyable</code> — copia para clipboard com feedback visual.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-group-copyable class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nLoading</code> — spinner no campo, desabilita interação.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-group-loading class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nDisabled</code> — estado desabilitado visual no grupo inteiro.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-input-group-disabled class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <p class="text-muted-foreground text-xs">sm · default · lg — propagados ao input interno.</p>
+            <div class="flex min-h-24 items-center justify-center">
+              <demo-input-group-sizes class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Textarea</span>
+            <p class="text-muted-foreground text-xs">Addons detectados automaticamente em modo bloco — acima e abaixo do textarea.</p>
+            <div class="flex min-h-24 items-center justify-center">
+              <demo-input-group-textarea class="w-full max-w-lg" />
             </div>
           </div>
         </div>
@@ -1490,6 +1650,48 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
         </div>
       </section>
 
+      <!-- Table -->
+      <section id="table">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Table</h2>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Tabela básica com header, body e linhas.</p>
+            <demo-table-default />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Striped</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nVariant="striped"</code> — linhas alternadas com fundo sutil.</p>
+            <demo-table-striped />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Bordered</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nVariant="bordered"</code> — borda em todas as células.</p>
+            <demo-table-bordered />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Compact</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nSize="compact"</code> — padding reduzido e fonte menor.</p>
+            <demo-table-compact />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Caption</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">caption[n-table-caption]</code> — legenda abaixo da tabela.</p>
+            <demo-table-with-caption />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Footer</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">tfoot[n-table-footer]</code> — rodapé para totais e sumários.</p>
+            <demo-table-with-footer />
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Scrollable</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">n-table-scroll</code> — wrapper com <code class="bg-muted rounded px-1 font-mono">overflow-x-auto</code> para tabelas largas em telas pequenas.</p>
+            <demo-table-scrollable />
+          </div>
+        </div>
+      </section>
+
       <!-- Data Table -->
       <section id="data-table">
         <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Data Table</h2>
@@ -1613,6 +1815,104 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
         </div>
       </section>
 
+      <!-- Form -->
+      <section id="form">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Form</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">n-form-field</code> +
+              <code class="bg-muted rounded px-1 font-mono">n-form-control</code> +
+              <code class="bg-muted rounded px-1 font-mono">n-form-description</code>.
+              Label auto-linked via context.
+            </p>
+            <div class="flex min-h-20 items-center justify-center">
+              <demo-form-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Required</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nRequired</code> no label — asterisco visual, sem lógica de validação no componente.
+            </p>
+            <div class="flex min-h-20 items-center justify-center">
+              <demo-form-required />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Validation</span>
+            <p class="text-muted-foreground text-xs">
+              Reactive form com
+              <code class="bg-muted rounded px-1 font-mono">nType="error"</code> no
+              <code class="bg-muted rounded px-1 font-mono">n-form-message</code>.
+              Label com <code class="bg-muted rounded px-1 font-mono">nInvalid</code>.
+              ARIA <code class="bg-muted rounded px-1 font-mono">aria-describedby</code> via
+              <code class="bg-muted rounded px-1 font-mono">ctrl.messageId()</code>.
+            </p>
+            <div class="flex min-h-20 items-center justify-center">
+              <demo-form-validation />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Progress Bar -->
+      <section id="progress-bar">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Progress Bar</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Determinate progress via <code class="bg-muted rounded px-1 font-mono">nValue</code> (0–100).</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-progress-bar-default class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Indeterminate</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nIndeterminate</code> — animated, for unknown duration.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-progress-bar-indeterminate class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nSize</code>: sm · default · lg.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-progress-bar-sizes class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nVariant</code>: default · success · warning · destructive.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-progress-bar-variants class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Show Value</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nShowValue</code> renders percentage label. Animated width transition via <code class="bg-muted rounded px-1 font-mono">nAnimated</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-progress-bar-show-value class="w-full max-w-sm" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Striped</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nStriped</code> — diagonal stripe pattern, animated when <code class="bg-muted rounded px-1 font-mono">nAnimated</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-progress-bar-striped class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Animation variants</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAnimation</code>: slide · bounce · pulse + striped indeterminate.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-progress-bar-animations class="w-full" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Sidebar -->
       <section id="sidebar">
         <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Sidebar</h2>
@@ -1633,6 +1933,111 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
               Grupos de navegação com estado ativo.
             </p>
             <demo-sidebar-collapsible-groups />
+          </div>
+        </div>
+      </section>
+
+      <!-- Signature -->
+      <section id="signature">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Signature</h2>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Mouse no desktop, dedo/caneta no mobile. Undo, clear, placeholder.</p>
+            <div class="flex min-h-48 items-start justify-start">
+              <demo-signature-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Reactive Form</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">formControlName</code> com validação obrigatória — erro aparece ao submeter sem assinar.</p>
+            <div class="flex min-h-48 items-start justify-start">
+              <demo-signature-with-form />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Output Formats</span>
+            <p class="text-muted-foreground text-xs">Alterne entre <code class="bg-muted rounded px-1 font-mono">base64-png</code>, <code class="bg-muted rounded px-1 font-mono">base64-svg</code> e <code class="bg-muted rounded px-1 font-mono">svg</code> e veja a saída ao vivo.</p>
+            <div class="flex min-h-48 items-start justify-start">
+              <demo-signature-output-formats />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tabs -->
+      <section id="tabs">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Tabs</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default (pills)</span>
+            <p class="text-muted-foreground text-xs">Variante padrão com <code class="bg-muted rounded px-1 font-mono">nDefaultValue</code>.</p>
+            <div class="flex min-h-24 items-start justify-start">
+              <demo-tabs-default class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Controlled</span>
+            <p class="text-muted-foreground text-xs">Modo controlado via <code class="bg-muted rounded px-1 font-mono">[(nValue)]</code> com controle externo.</p>
+            <div class="flex min-h-24 items-start justify-start">
+              <demo-tabs-controlled class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants — pills · line · boxed</span>
+            <p class="text-muted-foreground text-xs">Três estilos visuais. Cada um adapta borda ativa ao eixo da orientação.</p>
+            <div class="flex min-h-24 items-start justify-start">
+              <demo-tabs-variants class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Vertical + Disabled</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nOrientation="vertical"</code> — border-r ativo. Última aba desabilitada.</p>
+            <div class="flex min-h-32 items-start justify-start">
+              <demo-tabs-vertical class="w-full" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Color Picker -->
+      <section id="color-picker">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Color Picker</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default (popup)</span>
+            <p class="text-muted-foreground text-xs">Picker em popup com output HEX. <code class="bg-muted rounded px-1 font-mono">[(nValue)]</code> two-way binding.</p>
+            <div class="flex min-h-24 items-start justify-start">
+              <demo-color-picker-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Alpha</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nShowAlpha="true"</code> — slider de opacidade, preview em tempo real.</p>
+            <div class="flex min-h-24 items-start justify-start">
+              <demo-color-picker-with-alpha />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Presets</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nPresets</code> — swatches clicáveis + últimas 8 cores recentes em localStorage.</p>
+            <div class="flex min-h-24 items-start justify-start">
+              <demo-color-picker-with-presets />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Output Formats</span>
+            <p class="text-muted-foreground text-xs">Três instâncias com <code class="bg-muted rounded px-1 font-mono">nFormat="hex"</code>, <code class="bg-muted rounded px-1 font-mono">"rgb"</code>, <code class="bg-muted rounded px-1 font-mono">"hsl"</code> e <code class="bg-muted rounded px-1 font-mono">"oklch"</code>. Formato também alterável via botão no picker.</p>
+            <div class="flex min-h-24 items-start justify-start">
+              <demo-color-picker-formats />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Inline</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nMode="inline"</code> — picker embutido direto no layout, sem popup.</p>
+            <div class="flex min-h-64 items-start justify-start">
+              <demo-color-picker-inline />
+            </div>
           </div>
         </div>
       </section>

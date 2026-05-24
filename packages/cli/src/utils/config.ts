@@ -9,7 +9,6 @@ export const configSchema = z.object({
   tailwind: z.object({
     css: z.string(),
     baseColor: z.string(),
-    primaryColor: z.string().optional(),
   }),
   baseUrl: z.string(),
   aliases: z.object({

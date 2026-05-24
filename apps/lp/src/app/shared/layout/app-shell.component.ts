@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ButtonComponent } from '../components/button';
-import { ThemeService } from '../services/theme.service';
+import { DarkModeService } from 'nexus';
 
 @Component({
   selector: 'app-shell',
@@ -9,7 +9,7 @@ import { ThemeService } from '../services/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-svh flex flex-col bg-background text-foreground">
-      <header class="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+      <header class="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
         <div class="mx-auto flex h-14 max-w-screen-2xl items-center gap-6 px-6">
           <a routerLink="/" class="flex items-center gap-2 font-semibold tracking-tight">
             <span class="inline-flex h-6 w-6 items-center justify-center rounded-md bg-foreground text-background text-xs font-bold">N</span>
@@ -43,7 +43,7 @@ import { ThemeService } from '../services/theme.service';
               aria-label="Toggle theme"
               (nClick)="theme.toggle()"
             >
-              @if (theme.theme() === 'dark') {
+              @if (theme.isDark()) {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
               } @else {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -72,10 +72,10 @@ import { ThemeService } from '../services/theme.service';
   `,
 })
 export class AppShellComponent {
-  protected readonly theme = inject(ThemeService);
+  protected readonly theme = inject(DarkModeService);
 
   protected readonly navLinks = [
-    { path: '/', label: 'Docs', exact: true },
+    { path: '/get-started', label: 'Docs', exact: true },
     { path: '/components', label: 'Components', exact: false },
     { path: '/blocks', label: 'Blocks', exact: false },
     { path: '/charts', label: 'Charts', exact: false },

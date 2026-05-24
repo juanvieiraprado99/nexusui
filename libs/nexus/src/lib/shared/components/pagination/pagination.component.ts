@@ -197,7 +197,7 @@ export class PaginationComponent {
       if (this.nPage() > max) {
         this.nPage.set(max);
       }
-    }, { allowSignalWrites: true });
+    });
   }
 
   protected itemClasses(active: boolean): string {

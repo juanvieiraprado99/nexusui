@@ -177,6 +177,151 @@ import { CodeBlockComponent } from '../../shared/components/code-block/code-bloc
           </div>
         </div>
 
+        <!-- list command -->
+        <div class="space-y-5">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight">list</h2>
+            <p class="mt-2 text-muted-foreground">
+              Show all available components and their installation status.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold">List all components</h3>
+            <app-code-block [code]="listCode" language="bash" />
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold">List only installed components</h3>
+            <app-code-block [code]="listInstalledCode" language="bash" />
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Options</h3>
+            <div class="overflow-hidden rounded-lg border border-border/60">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-border/60 bg-muted/40">
+                    <th class="px-4 py-2.5 text-left font-medium text-muted-foreground">Option</th>
+                    <th class="px-4 py-2.5 text-left font-medium text-muted-foreground">Default</th>
+                    <th class="px-4 py-2.5 text-left font-medium text-muted-foreground">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (row of listOptions; track row.option) {
+                    <tr class="border-b border-border/60 last:border-0">
+                      <td class="px-4 py-3 font-mono text-xs">{{ row.option }}</td>
+                      <td class="px-4 py-3 text-muted-foreground">{{ row.default }}</td>
+                      <td class="px-4 py-3 text-muted-foreground">{{ row.description }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- remove command -->
+        <div class="space-y-5">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight">remove</h2>
+            <p class="mt-2 text-muted-foreground">
+              Delete installed components from your project.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold">Remove a component</h3>
+            <app-code-block [code]="removeCode" language="bash" />
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold">Remove multiple components</h3>
+            <app-code-block [code]="removeMultiCode" language="bash" />
+          </div>
+
+          <div class="rounded-lg border border-border/60 bg-muted/30 px-4 py-4 text-sm space-y-1">
+            <p class="font-semibold">Dependency check</p>
+            <p class="text-muted-foreground leading-relaxed">
+              Before removing, the CLI checks whether any other installed component depends on the target.
+              If dependents exist, you'll be prompted to confirm before proceeding.
+            </p>
+          </div>
+        </div>
+
+        <!-- update command -->
+        <div class="space-y-5">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight">update</h2>
+            <p class="mt-2 text-muted-foreground">
+              Fetch the latest registry version of installed components and apply changes.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold">Update a component</h3>
+            <app-code-block [code]="updateOneCode" language="bash" />
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold">Update all installed components</h3>
+            <app-code-block [code]="updateAllCode" language="bash" />
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Options</h3>
+            <div class="overflow-hidden rounded-lg border border-border/60">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-border/60 bg-muted/40">
+                    <th class="px-4 py-2.5 text-left font-medium text-muted-foreground">Option</th>
+                    <th class="px-4 py-2.5 text-left font-medium text-muted-foreground">Default</th>
+                    <th class="px-4 py-2.5 text-left font-medium text-muted-foreground">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (row of updateOptions; track row.option) {
+                    <tr class="border-b border-border/60 last:border-0">
+                      <td class="px-4 py-3 font-mono text-xs">{{ row.option }}</td>
+                      <td class="px-4 py-3 text-muted-foreground">{{ row.default }}</td>
+                      <td class="px-4 py-3 text-muted-foreground">{{ row.description }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="rounded-lg border border-border/60 bg-muted/30 px-4 py-4 text-sm space-y-1">
+            <p class="font-semibold">Diff before apply</p>
+            <p class="text-muted-foreground leading-relaxed">
+              For each changed file, the CLI shows an inline diff (removed lines in red, added in green)
+              and prompts you to confirm, skip, or inspect the diff before writing any changes.
+            </p>
+          </div>
+        </div>
+
+        <!-- diff command -->
+        <div class="space-y-5">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight">diff</h2>
+            <p class="mt-2 text-muted-foreground">
+              Preview differences between local component files and registry versions — no changes applied.
+            </p>
+          </div>
+
+          <app-code-block [code]="diffCode" language="bash" />
+
+          <div class="rounded-lg border border-border/60 bg-muted/30 px-4 py-4 text-sm space-y-1">
+            <p class="font-semibold">Read-only</p>
+            <p class="text-muted-foreground leading-relaxed">
+              <code class="rounded bg-muted px-1 py-0.5 text-xs font-mono">diff</code> never writes to disk.
+              Use it to review what <code class="rounded bg-muted px-1 py-0.5 text-xs font-mono">update</code>
+              would change before committing to the update.
+            </p>
+          </div>
+        </div>
+
         <!-- How it works -->
         <div class="space-y-5">
           <div>
@@ -289,8 +434,29 @@ export class CliPage {
 
   protected readonly addOptions = [
     { option: '--overwrite', default: 'false', description: 'Overwrite existing component files' },
-    { option: '--all', default: 'false', description: 'Install every registered component' },
+    { option: '--all',       default: 'false', description: 'Install every registered component' },
+    { option: '--no-cache',  default: 'false', description: 'Bypass the 5-minute in-memory registry cache' },
   ];
+
+  protected readonly listCode = `npx @nexuslabs/cli@alpha list`;
+  protected readonly listInstalledCode = `npx @nexuslabs/cli@alpha list --installed`;
+
+  protected readonly listOptions = [
+    { option: '--installed', default: 'false', description: 'Show only installed components' },
+  ];
+
+  protected readonly removeCode = `npx @nexuslabs/cli@alpha remove button`;
+  protected readonly removeMultiCode = `npx @nexuslabs/cli@alpha remove button input`;
+
+  protected readonly updateOneCode = `npx @nexuslabs/cli@alpha update button`;
+  protected readonly updateAllCode = `npx @nexuslabs/cli@alpha update --all`;
+
+  protected readonly updateOptions = [
+    { option: '--all', default: 'false', description: 'Update all installed components' },
+    { option: '--yes', default: 'false', description: 'Skip confirmation prompts' },
+  ];
+
+  protected readonly diffCode = `npx @nexuslabs/cli@alpha diff button`;
 
   protected readonly configFields = [
     { field: '$schema', description: 'JSON schema URL for IDE validation' },

@@ -1,38 +1,45 @@
-import { Component, ChangeDetectionStrategy, input, signal, inject, PLATFORM_ID, effect, computed } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, effect, inject, input, PLATFORM_ID, signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ButtonComponent } from '../button';
+import { DarkModeService } from 'nexus';
 import { HighlighterService } from '../../services/highlighter.service';
-import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-code-block',
-  imports: [ButtonComponent],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [`
+    :host ::ng-deep .shiki {
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0;
+    }
+    :host ::ng-deep .shiki code {
+      counter-reset: line;
+      display: block;
+      padding: 0.875rem 1rem 0.875rem 0;
+      font-size: 13px;
+    }
+    :host ::ng-deep .shiki .line::before {
+      counter-increment: line;
+      content: counter(line);
+      display: inline-block;
+      width: 2.5rem;
+      padding-right: 1rem;
+      text-align: right;
+      color: rgba(120,120,120,0.45);
+      user-select: none;
+    }
+  `],
   template: `
-    <div class="group relative rounded-md border border-border/60"
-         [class]="isDark() ? 'bg-zinc-950 text-zinc-100' : 'bg-zinc-50 text-zinc-800'">
-      @if (filename()) {
-        <div class="flex items-center justify-between border-b px-4 py-2 text-xs"
-             [class]="isDark() ? 'border-white/10 text-zinc-400' : 'border-zinc-200 text-zinc-500'">
-          <span class="font-mono">{{ filename() }}</span>
-          <span class="uppercase tracking-wide">{{ language() }}</span>
-        </div>
-      }
-      <div class="relative">
-        @if (highlightedHtml()) {
-          <div [innerHTML]="highlightedHtml()"></div>
-        } @else {
-          <pre class="overflow-x-auto p-4 text-[13px] leading-relaxed font-mono"><code>{{ code() }}</code></pre>
-        }
+    <div class="rounded-md border border-border/60 overflow-hidden bg-zinc-50 text-zinc-800 dark:bg-zinc-950 dark:text-zinc-100">
+      <div class="flex items-center justify-between border-b border-zinc-200 dark:border-white/10 px-3 py-1.5 text-zinc-500 dark:text-zinc-400">
+        <span class="font-mono text-xs">{{ filename() || language() }}</span>
         <button
           type="button"
-          n-button
-          nVariant="ghost"
-          nSize="icon"
-          (nClick)="copy()"
+          (click)="copy()"
           aria-label="Copy code"
-          [class]="'absolute right-2 top-2 h-7 w-7 ' + (isDark() ? 'text-zinc-400 hover:text-white hover:bg-white/10' : 'text-zinc-500 hover:text-zinc-900 hover:bg-black/5')"
+          class="h-7 w-7 rounded-md inline-flex items-center justify-center transition-colors cursor-pointer text-zinc-500 hover:text-zinc-900 hover:bg-black/5 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white/10"
         >
           @if (copied()) {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -41,6 +48,11 @@ import { ThemeService } from '../../services/theme.service';
           }
         </button>
       </div>
+      @if (highlightedHtml()) {
+        <div class="overflow-x-auto font-mono" [innerHTML]="highlightedHtml()"></div>
+      } @else {
+        <pre class="overflow-x-auto p-4 pl-10 text-[13px] leading-normal font-mono"><code>{{ code() }}</code></pre>
+      }
     </div>
   `,
 })
@@ -55,15 +67,13 @@ export class CodeBlockComponent {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly highlighter = inject(HighlighterService);
   private readonly sanitizer = inject(DomSanitizer);
-  private readonly themeService = inject(ThemeService);
-
-  protected readonly isDark = computed(() => this.themeService.theme() === 'dark');
+  private readonly themeService = inject(DarkModeService);
 
   constructor() {
     effect(() => {
       const code = this.code();
       const lang = this.language();
-      const darkMode = this.themeService.theme() === 'dark';
+      const darkMode = this.themeService.isDark();
       if (!isPlatformBrowser(this.platformId)) return;
       this.highlightedHtml.set('');
       this.highlighter.highlight(code, lang, darkMode).then(html => {

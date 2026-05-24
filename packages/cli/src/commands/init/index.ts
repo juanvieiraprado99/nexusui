@@ -8,8 +8,8 @@ import prompts from 'prompts';
 import { writeConfig } from '../../utils/config';
 import { installComponent } from '../add/component-installer';
 import { getRegistryUrl } from '../../utils/registry';
-import { BASE_COLORS, PRIMARY_COLORS } from './theme-presets';
-import type { BaseColor, PrimaryColor } from './theme-presets';
+import { BASE_COLORS } from './theme-presets';
+import type { BaseColor } from './theme-presets';
 import { patchAngularJson } from './angular-json-patcher';
 import { patchStylesCss } from './tailwind-patcher';
 import { patchPostcss } from './postcss-patcher';
@@ -51,13 +51,6 @@ export const initCommand = new Command('init')
         initial: 0,
       },
       {
-        type: 'select',
-        name: 'primaryColor',
-        message: 'Which primary color for components?',
-        choices: PRIMARY_COLORS.map((c) => ({ title: c, value: c })),
-        initial: 0,
-      },
-      {
         type: 'text',
         name: 'stylesPath',
         message: 'Where is your global styles file?',
@@ -89,7 +82,6 @@ export const initCommand = new Command('init')
       tailwind: {
         css: answers.stylesPath as string,
         baseColor: answers.baseColor as string,
-        primaryColor: answers.primaryColor as string,
       },
       baseUrl,
       aliases: {
@@ -135,7 +127,7 @@ export const initCommand = new Command('init')
 
     const configSpinner = ora('Configuring project...').start();
     patchPostcss(cwd);
-    patchStylesCss(answers.stylesPath as string, answers.baseColor as BaseColor, answers.primaryColor as PrimaryColor);
+    patchStylesCss(answers.stylesPath as string, answers.baseColor as BaseColor);
     patchTsconfig(cwd, baseUrl, config.aliases);
     patchAngularJson(cwd, answers.stylesPath as string);
     configSpinner.succeed('Project configured');

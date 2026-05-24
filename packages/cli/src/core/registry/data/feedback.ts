@@ -15,4 +15,11 @@ export const feedbackRegistry: ComponentRegistry[] = [
     dependencies: ['class-variance-authority', 'ngx-sonner'],
     files: ['sonner.component.ts', 'sonner.variants.ts', 'index.ts'],
   },
+  {
+    name: 'progress-bar',
+    basePath: 'components/progress-bar',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority'],
+    files: ['progress-bar.component.ts', 'progress-bar.variants.ts', 'index.ts'],
+  },
 ];

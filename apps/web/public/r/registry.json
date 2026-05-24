@@ -76,6 +76,18 @@
       ]
     },
     {
+      "name": "image",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "image.component.ts",
+        "image.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "label",
       "type": "registry:component",
       "registryDependencies": [
@@ -95,6 +107,19 @@
       "files": [
         "card.component.ts",
         "card.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "form",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "form.component.ts",
+        "form.variants.ts",
+        "form.tokens.ts",
         "index.ts"
       ]
     },
@@ -263,6 +288,52 @@
       ]
     },
     {
+      "name": "signature",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "signature.component.ts",
+        "signature.types.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "color-picker",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label"
+      ],
+      "files": [
+        "color-picker.component.ts",
+        "color-picker-canvas.component.ts",
+        "color-picker-hue-slider.component.ts",
+        "color-picker-alpha-slider.component.ts",
+        "color-picker-swatch.component.ts",
+        "color-picker.tokens.ts",
+        "color-picker.utils.ts",
+        "color-picker.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "input"
+      ],
+      "files": [
+        "input-group.component.ts",
+        "input-group-control.directive.ts",
+        "input-group.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "dialog",
       "type": "registry:component",
       "registryDependencies": [
@@ -369,6 +440,18 @@
       ]
     },
     {
+      "name": "table",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "table.component.ts",
+        "table.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "data-table",
       "type": "registry:component",
       "registryDependencies": [
@@ -415,6 +498,22 @@
         "collapsible-content.component.ts",
         "collapsible.tokens.ts",
         "collapsible.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "tabs.component.ts",
+        "tabs-list.component.ts",
+        "tabs-trigger.component.ts",
+        "tabs-content.component.ts",
+        "tabs.context.ts",
+        "tabs.variants.ts",
         "index.ts"
       ]
     },
@@ -506,6 +605,18 @@
       "files": [
         "sonner.component.ts",
         "sonner.variants.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "progress-bar",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "progress-bar.component.ts",
+        "progress-bar.variants.ts",
         "index.ts"
       ]
     }

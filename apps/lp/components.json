@@ -4,7 +4,7 @@
   "registryUrl": "https://raw.githubusercontent.com/juanvieiraprado99/nexusui/main/apps/web/public/r",
   "tailwind": {
     "css": "src/styles.css",
-    "baseColor": "stone"
+    "baseColor": "neutral"
   },
   "baseUrl": "src/app",
   "aliases": {

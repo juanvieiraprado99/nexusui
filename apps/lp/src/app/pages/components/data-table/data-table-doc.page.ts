@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
   DataTableComponent,
-  DataTableEmptyComponent,
   DataTableColumnToggleComponent,
 } from '../../../shared/components/data-table';
 import { DocsLayoutComponent } from '../../../shared/layout/docs-layout.component';
@@ -26,7 +25,7 @@ interface User {
 @Component({
   selector: 'app-data-table-doc-page',
   imports: [
-    DataTableComponent, DataTableEmptyComponent, DataTableColumnToggleComponent,
+    DataTableComponent, DataTableColumnToggleComponent,
     DocsLayoutComponent, CodeBlockComponent, ExampleComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

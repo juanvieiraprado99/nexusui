@@ -2,6 +2,13 @@ import type { ComponentRegistry } from './types';
 
 export const formsRegistry: ComponentRegistry[] = [
   {
+    name: 'form',
+    basePath: 'components/form',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority'],
+    files: ['form.component.ts', 'form.variants.ts', 'form.tokens.ts', 'index.ts'],
+  },
+  {
     name: 'input',
     basePath: 'components/input',
     registryDependencies: ['utils', 'label'],
@@ -118,6 +125,48 @@ export const formsRegistry: ComponentRegistry[] = [
       'calendar.types.ts',
       'calendar.utils.ts',
       'calendar.variants.ts',
+      'index.ts',
+    ],
+  },
+  {
+    name: 'signature',
+    basePath: 'components/signature',
+    registryDependencies: ['utils', 'label'],
+    dependencies: ['@angular/forms'],
+    devDependencies: [],
+    files: [
+      'signature.component.ts',
+      'signature.types.ts',
+      'index.ts',
+    ],
+  },
+  {
+    name: 'color-picker',
+    basePath: 'components/color-picker',
+    registryDependencies: ['utils', 'label'],
+    dependencies: ['class-variance-authority', '@angular/forms', '@angular/cdk'],
+    devDependencies: [],
+    files: [
+      'color-picker.component.ts',
+      'color-picker-canvas.component.ts',
+      'color-picker-hue-slider.component.ts',
+      'color-picker-alpha-slider.component.ts',
+      'color-picker-swatch.component.ts',
+      'color-picker.tokens.ts',
+      'color-picker.utils.ts',
+      'color-picker.variants.ts',
+      'index.ts',
+    ],
+  },
+  {
+    name: 'input-group',
+    basePath: 'components/input-group',
+    registryDependencies: ['utils', 'input'],
+    dependencies: ['class-variance-authority', 'rxjs'],
+    files: [
+      'input-group.component.ts',
+      'input-group-control.directive.ts',
+      'input-group.variants.ts',
       'index.ts',
     ],
   },

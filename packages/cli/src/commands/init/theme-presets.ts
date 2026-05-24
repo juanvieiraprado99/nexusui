@@ -1,11 +1,5 @@
-export const BASE_COLORS = ['slate', 'zinc', 'neutral', 'stone', 'gray', 'blue'] as const;
+export const BASE_COLORS = ['slate', 'zinc', 'neutral', 'stone', 'gray', 'blue', 'green', 'violet'] as const;
 export type BaseColor = (typeof BASE_COLORS)[number];
-
-export const PRIMARY_COLORS = [
-  'blue', 'indigo', 'violet', 'purple', 'green', 'emerald',
-  'teal', 'sky', 'cyan', 'red', 'rose', 'orange', 'amber', 'pink',
-] as const;
-export type PrimaryColor = (typeof PRIMARY_COLORS)[number];
 
 export const NEXUS_THEME_MARKER = '/* nexus-ui theme */';
 
@@ -53,9 +47,7 @@ const SHADOW_DARK = {
   '--shadow-2xl': '0px 24px 40px -8px hsl(0 0% 0% / 0.50)',
 };
 
-export function buildThemeCss(baseColor: BaseColor, primaryColor?: PrimaryColor): string {
-  const resolvedPrimary = primaryColor ?? 'blue';
-
+export function buildThemeCss(baseColor: BaseColor): string {
   const themes: Record<BaseColor, { light: Record<string, string>; dark: Record<string, string> }> = {
     slate: {
       light: {
@@ -467,21 +459,159 @@ export function buildThemeCss(baseColor: BaseColor, primaryColor?: PrimaryColor)
         '--chart-5': 'oklch(0.75 0.08 260)',
       },
     },
+    green: {
+      light: {
+        '--radius': '0.625rem',
+        '--background': 'oklch(0.995 0.005 145)',
+        '--foreground': 'oklch(0.18 0.04 145)',
+        '--card': 'oklch(1 0 0)',
+        '--card-foreground': 'oklch(0.18 0.04 145)',
+        '--popover': 'oklch(1 0 0)',
+        '--popover-foreground': 'oklch(0.18 0.04 145)',
+        '--primary': 'oklch(0.52 0.18 145)',
+        '--primary-foreground': 'oklch(0.98 0.01 145)',
+        '--secondary': 'oklch(0.95 0.025 145)',
+        '--secondary-foreground': 'oklch(0.28 0.04 145)',
+        '--muted': 'oklch(0.95 0.015 145)',
+        '--muted-foreground': 'oklch(0.5 0.03 145)',
+        '--accent': 'oklch(0.92 0.04 145)',
+        '--accent-foreground': 'oklch(0.28 0.04 145)',
+        '--destructive': 'oklch(0.577 0.245 27.325)',
+        '--destructive-foreground': 'oklch(0.985 0 0)',
+        '--border': 'oklch(0.9 0.02 145)',
+        '--input': 'oklch(0.9 0.02 145)',
+        '--ring': 'oklch(0.52 0.18 145)',
+        '--sidebar': 'oklch(0.98 0.01 145)',
+        '--sidebar-foreground': 'oklch(0.18 0.04 145)',
+        '--sidebar-primary': 'oklch(0.52 0.18 145)',
+        '--sidebar-primary-foreground': 'oklch(0.98 0.01 145)',
+        '--sidebar-accent': 'oklch(0.95 0.025 145)',
+        '--sidebar-accent-foreground': 'oklch(0.28 0.04 145)',
+        '--sidebar-border': 'oklch(0.9 0.02 145)',
+        '--sidebar-ring': 'oklch(0.52 0.18 145)',
+        ...FONT_VARS,
+        ...SHADOW_LIGHT,
+        '--chart-1': 'oklch(0.52 0.18 145)',
+        '--chart-2': 'oklch(0.58 0.14 175)',
+        '--chart-3': 'oklch(0.62 0.16 110)',
+        '--chart-4': 'oklch(0.60 0.18 200)',
+        '--chart-5': 'oklch(0.68 0.1 160)',
+      },
+      dark: {
+        '--background': 'oklch(0.13 0.025 145)',
+        '--foreground': 'oklch(0.95 0.01 145)',
+        '--card': 'oklch(0.18 0.03 145)',
+        '--card-foreground': 'oklch(0.95 0.01 145)',
+        '--popover': 'oklch(0.18 0.03 145)',
+        '--popover-foreground': 'oklch(0.95 0.01 145)',
+        '--primary': 'oklch(0.62 0.18 145)',
+        '--primary-foreground': 'oklch(0.13 0.025 145)',
+        '--secondary': 'oklch(0.25 0.03 145)',
+        '--secondary-foreground': 'oklch(0.95 0.01 145)',
+        '--muted': 'oklch(0.25 0.025 145)',
+        '--muted-foreground': 'oklch(0.62 0.04 145)',
+        '--accent': 'oklch(0.32 0.05 145)',
+        '--accent-foreground': 'oklch(0.95 0.01 145)',
+        '--destructive': 'oklch(0.704 0.191 22.216)',
+        '--destructive-foreground': 'oklch(0.985 0 0)',
+        '--border': 'oklch(0.32 0.03 145)',
+        '--input': 'oklch(0.32 0.03 145)',
+        '--ring': 'oklch(0.62 0.18 145)',
+        '--sidebar': 'oklch(0.18 0.03 145)',
+        '--sidebar-foreground': 'oklch(0.95 0.01 145)',
+        '--sidebar-primary': 'oklch(0.62 0.18 145)',
+        '--sidebar-primary-foreground': 'oklch(0.13 0.025 145)',
+        '--sidebar-accent': 'oklch(0.25 0.03 145)',
+        '--sidebar-accent-foreground': 'oklch(0.95 0.01 145)',
+        '--sidebar-border': 'oklch(0.32 0.03 145)',
+        '--sidebar-ring': 'oklch(0.62 0.18 145)',
+        ...FONT_VARS,
+        ...SHADOW_DARK,
+        '--chart-1': 'oklch(0.62 0.18 145)',
+        '--chart-2': 'oklch(0.58 0.12 175)',
+        '--chart-3': 'oklch(0.68 0.14 110)',
+        '--chart-4': 'oklch(0.55 0.15 200)',
+        '--chart-5': 'oklch(0.72 0.08 160)',
+      },
+    },
+    violet: {
+      light: {
+        '--radius': '0.625rem',
+        '--background': 'oklch(0.995 0.005 295)',
+        '--foreground': 'oklch(0.18 0.04 295)',
+        '--card': 'oklch(1 0 0)',
+        '--card-foreground': 'oklch(0.18 0.04 295)',
+        '--popover': 'oklch(1 0 0)',
+        '--popover-foreground': 'oklch(0.18 0.04 295)',
+        '--primary': 'oklch(0.52 0.22 295)',
+        '--primary-foreground': 'oklch(0.98 0.01 295)',
+        '--secondary': 'oklch(0.95 0.025 295)',
+        '--secondary-foreground': 'oklch(0.28 0.04 295)',
+        '--muted': 'oklch(0.95 0.015 295)',
+        '--muted-foreground': 'oklch(0.5 0.03 295)',
+        '--accent': 'oklch(0.92 0.045 295)',
+        '--accent-foreground': 'oklch(0.28 0.04 295)',
+        '--destructive': 'oklch(0.577 0.245 27.325)',
+        '--destructive-foreground': 'oklch(0.985 0 0)',
+        '--border': 'oklch(0.9 0.02 295)',
+        '--input': 'oklch(0.9 0.02 295)',
+        '--ring': 'oklch(0.52 0.22 295)',
+        '--sidebar': 'oklch(0.98 0.015 295)',
+        '--sidebar-foreground': 'oklch(0.18 0.04 295)',
+        '--sidebar-primary': 'oklch(0.52 0.22 295)',
+        '--sidebar-primary-foreground': 'oklch(0.98 0.01 295)',
+        '--sidebar-accent': 'oklch(0.95 0.025 295)',
+        '--sidebar-accent-foreground': 'oklch(0.28 0.04 295)',
+        '--sidebar-border': 'oklch(0.9 0.02 295)',
+        '--sidebar-ring': 'oklch(0.52 0.22 295)',
+        ...FONT_VARS,
+        ...SHADOW_LIGHT,
+        '--chart-1': 'oklch(0.52 0.22 295)',
+        '--chart-2': 'oklch(0.57 0.18 320)',
+        '--chart-3': 'oklch(0.55 0.2 265)',
+        '--chart-4': 'oklch(0.65 0.16 340)',
+        '--chart-5': 'oklch(0.62 0.14 280)',
+      },
+      dark: {
+        '--background': 'oklch(0.13 0.025 295)',
+        '--foreground': 'oklch(0.95 0.01 295)',
+        '--card': 'oklch(0.19 0.035 295)',
+        '--card-foreground': 'oklch(0.95 0.01 295)',
+        '--popover': 'oklch(0.19 0.035 295)',
+        '--popover-foreground': 'oklch(0.95 0.01 295)',
+        '--primary': 'oklch(0.65 0.2 295)',
+        '--primary-foreground': 'oklch(0.13 0.025 295)',
+        '--secondary': 'oklch(0.27 0.04 295)',
+        '--secondary-foreground': 'oklch(0.95 0.01 295)',
+        '--muted': 'oklch(0.27 0.035 295)',
+        '--muted-foreground': 'oklch(0.63 0.05 295)',
+        '--accent': 'oklch(0.34 0.06 295)',
+        '--accent-foreground': 'oklch(0.95 0.01 295)',
+        '--destructive': 'oklch(0.704 0.191 22.216)',
+        '--destructive-foreground': 'oklch(0.985 0 0)',
+        '--border': 'oklch(0.34 0.04 295)',
+        '--input': 'oklch(0.34 0.04 295)',
+        '--ring': 'oklch(0.65 0.2 295)',
+        '--sidebar': 'oklch(0.19 0.035 295)',
+        '--sidebar-foreground': 'oklch(0.95 0.01 295)',
+        '--sidebar-primary': 'oklch(0.65 0.2 295)',
+        '--sidebar-primary-foreground': 'oklch(0.13 0.025 295)',
+        '--sidebar-accent': 'oklch(0.27 0.04 295)',
+        '--sidebar-accent-foreground': 'oklch(0.95 0.01 295)',
+        '--sidebar-border': 'oklch(0.34 0.04 295)',
+        '--sidebar-ring': 'oklch(0.65 0.2 295)',
+        ...FONT_VARS,
+        ...SHADOW_DARK,
+        '--chart-1': 'oklch(0.65 0.2 295)',
+        '--chart-2': 'oklch(0.60 0.16 320)',
+        '--chart-3': 'oklch(0.60 0.18 265)',
+        '--chart-4': 'oklch(0.68 0.14 340)',
+        '--chart-5': 'oklch(0.65 0.12 280)',
+      },
+    },
   };
 
   const { light, dark } = themes[baseColor];
-
-  // Override primary/ring/sidebar-primary/sidebar-ring with Tailwind v4 CSS vars
-  light['--primary'] = `var(--color-${resolvedPrimary}-600)`;
-  light['--primary-foreground'] = 'oklch(1 0 0)';
-  light['--ring'] = `var(--color-${resolvedPrimary}-500)`;
-  light['--sidebar-primary'] = `var(--color-${resolvedPrimary}-600)`;
-  light['--sidebar-ring'] = `var(--color-${resolvedPrimary}-500)`;
-  dark['--primary'] = `var(--color-${resolvedPrimary}-400)`;
-  dark['--primary-foreground'] = 'oklch(0.145 0 0)';
-  dark['--ring'] = `var(--color-${resolvedPrimary}-400)`;
-  dark['--sidebar-primary'] = `var(--color-${resolvedPrimary}-400)`;
-  dark['--sidebar-ring'] = `var(--color-${resolvedPrimary}-400)`;
 
   const toVars = (tokens: Record<string, string>) =>
     Object.entries(tokens)

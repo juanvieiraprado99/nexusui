@@ -47,6 +47,13 @@ export const primitivesRegistry: ComponentRegistry[] = [
     ],
   },
   {
+    name: 'image',
+    basePath: 'components/image',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority', '@angular/common'],
+    files: ['image.component.ts', 'image.variants.ts', 'index.ts'],
+  },
+  {
     name: 'label',
     basePath: 'components/label',
     registryDependencies: ['utils'],

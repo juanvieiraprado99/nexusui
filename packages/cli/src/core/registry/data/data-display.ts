@@ -2,6 +2,13 @@ import type { ComponentRegistry } from './types';
 
 export const dataDisplayRegistry: ComponentRegistry[] = [
   {
+    name: 'table',
+    basePath: 'components/table',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority'],
+    files: ['table.component.ts', 'table.variants.ts', 'index.ts'],
+  },
+  {
     name: 'data-table',
     basePath: 'components/data-table',
     registryDependencies: ['utils', 'checkbox', 'skeleton', 'dropdown-menu'],
@@ -42,6 +49,21 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
       'collapsible-content.component.ts',
       'collapsible.tokens.ts',
       'collapsible.variants.ts',
+      'index.ts',
+    ],
+  },
+  {
+    name: 'tabs',
+    basePath: 'components/tabs',
+    registryDependencies: ['utils'],
+    dependencies: ['class-variance-authority'],
+    files: [
+      'tabs.component.ts',
+      'tabs-list.component.ts',
+      'tabs-trigger.component.ts',
+      'tabs-content.component.ts',
+      'tabs.context.ts',
+      'tabs.variants.ts',
       'index.ts',
     ],
   },

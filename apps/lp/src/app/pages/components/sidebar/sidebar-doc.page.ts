@@ -6,7 +6,6 @@ import {
   SidebarRailComponent,
   SidebarHeaderComponent,
   SidebarContentComponent,
-  SidebarFooterComponent,
   SidebarGroupComponent,
   SidebarGroupLabelComponent,
   SidebarMenuComponent,
@@ -37,7 +36,7 @@ interface NavItem {
   selector: 'app-sidebar-doc-page',
   imports: [
     SidebarProviderComponent, SidebarComponent, SidebarTriggerComponent, SidebarRailComponent,
-    SidebarHeaderComponent, SidebarContentComponent, SidebarFooterComponent,
+    SidebarHeaderComponent, SidebarContentComponent,
     SidebarGroupComponent, SidebarGroupLabelComponent,
     SidebarMenuComponent, SidebarMenuItemComponent, SidebarMenuButtonComponent,
     SidebarMenuBadgeComponent, SidebarSeparatorComponent,

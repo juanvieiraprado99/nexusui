@@ -18,7 +18,8 @@
     "paths": {
       "@/*": ["*"],
       "@/shared/components/*": ["shared/components/*"],
-      "@/shared/utils/*": ["shared/utils/*"]
+      "@/shared/utils/*": ["shared/utils/*"],
+      "nexus": ["../../../../libs/nexus/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

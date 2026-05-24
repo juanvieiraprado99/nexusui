@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { buildThemeCss, NEXUS_THEME_MARKER } from './theme-presets';
-import type { BaseColor, PrimaryColor } from './theme-presets';
+import type { BaseColor } from './theme-presets';
 
-export function patchStylesCss(stylesPath: string, baseColor: BaseColor, primaryColor?: PrimaryColor): void {
-  const theme = buildThemeCss(baseColor, primaryColor);
+export function patchStylesCss(stylesPath: string, baseColor: BaseColor): void {
+  const theme = buildThemeCss(baseColor);
 
   if (!fs.existsSync(stylesPath)) {
     fs.mkdirSync(path.dirname(stylesPath), { recursive: true });

@@ -1,3 +1,8 @@
+import { SelectContentComponent } from '@/shared/components/select/select-content.component';
+import { SelectItemComponent } from '@/shared/components/select/select-item.component';
+import { SelectTriggerComponent } from '@/shared/components/select/select-trigger.component';
+import { SelectComponent } from '@/shared/components/select/select.component';
+import { mergeClasses } from '@/shared/utils/merge-classes';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,11 +11,6 @@ import {
   input,
   model,
 } from '@angular/core';
-import { mergeClasses } from '@/shared/utils/merge-classes';
-import { SelectComponent } from '@/shared/components/select/select.component';
-import { SelectContentComponent } from '@/shared/components/select/select-content.component';
-import { SelectItemComponent } from '@/shared/components/select/select-item.component';
-import { SelectTriggerComponent } from '@/shared/components/select/select-trigger.component';
 import { paginationItemVariants, type PaginationItemVariants } from './pagination.variants';
 
 @Component({
@@ -26,7 +26,7 @@ import { paginationItemVariants, type PaginationItemVariants } from './paginatio
           [nValue]="pageSizeStr()"
           (nValueChange)="onPageSizeChange($event)"
           [nDisabled]="nDisabled()"
-          class="w-[4.5rem]">
+          class="w-18">
           <n-select-trigger [nSize]="nSize()" />
           <n-select-content>
             @for (opt of nPageSizeOptions(); track opt) {

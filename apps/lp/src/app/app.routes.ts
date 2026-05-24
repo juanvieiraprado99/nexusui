@@ -37,6 +37,11 @@ export const routes: Routes = [
       import('./pages/components/dropdown-menu/dropdown-menu-doc.page').then((m) => m.DropdownMenuDocPage),
   },
   {
+    path: 'components/image',
+    loadComponent: () =>
+      import('./pages/components/image/image-doc.page').then((m) => m.ImageDocPage),
+  },
+  {
     path: 'components/input',
     loadComponent: () =>
       import('./pages/components/input/input-doc.page').then((m) => m.InputDocPage),
@@ -137,6 +142,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/components/data-table/data-table-doc.page').then((m) => m.DataTableDocPage),
   },
   {
+    path: 'components/table',
+    loadComponent: () => import('./pages/components/table/table-doc.page').then((m) => m.TableDocPage),
+  },
+  {
     path: 'components/drawer',
     loadComponent: () => import('./pages/components/drawer/drawer-doc.page').then((m) => m.DrawerDocPage),
   },
@@ -161,6 +170,22 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/components/calendar/calendar-doc.page').then((m) => m.CalendarDocPage),
   },
   {
+    path: 'components/form',
+    loadComponent: () => import('./pages/components/form/form-doc.page').then((m) => m.FormDocPage),
+  },
+  {
+    path: 'components/progress-bar',
+    loadComponent: () => import('./pages/components/progress-bar/progress-bar-doc.page').then((m) => m.ProgressBarDocPage),
+  },
+  {
+    path: 'components/signature',
+    loadComponent: () => import('./pages/components/signature/signature-doc.page').then((m) => m.SignatureDocPage),
+  },
+  {
+    path: 'components/tabs',
+    loadComponent: () => import('./pages/components/tabs/tabs-doc.page').then((m) => m.TabsDocPage),
+  },
+  {
     path: 'cli',
     loadComponent: () => import('./pages/cli/cli.page').then((m) => m.CliPage),
   },
@@ -173,6 +198,16 @@ export const routes: Routes = [
     path: 'installation',
     loadComponent: () =>
       import('./pages/installation/installation.page').then((m) => m.InstallationPage),
+  },
+  {
+    path: 'dark-mode',
+    loadComponent: () =>
+      import('./pages/dark-mode/dark-mode.page').then((m) => m.DarkModePage),
+  },
+  {
+    path: 'themes',
+    loadComponent: () =>
+      import('./pages/themes/themes.page').then((m) => m.ThemesPage),
   },
   { path: '**', redirectTo: '' },
 ];
