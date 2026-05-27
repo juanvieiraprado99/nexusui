@@ -275,6 +275,33 @@ import { RadioReactiveFormDemo } from '@nexus/lib/shared/components/radio/demo/r
 import { RadioRichDescriptionDemo } from '@nexus/lib/shared/components/radio/demo/rich-description';
 import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
+// Image Upload demos
+import { ImageUploadDefaultDemo } from '@nexus/lib/shared/components/image-upload/demo/default';
+import { ImageUploadAvatarDemo } from '@nexus/lib/shared/components/image-upload/demo/avatar';
+import { ImageUploadMultipleDemo } from '@nexus/lib/shared/components/image-upload/demo/multiple';
+import { ImageUploadWithCropDemo } from '@nexus/lib/shared/components/image-upload/demo/with-crop';
+import { ImageUploadAcceptPresetsDemo } from '@nexus/lib/shared/components/image-upload/demo/accept-presets';
+import { ImageUploadProgressDemo } from '@nexus/lib/shared/components/image-upload/demo/progress';
+import { ImageUploadIconPreviewDemo } from '@nexus/lib/shared/components/image-upload/demo/icon-preview';
+import { ImageUploadReactiveFormDemo } from '@nexus/lib/shared/components/image-upload/demo/reactive-form';
+import { ImageUploadVideosDemo } from '@nexus/lib/shared/components/image-upload/demo/videos';
+import { ImageUploadAudioDemo } from '@nexus/lib/shared/components/image-upload/demo/audio';
+import { ImageUploadArchivesDemo } from '@nexus/lib/shared/components/image-upload/demo/archives';
+import { ImageUploadMixedDemo } from '@nexus/lib/shared/components/image-upload/demo/mixed';
+
+// Image demos
+import { ImageDefaultDemo } from '@nexus/lib/shared/components/image/demo/default';
+import { ImageFillDemo } from '@nexus/lib/shared/components/image/demo/fill';
+import { ImageRatioDemo } from '@nexus/lib/shared/components/image/demo/ratio';
+import { ImageSkeletonDemo } from '@nexus/lib/shared/components/image/demo/skeleton';
+import { ImageFallbackDemo } from '@nexus/lib/shared/components/image/demo/fallback';
+import { ImageCdnDemo } from '@nexus/lib/shared/components/image/demo/cdn';
+
+// Tooltip demos
+import { TooltipBasicDemo } from '@nexus/lib/shared/components/tooltip/demo/basic';
+import { TooltipSidesDemo } from '@nexus/lib/shared/components/tooltip/demo/sides';
+import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/template';
+
 @Component({
   selector: 'playground-page',
   standalone: true,
@@ -479,6 +506,27 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
     ColorPickerWithPresetsDemo,
     ColorPickerInlineDemo,
     ColorPickerFormatsDemo,
+    ImageDefaultDemo,
+    ImageFillDemo,
+    ImageRatioDemo,
+    ImageSkeletonDemo,
+    ImageFallbackDemo,
+    ImageCdnDemo,
+    ImageUploadDefaultDemo,
+    ImageUploadAvatarDemo,
+    ImageUploadMultipleDemo,
+    ImageUploadWithCropDemo,
+    ImageUploadAcceptPresetsDemo,
+    ImageUploadProgressDemo,
+    ImageUploadIconPreviewDemo,
+    ImageUploadReactiveFormDemo,
+    ImageUploadVideosDemo,
+    ImageUploadAudioDemo,
+    ImageUploadArchivesDemo,
+    ImageUploadMixedDemo,
+    TooltipBasicDemo,
+    TooltipSidesDemo,
+    TooltipTemplateDemo,
   ],
   template: `
     <div class="mx-auto max-w-5xl space-y-16 px-6 py-12">
@@ -2037,6 +2085,174 @@ import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nMode="inline"</code> — picker embutido direto no layout, sem popup.</p>
             <div class="flex min-h-64 items-start justify-start">
               <demo-color-picker-inline />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Image -->
+      <section id="image">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Image</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">Imagem básica com dimensões intrínsecas e cantos arredondados.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-image-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Fill</span>
+            <p class="text-muted-foreground text-xs">Modo fill — ocupa todo o container com <code class="bg-muted rounded px-1 font-mono">nFill</code> e <code class="bg-muted rounded px-1 font-mono">nFit="cover"</code>.</p>
+            <div class="w-full">
+              <demo-image-fill />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Aspect Ratios</span>
+            <p class="text-muted-foreground text-xs">square, video 16:9, portrait 3:4, landscape 4:3 via <code class="bg-muted rounded px-1 font-mono">nRatio</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-image-ratio />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Skeleton</span>
+            <p class="text-muted-foreground text-xs">Placeholder animado enquanto carrega via <code class="bg-muted rounded px-1 font-mono">nSkeleton</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-image-skeleton />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Fallback</span>
+            <p class="text-muted-foreground text-xs">Fallback via <code class="bg-muted rounded px-1 font-mono">nFallbackSrc</code> URL ou slot <code class="bg-muted rounded px-1 font-mono">[nImageFallback]</code> customizado.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-image-fallback />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">CDN Loaders</span>
+            <p class="text-muted-foreground text-xs">Exemplos de configuração com Imgix, Cloudinary, ImageKit e Netlify.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-image-cdn />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Image Upload -->
+      <section id="image-upload">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Image Upload</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default (Dropzone)</span>
+            <p class="text-muted-foreground text-xs">Drag & drop ou clique. Validação de tipo e tamanho máximo. Preview de thumbnail.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-default class="w-full max-w-lg" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Avatar</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nVariant="avatar"</code> — circular. Botão de edição sobreposto. Tamanhos sm · default · lg. Versão central com crop 1:1.</p>
+            <div class="flex min-h-32 items-center justify-center">
+              <demo-image-upload-avatar />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Multiple</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nMultiple</code> + <code class="bg-muted rounded px-1 font-mono">nMaxFiles</code> — lista de arquivos com botão "Adicionar mais".</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-multiple class="w-full" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Com Crop</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nCrop</code> + <code class="bg-muted rounded px-1 font-mono">nCropAspectRatio</code> — overlay canvas com regra dos terços, handles de canto e lock de proporção 16:9.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-with-crop class="w-full max-w-lg" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Accept Presets</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAccept</code> aceita presets nomeados (<code class="bg-muted rounded px-1 font-mono">'images'</code>, <code class="bg-muted rounded px-1 font-mono">'spreadsheets'</code>, <code class="bg-muted rounded px-1 font-mono">'documents'</code>...) ou string manual. Label do tipo exibida no empty state.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-accept-presets />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Progresso</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nProgress</code> — barra de upload controlada pelo consumidor. Simulação automática ao selecionar.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-progress />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Icon Preview</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nPreview="icon"</code> — ícone genérico em vez de thumbnail. Ideal para documentos e planilhas.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-icon-preview />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">ReactiveForm</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">[formControl]</code> — integração nativa com ReactiveForms. Validação required + markAllAsTouched no submit.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-reactive-form />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Vídeos</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAccept="videos"</code> — MP4, MOV, AVI. Ícone genérico, limite de 100 MB.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-videos />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Áudio</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAccept="audio"</code> — MP3, WAV, AAC. Múltiplos arquivos, limite por arquivo.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-audio />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Arquivos compactados</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAccept="archives"</code> — ZIP, RAR, TAR, 7Z. Limite de 500 MB.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-archives />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Misto / Manual</span>
+            <p class="text-muted-foreground text-xs">String manual <code class="bg-muted rounded px-1 font-mono">"image/*,.pdf"</code> e preset <code class="bg-muted rounded px-1 font-mono">"all"</code> sem restrição.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-mixed />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tooltip -->
+      <section id="tooltip">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Tooltip</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Basic</span>
+            <p class="text-muted-foreground text-xs">Hover para ver o tooltip. <code class="bg-muted rounded px-1 font-mono">nTooltip="..."</code> em qualquer elemento.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-tooltip-basic />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sides</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nTooltipSide</code> — top · right · bottom · left. Flip automático.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-tooltip-sides />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Template Content</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">[nTooltip]="templateRef"</code> — conteúdo rico via <code class="bg-muted rounded px-1 font-mono">ng-template</code>.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-tooltip-template />
             </div>
           </div>
         </div>

@@ -79,7 +79,7 @@ const RECENT_MAX = 8;
       }
 
       @if (nMode() === 'popup') {
-        <div #trigger class="flex items-center gap-1">
+        <div #trigger class="flex items-center gap-1 w-fit">
           <button
             type="button"
             [id]="pickerId()"

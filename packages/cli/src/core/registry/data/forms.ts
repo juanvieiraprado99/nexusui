@@ -159,6 +159,20 @@ export const formsRegistry: ComponentRegistry[] = [
     ],
   },
   {
+    name: 'image-upload',
+    basePath: 'components/image-upload',
+    registryDependencies: ['utils', 'label', 'button'],
+    dependencies: ['class-variance-authority', '@angular/forms'],
+    devDependencies: [],
+    files: [
+      'image-upload.component.ts',
+      'image-upload-crop.component.ts',
+      'image-upload.variants.ts',
+      'image-upload.types.ts',
+      'index.ts',
+    ],
+  },
+  {
     name: 'input-group',
     basePath: 'components/input-group',
     registryDependencies: ['utils', 'input'],

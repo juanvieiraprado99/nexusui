@@ -320,6 +320,22 @@
       ]
     },
     {
+      "name": "image-upload",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils",
+        "label",
+        "button"
+      ],
+      "files": [
+        "image-upload.component.ts",
+        "image-upload-crop.component.ts",
+        "image-upload.variants.ts",
+        "image-upload.types.ts",
+        "index.ts"
+      ]
+    },
+    {
       "name": "input-group",
       "type": "registry:component",
       "registryDependencies": [
@@ -436,6 +452,18 @@
         "context-menu-separator.component.ts",
         "context-menu-shortcut.component.ts",
         "context-menu-group.component.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:component",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        "tooltip.directive.ts",
+        "tooltip-content.component.ts",
         "index.ts"
       ]
     },

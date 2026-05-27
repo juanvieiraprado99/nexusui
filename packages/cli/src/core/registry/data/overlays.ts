@@ -101,4 +101,15 @@ export const overlaysRegistry: ComponentRegistry[] = [
       'index.ts',
     ],
   },
+  {
+    name: 'tooltip',
+    basePath: 'components/tooltip',
+    registryDependencies: ['utils'],
+    dependencies: ['@angular/cdk'],
+    files: [
+      'tooltip.directive.ts',
+      'tooltip-content.component.ts',
+      'index.ts',
+    ],
+  },
 ];
