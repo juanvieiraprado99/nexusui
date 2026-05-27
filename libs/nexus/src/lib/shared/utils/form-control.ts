@@ -1,6 +1,7 @@
-import { inject, signal, DestroyRef, afterNextRender, Signal } from '@angular/core';
+import { inject, signal, DestroyRef, afterEveryRender, Signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
+import { NgControl, ControlValueAccessor, FormGroupDirective, AbstractControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 export type FormControlRef<T> = {
   readonly controlInvalid: Signal<boolean>;
@@ -29,21 +30,40 @@ export function injectFormControl<T = string>(valueAccessor: ControlValueAccesso
   let _onChange: (v: T) => void = () => {};
   let _onTouched: () => void    = () => {};
 
-  // afterNextRender garante que FormControlName.ngOnInit() já rodou
-  // e ngControl.control está disponível
-  afterNextRender(() => {
-    const control = ngControl?.control;
-    if (control) {
-      control.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(() => {
-        controlInvalid.set(control.invalid);
-        controlTouched.set(control.touched);
-      });
-    }
+  if (ngControl) {
+    let currentControl: AbstractControl | null = null;
+    let eventsSub: Subscription | null = null;
+
+    const sync = (control: AbstractControl): void => {
+      controlInvalid.set(control.invalid);
+      controlTouched.set(control.touched);
+    };
+
+    // Re-resolve o control a cada render: se a instância de FormControl for trocada
+    // em runtime (ex.: binding `[formControl]` que muda), re-assina no control novo
+    // em vez de ficar preso ao antigo. afterEveryRender só roda no browser (SSR-safe) e
+    // a 1ª passada ocorre após FormControlName.ngOnInit(), quando ngControl.control existe.
+    afterEveryRender(() => {
+      const control = ngControl.control;
+      if (control === currentControl) return;
+      eventsSub?.unsubscribe();
+      currentControl = control;
+      if (control) {
+        sync(control);
+        eventsSub = control.events.subscribe(() => sync(control));
+      } else {
+        controlInvalid.set(false);
+        controlTouched.set(false);
+      }
+    });
+
+    destroyRef.onDestroy(() => eventsSub?.unsubscribe());
+
     formDir?.ngSubmit.pipe(takeUntilDestroyed(destroyRef)).subscribe(() => {
       controlTouched.set(true);
-      if (ngControl?.control) controlInvalid.set(ngControl.control.invalid);
+      if (ngControl.control) controlInvalid.set(ngControl.control.invalid);
     });
-  });
+  }
 
   return {
     controlInvalid: controlInvalid.asReadonly(),

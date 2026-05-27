@@ -9,6 +9,8 @@ import { ButtonComponent } from '../button.component';
     <div class="flex items-center gap-4 flex-wrap">
       <n-button nVariant="default">Default</n-button>
       <n-button nVariant="secondary">Secondary</n-button>
+      <n-button nVariant="success">Success</n-button>
+      <n-button nVariant="warning">Warning</n-button>
       <n-button nVariant="destructive">Destructive</n-button>
       <n-button nVariant="outline">Outline</n-button>
       <n-button nVariant="ghost">Ghost</n-button>

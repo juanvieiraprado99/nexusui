@@ -4,10 +4,10 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  ViewChild,
   computed,
   inject,
   input,
+  viewChild,
 } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { SELECT_CONTEXT } from './select.tokens';
@@ -91,7 +91,7 @@ export class SelectTriggerComponent implements AfterViewInit, OnDestroy {
 
   protected readonly ctx = inject(SELECT_CONTEXT);
 
-  @ViewChild('triggerBtn') private _triggerBtnRef!: ElementRef<HTMLButtonElement>;
+  private readonly _triggerBtnRef = viewChild.required<ElementRef<HTMLButtonElement>>('triggerBtn');
 
   protected readonly classes = computed(() =>
     mergeClasses(selectTriggerVariants({ nSize: this.nSize() }), this.nClass()),
@@ -116,7 +116,7 @@ export class SelectTriggerComponent implements AfterViewInit, OnDestroy {
   });
 
   ngAfterViewInit(): void {
-    this.ctx.setTriggerEl(this._triggerBtnRef.nativeElement);
+    this.ctx.setTriggerEl(this._triggerBtnRef().nativeElement);
   }
 
   ngOnDestroy(): void {

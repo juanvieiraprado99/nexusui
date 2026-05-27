@@ -4,11 +4,11 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  ViewChild,
   computed,
   effect,
   inject,
   input,
+  viewChild,
 } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { COMBOBOX_CONTEXT } from './combobox.tokens';
@@ -95,8 +95,8 @@ export class ComboboxTriggerComponent implements AfterViewInit, OnDestroy {
 
   protected readonly ctx = inject(COMBOBOX_CONTEXT);
 
-  @ViewChild('triggerDiv') private _triggerDivRef!: ElementRef<HTMLElement>;
-  @ViewChild('searchInput') private _searchInputRef?: ElementRef<HTMLInputElement>;
+  private readonly _triggerDivRef = viewChild.required<ElementRef<HTMLElement>>('triggerDiv');
+  private readonly _searchInputRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
   protected readonly classes = computed(() =>
     mergeClasses(comboboxTriggerVariants({ nSize: this.nSize() }), this.nClass()),
@@ -117,13 +117,13 @@ export class ComboboxTriggerComponent implements AfterViewInit, OnDestroy {
   constructor() {
     effect(() => {
       if (this.ctx.open()) {
-        queueMicrotask(() => this._searchInputRef?.nativeElement.focus());
+        queueMicrotask(() => this._searchInputRef()?.nativeElement.focus());
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.ctx.setTriggerEl(this._triggerDivRef.nativeElement);
+    this.ctx.setTriggerEl(this._triggerDivRef().nativeElement);
   }
 
   ngOnDestroy(): void {

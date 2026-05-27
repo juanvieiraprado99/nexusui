@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
+  effect,
   ElementRef,
   inject,
   input,
@@ -40,8 +42,8 @@ let _signatureIdCounter = 0;
         <canvas
           #canvas
           [id]="elementId()"
-          [width]="nWidth()"
-          [height]="nHeight()"
+          [style.width.px]="nWidth()"
+          [style.height.px]="nHeight()"
           [attr.aria-label]="nLabel() ? null : (nAriaLabel() || 'Pad de assinatura')"
           [attr.aria-invalid]="hasError() ? true : null"
           [attr.aria-required]="nRequired() ? true : null"
@@ -121,6 +123,7 @@ export class SignatureComponent implements ControlValueAccessor {
   private readonly _canvasRef  = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
   private readonly _form       = injectFormControl<string>(this);
   private readonly _platformId = inject(PLATFORM_ID);
+  private readonly _destroyRef = inject(DestroyRef);
   private readonly _staticId   = `n-signature-${++_signatureIdCounter}`;
 
   private _allStrokes: SignatureStroke[]   = [];
@@ -128,6 +131,13 @@ export class SignatureComponent implements ControlValueAccessor {
   private _isDrawing = false;
   private _ctx: CanvasRenderingContext2D | null = null;
   private _pendingWriteValue: string | null = null;
+
+  // Camada em cache com fundo + traços já fechados + imagem carregada via writeValue.
+  // Durante o desenho, o canvas visível é repintado com um único drawImage desta camada,
+  // evitando re-percorrer todos os traços a cada pointermove.
+  private _committedCanvas: HTMLCanvasElement | null = null;
+  private _committedCtx: CanvasRenderingContext2D | null = null;
+  private _loadedImage: HTMLImageElement | null = null;
 
   private readonly _emptySignal = signal(true);
   protected readonly isEmpty    = this._emptySignal.asReadonly();
@@ -161,6 +171,17 @@ export class SignatureComponent implements ControlValueAccessor {
       if (!isPlatformBrowser(this._platformId)) return;
       this._initCanvas();
     });
+
+    // Redimensiona o backing store e preserva os traços quando nWidth/nHeight mudam em runtime.
+    effect(() => {
+      const w = this.nWidth();
+      const h = this.nHeight();
+      void w; void h;
+      if (!this._ctx) return;
+      this._resizeCanvas();
+      this._rebuildCommitted();
+      this._paintVisible();
+    });
   }
 
   private _initCanvas(): void {
@@ -168,25 +189,59 @@ export class SignatureComponent implements ControlValueAccessor {
     this._ctx = canvas.getContext('2d');
     if (!this._ctx) return;
 
+    this._committedCanvas = document.createElement('canvas');
+    this._committedCtx = this._committedCanvas.getContext('2d');
+
+    this._resizeCanvas();
+
     if (this._pendingWriteValue !== null) {
       this._applyWriteValue(this._pendingWriteValue);
       this._pendingWriteValue = null;
     } else {
-      this._drawPlaceholder();
+      this._rebuildCommitted();
+      this._paintVisible();
     }
 
     canvas.addEventListener('pointerdown', this._onPointerDown);
     canvas.addEventListener('pointermove', this._onPointerMove);
     canvas.addEventListener('pointerup', this._onPointerUp);
     canvas.addEventListener('lostpointercapture', this._onPointerUp);
+
+    this._destroyRef.onDestroy(() => {
+      canvas.removeEventListener('pointerdown', this._onPointerDown);
+      canvas.removeEventListener('pointermove', this._onPointerMove);
+      canvas.removeEventListener('pointerup', this._onPointerUp);
+      canvas.removeEventListener('lostpointercapture', this._onPointerUp);
+    });
+  }
+
+  // Backing store em pixels físicos (escala por DPR) com transform para desenhar em
+  // coordenadas lógicas. Mantém a renderização nítida em telas high-DPI.
+  private _resizeCanvas(): void {
+    const ctx = this._ctx;
+    if (!ctx || !this._committedCanvas || !this._committedCtx) return;
+
+    const canvas = this._canvasRef().nativeElement;
+    const dpr = window.devicePixelRatio || 1;
+    const w = this.nWidth();
+    const h = this.nHeight();
+
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    this._committedCanvas.width = w * dpr;
+    this._committedCanvas.height = h * dpr;
+    this._committedCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   private _getPoint = (e: PointerEvent): SignaturePoint => {
     const canvas = this._canvasRef().nativeElement;
     const rect = canvas.getBoundingClientRect();
+    // Mapeia para coordenadas lógicas (independe do DPR e de max-width responsivo).
     return {
-      x: (e.clientX - rect.left) * (canvas.width / rect.width),
-      y: (e.clientY - rect.top) * (canvas.height / rect.height),
+      x: (e.clientX - rect.left) * (this.nWidth() / rect.width),
+      y: (e.clientY - rect.top) * (this.nHeight() / rect.height),
     };
   };
 
@@ -203,8 +258,15 @@ export class SignatureComponent implements ControlValueAccessor {
   private _onPointerMove = (e: PointerEvent): void => {
     if (!this._isDrawing || !this._ctx) return;
     e.preventDefault();
-    this._currentStroke.push(this._getPoint(e));
-    this._redraw();
+
+    const coalesced = e.getCoalescedEvents?.();
+    if (coalesced && coalesced.length > 0) {
+      for (const ev of coalesced) this._currentStroke.push(this._getPoint(ev));
+    } else {
+      this._currentStroke.push(this._getPoint(e));
+    }
+
+    this._paintVisible();
     this._drawStroke(this._ctx, this._currentStroke, this.nStrokeColor(), this.nStrokeWidth());
   };
 
@@ -213,10 +275,16 @@ export class SignatureComponent implements ControlValueAccessor {
     this._isDrawing = false;
 
     if (this._currentStroke.length > 0) {
-      this._allStrokes.push([...this._currentStroke]);
+      const stroke = [...this._currentStroke];
+      this._allStrokes.push(stroke);
       this._currentStroke = [];
       this._emptySignal.set(false);
-      this._redraw();
+
+      // Desenho incremental: pinta só o traço recém-fechado na camada em cache.
+      if (this._committedCtx) {
+        this._drawStroke(this._committedCtx, stroke, this.nStrokeColor(), this.nStrokeWidth());
+      }
+      this._paintVisible();
       this._emitValue();
       this.nEnd.emit();
     } else {
@@ -250,26 +318,47 @@ export class SignatureComponent implements ControlValueAccessor {
     ctx.stroke();
   }
 
-  private _redraw(): void {
-    const ctx = this._ctx;
+  // Reconstrói a camada em cache do zero (fundo + imagem carregada + todos os traços).
+  // Chamada apenas em init/undo/clear/resize — nunca por pointermove.
+  private _rebuildCommitted(): void {
+    const ctx = this._committedCtx;
     if (!ctx) return;
-    const canvas = this._canvasRef().nativeElement;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const w = this.nWidth();
+    const h = this.nHeight();
+    ctx.clearRect(0, 0, w, h);
 
     const bg = this.nBackgroundColor();
     if (bg !== 'transparent') {
       ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, w, h);
     }
 
-    if (this._allStrokes.length === 0 && this._currentStroke.length === 0) {
-      this._drawPlaceholder();
-      return;
+    if (this._loadedImage) {
+      ctx.drawImage(this._loadedImage, 0, 0, w, h);
     }
 
     for (const stroke of this._allStrokes) {
       this._drawStroke(ctx, stroke, this.nStrokeColor(), this.nStrokeWidth());
+    }
+  }
+
+  // Repinta o canvas visível a partir da camada em cache (blit 1:1 em pixels físicos),
+  // adicionando o placeholder quando não há conteúdo.
+  private _paintVisible(): void {
+    const ctx = this._ctx;
+    const committed = this._committedCanvas;
+    if (!ctx || !committed) return;
+
+    const canvas = this._canvasRef().nativeElement;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(committed, 0, 0);
+    ctx.restore();
+
+    if (this._allStrokes.length === 0 && !this._loadedImage) {
+      this._drawPlaceholder();
     }
   }
 
@@ -278,14 +367,13 @@ export class SignatureComponent implements ControlValueAccessor {
     if (!ctx) return;
     const placeholder = this.nPlaceholder();
     if (!placeholder) return;
-    const canvas = this._canvasRef().nativeElement;
 
     ctx.save();
     ctx.fillStyle = '#9ca3af';
     ctx.font = '14px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(placeholder, canvas.width / 2, canvas.height / 2);
+    ctx.fillText(placeholder, this.nWidth() / 2, this.nHeight() / 2);
     ctx.restore();
   }
 
@@ -339,19 +427,25 @@ export class SignatureComponent implements ControlValueAccessor {
   private _applyWriteValue(value: string): void {
     if (!value) {
       this._allStrokes = [];
+      this._loadedImage = null;
       this._emptySignal.set(true);
-      this._redraw();
+      this._rebuildCommitted();
+      this._paintVisible();
       return;
     }
 
+    // Só PNG é re-hidratável visualmente; os traços individuais não são recuperáveis a
+    // partir do data URL, então a imagem vira fundo da camada em cache. Consequência:
+    // undo não remove a imagem carregada e os formatos svg/base64-svg não a incluem
+    // (apenas base64-png, via toDataURL, captura a imagem).
     if (value.startsWith('data:image/png')) {
       const img = new Image();
       img.onload = () => {
-        if (!this._ctx) return;
-        const canvas = this._canvasRef().nativeElement;
-        this._ctx.clearRect(0, 0, canvas.width, canvas.height);
-        this._ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        if (!this._committedCtx) return;
+        this._loadedImage = img;
         this._emptySignal.set(false);
+        this._rebuildCommitted();
+        this._paintVisible();
       };
       img.src = value;
     }
@@ -360,8 +454,9 @@ export class SignatureComponent implements ControlValueAccessor {
   undo(): void {
     if (this._allStrokes.length === 0) return;
     this._allStrokes.pop();
-    this._emptySignal.set(this._allStrokes.length === 0);
-    this._redraw();
+    this._emptySignal.set(this._allStrokes.length === 0 && !this._loadedImage);
+    this._rebuildCommitted();
+    this._paintVisible();
 
     if (this._allStrokes.length > 0) {
       this._emitValue();
@@ -376,9 +471,13 @@ export class SignatureComponent implements ControlValueAccessor {
   clear(): void {
     this._allStrokes = [];
     this._currentStroke = [];
+    this._loadedImage = null;
     this._isDrawing = false;
     this._emptySignal.set(true);
-    if (this._ctx) this._redraw();
+    if (this._committedCtx) {
+      this._rebuildCommitted();
+      this._paintVisible();
+    }
     const empty = '';
     this.nValue.set(empty);
     this._form.notifyChange(empty);
@@ -405,7 +504,7 @@ export class SignatureComponent implements ControlValueAccessor {
     const v = value ?? '';
     this.nValue.set(v);
 
-    if (!this._ctx) {
+    if (!this._committedCtx) {
       this._pendingWriteValue = v;
       return;
     }

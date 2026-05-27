@@ -46,8 +46,8 @@ let _idCounter = 0;
           [attr.aria-invalid]="hasError() ? true : null"
           [attr.aria-describedby]="describedBy()"
           (click)="!isDisabled() && fileInput.click()"
-          (keydown.enter)="$event.preventDefault(); !isDisabled() && fileInput.click()"
-          (keydown.space)="$event.preventDefault(); !isDisabled() && fileInput.click()"
+          (keydown.enter)="onActivateKey($event, fileInput)"
+          (keydown.space)="onActivateKey($event, fileInput)"
           (dragenter)="onDragEnter($event)"
           (dragover)="onDragOver($event)"
           (dragleave)="onDragLeave($event)"
@@ -170,8 +170,8 @@ let _idCounter = 0;
           [attr.aria-disabled]="isDisabled() ? true : null"
           [attr.aria-invalid]="hasError() ? true : null"
           (click)="!isDisabled() && avatarInput.click()"
-          (keydown.enter)="$event.preventDefault(); !isDisabled() && avatarInput.click()"
-          (keydown.space)="$event.preventDefault(); !isDisabled() && avatarInput.click()"
+          (keydown.enter)="onActivateKey($event, avatarInput)"
+          (keydown.space)="onActivateKey($event, avatarInput)"
         >
           <input
             #avatarInput
@@ -329,6 +329,12 @@ export class ImageUploadComponent implements ControlValueAccessor {
     this._destroyRef.onDestroy(() => {
       for (const f of this.nValue()) URL.revokeObjectURL(f.preview);
     });
+  }
+
+  protected onActivateKey(e: Event, input: HTMLInputElement): void {
+    if (this.isDisabled()) return;
+    e.preventDefault();
+    input.click();
   }
 
   protected onDragEnter(e: DragEvent): void {

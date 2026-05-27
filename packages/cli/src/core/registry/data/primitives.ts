@@ -37,12 +37,13 @@ export const primitivesRegistry: ComponentRegistry[] = [
   {
     name: 'avatar',
     basePath: 'components/avatar',
-    registryDependencies: ['utils', 'badge'],
+    registryDependencies: ['utils', 'image'],
     dependencies: ['class-variance-authority', '@angular/common'],
     files: [
       'avatar.component.ts',
       'avatar-group.component.ts',
       'avatar.variants.ts',
+      'avatar.status.ts',
       'index.ts',
     ],
   },

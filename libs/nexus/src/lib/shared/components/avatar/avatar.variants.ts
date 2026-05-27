@@ -32,3 +32,16 @@ export const SIZE_PX: Record<NonNullable<AvatarVariants['nSize']>, number> = {
   lg:      48,
   xl:      64,
 };
+
+export const SIZE_CLASSES: Record<NonNullable<AvatarVariants['nSize']>, string> = {
+  xs:      'size-6',
+  sm:      'size-8',
+  default: 'size-10',
+  lg:      'size-12',
+  xl:      'size-16',
+};
+
+export const SHAPE_CLASSES: Record<NonNullable<AvatarVariants['nShape']>, string> = {
+  circle: 'rounded-full',
+  square: 'rounded-md',
+};

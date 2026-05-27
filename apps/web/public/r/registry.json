@@ -66,12 +66,13 @@
       "type": "registry:component",
       "registryDependencies": [
         "utils",
-        "badge"
+        "image"
       ],
       "files": [
         "avatar.component.ts",
         "avatar-group.component.ts",
         "avatar.variants.ts",
+        "avatar.status.ts",
         "index.ts"
       ]
     },

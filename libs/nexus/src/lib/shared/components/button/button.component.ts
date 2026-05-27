@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed, output, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, output, inject, ElementRef } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { buttonVariants, type ButtonVariants } from './button.variants';
 import { BUTTON_GROUP_CONTEXT } from '../button-group/button-group.tokens';
@@ -15,16 +15,20 @@ import { BUTTON_GROUP_CONTEXT } from '../button-group/button-group.tokens';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class]': 'classes()',
-    '[attr.type]': 'nType()',
-    '[attr.role]': '"button"',
-    '[attr.disabled]': 'isDisabled() || nLoading() ? true : null',
+    '[attr.type]': 'hostType()',
+    '[attr.role]': 'hostRole()',
+    '[attr.disabled]': 'hostDisabled()',
+    '[attr.data-disabled]': 'isDisabled() || nLoading() ? "" : null',
+    '[attr.tabindex]': 'hostTabindex()',
     '[attr.aria-busy]': 'nLoading()',
-    '[attr.aria-disabled]': 'isDisabled() || nLoading()',
+    '[attr.aria-disabled]': 'isDisabled() || nLoading() ? true : null',
     '(click)': 'handleClick($event)',
+    '(keydown)': 'handleKeydown($event)',
   },
 })
 export class ButtonComponent {
   private readonly group = inject(BUTTON_GROUP_CONTEXT, { optional: true });
+  private readonly tag = inject(ElementRef<HTMLElement>).nativeElement.tagName.toLowerCase();
 
   readonly nVariant    = input<ButtonVariants['nVariant']>('default');
   readonly nSize       = input<ButtonVariants['nSize']>('default');
@@ -36,6 +40,17 @@ export class ButtonComponent {
   readonly nClick = output<Event>();
 
   protected readonly isDisabled = computed(() => this.nDisabled() || (this.group?.nDisabled() ?? false));
+
+  protected readonly hostType = computed(() => (this.tag === 'button' ? this.nType() : null));
+  protected readonly hostRole = computed(() => (this.tag === 'n-button' ? 'button' : null));
+
+  protected readonly hostDisabled = computed(() =>
+    this.tag === 'button' && (this.isDisabled() || this.nLoading()) ? true : null,
+  );
+
+  protected readonly hostTabindex = computed(() =>
+    this.tag === 'n-button' ? (this.isDisabled() || this.nLoading() ? -1 : 0) : null,
+  );
 
   protected readonly classes = computed(() =>
     mergeClasses(
@@ -50,8 +65,16 @@ export class ButtonComponent {
   protected handleClick(event: Event): void {
     if (this.isDisabled() || this.nLoading()) {
       event.preventDefault();
+      event.stopImmediatePropagation();
       return;
     }
     this.nClick.emit(event);
+  }
+
+  protected handleKeydown(event: KeyboardEvent): void {
+    if (this.tag !== 'n-button') return;
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    this.handleClick(event);
   }
 }

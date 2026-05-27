@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonGroupComponent } from '../button-group.component';
 import { ButtonComponent } from '../../button/button.component';
+import { ButtonGroupComponent } from '../button-group.component';
 
 @Component({
   selector: 'demo-button-group-variants',

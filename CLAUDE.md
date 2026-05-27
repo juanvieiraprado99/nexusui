@@ -35,7 +35,7 @@ tools/generators/      # Nx schematics (generate:component)
 
 ### Three-piece system
 
-1. **Library** (`libs/nexus`) — Angular standalone components, `OnPush`, `ViewEncapsulation.None`, CVA variants, `host: { '[class]': 'classes()' }` pattern. Uses `mergeClasses()` (clsx + tailwind-merge).
+1. **Library** (`libs/nexus`) — Angular standalone components, `OnPush`, default (Emulated) `ViewEncapsulation`, CVA variants, `host: { '[class]': 'classes()' }` pattern. Uses `mergeClasses()` (clsx + tailwind-merge). Never use `ViewEncapsulation.None` — the only exception is `sonner`, which needs unscoped global CSS from `ngx-sonner` (documented inline in the component).
 2. **Registry** — static JSON files at `apps/web/public/r/{name}.json`. Metadata source of truth: `packages/cli/src/core/registry/registry-data.ts` — single TS file imported by both the build script and the CLI types. Build script reads component sources + `doc/*.md` + `demo/*.ts` and emits JSON bundles.
 3. **CLI** (`packages/cli`) — Commander.js. Two commands: `init` (scaffolds `components.json`, patches `angular.json` / Tailwind / tsconfig, installs base deps) and `add` (recursively resolves `registryDependencies`, fetches JSON from registry URL, transforms imports, writes files with rollback).
 

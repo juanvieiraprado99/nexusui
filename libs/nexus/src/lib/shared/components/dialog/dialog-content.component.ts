@@ -8,7 +8,6 @@ import {
   ElementRef,
   OnDestroy,
   TemplateRef,
-  ViewChild,
   ViewContainerRef,
   computed,
   effect,
@@ -16,6 +15,7 @@ import {
   input,
   signal,
   untracked,
+  viewChild,
 } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { DIALOG_CONTEXT } from './dialog.context';
@@ -99,8 +99,8 @@ export class DialogContentComponent implements AfterViewInit, OnDestroy {
   private readonly _vcr              = inject(ViewContainerRef);
   private readonly _focusTrapFactory = inject(FocusTrapFactory);
 
-  @ViewChild('panel', { static: true }) private _panelTpl!: TemplateRef<unknown>;
-  @ViewChild('panelEl') private _panelEl?: ElementRef<HTMLElement>;
+  private readonly _panelTpl = viewChild.required<TemplateRef<unknown>>('panel');
+  private readonly _panelEl = viewChild<ElementRef<HTMLElement>>('panelEl');
 
   private _overlayRef: OverlayRef | null = null;
   private _portal: TemplatePortal | null = null;
@@ -130,7 +130,7 @@ export class DialogContentComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this._portal = new TemplatePortal(this._panelTpl, this._vcr);
+    this._portal = new TemplatePortal(this._panelTpl(), this._vcr);
   }
 
   ngOnDestroy(): void {
@@ -153,7 +153,7 @@ export class DialogContentComponent implements AfterViewInit, OnDestroy {
     this._overlayRef.attach(this._portal);
 
     queueMicrotask(() => {
-      const el = this._panelEl?.nativeElement;
+      const el = this._panelEl()?.nativeElement;
       if (!el) return;
       this._focusTrap = this._focusTrapFactory.create(el);
       this._focusTrap.focusInitialElementWhenReady();

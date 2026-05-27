@@ -1,18 +1,18 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
   PLATFORM_ID,
   TemplateRef,
-  ViewChild,
   ViewContainerRef,
+  viewChild,
   afterNextRender,
   computed,
   forwardRef,
   inject,
   input,
+  linkedSignal,
   model,
   output,
   signal,
@@ -50,6 +50,16 @@ import {
 let _cpIdCounter = 0;
 const RECENT_KEY = 'nexus-color-picker-recent';
 const RECENT_MAX = 8;
+
+interface EyeDropper {
+  open(): Promise<{ sRGBHex: string }>;
+}
+
+declare global {
+  interface Window {
+    EyeDropper?: { new (): EyeDropper };
+  }
+}
 
 @Component({
   selector: 'n-color-picker',
@@ -112,11 +122,7 @@ const RECENT_MAX = 8;
               [disabled]="disabled()"
               (click)="copyValue()"
             >
-              @if (copied()) {
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              } @else {
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              }
+              <ng-container [ngTemplateOutlet]="copyIconTpl" />
             </button>
           }
         </div>
@@ -192,11 +198,7 @@ const RECENT_MAX = 8;
               [attr.aria-label]="copied() ? 'Copied!' : 'Copy color value'"
               (click)="copyValue()"
             >
-              @if (copied()) {
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              } @else {
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              }
+              <ng-container [ngTemplateOutlet]="copyIconTpl" />
             </button>
           </div>
 
@@ -245,6 +247,14 @@ const RECENT_MAX = 8;
         </div>
       </ng-template>
 
+      <ng-template #copyIconTpl>
+        @if (copied()) {
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        }
+      </ng-template>
+
       @if (hasError()) {
         <p [id]="errorId()" class="mt-1 text-xs text-destructive" role="alert" data-slot="error">
           {{ nError() }}
@@ -259,7 +269,7 @@ const RECENT_MAX = 8;
     </div>
   `,
 })
-export class ColorPickerComponent implements ControlValueAccessor, ColorPickerContext, AfterViewInit, OnDestroy {
+export class ColorPickerComponent implements ControlValueAccessor, ColorPickerContext, OnDestroy {
   // ── Inputs ──────────────────────────────────────────────────────────────────
   readonly nValue          = model<string>('');
   readonly nMode           = input<'inline' | 'popup'>('popup');
@@ -282,7 +292,7 @@ export class ColorPickerComponent implements ControlValueAccessor, ColorPickerCo
 
   // ── Private state ────────────────────────────────────────────────────────────
   private readonly _hsv    = signal<HsvColor>({ h: 0, s: 0, v: 1, a: 1 });
-  private readonly _format = signal<ColorFormat>('hex');
+  private readonly _format = linkedSignal<ColorFormat>(() => this.nFormat());
   private readonly _open   = signal(false);
   private readonly _recent = signal<string[]>([]);
   private readonly _copied = signal(false);
@@ -294,8 +304,8 @@ export class ColorPickerComponent implements ControlValueAccessor, ColorPickerCo
   private readonly _vcr        = inject(ViewContainerRef);
   private readonly _platformId = inject(PLATFORM_ID);
 
-  @ViewChild('trigger', { static: false }) private _triggerEl?: ElementRef<HTMLElement>;
-  @ViewChild('panelTpl', { static: true }) private _panelTpl!: TemplateRef<unknown>;
+  private readonly _triggerEl = viewChild<ElementRef<HTMLElement>>('trigger');
+  private readonly _panelTpl = viewChild.required<TemplateRef<unknown>>('panelTpl');
 
   private _overlayRef: OverlayRef | null = null;
   private _portal: TemplatePortal | null = null;
@@ -392,6 +402,14 @@ export class ColorPickerComponent implements ControlValueAccessor, ColorPickerCo
 
   constructor() {
     afterNextRender(() => {
+      this._portal = new TemplatePortal(this._panelTpl(), this._vcr);
+
+      const parsed = stringToHsv(this.nValue());
+      if (parsed) {
+        this._hsv.set(parsed);
+        this.nValue.set(hsvToString(parsed, this._format(), this.nShowAlpha()));
+      }
+
       if (!isPlatformBrowser(this._platformId)) return;
 
       try {
@@ -401,19 +419,6 @@ export class ColorPickerComponent implements ControlValueAccessor, ColorPickerCo
 
       if ('EyeDropper' in window) this.eyedropperSupported.set(true);
     });
-  }
-
-  ngAfterViewInit(): void {
-    this._portal = new TemplatePortal(this._panelTpl, this._vcr);
-    this._format.set(this.nFormat());
-    const initial = this.nValue();
-    if (initial) {
-      const parsed = stringToHsv(initial);
-      if (parsed) {
-        this._hsv.set(parsed);
-        this.nValue.set(hsvToString(parsed, this._format(), this.nShowAlpha()));
-      }
-    }
   }
 
   ngOnDestroy(): void {
@@ -444,12 +449,12 @@ export class ColorPickerComponent implements ControlValueAccessor, ColorPickerCo
     this._form.notifyTouched();
     this._saveRecent(this.nValue());
     if (returnFocus) queueMicrotask(() =>
-      (this._triggerEl?.nativeElement.querySelector('button') as HTMLElement | null)?.focus(),
+      (this._triggerEl()?.nativeElement.querySelector('button') as HTMLElement | null)?.focus(),
     );
   }
 
   private _attach(): void {
-    const trigger = this._triggerEl?.nativeElement;
+    const trigger = this._triggerEl()?.nativeElement;
     if (!trigger || !this._portal || this._overlayRef?.hasAttached()) return;
 
     const positions: ConnectedPosition[] = [
@@ -489,7 +494,8 @@ export class ColorPickerComponent implements ControlValueAccessor, ColorPickerCo
   }
 
   protected onTriggerKeydown(e: KeyboardEvent): void {
-    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+    // Enter/Space already fire the native button click → toggle(); only ArrowDown needs handling.
+    if (e.key === 'ArrowDown') {
       e.preventDefault();
       this._openPanel();
     }
@@ -543,9 +549,8 @@ export class ColorPickerComponent implements ControlValueAccessor, ColorPickerCo
   // ── Eyedropper ────────────────────────────────────────────────────────────────
 
   protected openEyedropper(): void {
-    if (!('EyeDropper' in window)) return;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    new (window as any).EyeDropper().open().then((res: { sRGBHex: string }) => {
+    if (!window.EyeDropper) return;
+    new window.EyeDropper().open().then(res => {
       const parsed = stringToHsv(res.sRGBHex);
       if (parsed) { this._hsv.set(parsed); this._emit(); }
     }).catch(() => { /* user cancelled */ });

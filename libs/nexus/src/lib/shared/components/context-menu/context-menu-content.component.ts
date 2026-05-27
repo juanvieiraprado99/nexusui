@@ -15,13 +15,13 @@ import {
   OnDestroy,
   PLATFORM_ID,
   TemplateRef,
-  ViewChild,
   ViewContainerRef,
   computed,
   contentChildren,
   effect,
   inject,
   input,
+  viewChild,
 } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 import { mergeClasses } from '../../utils/merge-classes';
@@ -66,8 +66,8 @@ export class ContextMenuContentComponent implements AfterViewInit, OnDestroy {
 
   protected readonly items = contentChildren(ContextMenuItemComponent, { descendants: true });
 
-  @ViewChild('panel', { static: true }) private _panelTpl!: TemplateRef<unknown>;
-  @ViewChild('panelEl') private _panelEl?: ElementRef<HTMLElement>;
+  private readonly _panelTpl = viewChild.required<TemplateRef<unknown>>('panel');
+  private readonly _panelEl = viewChild<ElementRef<HTMLElement>>('panelEl');
 
   private _overlayRef: OverlayRef | null = null;
   private _portal: TemplatePortal | null = null;
@@ -90,7 +90,7 @@ export class ContextMenuContentComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this._portal = new TemplatePortal(this._panelTpl, this._vcr);
+    this._portal = new TemplatePortal(this._panelTpl(), this._vcr);
   }
 
   ngOnDestroy(): void {
@@ -125,7 +125,7 @@ export class ContextMenuContentComponent implements AfterViewInit, OnDestroy {
         .withWrap()
         .withTypeAhead(200)
         .withVerticalOrientation();
-      this._panelEl?.nativeElement.focus();
+      this._panelEl()?.nativeElement.focus();
       if (items.length) this._keyManager.setFirstItemActive();
     });
   }

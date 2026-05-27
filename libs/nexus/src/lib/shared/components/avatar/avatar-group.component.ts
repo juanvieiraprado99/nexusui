@@ -1,41 +1,13 @@
 import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { AvatarComponent } from './avatar.component';
-import { type AvatarVariants, SIZE_PX } from './avatar.variants';
+import { type AvatarVariants, SIZE_PX, SIZE_CLASSES, SHAPE_CLASSES } from './avatar.variants';
+import { STATUS_COLOR, STATUS_LABEL, type AvatarStatus } from './avatar.status';
 import { mergeClasses } from '../../utils/merge-classes';
 
 export type AvatarGroupItem = {
   src?:    string;
   name?:   string;
-  status?: 'online' | 'offline' | 'away' | 'busy';
-};
-
-type AvatarStatus = NonNullable<AvatarGroupItem['status']>;
-
-const STATUS_COLOR: Record<AvatarStatus, string> = {
-  online:  '#22c55e',
-  offline: '#a1a1aa',
-  away:    '#fbbf24',
-  busy:    '#ef4444',
-};
-
-const STATUS_LABEL: Record<AvatarStatus, string> = {
-  online:  'Online',
-  offline: 'Offline',
-  away:    'Ausente',
-  busy:    'Ocupado',
-};
-
-const SHAPE_CLASSES: Record<NonNullable<AvatarVariants['nShape']>, string> = {
-  circle: 'rounded-full',
-  square: 'rounded-md',
-};
-
-const SIZE_CLASSES: Record<NonNullable<AvatarVariants['nSize']>, string> = {
-  xs:      'size-6',
-  sm:      'size-8',
-  default: 'size-10',
-  lg:      'size-12',
-  xl:      'size-16',
+  status?: AvatarStatus;
 };
 
 @Component({
@@ -44,7 +16,7 @@ const SIZE_CLASSES: Record<NonNullable<AvatarVariants['nSize']>, string> = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AvatarComponent],
   template: `
-    @for (item of visibleItems(); track $index) {
+    @for (item of visibleItems(); track item.src ?? item.name ?? $index) {
       <n-avatar
         [nSrc]="item.src ?? ''"
         [nName]="item.name ?? ''"

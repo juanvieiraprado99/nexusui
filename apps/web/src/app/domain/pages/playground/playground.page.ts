@@ -5,6 +5,10 @@ import { ButtonDemoDefault } from '@nexus/lib/shared/components/button/demo/defa
 import { ButtonDemoLoading } from '@nexus/lib/shared/components/button/demo/loading';
 import { ButtonDemoSize } from '@nexus/lib/shared/components/button/demo/size';
 import { ButtonDemoVariants } from '@nexus/lib/shared/components/button/demo/variants';
+import { ButtonDemoDisabled } from '@nexus/lib/shared/components/button/demo/disabled';
+import { ButtonDemoWithIcon } from '@nexus/lib/shared/components/button/demo/with-icon';
+import { ButtonDemoAsLink } from '@nexus/lib/shared/components/button/demo/as-link';
+import { ButtonDemoHostTypes } from '@nexus/lib/shared/components/button/demo/host-types';
 
 // Button Group demos
 import { ButtonGroupDefaultDemo } from '@nexus/lib/shared/components/button-group/demo/default';
@@ -67,6 +71,7 @@ import { DatepickerMinMaxDemo } from '@nexus/lib/shared/components/datepicker/de
 import { DatepickerSizesDemo } from '@nexus/lib/shared/components/datepicker/demo/sizes';
 import { DatepickerWithFormDemo } from '@nexus/lib/shared/components/datepicker/demo/with-form';
 import { DatepickerWithLabelDemo } from '@nexus/lib/shared/components/datepicker/demo/with-label';
+import { DatepickerWithTimeDemo } from '@nexus/lib/shared/components/datepicker/demo/with-time';
 
 // Separator demos
 import { SeparatorDefaultDemo } from '@nexus/lib/shared/components/separator/demo/default';
@@ -299,6 +304,7 @@ import { ImageCdnDemo } from '@nexus/lib/shared/components/image/demo/cdn';
 
 // Tooltip demos
 import { TooltipBasicDemo } from '@nexus/lib/shared/components/tooltip/demo/basic';
+import { TooltipDiagonalsDemo } from '@nexus/lib/shared/components/tooltip/demo/diagonals';
 import { TooltipSidesDemo } from '@nexus/lib/shared/components/tooltip/demo/sides';
 import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/template';
 
@@ -311,6 +317,10 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
     ButtonDemoLoading,
     ButtonDemoSize,
     ButtonDemoVariants,
+    ButtonDemoDisabled,
+    ButtonDemoWithIcon,
+    ButtonDemoAsLink,
+    ButtonDemoHostTypes,
     ButtonGroupDefaultDemo,
     ButtonGroupVerticalDemo,
     ButtonGroupSizesDemo,
@@ -447,6 +457,7 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
     DatepickerDisabledWeekendsDemo,
     DatepickerSizesDemo,
     DatepickerErrorDemo,
+    DatepickerWithTimeDemo,
     SelectDefaultDemo,
     SelectMultipleDemo,
     SelectGroupsDemo,
@@ -525,6 +536,7 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
     ImageUploadArchivesDemo,
     ImageUploadMixedDemo,
     TooltipBasicDemo,
+    TooltipDiagonalsDemo,
     TooltipSidesDemo,
     TooltipTemplateDemo,
   ],
@@ -807,6 +819,40 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
             <div class="flex min-h-16 items-center justify-center">
               <demo-button-variants />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Disabled</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nDisabled</code> via
+              <code class="bg-muted rounded px-1 font-mono">data-disabled</code> — funciona em button, âncora e custom element.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-disabled />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Icon</span>
+            <p class="text-muted-foreground text-xs">Ícone leading/trailing via <code class="bg-muted rounded px-1 font-mono">ng-content</code> + gap automático.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-with-icon />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">As Link</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">a[n-button]</code> — âncora com estilo de botão.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-as-link />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Host Types</span>
+            <p class="text-muted-foreground text-xs">
+              Mesmo seletor em 3 hosts: <code class="bg-muted rounded px-1 font-mono">n-button</code> (custom el, navegável por teclado),
+              <code class="bg-muted rounded px-1 font-mono">button[n-button]</code>, <code class="bg-muted rounded px-1 font-mono">a[n-button]</code>.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-button-host-types />
             </div>
           </div>
         </div>
@@ -1689,6 +1735,12 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
               <demo-datepicker-error />
             </div>
           </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Time</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-datepicker-with-time />
+            </div>
+          </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
             <div class="flex min-h-16 items-center justify-center">
@@ -2246,6 +2298,13 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nTooltipSide</code> — top · right · bottom · left. Flip automático.</p>
             <div class="flex min-h-16 items-center justify-center">
               <demo-tooltip-sides />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Diagonals</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nTooltipSide</code> — top-left · top-right · bottom-left · bottom-right. Ancorado no canto.</p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-tooltip-diagonals />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">

@@ -9,7 +9,7 @@ export const calendarWeekdayVariants = cva(
 );
 
 export const calendarDayVariants = cva(
-  'p-0 relative focus-within:relative focus-within:z-20 flex mt-1 size-9',
+  'p-0 relative z-10 focus-within:relative focus-within:z-20 flex mt-1 size-9',
 );
 
 export const calendarDayButtonVariants = cva(

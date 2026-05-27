@@ -8,9 +8,14 @@ export function isSameDay(date1: Date, date2: Date): boolean {
   );
 }
 
+function startOfDay(date: Date): number {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+}
+
 export function isDateDisabled(date: Date, minDate: Date | null, maxDate: Date | null): boolean {
-  if (minDate && date < minDate) return true;
-  if (maxDate && date > maxDate) return true;
+  const day = startOfDay(date);
+  if (minDate && day < startOfDay(minDate)) return true;
+  if (maxDate && day > startOfDay(maxDate)) return true;
   return false;
 }
 
@@ -90,8 +95,8 @@ export function getSelectedDatesArray(value: CalendarValue, mode: CalendarMode):
   return [];
 }
 
-export function getDayId(index: number): string {
-  return `n-calendar-day-${index}`;
+export function getDayId(prefix: string, index: number): string {
+  return `${prefix}-day-${index}`;
 }
 
 export function getDayAriaLabel(day: CalendarDay): string {

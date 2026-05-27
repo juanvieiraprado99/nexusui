@@ -1,17 +1,24 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Injector,
+  PLATFORM_ID,
+  afterNextRender,
   computed,
+  inject,
   input,
   linkedSignal,
   model,
   output,
+  signal,
   viewChild,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ControlValueAccessor } from '@angular/forms';
 
 import { injectFormControl } from '../../utils/form-control';
 import { mergeClasses } from '../../utils/merge-classes';
+import { LabelComponent } from '../label';
 import { CalendarGridComponent } from './calendar-grid.component';
 import { CalendarNavigationComponent } from './calendar-navigation.component';
 import type { CalendarMode, CalendarValue, DisabledDateFn } from './calendar.types';
@@ -25,19 +32,27 @@ import {
 } from './calendar.utils';
 import { calendarVariants } from './calendar.variants';
 
+let _calendarIdCounter = 0;
+
 @Component({
   selector: 'n-calendar, [n-calendar]',
   standalone: true,
-  imports: [CalendarNavigationComponent, CalendarGridComponent],
+  imports: [CalendarNavigationComponent, CalendarGridComponent, LabelComponent],
   template: `
     <div [class]="classes()" data-slot="root">
+      @if (nLabel()) {
+        <n-label [nId]="labelId()" [nRequired]="nRequired()" [nDisabled]="isDisabled()">
+          {{ nLabel() }}
+        </n-label>
+      }
+
       <n-calendar-navigation
         [currentMonth]="currentMonthValue()"
         [currentYear]="currentYearValue()"
         [minDate]="nMin()"
         [maxDate]="nMax()"
         [disabled]="isDisabled()"
-        [locale]="nLocale()"
+        [locale]="effectiveLocale()"
         (monthChange)="onMonthChange($event)"
         (yearChange)="onYearChange($event)"
         (previousMonth)="previousMonth()"
@@ -48,20 +63,39 @@ import { calendarVariants } from './calendar.variants';
         [calendarDays]="calendarDays()"
         [weekdayLabels]="weekdayLabels()"
         [disabled]="isDisabled()"
+        [idPrefix]="calendarId()"
+        [animateSelection]="nAnimateSelection() && nMode() === 'single'"
+        [ariaLabel]="nLabel() ? null : (nAriaLabel() || null)"
+        [ariaLabelledby]="nLabel() ? labelId() : null"
+        [ariaDescribedby]="describedBy()"
+        [ariaInvalid]="hasError()"
+        [ariaRequired]="nRequired()"
         (dateSelect)="onDateSelect($event)"
         (previousMonth)="onGridPreviousMonth($event)"
         (nextMonth)="onGridNextMonth($event)"
         (navigateYear)="onNavigateYear($event)"
       />
+
+      @if (hasError()) {
+        <p [id]="errorId()" class="mt-2 text-xs text-destructive animate-error-in" role="alert" data-slot="error">
+          {{ nError() }}
+        </p>
+      }
+
+      @if (nHint() && !hasError()) {
+        <p [id]="hintId()" class="mt-2 text-xs text-muted-foreground" data-slot="hint">
+          {{ nHint() }}
+        </p>
+      }
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.tabindex]': '0' },
   exportAs: 'nCalendar',
 })
 export class CalendarComponent implements ControlValueAccessor {
   private readonly gridRef = viewChild.required(CalendarGridComponent);
   private readonly _form = injectFormControl<CalendarValue>(this);
+  private readonly _platformId = inject(PLATFORM_ID);
 
   readonly nMode    = input<CalendarMode>('single');
   readonly nValue   = model<CalendarValue>(null);
@@ -69,14 +103,47 @@ export class CalendarComponent implements ControlValueAccessor {
   readonly nMax     = input<Date | null>(null);
   readonly nDisabled    = input<boolean>(false);
   readonly nDisabledDate = input<DisabledDateFn | null>(null);
-  readonly nLocale  = input<string>(typeof navigator !== 'undefined' ? navigator.language : 'en-US');
+  readonly nLocale  = input<string>('');
   readonly nWeekStartsOn = input<0 | 1>(0);
+  readonly nAnimateSelection = input<boolean>(true);
+  readonly nLabel     = input<string>('');
+  readonly nError     = input<string | null>(null);
+  readonly nHint      = input<string | null>(null);
+  readonly nRequired  = input<boolean>(false);
+  readonly nAriaLabel = input<string>('');
   readonly nClass   = input<string>('');
   readonly nId      = input<string>('');
 
   readonly nChange = output<CalendarValue>();
 
+  private readonly _staticId = `n-calendar-${++_calendarIdCounter}`;
+  private readonly _browserLocale = signal<string>('en-US');
+
   protected readonly isDisabled = computed(() => this.nDisabled() || this._form.disabledByForm());
+  protected readonly hasError   = computed(() =>
+    !!this.nError() || (this._form.controlInvalid() && this._form.controlTouched()),
+  );
+
+  protected readonly calendarId = computed(() => this.nId() || this._staticId);
+  protected readonly labelId    = computed(() => `${this.calendarId()}-label`);
+  protected readonly errorId    = computed(() => `${this.calendarId()}-error`);
+  protected readonly hintId     = computed(() => `${this.calendarId()}-hint`);
+
+  protected readonly describedBy = computed(() => {
+    if (this.hasError()) return this.errorId();
+    if (this.nHint())    return this.hintId();
+    return null;
+  });
+
+  protected readonly effectiveLocale = computed(() => this.nLocale() || this._browserLocale());
+
+  constructor() {
+    afterNextRender(() => {
+      if (isPlatformBrowser(this._platformId) && typeof navigator !== 'undefined') {
+        this._browserLocale.set(navigator.language);
+      }
+    });
+  }
 
   private readonly normalizedValue = computed(() => normalizeCalendarValue(this.nValue()));
 
@@ -94,7 +161,7 @@ export class CalendarComponent implements ControlValueAccessor {
   protected readonly classes = computed(() => mergeClasses(calendarVariants(), this.nClass()));
 
   protected readonly weekdayLabels = computed(() =>
-    getWeekdayLabels(this.nLocale(), this.nWeekStartsOn()),
+    getWeekdayLabels(this.effectiveLocale(), this.nWeekStartsOn()),
   );
 
   protected readonly calendarDays = computed(() => {
@@ -163,17 +230,17 @@ export class CalendarComponent implements ControlValueAccessor {
     const baseM = Number.isNaN(month) ? this.currentDate().getMonth() : month;
     const date  = makeSafeDate(base + direction, baseM, 1);
     this.currentYearValue.set(date.getFullYear().toString());
-    setTimeout(() => this.gridRef().resetFocus(), 0);
+    this.gridRef().resetFocus();
   }
 
   protected onGridPreviousMonth(event: { position: string; dayOfWeek: number }): void {
     this.previousMonth();
-    setTimeout(() => this.resetFocusAfterNavigation(event.position, event.dayOfWeek), 0);
+    this.resetFocusAfterNavigation(event.position, event.dayOfWeek);
   }
 
   protected onGridNextMonth(event: { position: string; dayOfWeek: number }): void {
     this.nextMonth();
-    setTimeout(() => this.resetFocusAfterNavigation(event.position, event.dayOfWeek), 0);
+    this.resetFocusAfterNavigation(event.position, event.dayOfWeek);
   }
 
   protected onDateSelect(event: { date: Date; index: number }): void {

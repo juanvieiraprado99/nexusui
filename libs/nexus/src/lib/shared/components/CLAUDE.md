@@ -55,7 +55,7 @@ Regras:
 
 - `standalone: true` sempre.
 - `changeDetection: ChangeDetectionStrategy.OnPush` sempre.
-- **Nunca** `encapsulation: ViewEncapsulation.None`. Estilos vêm de Tailwind aplicado no template/host; encapsulation default basta.
+- **Nunca** `encapsulation: ViewEncapsulation.None`. Estilos vêm de Tailwind aplicado no template/host; encapsulation default basta. **Única exceção:** `sonner` — `ngx-sonner` injeta CSS global que precisa ser não-encapsulado; a exceção está justificada por comentário inline no `sonner.component.ts`. Qualquer novo uso de `None` exige a mesma justificativa explícita.
 - Sem `imports: [...]` quando o template não consome outros componentes.
 
 ---
@@ -186,6 +186,7 @@ Componentes **compostos** (mais de um nó relevante no template) marcam cada slo
 | `sub-trigger`         | item que abre submenu (dropdown-menu, navigation-menu)       |
 | `sub-content`         | painel de submenu aberto a partir de `sub-trigger`           |
 | `char-count`          | contador de caracteres (textarea com `nCharCount=true`)      |
+| `time`                | seleção de hora no painel do datepicker (`nShowTime=true`)   |
 
 > Nomes são canônicos — **não** crie variantes (`input-root`, `wrapper`, etc.). Se um componente novo precisa de um slot fora desta lista, adicione-o aqui antes de usar.
 
@@ -235,7 +236,10 @@ export class FooComponent implements ControlValueAccessor {
 
 > **Regra — Form-field wrapper inputs:** Todo componente que implementa `ControlValueAccessor`
 > **deve** expor `nLabel`, `nError`, `nHint`, `nRequired` e `nAriaLabel` com os mesmos tipos e
-> defaults do `InputComponent`. O template segue a ordem da seção 11
+> defaults do `InputComponent`. Controles de texto com elemento nativo (`input`, `textarea`)
+> **devem** também expor `nReadonly: input<boolean>(false)`, vinculado a `[readonly]="nReadonly()"`
+> + `[attr.aria-readonly]="nReadonly() ? true : null"` no controle. `readonly` ≠ `disabled`: o campo
+> permanece focável e é submetido no formulário, então **não** entra no cálculo de `isDisabled`. O template segue a ordem da seção 11
 > (label → control-wrapper → error → hint). Componentes compostos que usam `<ng-content />`
 > em vez de controle nativo devem propagar `hasError`, `required`, `describedBy`, `labelId` e
 > `ariaLabel` pelo context token para que os sub-componentes vinculem os atributos ARIA corretos.

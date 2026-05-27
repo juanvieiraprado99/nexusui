@@ -5,18 +5,23 @@ import {
   OverlayRef,
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
+  PLATFORM_ID,
   TemplateRef,
-  ViewChild,
   ViewContainerRef,
+  afterNextRender,
+  viewChild,
   computed,
   inject,
   input,
+  linkedSignal,
   model,
   output,
   signal,
@@ -30,14 +35,23 @@ import { CalendarComponent } from '../calendar/calendar.component';
 import type { CalendarValue } from '../calendar/calendar.types';
 import type { DatepickerSize, DisabledDateFn } from './datepicker.tokens';
 import { datepickerTriggerVariants } from './datepicker.variants';
-import { formatDate, startOfDay } from './datepicker.utils';
+import {
+  formatDate,
+  from12Hour,
+  isAfter,
+  isBefore,
+  resolveIs12Hour,
+  setTime,
+  startOfDay,
+  to12Hour,
+} from './datepicker.utils';
 
 let _datepickerIdCounter = 0;
 
 @Component({
   selector: 'n-datepicker',
   standalone: true,
-  imports: [CalendarComponent, LabelComponent],
+  imports: [CalendarComponent, LabelComponent, CdkTrapFocus],
   template: `
     <div class="flex flex-col" data-slot="root">
 
@@ -67,7 +81,7 @@ let _datepickerIdCounter = 0;
         (keydown)="handleTriggerKeydown($event)"
       >
         <span class="truncate">
-          {{ displayLabel() || nPlaceholder() || 'Selecione uma data' }}
+          {{ displayLabel() || nPlaceholder() || nEmptyLabel() }}
         </span>
         <svg
           aria-hidden="true"
@@ -87,7 +101,10 @@ let _datepickerIdCounter = 0;
           [id]="contentId()"
           data-slot="content"
           role="dialog"
-          aria-label="Calendário"
+          aria-modal="true"
+          [attr.aria-label]="nCalendarAriaLabel()"
+          cdkTrapFocus
+          [cdkTrapFocusAutoCapture]="true"
           class="rounded-md border border-border bg-popover shadow-md"
         >
           <n-calendar
@@ -96,11 +113,63 @@ let _datepickerIdCounter = 0;
             [nMin]="nMin()"
             [nMax]="nMax()"
             [nDisabledDate]="nDisabledDate()"
-            [nLocale]="nLocale()"
+            [nLocale]="effectiveLocale()"
             [nWeekStartsOn]="nWeekStartsOn()"
             [nDisabled]="isDisabled()"
             (nChange)="onCalendarChange($event)"
           />
+
+          @if (nShowTime()) {
+            <div
+              data-slot="time"
+              class="mx-3 mb-3 flex items-center gap-1.5 border-t border-border pt-3"
+            >
+              <select
+                [attr.aria-label]="nHourLabel()"
+                [disabled]="isDisabled()"
+                [value]="selectedHour()"
+                [class]="timeSelectClasses()"
+                (change)="onHourChange($event)"
+              >
+                @for (h of hourOptions(); track h) {
+                  <option [value]="h">{{ pad(h) }}</option>
+                }
+              </select>
+              <span class="text-muted-foreground">:</span>
+              <select
+                [attr.aria-label]="nMinuteLabel()"
+                [disabled]="isDisabled()"
+                [value]="selectedMinute()"
+                [class]="timeSelectClasses()"
+                (change)="onMinuteChange($event)"
+              >
+                @for (m of minuteOptions(); track m) {
+                  <option [value]="m">{{ pad(m) }}</option>
+                }
+              </select>
+              @if (is12Hour()) {
+                <select
+                  [attr.aria-label]="nMeridiemLabel()"
+                  [disabled]="isDisabled()"
+                  [value]="selectedMeridiem()"
+                  [class]="timeSelectClasses()"
+                  (change)="onMeridiemChange($event)"
+                >
+                  <option value="AM">AM</option>
+                  <option value="PM">PM</option>
+                </select>
+              }
+              <button
+                type="button"
+                class="ml-auto text-xs font-medium text-primary hover:underline disabled:opacity-30 disabled:cursor-not-allowed"
+                [disabled]="isDisabled()"
+                (click)="selectNow()"
+              >
+                {{ nNowLabel() }}
+              </button>
+            </div>
+          }
+
           @if (nShowToday() || nClearable()) {
             <div class="mx-3 mb-3 flex items-center justify-between border-t border-border pt-3">
               @if (nShowToday()) {
@@ -110,7 +179,7 @@ let _datepickerIdCounter = 0;
                   [disabled]="isTodayDisabled()"
                   (click)="selectToday()"
                 >
-                  Hoje
+                  {{ nTodayLabel() }}
                 </button>
               } @else {
                 <span></span>
@@ -121,7 +190,7 @@ let _datepickerIdCounter = 0;
                   class="text-xs font-medium text-muted-foreground hover:text-foreground hover:underline"
                   (click)="clear()"
                 >
-                  Limpar
+                  {{ nClearLabel() }}
                 </button>
               }
             </div>
@@ -151,11 +220,15 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
   readonly nMin          = input<Date | null>(null);
   readonly nMax          = input<Date | null>(null);
   readonly nDisabledDate = input<DisabledDateFn | null>(null);
-  readonly nLocale       = input<string>(typeof navigator !== 'undefined' ? navigator.language : 'en-US');
+  readonly nLocale       = input<string>('');
   readonly nWeekStartsOn = input<0 | 1>(0);
   readonly nFormat       = input<Intl.DateTimeFormatOptions | null>(null);
   readonly nShowToday    = input<boolean>(true);
   readonly nClearable    = input<boolean>(true);
+
+  readonly nShowTime   = input<boolean>(false);
+  readonly nMinuteStep = input<number>(1);
+  readonly nHourCycle  = input<'auto' | '12' | '24'>('auto');
 
   readonly nLabel       = input<string>('');
   readonly nPlaceholder = input<string>('');
@@ -168,17 +241,33 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
   readonly nId          = input<string>('');
   readonly nSize        = input<DatepickerSize>('default');
 
+  readonly nEmptyLabel        = input<string>('Selecione uma data');
+  readonly nTodayLabel        = input<string>('Hoje');
+  readonly nNowLabel          = input<string>('Agora');
+  readonly nClearLabel        = input<string>('Limpar');
+  readonly nCalendarAriaLabel = input<string>('Calendário');
+  readonly nHourLabel         = input<string>('Hora');
+  readonly nMinuteLabel       = input<string>('Minuto');
+  readonly nMeridiemLabel     = input<string>('Período');
+
   readonly nChange     = output<Date | null>();
   readonly nOpenChange = output<boolean>();
 
-  private readonly _staticId = `n-datepicker-${++_datepickerIdCounter}`;
-  private readonly _form     = injectFormControl<Date | null>(this);
-  private readonly _open     = signal(false);
-  private readonly _overlay  = inject(Overlay);
-  private readonly _vcr      = inject(ViewContainerRef);
+  private readonly _staticId   = `n-datepicker-${++_datepickerIdCounter}`;
+  private readonly _form       = injectFormControl<Date | null>(this);
+  private readonly _open       = signal(false);
+  private readonly _overlay    = inject(Overlay);
+  private readonly _vcr        = inject(ViewContainerRef);
+  private readonly _platformId = inject(PLATFORM_ID);
+  private readonly _browserLocale = signal<string>('en-US');
 
-  @ViewChild('trigger', { static: false }) private _triggerEl?: ElementRef<HTMLButtonElement>;
-  @ViewChild('panel', { static: true }) private _panelTpl!: TemplateRef<unknown>;
+  private readonly _timeOfDay = linkedSignal(() => {
+    const v = this.nValue();
+    return v ? { h: v.getHours(), m: v.getMinutes() } : { h: 0, m: 0 };
+  });
+
+  private readonly _triggerEl = viewChild<ElementRef<HTMLButtonElement>>('trigger');
+  private readonly _panelTpl = viewChild.required<TemplateRef<unknown>>('panel');
 
   private _overlayRef: OverlayRef | null = null;
   private _portal: TemplatePortal | null = null;
@@ -204,11 +293,48 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
     return null;
   });
 
+  protected readonly effectiveLocale = computed(() => this.nLocale() || this._browserLocale());
+
+  protected readonly is12Hour = computed(() =>
+    resolveIs12Hour(this.effectiveLocale(), this.nHourCycle()),
+  );
+
+  protected readonly hourOptions = computed(() =>
+    this.is12Hour()
+      ? Array.from({ length: 12 }, (_, i) => i + 1)
+      : Array.from({ length: 24 }, (_, i) => i),
+  );
+
+  protected readonly minuteOptions = computed(() => {
+    const step = Math.max(1, Math.floor(this.nMinuteStep()));
+    const opts: number[] = [];
+    for (let m = 0; m < 60; m += step) opts.push(m);
+    return opts;
+  });
+
+  protected readonly selectedHour = computed(() => {
+    const h = this._timeOfDay().h;
+    return this.is12Hour() ? to12Hour(h).hour : h;
+  });
+  protected readonly selectedMinute   = computed(() => this._timeOfDay().m);
+  protected readonly selectedMeridiem = computed(() => to12Hour(this._timeOfDay().h).meridiem);
+
   protected readonly displayLabel = computed(() => {
     const v = this.nValue();
     if (!v) return '';
-    return formatDate(v, this.nLocale(), this.nFormat() ?? undefined);
+    const opts = this.nFormat() ?? this.defaultFormatOptions();
+    return formatDate(v, this.effectiveLocale(), opts);
   });
+
+  private defaultFormatOptions(): Intl.DateTimeFormatOptions {
+    const base: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: '2-digit' };
+    if (this.nShowTime()) {
+      base.hour = '2-digit';
+      base.minute = '2-digit';
+      base.hour12 = this.is12Hour();
+    }
+    return base;
+  }
 
   protected readonly triggerClasses = computed(() =>
     mergeClasses(
@@ -217,18 +343,42 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
     ),
   );
 
+  protected readonly timeSelectClasses = computed(() => {
+    const size = this.nSize();
+    const sizing =
+      size === 'sm' ? 'h-7 text-xs' : size === 'lg' ? 'h-10 text-base' : 'h-8 text-sm';
+    return mergeClasses(
+      'rounded-md border border-input bg-background px-2 text-foreground',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+      'disabled:cursor-not-allowed disabled:opacity-50',
+      sizing,
+    );
+  });
+
+  protected pad(n: number): string {
+    return n.toString().padStart(2, '0');
+  }
+
   protected readonly isTodayDisabled = computed(() => {
     const today = this._today();
     const min = this.nMin();
     const max = this.nMax();
-    if (min && today < min) return true;
-    if (max && today > max) return true;
+    if (min && isBefore(today, min)) return true;
+    if (max && isAfter(today, max)) return true;
     const fn = this.nDisabledDate();
     return fn ? fn(today) : false;
   });
 
+  constructor() {
+    afterNextRender(() => {
+      if (isPlatformBrowser(this._platformId) && typeof navigator !== 'undefined') {
+        this._browserLocale.set(navigator.language);
+      }
+    });
+  }
+
   ngAfterViewInit(): void {
-    this._portal = new TemplatePortal(this._panelTpl, this._vcr);
+    this._portal = new TemplatePortal(this._panelTpl(), this._vcr);
   }
 
   ngOnDestroy(): void {
@@ -254,7 +404,7 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
     this.nOpenChange.emit(false);
     this.detach();
     this._form.notifyTouched();
-    if (returnFocus) queueMicrotask(() => this._triggerEl?.nativeElement.focus());
+    if (returnFocus) queueMicrotask(() => this._triggerEl()?.nativeElement.focus());
   }
 
   protected onCalendarChange(value: CalendarValue): void {
@@ -267,6 +417,12 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
     this.commit(this._today());
   }
 
+  /** Sets the time portion to the current clock time without closing the panel. */
+  protected selectNow(): void {
+    const now = new Date();
+    this.applyTime(now.getHours(), now.getMinutes());
+  }
+
   protected clear(): void {
     this.nValue.set(null);
     this._form.notifyChange(null);
@@ -275,11 +431,42 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
   }
 
   private commit(date: Date): void {
-    const next = startOfDay(date);
+    const next = this.nShowTime()
+      ? setTime(date, this._timeOfDay().h, this._timeOfDay().m)
+      : startOfDay(date);
     this.nValue.set(next);
     this._form.notifyChange(next);
     this.nChange.emit(next);
     this.close(true);
+  }
+
+  protected onHourChange(event: Event): void {
+    const raw = Number.parseInt((event.target as HTMLSelectElement).value, 10);
+    if (Number.isNaN(raw)) return;
+    const h = this.is12Hour() ? from12Hour(raw, this.selectedMeridiem()) : raw;
+    this.applyTime(h, this._timeOfDay().m);
+  }
+
+  protected onMinuteChange(event: Event): void {
+    const m = Number.parseInt((event.target as HTMLSelectElement).value, 10);
+    if (Number.isNaN(m)) return;
+    this.applyTime(this._timeOfDay().h, m);
+  }
+
+  protected onMeridiemChange(event: Event): void {
+    const meridiem = (event.target as HTMLSelectElement).value as 'AM' | 'PM';
+    const hour12 = to12Hour(this._timeOfDay().h).hour;
+    this.applyTime(from12Hour(hour12, meridiem), this._timeOfDay().m);
+  }
+
+  /** Updates the time portion and reflects it on the value without closing the panel. */
+  private applyTime(h: number, m: number): void {
+    this._timeOfDay.set({ h, m });
+    const base = this.nValue() ?? this._today();
+    const next = setTime(base, h, m);
+    this.nValue.set(next);
+    this._form.notifyChange(next);
+    this.nChange.emit(next);
   }
 
   protected handleTriggerKeydown(event: KeyboardEvent): void {
@@ -290,7 +477,7 @@ export class DatepickerComponent implements ControlValueAccessor, AfterViewInit,
   }
 
   private attach(): void {
-    const trigger = this._triggerEl?.nativeElement;
+    const trigger = this._triggerEl()?.nativeElement;
     if (!trigger || !this._portal) return;
     if (this._overlayRef?.hasAttached()) return;
 

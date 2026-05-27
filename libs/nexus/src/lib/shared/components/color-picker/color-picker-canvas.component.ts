@@ -1,9 +1,9 @@
 import {
   afterNextRender,
+  afterRenderEffect,
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   ElementRef,
   inject,
   OnDestroy,
@@ -60,10 +60,12 @@ export class ColorPickerCanvasComponent implements OnDestroy {
       this._init();
     });
 
-    effect(() => {
-      const hsv = this._ctx.hsv();
-      if (!this._ctx2d) return;
-      this._draw(hsv);
+    afterRenderEffect({
+      write: () => {
+        const hsv = this._ctx.hsv();
+        if (!this._ctx2d) return;
+        this._draw(hsv);
+      },
     });
   }
 
@@ -99,14 +101,16 @@ export class ColorPickerCanvasComponent implements OnDestroy {
   }
 
   private _sync(canvas: HTMLCanvasElement): void {
-    canvas.width  = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width  = Math.round(canvas.clientWidth  * dpr);
+    canvas.height = Math.round(canvas.clientHeight * dpr);
+    this._ctx2d?.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   private _draw(hsv: HsvColor): void {
     const ctx = this._ctx2d!;
-    const w = ctx.canvas.width;
-    const h = ctx.canvas.height;
+    const w = ctx.canvas.clientWidth;
+    const h = ctx.canvas.clientHeight;
     if (w === 0 || h === 0) return;
 
     const { r, g, b } = hsvToRgb({ h: hsv.h, s: 1, v: 1, a: 1 });

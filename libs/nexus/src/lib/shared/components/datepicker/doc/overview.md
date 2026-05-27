@@ -5,10 +5,7 @@ Seletor de data com calendário em overlay (CDK Overlay), `Date | null` como val
 ## Importar
 
 ```ts
-import {
-  DatepickerComponent,
-  DatepickerCalendarComponent,
-} from '@nexus/lib/shared/components/datepicker';
+import { DatepickerComponent } from '@nexus/lib/shared/components/datepicker';
 ```
 
 ## Uso básico
@@ -16,6 +13,19 @@ import {
 ```html
 <n-datepicker [(nValue)]="data" nLabel="Agendamento" nPlaceholder="Selecione uma data" />
 ```
+
+## Com hora
+
+```html
+<n-datepicker
+  [(nValue)]="data"
+  nLabel="Data e hora"
+  [nShowTime]="true"
+  [nMinuteStep]="15"
+/>
+```
+
+Com `nShowTime`, o valor preserva hora/minuto. O ciclo 12h/24h é derivado do locale (`nHourCycle='auto'`) — força com `nHourCycle="12"` ou `"24"`.
 
 ## Com Reactive Forms
 
@@ -49,19 +59,23 @@ form = new FormGroup({
 
 ## Calendário inline
 
-`n-datepicker-calendar` pode ser usado fora do trigger:
+O painel usa o componente `n-calendar`, que também pode ser usado fora do trigger:
 
 ```html
-<n-datepicker-calendar
-  [nValue]="data()"
-  (nChange)="data.set($event)"
-/>
+<n-calendar [nValue]="data()" (nChange)="data.set($event)" />
 ```
+
+## Internacionalização
+
+As strings da UI têm defaults em pt-BR e são sobrescritíveis por input:
+`nEmptyLabel`, `nTodayLabel`, `nClearLabel`, `nCalendarAriaLabel`, `nHourLabel`,
+`nMinuteLabel`, `nMeridiemLabel`. A formatação de data/hora usa `Intl` com `nLocale`.
 
 ## Acessibilidade
 
 - Trigger: `role=combobox`, `aria-haspopup=dialog`, `aria-expanded`, `aria-controls`
-- Calendário: `role=dialog` no painel, `role=grid` na grade, `role=gridcell` em cada dia, com `aria-selected`/`aria-disabled`/`aria-current`
+- Painel: `role=dialog`, `aria-modal=true`, foco preso enquanto aberto (`cdkTrapFocus`) e capturado automaticamente ao abrir
+- Calendário: `role=grid` na grade, `role=gridcell` em cada dia, com `aria-selected`/`aria-disabled`/`aria-current`
 - Teclado: `←`/`→` (dia), `↑`/`↓` (semana), `PageUp`/`PageDown` (mês), `Shift+PageUp/Down` (ano), `Home`/`End` (início/fim da semana), `Enter`/`Space` (selecionar), `Esc` (fechar)
 - Foco retorna ao trigger ao fechar via `Esc` ou ao confirmar uma data
 
@@ -70,10 +84,9 @@ form = new FormGroup({
 Não disponível em v1 (planejado):
 
 - `n-date-range-picker` — seleção de intervalos
-- Time picker e datetime combinado
+- Segundos na seleção de hora
 - Visão de anos/décadas (atalho de salto)
 - Múltiplos meses lado a lado
-- Localização de strings além das fornecidas pelo `Intl`
 
 ## Slots disponíveis
 
@@ -82,10 +95,7 @@ Não disponível em v1 (planejado):
 | `root`              | Wrapper externo do componente                    |
 | `label`             | `<label>`                                        |
 | `trigger`           | Botão que abre o calendário                      |
-| `content`           | Painel do calendário (overlay)                   |
-| `header`            | Cabeçalho do calendário (mês/ano + navegação)    |
-| `grid`              | Grade de dias                                    |
-| `item`              | Célula de dia individual                         |
-| `footer`            | Rodapé com "Hoje" / "Limpar"                     |
+| `content`           | Painel do calendário (overlay, `role=dialog`)    |
+| `time`              | Linha de selects de hora (`nShowTime=true`)      |
 | `error`             | Mensagem de erro                                 |
 | `hint`              | Texto auxiliar                                   |

@@ -27,13 +27,18 @@ import { TooltipDirective } from '@/components/tooltip';
 
 ## Positioning
 
+`nTooltipSide` accepts the four cardinal sides (`top`, `right`, `bottom`, `left`) plus four
+diagonals (`top-left`, `top-right`, `bottom-left`, `bottom-right`). Diagonals anchor the tooltip
+to a corner of the host element; `nTooltipAlign` is ignored for them.
+
 ```html
 <button nTooltip="Hello" nTooltipSide="right" nTooltipAlign="start">Hover me</button>
+<button nTooltip="Hello" nTooltipSide="top-right">Diagonal</button>
 ```
 
 ## Keyboard behavior
 
-- **Hover** — shows after `nTooltipDelay` ms (default 700 ms)
+- **Hover** — shows after `nTooltipDelay` ms (default 300 ms)
 - **Focus** — shows immediately (no delay)
 - **Escape / blur** — dismisses immediately
 

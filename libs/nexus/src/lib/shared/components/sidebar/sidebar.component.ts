@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   computed,
   effect,
   inject,
@@ -25,7 +24,7 @@ import { type SidebarCollapsible, type SidebarSide } from './sidebar.context';
     'data-slot': 'sidebar',
   },
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   readonly nVariant = input<SidebarVariants['nVariant']>('sidebar');
   readonly nSide = input<SidebarSide>('left');
   readonly nCollapsible = input<SidebarCollapsible>('offcanvas');
@@ -37,10 +36,6 @@ export class SidebarComponent implements OnInit {
     effect(() => {
       this.ctx.collapsible.set(this.nCollapsible());
     });
-  }
-
-  ngOnInit(): void {
-    this.ctx.collapsible.set(this.nCollapsible());
   }
 
   protected readonly classes = computed(() => {

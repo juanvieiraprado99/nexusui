@@ -4,6 +4,36 @@ export function startOfDay(d: Date): Date {
   return x;
 }
 
+export function setTime(date: Date, hours: number, minutes: number): Date {
+  const x = new Date(date);
+  x.setHours(hours, minutes, 0, 0);
+  return x;
+}
+
+/** Resolves whether to use a 12-hour clock. `'auto'` derives from the locale via Intl. */
+export function resolveIs12Hour(locale: string, override: 'auto' | '12' | '24'): boolean {
+  if (override === '12') return true;
+  if (override === '24') return false;
+  try {
+    const cycle = new Intl.DateTimeFormat(locale || undefined, { hour: 'numeric' })
+      .resolvedOptions().hourCycle;
+    return cycle === 'h11' || cycle === 'h12';
+  } catch {
+    return false;
+  }
+}
+
+export function to12Hour(hours24: number): { hour: number; meridiem: 'AM' | 'PM' } {
+  const meridiem: 'AM' | 'PM' = hours24 < 12 ? 'AM' : 'PM';
+  const hour = hours24 % 12 === 0 ? 12 : hours24 % 12;
+  return { hour, meridiem };
+}
+
+export function from12Hour(hour12: number, meridiem: 'AM' | 'PM'): number {
+  const h = hour12 % 12;
+  return meridiem === 'PM' ? h + 12 : h;
+}
+
 export function startOfMonth(d: Date): Date {
   return new Date(d.getFullYear(), d.getMonth(), 1);
 }
