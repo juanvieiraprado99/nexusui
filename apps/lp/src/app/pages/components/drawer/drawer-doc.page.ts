@@ -169,6 +169,95 @@ interface ApiRow {
               </n-drawer>
             </app-example>
           </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Persistent</h3>
+          <div class="mt-3">
+            <app-example title="nPersistent" [code]="persistentCode">
+              <n-drawer [nPersistent]="true">
+                <button n-button nVariant="outline" n-drawer-trigger type="button">Open persistent</button>
+                <n-drawer-content>
+                  <n-drawer-header>
+                    <n-drawer-title>Unsaved changes</n-drawer-title>
+                    <n-drawer-description>Backdrop click and Esc shake the panel instead of closing.</n-drawer-description>
+                  </n-drawer-header>
+                  <div class="px-6 py-4 flex-1">
+                    <p class="text-sm text-muted-foreground">Close explicitly with the button below.</p>
+                  </div>
+                  <n-drawer-footer>
+                    <button n-button n-drawer-close type="button">Discard &amp; close</button>
+                  </n-drawer-footer>
+                </n-drawer-content>
+              </n-drawer>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Controlled</h3>
+          <div class="mt-3">
+            <app-example title="[(nOpen)]" [code]="controlledCode">
+              <div class="flex flex-col items-center gap-3">
+                <button n-button (click)="drawerOpen.set(true)" type="button">Open via signal</button>
+                <span class="text-xs text-muted-foreground">State: {{ drawerOpen() ? 'open' : 'closed' }}</span>
+                <n-drawer [(nOpen)]="drawerOpen">
+                  <n-drawer-content>
+                    <n-drawer-header>
+                      <n-drawer-title>Controlled drawer</n-drawer-title>
+                      <n-drawer-description>Open state lives in the parent via [(nOpen)].</n-drawer-description>
+                    </n-drawer-header>
+                    <div class="px-6 py-4 flex-1">
+                      <p class="text-sm text-muted-foreground">Driven by an external signal.</p>
+                    </div>
+                    <n-drawer-footer>
+                      <button n-button nVariant="outline" (click)="drawerOpen.set(false)" type="button">Close</button>
+                    </n-drawer-footer>
+                  </n-drawer-content>
+                </n-drawer>
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">No backdrop &amp; handle</h3>
+          <div class="mt-3">
+            <app-example title='[nBackdrop]="false"' [code]="backdropCode">
+              <n-drawer>
+                <button n-button nVariant="outline" n-drawer-trigger type="button">Open bottom sheet</button>
+                <n-drawer-content nPosition="bottom" [nBackdrop]="false" [nHandle]="true">
+                  <n-drawer-header>
+                    <n-drawer-title>Bottom sheet</n-drawer-title>
+                  </n-drawer-header>
+                  <div class="px-6 py-4 flex-1">
+                    <p class="text-sm text-muted-foreground">No dimmed layer — page stays visible behind.</p>
+                  </div>
+                  <n-drawer-footer>
+                    <button n-button n-drawer-close type="button">Close</button>
+                  </n-drawer-footer>
+                </n-drawer-content>
+              </n-drawer>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Scrollable</h3>
+          <div class="mt-3">
+            <app-example title="nScrollable" [code]="scrollableCode">
+              <n-drawer>
+                <button n-button nVariant="outline" n-drawer-trigger type="button">Open long content</button>
+                <n-drawer-content [nScrollable]="true">
+                  <n-drawer-header>
+                    <n-drawer-title>Terms of use</n-drawer-title>
+                    <n-drawer-description>Sticky header/footer; the body scrolls.</n-drawer-description>
+                  </n-drawer-header>
+                  <div class="px-6 py-4 flex-1 overflow-y-auto space-y-3">
+                    @for (n of paragraphs; track n) {
+                      <p class="text-sm text-muted-foreground">Paragraph {{ n }} — sample content that overflows the panel height and forces internal scrolling.</p>
+                    }
+                  </div>
+                  <n-drawer-footer>
+                    <button n-button nVariant="outline" n-drawer-close type="button">Decline</button>
+                    <button n-button n-drawer-close type="button">Accept</button>
+                  </n-drawer-footer>
+                </n-drawer-content>
+              </n-drawer>
+            </app-example>
+          </div>
         </section>
 
         <section class="mt-12">
@@ -227,6 +316,8 @@ interface ApiRow {
 export class DrawerDocPage {
   protected readonly installTab = signal<'cli' | 'manual'>('cli');
   protected readonly navItems = ['Home', 'Components', 'Get Started', 'Installation', 'Changelog'];
+  protected readonly drawerOpen = signal(false);
+  protected readonly paragraphs = Array.from({ length: 20 }, (_, i) => i + 1);
 
   protected readonly defaultCode = `<n-drawer>
   <button n-button n-drawer-trigger type="button">Open Drawer</button>
@@ -266,6 +357,61 @@ export class DrawerDocPage {
       <a href="/" n-drawer-close>Home</a>
       <a href="/components" n-drawer-close>Components</a>
     </nav>
+  </n-drawer-content>
+</n-drawer>`;
+
+  protected readonly persistentCode = `<n-drawer nPersistent>
+  <button n-button n-drawer-trigger type="button">Open</button>
+  <n-drawer-content>
+    <n-drawer-header>
+      <n-drawer-title>Unsaved changes</n-drawer-title>
+    </n-drawer-header>
+    <div class="px-6 py-4 flex-1">Backdrop/Esc shake instead of closing.</div>
+    <n-drawer-footer>
+      <button n-button n-drawer-close type="button">Discard & close</button>
+    </n-drawer-footer>
+  </n-drawer-content>
+</n-drawer>`;
+
+  protected readonly controlledCode = `// component
+protected readonly drawerOpen = signal(false);
+
+// template
+<button n-button (click)="drawerOpen.set(true)" type="button">Open</button>
+<n-drawer [(nOpen)]="drawerOpen">
+  <n-drawer-content>
+    <n-drawer-header>
+      <n-drawer-title>Controlled drawer</n-drawer-title>
+    </n-drawer-header>
+    <div class="px-6 py-4 flex-1">Open state lives in the parent.</div>
+    <n-drawer-footer>
+      <button n-button (click)="drawerOpen.set(false)" type="button">Close</button>
+    </n-drawer-footer>
+  </n-drawer-content>
+</n-drawer>`;
+
+  protected readonly backdropCode = `<n-drawer>
+  <button n-button n-drawer-trigger type="button">Open</button>
+  <n-drawer-content nPosition="bottom" [nBackdrop]="false" [nHandle]="true">
+    <n-drawer-header>
+      <n-drawer-title>Bottom sheet</n-drawer-title>
+    </n-drawer-header>
+    <div class="px-6 py-4 flex-1">No dimmed layer behind.</div>
+  </n-drawer-content>
+</n-drawer>`;
+
+  protected readonly scrollableCode = `<n-drawer>
+  <button n-button n-drawer-trigger type="button">Open</button>
+  <n-drawer-content nScrollable>
+    <n-drawer-header>
+      <n-drawer-title>Terms of use</n-drawer-title>
+    </n-drawer-header>
+    <div class="px-6 py-4 flex-1 overflow-y-auto">
+      <!-- long content scrolls here -->
+    </div>
+    <n-drawer-footer>
+      <button n-button n-drawer-close type="button">Accept</button>
+    </n-drawer-footer>
   </n-drawer-content>
 </n-drawer>`;
 

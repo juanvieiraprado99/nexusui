@@ -1,6 +1,7 @@
 {
   "name": "radio",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/radio",
   "dependencies": [
     "class-variance-authority",

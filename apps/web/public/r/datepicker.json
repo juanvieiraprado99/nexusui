@@ -1,6 +1,7 @@
 {
   "name": "datepicker",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/datepicker",
   "dependencies": [
     "class-variance-authority",

@@ -25,6 +25,18 @@ import { ButtonGroupComponent } from '../button-group.component';
         <button n-button>Italic</button>
         <button n-button>Underline</button>
       </n-button-group>
+
+      <n-button-group nVariant="success" nAriaLabel="Success variant">
+        <button n-button>Bold</button>
+        <button n-button>Italic</button>
+        <button n-button>Underline</button>
+      </n-button-group>
+
+      <n-button-group nVariant="warning" nAriaLabel="Warning variant">
+        <button n-button>Bold</button>
+        <button n-button>Italic</button>
+        <button n-button>Underline</button>
+      </n-button-group>
     </div>
   `,
 })

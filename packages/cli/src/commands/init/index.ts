@@ -88,6 +88,7 @@ export const initCommand = new Command('init')
         components: `${baseAlias}/shared/components`,
         utils: `${baseAlias}/shared/utils`,
       },
+      components: {} as Record<string, string>,
     };
 
     console.log('');

@@ -1,6 +1,7 @@
 {
   "name": "input",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/input",
   "dependencies": [
     "class-variance-authority",

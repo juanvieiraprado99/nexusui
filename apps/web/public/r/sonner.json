@@ -1,6 +1,7 @@
 {
   "name": "sonner",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/sonner",
   "dependencies": [
     "class-variance-authority",

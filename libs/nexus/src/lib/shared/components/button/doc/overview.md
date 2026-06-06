@@ -31,7 +31,8 @@ import { ButtonComponent } from '@/shared/components/button';
 <n-button nSize="sm">Small</n-button>
 <n-button>Default</n-button>
 <n-button nSize="lg">Large</n-button>
-<n-button nSize="icon" aria-label="icon">...</n-button>
+<!-- botão só de ícone: use nAriaLabel para acessibilidade -->
+<n-button nSize="icon" nAriaLabel="Avançar">...</n-button>
 ```
 
 ### Submit em formulário
@@ -46,3 +47,7 @@ import { ButtonComponent } from '@/shared/components/button';
 ```html
 <a n-button href="/path" nVariant="outline">Go to page</a>
 ```
+
+> Em `<a n-button>` e `<n-button>` não existe atributo `disabled` nativo. Ao usar
+> `nDisabled`/`nLoading`, o botão recebe `data-disabled` (`pointer-events-none`),
+> `aria-disabled="true"` e `tabindex="-1"` — mantendo a desabilitação acessível.

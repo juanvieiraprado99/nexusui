@@ -2,31 +2,9 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import prompts from 'prompts';
 import * as fs from 'fs';
-import * as path from 'path';
-import { readConfig, resolvedPaths } from '../../utils/config';
+import { readConfig, removeInstalledVersion } from '../../utils/config';
+import { getTargetDir, isInstalled } from '../../utils/paths';
 import { registry as localRegistry } from '../../core/registry/registry-data';
-
-function getTargetDir(name: string, config: ReturnType<typeof readConfig> & object, cwd: string): string | null {
-  const entry = localRegistry.find((c) => c.name === name);
-  if (!entry) return null;
-
-  const paths = resolvedPaths(config, cwd);
-  const basePath = entry.basePath;
-  const segment = basePath.startsWith('components/')
-    ? basePath.slice('components/'.length)
-    : basePath;
-
-  if (segment === 'utils') return paths.utils;
-  if (segment === 'core') return paths.core;
-  if (segment === 'services') return paths.services;
-  return path.join(paths.components, segment);
-}
-
-function isInstalled(name: string, config: ReturnType<typeof readConfig> & object, cwd: string): boolean {
-  const dir = getTargetDir(name, config, cwd);
-  if (!dir || !fs.existsSync(dir)) return false;
-  return fs.readdirSync(dir).length > 0;
-}
 
 function findInstalledDependents(name: string, config: ReturnType<typeof readConfig> & object, cwd: string): string[] {
   return localRegistry
@@ -92,6 +70,7 @@ export const removeCommand = new Command('remove')
 
       try {
         fs.rmSync(targetDir, { recursive: true });
+        removeInstalledVersion(cwd, name);
         console.log(chalk.green(`✓ Removed ${chalk.cyan(name)}`));
         removed.push(name);
       } catch (err) {

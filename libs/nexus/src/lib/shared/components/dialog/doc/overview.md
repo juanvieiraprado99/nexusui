@@ -1,6 +1,6 @@
 # Dialog
 
-Modal que bloqueia interação com o resto da página. Usa CDK Overlay com focus trap, scroll block e ARIA completo.
+Modal que bloqueia interação com o resto da página. Usa CDK Overlay com focus trap, scroll block e ARIA completo. Abre e fecha com animação fade + zoom em CSS puro, que respeita `prefers-reduced-motion`.
 
 ## Uso básico
 

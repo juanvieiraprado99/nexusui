@@ -1,6 +1,7 @@
 {
   "name": "image",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/image",
   "dependencies": [
     "class-variance-authority",

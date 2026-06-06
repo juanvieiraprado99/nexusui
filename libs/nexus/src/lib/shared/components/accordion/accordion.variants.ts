@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 export const accordionVariants = cva('w-full', {
   variants: {
     nVariant: {
-      default: 'border border-border rounded-md divide-y divide-border',
+      default: 'border border-border rounded-md divide-y divide-border bg-card',
       ghost:   'divide-y divide-border',
       flush:   'divide-y divide-border [&_[data-slot=trigger]]:px-0 [&_[data-slot=content]]:px-0',
     },

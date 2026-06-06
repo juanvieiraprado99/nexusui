@@ -1,140 +1,63 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import ora from 'ora';
 import prompts from 'prompts';
-import * as fs from 'fs';
-import * as path from 'path';
-import { readConfig, resolvedPaths } from '../../utils/config';
-import { fetchComponent, transformContent } from '../../utils/registry';
+import { getInstalledVersion, readConfig } from '../../utils/config';
+import { isInstalled } from '../../utils/paths';
+import { fetchRegistryIndex } from '../../utils/registry';
+import { installComponent } from '../add/component-installer';
 import { registry as localRegistry } from '../../core/registry/registry-data';
 
-function getTargetDir(name: string, config: ReturnType<typeof readConfig> & object, cwd: string): string | null {
-  const entry = localRegistry.find((c) => c.name === name);
-  if (!entry) return null;
-
-  const paths = resolvedPaths(config, cwd);
-  const segment = entry.basePath.startsWith('components/')
-    ? entry.basePath.slice('components/'.length)
-    : entry.basePath;
-
-  if (segment === 'utils') return paths.utils;
-  if (segment === 'core') return paths.core;
-  if (segment === 'services') return paths.services;
-  return path.join(paths.components, segment);
-}
-
-function isInstalled(name: string, config: ReturnType<typeof readConfig> & object, cwd: string): boolean {
-  const dir = getTargetDir(name, config, cwd);
-  if (!dir || !fs.existsSync(dir)) return false;
-  return fs.readdirSync(dir).length > 0;
-}
-
-function showInlineDiff(fileName: string, localContent: string, registryContent: string): void {
-  const localLines = localContent.split('\n');
-  const registryLines = registryContent.split('\n');
-
-  console.log(chalk.bold(`\n--- local/${fileName}`));
-  console.log(chalk.bold(`+++ registry/${fileName}`));
-  console.log(chalk.cyan('@@ changed @@'));
-
-  // Simple before/after block diff
-  for (const line of localLines) {
-    console.log(chalk.red('- ' + line));
-  }
-  for (const line of registryLines) {
-    console.log(chalk.green('+ ' + line));
-  }
-}
+type UpdateResult = 'uptodate' | 'updated' | 'skipped' | 'error';
 
 async function updateComponent(
   name: string,
   config: ReturnType<typeof readConfig> & object,
   cwd: string,
+  latestVersion: string | undefined,
   yes: boolean,
-): Promise<'uptodate' | 'updated' | 'skipped' | 'error'> {
-  const targetDir = getTargetDir(name, config, cwd);
-  if (!targetDir) {
+): Promise<UpdateResult> {
+  if (!localRegistry.find((c) => c.name === name)) {
     console.error(chalk.red(`Component "${name}" not found in registry.`));
     return 'error';
   }
 
-  let item;
-  try {
-    item = await fetchComponent(name, config.registryUrl);
-  } catch (err) {
-    console.error(chalk.red(`Failed to fetch ${name}: ${String(err)}`));
+  if (!latestVersion) {
+    console.error(chalk.red(`No version info for "${name}" in registry.`));
     return 'error';
   }
 
-  // Compute changed files
-  const changedFiles: Array<{ name: string; local: string; incoming: string; filePath: string }> = [];
+  const installed = getInstalledVersion(config, name);
 
-  for (const file of item.files) {
-    const filePath = path.join(targetDir, file.name);
-    const incoming = transformContent(file.content, config);
-
-    if (!fs.existsSync(filePath)) {
-      changedFiles.push({ name: file.name, local: '', incoming, filePath });
-      continue;
-    }
-
-    const local = fs.readFileSync(filePath, 'utf-8');
-    if (local !== incoming) {
-      changedFiles.push({ name: file.name, local, incoming, filePath });
-    }
-  }
-
-  if (changedFiles.length === 0) {
-    console.log(chalk.dim(`${name}: up to date`));
+  // Version is the source of truth — equal versions mean up to date even if
+  // the user has locally edited the component.
+  if (installed && installed === latestVersion) {
+    console.log(chalk.dim(`${name}: up to date (v${installed})`));
     return 'uptodate';
   }
 
-  if (yes) {
-    for (const f of changedFiles) {
-      fs.mkdirSync(path.dirname(f.filePath), { recursive: true });
-      fs.writeFileSync(f.filePath, f.incoming, 'utf-8');
-    }
-    console.log(chalk.green(`✓ ${name}: updated (${changedFiles.length} file${changedFiles.length > 1 ? 's' : ''})`));
-    return 'updated';
-  }
+  const from = installed ?? 'unknown';
 
-  // Interactive prompt
-  const { action } = await prompts({
-    type: 'select',
-    name: 'action',
-    message: `${chalk.cyan(name)} has ${changedFiles.length} changed file${changedFiles.length > 1 ? 's' : ''}. Overwrite?`,
-    choices: [
-      { title: 'Yes', value: 'yes' },
-      { title: 'No', value: 'no' },
-      { title: 'Diff (show changes)', value: 'diff' },
-    ],
-    initial: 1,
-  });
-
-  if (action === 'diff') {
-    for (const f of changedFiles) {
-      showInlineDiff(f.name, f.local, f.incoming);
-    }
+  if (!yes) {
     const { confirm } = await prompts({
       type: 'confirm',
       name: 'confirm',
-      message: `Overwrite ${chalk.cyan(name)}?`,
-      initial: false,
+      message: `Update ${chalk.cyan(name)} ${chalk.dim(from)} → ${chalk.green(latestVersion)}? This overwrites local changes.`,
+      initial: true,
     });
     if (!confirm) {
       console.log(chalk.dim(`Skipping ${name}.`));
       return 'skipped';
     }
-  } else if (action !== 'yes') {
-    console.log(chalk.dim(`Skipping ${name}.`));
-    return 'skipped';
   }
 
-  for (const f of changedFiles) {
-    fs.mkdirSync(path.dirname(f.filePath), { recursive: true });
-    fs.writeFileSync(f.filePath, f.incoming, 'utf-8');
+  try {
+    await installComponent(name, config, cwd);
+  } catch (err) {
+    console.error(chalk.red(`Failed to update ${name}: ${String(err)}`));
+    return 'error';
   }
-  console.log(chalk.green(`✓ ${name}: updated (${changedFiles.length} file${changedFiles.length > 1 ? 's' : ''})`));
+
+  console.log(chalk.green(`✓ ${name}: updated ${from} → ${latestVersion}`));
   return 'updated';
 }
 
@@ -168,12 +91,20 @@ export const updateCommand = new Command('update')
       process.exit(1);
     }
 
+    let index;
+    try {
+      index = await fetchRegistryIndex(config.registryUrl);
+    } catch (err) {
+      console.error(chalk.red(`Failed to fetch registry: ${String(err)}`));
+      process.exit(1);
+    }
+
+    const latestOf = (name: string) => index.items.find((i) => i.name === name)?.version;
+
     const results = { updated: 0, uptodate: 0, skipped: 0, error: 0 };
 
     for (const name of targets) {
-      const spinner = ora(`Checking ${chalk.cyan(name)}...`).start();
-      spinner.stop();
-      const result = await updateComponent(name, config, cwd, options.yes);
+      const result = await updateComponent(name, config, cwd, latestOf(name), options.yes);
       results[result]++;
     }
 

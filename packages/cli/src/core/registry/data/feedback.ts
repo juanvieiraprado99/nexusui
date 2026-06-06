@@ -3,6 +3,7 @@ import type { ComponentRegistry } from './types';
 export const feedbackRegistry: ComponentRegistry[] = [
   {
     name: 'alert',
+    version: '1.0.0',
     basePath: 'components/alert',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -10,6 +11,7 @@ export const feedbackRegistry: ComponentRegistry[] = [
   },
   {
     name: 'sonner',
+    version: '1.0.0',
     basePath: 'components/sonner',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', 'ngx-sonner'],
@@ -17,6 +19,7 @@ export const feedbackRegistry: ComponentRegistry[] = [
   },
   {
     name: 'progress-bar',
+    version: '1.0.0',
     basePath: 'components/progress-bar',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],

@@ -3,6 +3,7 @@ import type { ComponentRegistry } from './types';
 export const dataDisplayRegistry: ComponentRegistry[] = [
   {
     name: 'table',
+    version: '1.0.0',
     basePath: 'components/table',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -10,6 +11,7 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
   },
   {
     name: 'data-table',
+    version: '1.0.0',
     basePath: 'components/data-table',
     registryDependencies: ['utils', 'checkbox', 'skeleton', 'dropdown-menu'],
     dependencies: ['class-variance-authority', '@angular/common'],
@@ -25,6 +27,7 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
   },
   {
     name: 'accordion',
+    version: '1.0.0',
     basePath: 'components/accordion',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -40,6 +43,7 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
   },
   {
     name: 'collapsible',
+    version: '1.0.0',
     basePath: 'components/collapsible',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -54,6 +58,7 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
   },
   {
     name: 'tabs',
+    version: '1.0.0',
     basePath: 'components/tabs',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -69,6 +74,7 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
   },
   {
     name: 'pagination',
+    version: '1.0.0',
     basePath: 'components/pagination',
     registryDependencies: ['utils', 'select'],
     dependencies: ['class-variance-authority'],

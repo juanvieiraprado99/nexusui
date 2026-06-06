@@ -3,6 +3,7 @@ import type { ComponentRegistry } from './types';
 export const navigationRegistry: ComponentRegistry[] = [
   {
     name: 'sidebar',
+    version: '1.0.0',
     basePath: 'components/sidebar',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', '@angular/common'],
@@ -30,6 +31,7 @@ export const navigationRegistry: ComponentRegistry[] = [
   },
   {
     name: 'breadcrumb',
+    version: '1.1.0',
     basePath: 'components/breadcrumb',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -37,6 +39,7 @@ export const navigationRegistry: ComponentRegistry[] = [
   },
   {
     name: 'button-group',
+    version: '1.1.1',
     basePath: 'components/button-group',
     registryDependencies: ['utils', 'button'],
     dependencies: ['class-variance-authority'],

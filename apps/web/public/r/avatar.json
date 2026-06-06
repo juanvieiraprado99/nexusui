@@ -1,6 +1,7 @@
 {
   "name": "avatar",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/avatar",
   "dependencies": [
     "class-variance-authority",

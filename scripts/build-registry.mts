@@ -1,10 +1,30 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as crypto from 'crypto';
 import registryModule from '../packages/cli/src/core/registry/registry-data';
 const { registry } = registryModule as { registry: unknown[] };
 
+type VersionManifest = Record<string, { version: string; hash: string }>;
+
+/** Stable content hash of a component's copyable files (docs/demos excluded). */
+function hashFiles(files: { name: string; content: string }[]): string {
+  const sorted = [...files].sort((a, b) => a.name.localeCompare(b.name));
+  const payload = JSON.stringify(sorted.map((f) => [f.name, f.content]));
+  return crypto.createHash('sha256').update(payload).digest('hex');
+}
+
+function loadVersionManifest(manifestPath: string): VersionManifest {
+  if (!fs.existsSync(manifestPath)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(manifestPath, 'utf-8')) as VersionManifest;
+  } catch {
+    return {};
+  }
+}
+
 type ComponentRegistry = {
   name: string;
+  version: string;
   basePath: string;
   dependencies?: string[];
   devDependencies?: string[];
@@ -15,6 +35,7 @@ type ComponentRegistry = {
 type RegistryItem = {
   name: string;
   type: string;
+  version: string;
   basePath?: string;
   dependencies?: string[];
   registryDependencies?: string[];
@@ -83,6 +104,7 @@ function buildComponentJson(component: ComponentRegistry): RegistryItem | null {
   return {
     name: component.name,
     type: 'registry:component',
+    version: component.version,
     basePath: component.basePath,
     dependencies: component.dependencies,
     registryDependencies: component.registryDependencies,
@@ -133,6 +155,11 @@ function main() {
 
   const items: RegistryItem[] = [];
 
+  const VERSIONS_PATH = path.resolve(ROOT, 'scripts/registry-versions.lock.json');
+  const prevManifest = loadVersionManifest(VERSIONS_PATH);
+  const nextManifest: VersionManifest = {};
+  const versionViolations: string[] = [];
+
   console.log('Building registry...\n');
 
   for (const component of registry as ComponentRegistry[]) {
@@ -159,7 +186,19 @@ function main() {
 
     const outputFile = path.join(OUTPUT_PATH, `${component.name}.json`);
     fs.writeFileSync(outputFile, JSON.stringify(item, null, 2) + '\n');
-    console.log(`✓ (${item.files.length} files)`);
+
+    // Version-bump check: content changed but version not bumped?
+    const hash = hashFiles(item.files);
+    const prev = prevManifest[item.name];
+    if (prev && prev.version === item.version && prev.hash !== hash) {
+      versionViolations.push(item.name);
+      // Keep old entry so the violation keeps surfacing until the version is bumped.
+      nextManifest[item.name] = prev;
+      console.log(`✗ (${item.files.length} files) — content changed, version still ${item.version}`);
+    } else {
+      nextManifest[item.name] = { version: item.version, hash };
+      console.log(`✓ (${item.files.length} files)`);
+    }
 
     items.push(item);
   }
@@ -173,13 +212,33 @@ function main() {
     items: items.map((item) => ({
       name: item.name,
       type: item.type,
+      version: item.version,
       registryDependencies: item.registryDependencies,
       files: item.files.map((f) => f.name),
     })),
   };
   fs.writeFileSync(indexPath, JSON.stringify(index, null, 2) + '\n');
 
+  // Persist version/hash manifest (sorted by name for stable diffs).
+  const sortedManifest: VersionManifest = {};
+  for (const name of Object.keys(nextManifest).sort()) {
+    sortedManifest[name] = nextManifest[name];
+  }
+  fs.writeFileSync(VERSIONS_PATH, JSON.stringify(sortedManifest, null, 2) + '\n');
+
   console.log(`\nDone! ${items.length} components → ${OUTPUT_PATH}`);
+
+  if (versionViolations.length > 0) {
+    console.error(
+      `\n  [version-check] ${versionViolations.length} component(s) changed without a version bump:`,
+    );
+    for (const name of versionViolations) {
+      console.error(`    - ${name} (bump its "version" in registry-data, then rebuild)`);
+    }
+    if (strict) {
+      process.exit(1);
+    }
+  }
 
   if (process.argv.includes('--dry-run-transform')) {
     console.log('\nRunning dry-run transform check...');

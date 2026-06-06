@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Config, resolvedPaths } from '../../utils/config';
+import { Config, setInstalledVersion } from '../../utils/config';
+import { getTargetDir } from '../../utils/paths';
 import { fetchComponent, transformContent } from '../../utils/registry';
 import { registry as localRegistry } from '../../core/registry/registry-data';
 
@@ -13,16 +14,8 @@ export async function installComponent(
   if (!entry) throw new Error(`Component "${name}" not found in registry`);
 
   const item = await fetchComponent(name, config.registryUrl);
-  const paths = resolvedPaths(config, cwd);
-  const segment = entry.basePath.startsWith('components/')
-    ? entry.basePath.slice('components/'.length)
-    : entry.basePath;
-
-  let targetDir: string;
-  if (segment === 'utils') targetDir = paths.utils;
-  else if (segment === 'core') targetDir = paths.core;
-  else if (segment === 'services') targetDir = paths.services;
-  else targetDir = path.join(paths.components, segment);
+  const targetDir = getTargetDir(name, config, cwd);
+  if (!targetDir) throw new Error(`Component "${name}" not found in registry`);
 
   fs.mkdirSync(targetDir, { recursive: true });
 
@@ -45,6 +38,9 @@ export async function installComponent(
     }
     throw err;
   }
+
+  // Record installed version so `update`/`list` can tell if it's up to date.
+  setInstalledVersion(cwd, name, item.version ?? entry.version);
 
   return written;
 }

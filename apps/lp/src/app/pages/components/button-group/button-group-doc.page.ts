@@ -134,6 +134,16 @@ interface ApiRow {
                   <button n-button>Italic</button>
                   <button n-button>Underline</button>
                 </n-button-group>
+                <n-button-group nVariant="success" nAriaLabel="Success variant">
+                  <button n-button>Bold</button>
+                  <button n-button>Italic</button>
+                  <button n-button>Underline</button>
+                </n-button-group>
+                <n-button-group nVariant="warning" nAriaLabel="Warning variant">
+                  <button n-button>Bold</button>
+                  <button n-button>Italic</button>
+                  <button n-button>Underline</button>
+                </n-button-group>
               </div>
             </app-example>
           </div>
@@ -212,6 +222,16 @@ export class ButtonGroupDocPage {
 <n-button-group nVariant="outline" nAriaLabel="Outline">
   <button n-button>Bold</button>
   <button n-button>Italic</button>
+</n-button-group>
+
+<n-button-group nVariant="success" nAriaLabel="Success">
+  <button n-button>Bold</button>
+  <button n-button>Italic</button>
+</n-button-group>
+
+<n-button-group nVariant="warning" nAriaLabel="Warning">
+  <button n-button>Bold</button>
+  <button n-button>Italic</button>
 </n-button-group>`;
 
   protected readonly disabledCode = `<n-button-group [nDisabled]="true" nAriaLabel="Disabled group">
@@ -239,8 +259,8 @@ export class MyPage {}`;
 
   protected readonly apiRows: ApiRow[] = [
     { prop: 'nOrientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout direction of the group.' },
-    { prop: 'nSize', type: "ButtonVariants['nSize']", default: 'undefined', description: 'Propagates size to all child buttons.' },
-    { prop: 'nVariant', type: "ButtonVariants['nVariant']", default: 'undefined', description: 'Propagates variant to all child buttons.' },
+    { prop: 'nSize', type: "ButtonVariants['nSize']", default: 'undefined', description: 'Propagates size to all child buttons. undefined = each button keeps its own.' },
+    { prop: 'nVariant', type: "ButtonVariants['nVariant']", default: 'undefined', description: 'Propagates variant to all child buttons. undefined = each button keeps its own.' },
     { prop: 'nDisabled', type: 'boolean', default: 'false', description: 'Disables all child buttons.' },
     { prop: 'nAriaLabel', type: 'string', default: "''", description: 'Accessible label for the group element.' },
     { prop: 'nClass', type: 'string', default: "''", description: 'Additional CSS classes on the root element.' },

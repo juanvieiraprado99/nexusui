@@ -1,6 +1,7 @@
 {
   "name": "table",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/table",
   "dependencies": [
     "class-variance-authority"

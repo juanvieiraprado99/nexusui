@@ -1,6 +1,7 @@
 {
   "name": "tabs",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/tabs",
   "dependencies": [
     "class-variance-authority"

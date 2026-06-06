@@ -1,6 +1,7 @@
 {
   "name": "collapsible",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/collapsible",
   "dependencies": [
     "class-variance-authority"
@@ -27,7 +28,7 @@
     },
     {
       "name": "collapsible.variants.ts",
-      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nexport const collapsibleVariants = cva('w-full', {\n  variants: {\n    nVariant: {\n      default: '',\n      bordered: 'border border-border rounded-lg',\n      card: 'border border-border rounded-lg bg-card shadow-sm',\n    },\n  },\n  defaultVariants: { nVariant: 'default' },\n});\n\nexport const collapsibleTriggerVariants = cva(\n  'flex w-full items-center justify-between py-4 text-sm font-medium transition-all' +\n    ' hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring' +\n    ' focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50' +\n    ' [&[data-state=open]>svg]:rotate-180',\n  {\n    variants: {\n      nVariant: {\n        default: '',\n        bordered: 'px-4',\n        card: 'px-4',\n      },\n    },\n    defaultVariants: { nVariant: 'default' },\n  },\n);\n\nexport const collapsibleContentVariants = cva('pb-4 pt-0 text-sm text-foreground', {\n  variants: {\n    nVariant: {\n      default: '',\n      bordered: 'px-4',\n      card: 'px-4',\n    },\n  },\n  defaultVariants: { nVariant: 'default' },\n});\n\nexport type CollapsibleVariants = VariantProps<typeof collapsibleVariants>;\n"
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nexport const collapsibleVariants = cva('w-full', {\n  variants: {\n    nVariant: {\n      default: '',\n      bordered: 'border border-border rounded-lg bg-card',\n      card: 'border border-border rounded-lg bg-card shadow-sm',\n    },\n  },\n  defaultVariants: { nVariant: 'default' },\n});\n\nexport const collapsibleTriggerVariants = cva(\n  'flex w-full items-center justify-between py-4 text-sm font-medium transition-all' +\n    ' hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring' +\n    ' focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50' +\n    ' [&[data-state=open]>svg]:rotate-180',\n  {\n    variants: {\n      nVariant: {\n        default: '',\n        bordered: 'px-4',\n        card: 'px-4',\n      },\n    },\n    defaultVariants: { nVariant: 'default' },\n  },\n);\n\nexport const collapsibleContentVariants = cva('pb-4 pt-0 text-sm text-foreground', {\n  variants: {\n    nVariant: {\n      default: '',\n      bordered: 'px-4',\n      card: 'px-4',\n    },\n  },\n  defaultVariants: { nVariant: 'default' },\n});\n\nexport type CollapsibleVariants = VariantProps<typeof collapsibleVariants>;\n"
     },
     {
       "name": "index.ts",

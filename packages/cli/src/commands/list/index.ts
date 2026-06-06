@@ -1,31 +1,11 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
-import * as fs from 'fs';
-import * as path from 'path';
-import { readConfig, resolvedPaths } from '../../utils/config';
+import { getInstalledVersion, readConfig } from '../../utils/config';
+import { isInstalled } from '../../utils/paths';
 import { fetchRegistryIndex } from '../../utils/registry';
-import { registry as localRegistry } from '../../core/registry/registry-data';
 
-function isComponentInstalled(name: string, config: ReturnType<typeof readConfig> & object, cwd: string): boolean {
-  const entry = localRegistry.find((c) => c.name === name);
-  if (!entry) return false;
-
-  const paths = resolvedPaths(config, cwd);
-  const basePath = entry.basePath;
-  const segment = basePath.startsWith('components/')
-    ? basePath.slice('components/'.length)
-    : basePath;
-
-  let targetDir: string;
-  if (segment === 'utils') targetDir = paths.utils;
-  else if (segment === 'core') targetDir = paths.core;
-  else if (segment === 'services') targetDir = paths.services;
-  else targetDir = path.join(paths.components, segment);
-
-  if (!fs.existsSync(targetDir)) return false;
-  return fs.readdirSync(targetDir).length > 0;
-}
+type Status = 'up-to-date' | 'outdated' | 'not-installed';
 
 export const listCommand = new Command('list')
   .description('List available components and their installation status')
@@ -50,32 +30,59 @@ export const listCommand = new Command('list')
       process.exit(1);
     }
 
-    const rows: Array<{ name: string; installed: boolean }> = index.items.map((item) => ({
-      name: item.name,
-      installed: isComponentInstalled(item.name, config, cwd),
-    }));
+    const rows = index.items.map((item) => {
+      const installed = isInstalled(item.name, config, cwd);
+      const installedVersion = getInstalledVersion(config, item.name);
+      const latest = item.version ?? '—';
 
-    const filtered = options.installed ? rows.filter((r) => r.installed) : rows;
+      let status: Status;
+      if (!installed) status = 'not-installed';
+      else if (installedVersion && installedVersion === item.version) status = 'up-to-date';
+      else status = 'outdated';
+
+      return {
+        name: item.name,
+        installed: installed ? (installedVersion ?? '?') : '—',
+        latest,
+        status,
+      };
+    });
+
+    const filtered = options.installed ? rows.filter((r) => r.status !== 'not-installed') : rows;
 
     if (filtered.length === 0) {
       console.log(chalk.yellow('No components found.'));
       return;
     }
 
-    const maxNameLen = Math.max(4, ...filtered.map((r) => r.name.length));
-    const nameHeader = 'NAME'.padEnd(maxNameLen);
-    const statusHeader = 'STATUS';
+    const nameLen = Math.max(4, ...filtered.map((r) => r.name.length));
+    const instLen = Math.max(9, ...filtered.map((r) => r.installed.length));
+    const latestLen = Math.max(6, ...filtered.map((r) => r.latest.length));
+
+    const header =
+      `${chalk.bold('NAME'.padEnd(nameLen))}  ` +
+      `${chalk.bold('INSTALLED'.padEnd(instLen))}  ` +
+      `${chalk.bold('LATEST'.padEnd(latestLen))}  ` +
+      `${chalk.bold('STATUS')}`;
 
     console.log('');
-    console.log(`${chalk.bold(nameHeader)}  ${chalk.bold(statusHeader)}`);
-    console.log(`${'─'.repeat(maxNameLen)}  ${'─'.repeat(13)}`);
+    console.log(header);
+    console.log(`${'─'.repeat(nameLen)}  ${'─'.repeat(instLen)}  ${'─'.repeat(latestLen)}  ${'─'.repeat(13)}`);
 
     for (const row of filtered) {
-      const name = row.name.padEnd(maxNameLen);
-      const status = row.installed
-        ? chalk.green('installed')
-        : chalk.dim('not installed');
-      console.log(`${name}  ${status}`);
+      const status =
+        row.status === 'up-to-date'
+          ? chalk.green('up to date')
+          : row.status === 'outdated'
+            ? chalk.yellow('outdated')
+            : chalk.dim('not installed');
+
+      console.log(
+        `${row.name.padEnd(nameLen)}  ` +
+          `${row.installed.padEnd(instLen)}  ` +
+          `${row.latest.padEnd(latestLen)}  ` +
+          `${status}`,
+      );
     }
     console.log('');
   });

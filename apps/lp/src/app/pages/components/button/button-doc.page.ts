@@ -28,9 +28,11 @@ interface ApiRow {
           <app-example title="All variants" [code]="variantsCode">
             <div class="flex flex-wrap items-center justify-center gap-3">
               <button n-button type="button">Default</button>
+              <button n-button nVariant="secondary" type="button">Secondary</button>
+              <button n-button nVariant="success" type="button">Success</button>
+              <button n-button nVariant="warning" type="button">Warning</button>
               <button n-button nVariant="destructive" type="button">Destructive</button>
               <button n-button nVariant="outline" type="button">Outline</button>
-              <button n-button nVariant="secondary" type="button">Secondary</button>
               <button n-button nVariant="ghost" type="button">Ghost</button>
               <button n-button nVariant="link" type="button">Link</button>
             </div>
@@ -97,8 +99,25 @@ interface ApiRow {
                 <button n-button nSize="sm" type="button">Small</button>
                 <button n-button type="button">Default</button>
                 <button n-button nSize="lg" type="button">Large</button>
-                <button n-button nSize="icon" type="button" aria-label="Icon">
+                <button n-button nSize="icon" type="button" nAriaLabel="Add">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Icon button</h3>
+          <div class="mt-3">
+            <app-example title="nSize: icon + nAriaLabel" [code]="iconCode">
+              <div class="flex flex-wrap items-center justify-center gap-3">
+                <button n-button nSize="icon" type="button" nAriaLabel="Edit">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                </button>
+                <button n-button nVariant="outline" nSize="icon" type="button" nAriaLabel="Delete">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2m-9 0v14h10V6"/></svg>
+                </button>
+                <button n-button nVariant="ghost" nSize="icon" type="button" nAriaLabel="Settings">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
                 </button>
               </div>
             </app-example>
@@ -169,16 +188,26 @@ export class ButtonDocPage {
   protected readonly count = signal(0);
 
   protected readonly variantsCode = `<button n-button>Default</button>
+<button n-button nVariant="secondary">Secondary</button>
+<button n-button nVariant="success">Success</button>
+<button n-button nVariant="warning">Warning</button>
 <button n-button nVariant="destructive">Destructive</button>
 <button n-button nVariant="outline">Outline</button>
-<button n-button nVariant="secondary">Secondary</button>
 <button n-button nVariant="ghost">Ghost</button>
 <button n-button nVariant="link">Link</button>`;
 
   protected readonly sizesCode = `<button n-button nSize="sm">Small</button>
 <button n-button>Default</button>
 <button n-button nSize="lg">Large</button>
-<button n-button nSize="icon" aria-label="Add">
+<button n-button nSize="icon" nAriaLabel="Add">
+  <svg ...></svg>
+</button>`;
+
+  protected readonly iconCode = `<!-- icon-only buttons: always set nAriaLabel for screen readers -->
+<button n-button nSize="icon" nAriaLabel="Edit">
+  <svg ...></svg>
+</button>
+<button n-button nVariant="outline" nSize="icon" nAriaLabel="Delete">
   <svg ...></svg>
 </button>`;
 
@@ -209,12 +238,13 @@ export class MyPage {}`;
 </button>`;
 
   protected readonly apiRows: ApiRow[] = [
-    { prop: 'nVariant', type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", default: "'default'", description: 'Visual style of the button.' },
+    { prop: 'nVariant', type: "'default' | 'secondary' | 'success' | 'warning' | 'destructive' | 'outline' | 'ghost' | 'link'", default: "'default'", description: 'Visual style of the button.' },
     { prop: 'nSize', type: "'default' | 'sm' | 'lg' | 'icon'", default: "'default'", description: 'Size of the button.' },
     { prop: 'nType', type: "'button' | 'submit' | 'reset'", default: "'button'", description: 'Native button type attribute.' },
     { prop: 'nClass', type: 'string', default: "''", description: 'Extra Tailwind classes appended to the host.' },
     { prop: 'nLoading', type: 'boolean', default: 'false', description: 'Shows a spinner and blocks click events.' },
     { prop: 'nDisabled', type: 'boolean', default: 'false', description: 'Disables the button and blocks click events.' },
+    { prop: 'nAriaLabel', type: 'string', default: "''", description: 'Accessible label for icon-only buttons (no visible text).' },
     { prop: '(nClick)', type: 'EventEmitter<Event>', default: '—', description: 'Emitted on click when not loading or disabled.' },
   ];
 }

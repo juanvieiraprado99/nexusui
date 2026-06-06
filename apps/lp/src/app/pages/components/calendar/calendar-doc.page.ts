@@ -83,7 +83,26 @@ interface ApiRow {
         <section class="mt-12">
           <h2 class="text-xl font-semibold tracking-tight">Examples</h2>
 
-          <h3 class="mt-6 text-sm font-medium text-muted-foreground">Multiple selection</h3>
+          <h3 class="mt-6 text-sm font-medium text-muted-foreground">Label &amp; required</h3>
+          <div class="mt-3">
+            <app-example title="[nLabel] + [nRequired]" [code]="labelCode">
+              <div class="flex justify-center">
+                <n-calendar nLabel="Appointment date" [nRequired]="true" [(nValue)]="labelValue" />
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Hint &amp; error</h3>
+          <div class="mt-3">
+            <app-example title="[nHint] + [nError]" [code]="hintErrorCode">
+              <div class="flex flex-col items-center gap-6">
+                <n-calendar nLabel="Start date" nHint="Pick any upcoming day" [(nValue)]="hintValue" />
+                <n-calendar nLabel="Due date" nError="This date is required" [(nValue)]="errorValue" />
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Multiple selection</h3>
           <div class="mt-3">
             <app-example title='nMode="multiple"' [code]="multipleCode">
               <div class="flex flex-col items-center gap-3">
@@ -178,6 +197,9 @@ export class CalendarDocPage {
   protected readonly installTab = signal<'cli' | 'manual'>('cli');
 
   protected readonly singleValue = signal<CalendarValue>(null);
+  protected readonly labelValue = signal<CalendarValue>(null);
+  protected readonly hintValue = signal<CalendarValue>(null);
+  protected readonly errorValue = signal<CalendarValue>(null);
   protected readonly multipleValue = signal<CalendarValue>(null);
   protected readonly rangeValue = signal<CalendarValue>(null);
   protected readonly minMaxValue = signal<CalendarValue>(null);
@@ -211,6 +233,14 @@ export class CalendarDocPage {
   protected readonly defaultCode = `value = signal<CalendarValue>(null);
 
 <n-calendar [(nValue)]="value" />`;
+
+  protected readonly labelCode = `value = signal<CalendarValue>(null);
+
+<n-calendar nLabel="Appointment date" [nRequired]="true" [(nValue)]="value" />`;
+
+  protected readonly hintErrorCode = `<n-calendar nLabel="Start date" nHint="Pick any upcoming day" [(nValue)]="value" />
+
+<n-calendar nLabel="Due date" nError="This date is required" [(nValue)]="value" />`;
 
   protected readonly multipleCode = `value = signal<CalendarValue>(null);
 
@@ -254,10 +284,16 @@ export class MyPage {
     { prop: 'nMax', type: 'Date | null', default: 'null', description: 'Maximum selectable date. Later dates are disabled.' },
     { prop: 'nDisabled', type: 'boolean', default: 'false', description: 'Disables the entire calendar.' },
     { prop: 'nDisabledDate', type: 'DisabledDateFn | null', default: 'null', description: 'Function (date: Date) => boolean to disable individual dates.' },
-    { prop: 'nLocale', type: 'string', default: 'navigator.language', description: 'BCP 47 locale for month/weekday labels.' },
+    { prop: 'nLocale', type: 'string', default: "''", description: 'BCP 47 locale for month/weekday labels. Empty = browser locale, resolved after render for SSR safety; falls back to en-US.' },
     { prop: 'nWeekStartsOn', type: '0 | 1', default: '0', description: 'First day of week: 0 = Sunday, 1 = Monday.' },
+    { prop: 'nAnimateSelection', type: 'boolean', default: 'true', description: 'Single mode: animates a sliding pill to the newly selected day. No effect in multiple/range.' },
+    { prop: 'nLabel', type: 'string', default: "''", description: 'Visible label rendered above the grid.' },
+    { prop: 'nError', type: 'string | null', default: 'null', description: 'Error message (role="alert"); sets aria-invalid on the grid.' },
+    { prop: 'nHint', type: 'string | null', default: 'null', description: 'Helper text below the grid (hidden while an error shows).' },
+    { prop: 'nRequired', type: 'boolean', default: 'false', description: 'Marks the field required (* indicator + aria-required).' },
+    { prop: 'nAriaLabel', type: 'string', default: "''", description: 'Accessible label for the grid when no visible nLabel is set.' },
     { prop: 'nClass', type: 'string', default: "''", description: 'Additional CSS classes on the root element.' },
-    { prop: 'nId', type: 'string', default: "''", description: 'Custom id attribute.' },
+    { prop: 'nId', type: 'string', default: "''", description: 'Custom id attribute (also seeds day-cell ids).' },
     { prop: '(nChange)', type: 'EventEmitter<CalendarValue>', default: '—', description: 'Emitted on date selection.' },
   ];
 }

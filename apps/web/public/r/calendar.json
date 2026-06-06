@@ -1,6 +1,7 @@
 {
   "name": "calendar",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/calendar",
   "dependencies": [
     "class-variance-authority",

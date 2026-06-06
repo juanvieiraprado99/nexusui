@@ -6,6 +6,7 @@ import { listCommand } from './commands/list/index';
 import { removeCommand } from './commands/remove/index';
 import { updateCommand } from './commands/update/index';
 import { diffCommand } from './commands/diff/index';
+import { resetCommand } from './commands/reset/index';
 
 export function isVerbose(): boolean {
   return process.env['NEXUS_VERBOSE'] === '1';
@@ -31,5 +32,6 @@ program.addCommand(listCommand);
 program.addCommand(removeCommand);
 program.addCommand(updateCommand);
 program.addCommand(diffCommand);
+program.addCommand(resetCommand);
 
 program.parse(process.argv);

@@ -29,8 +29,8 @@ import { dialogContentVariants, type DialogContentVariants } from './dialog.vari
     <ng-template #panel>
       <!-- Backdrop -->
       <div
-        class="fixed inset-0 bg-black/80 transition-opacity duration-150"
-        [class.opacity-0]="isClosing()"
+        class="fixed inset-0 bg-black/80 transition-opacity duration-150 motion-reduce:transition-none"
+        [class.opacity-0]="isClosing() || isOpening()"
         [class.ease-in]="isClosing()"
         data-dialog-backdrop
         aria-hidden="true"
@@ -106,17 +106,26 @@ export class DialogContentComponent implements AfterViewInit, OnDestroy {
   private _portal: TemplatePortal | null = null;
   private _focusTrap: FocusTrap | null = null;
   private _detachTimer?: ReturnType<typeof setTimeout>;
+  private _enterRaf?: ReturnType<typeof requestAnimationFrame>;
   protected readonly shaking   = signal(false);
   protected readonly isClosing = signal(false);
+  protected readonly isOpening = signal(false);
 
-  protected readonly classes = computed(() =>
-    mergeClasses(
+  // Must stay >= the CSS transition duration (duration-150) so the leave
+  // animation finishes before the overlay is disposed.
+  private static readonly CLOSE_MS = 160;
+
+  protected readonly classes = computed(() => {
+    const entering = this.isOpening();
+    const leaving = this.isClosing();
+    return mergeClasses(
       dialogContentVariants({ nSize: this.nSize() }),
       this.nScrollable() && 'overflow-hidden',
-      this.isClosing() && 'opacity-0 scale-95 ease-in',
+      entering || leaving ? 'opacity-0 scale-95' : 'opacity-100 scale-100',
+      leaving && 'ease-in',
       this.nClass(),
-    ),
-  );
+    );
+  });
 
   constructor() {
     effect(() => {
@@ -135,10 +144,13 @@ export class DialogContentComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearTimeout(this._detachTimer);
+    this._cancelEnter();
     this._forceDetach();
   }
 
   private _attach(): void {
+    // Reopened during the leave window: cancel the close-in-progress state.
+    this.isClosing.set(false);
     if (!this._portal || this._overlayRef?.hasAttached()) return;
 
     const config = new OverlayConfig({
@@ -149,8 +161,15 @@ export class DialogContentComponent implements AfterViewInit, OnDestroy {
       height: '100%',
     });
 
+    // Render at the enter state first, then flip on the next frame so the CSS
+    // transition runs (a freshly attached element has no "from" state otherwise).
+    this.isOpening.set(true);
     this._overlayRef = this._overlay.create(config);
     this._overlayRef.attach(this._portal);
+
+    this._enterRaf = requestAnimationFrame(() => {
+      this._enterRaf = requestAnimationFrame(() => this.isOpening.set(false));
+    });
 
     queueMicrotask(() => {
       const el = this._panelEl?.nativeElement;
@@ -160,8 +179,15 @@ export class DialogContentComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  private _cancelEnter(): void {
+    if (this._enterRaf !== undefined) cancelAnimationFrame(this._enterRaf);
+    this._enterRaf = undefined;
+  }
+
   private _beginDetach(): void {
     clearTimeout(this._detachTimer);
+    this._cancelEnter();
+    this.isOpening.set(false);
     this.isClosing.set(true);
 
     const triggerEl = untracked(() => this.ctx.triggerEl());
@@ -173,7 +199,7 @@ export class DialogContentComponent implements AfterViewInit, OnDestroy {
     this._detachTimer = setTimeout(() => {
       this.isClosing.set(false);
       this._forceDetach();
-    }, 160);
+    }, DialogContentComponent.CLOSE_MS);
   }
 
   private _forceDetach(): void {

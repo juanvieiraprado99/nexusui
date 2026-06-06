@@ -1,6 +1,7 @@
 {
   "name": "textarea",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/textarea",
   "dependencies": [
     "class-variance-authority",

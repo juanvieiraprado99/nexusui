@@ -13,6 +13,8 @@ import type { ButtonVariants } from '../button/button.variants';
     '[class]': 'classes()',
     'role': 'group',
     '[attr.aria-label]': 'nAriaLabel() || null',
+    '[attr.aria-orientation]': 'nOrientation()',
+    '[attr.aria-disabled]': 'nDisabled() ? true : null',
     '[attr.data-orientation]': 'nOrientation()',
     '[attr.data-slot]': '"button-group"',
     '(keydown)': 'onKeyDown($event)',
@@ -36,9 +38,11 @@ export class ButtonGroupComponent implements ButtonGroupContext {
   );
 
   onKeyDown(e: KeyboardEvent): void {
-    const buttons = Array.from(
-      this.el.nativeElement.querySelectorAll('button:not([disabled])'),
-    ) as HTMLElement[];
+    const buttons = (
+      Array.from(
+        this.el.nativeElement.querySelectorAll(':scope > button, :scope > a[n-button], :scope > n-button'),
+      ) as HTMLElement[]
+    ).filter((b) => !b.hasAttribute('disabled') && b.getAttribute('aria-disabled') !== 'true');
     if (!buttons.length) return;
     const idx = buttons.indexOf(document.activeElement as HTMLElement);
     const isVertical = this.nOrientation() === 'vertical';

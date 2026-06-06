@@ -3,12 +3,14 @@ import type { ComponentRegistry } from './types';
 export const primitivesRegistry: ComponentRegistry[] = [
   {
     name: 'utils',
+    version: '1.0.0',
     basePath: 'utils',
     dependencies: ['tailwind-merge', 'clsx'],
     files: ['merge-classes.ts', 'number.ts', 'form-control.ts', 'index.ts'],
   },
   {
     name: 'button',
+    version: '1.1.0',
     basePath: 'components/button',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -16,6 +18,7 @@ export const primitivesRegistry: ComponentRegistry[] = [
   },
   {
     name: 'badge',
+    version: '1.1.0',
     basePath: 'components/badge',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -23,6 +26,7 @@ export const primitivesRegistry: ComponentRegistry[] = [
   },
   {
     name: 'separator',
+    version: '1.0.0',
     basePath: 'components/separator',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -30,12 +34,14 @@ export const primitivesRegistry: ComponentRegistry[] = [
   },
   {
     name: 'skeleton',
+    version: '1.0.0',
     basePath: 'components/skeleton',
     registryDependencies: ['utils'],
     files: ['skeleton.component.ts', 'index.ts'],
   },
   {
     name: 'avatar',
+    version: '1.0.0',
     basePath: 'components/avatar',
     registryDependencies: ['utils', 'image'],
     dependencies: ['class-variance-authority', '@angular/common'],
@@ -49,6 +55,7 @@ export const primitivesRegistry: ComponentRegistry[] = [
   },
   {
     name: 'image',
+    version: '1.0.0',
     basePath: 'components/image',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', '@angular/common'],
@@ -56,15 +63,23 @@ export const primitivesRegistry: ComponentRegistry[] = [
   },
   {
     name: 'label',
+    version: '1.0.0',
     basePath: 'components/label',
     registryDependencies: ['utils'],
     files: ['label.component.ts', 'index.ts'],
   },
   {
     name: 'card',
+    version: '1.0.0',
     basePath: 'components/card',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
     files: ['card.component.ts', 'card.variants.ts', 'index.ts'],
+  },
+  {
+    name: 'ripple',
+    version: '1.0.0',
+    basePath: 'components/ripple',
+    files: ['ripple.directive.ts', 'index.ts'],
   },
 ];

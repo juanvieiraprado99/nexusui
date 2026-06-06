@@ -10,12 +10,18 @@
 | `nClass`       | `string`                                                                       | `''`        | Classes extras (merged via tailwind-merge)          |
 | `nLoading`     | `boolean`                                                                      | `false`     | Spinner animado; bloqueia clique e desabilita botão |
 | `nDisabled`    | `boolean`                                                                      | `false`     | Desabilita explicitamente via signal                |
+| `nAriaLabel`   | `string`                                                                       | `''`        | Rótulo acessível — use em botões só de ícone (sem texto) |
 
 ## Outputs
 
 | Output    | Type    | Quando emite                                  |
 |-----------|---------|-----------------------------------------------|
 | `nClick`  | `Event` | Clique válido: não `nDisabled` nem `nLoading` |
+
+> **Estado desabilitado em âncoras / custom element:** `<button n-button>` recebe o
+> atributo nativo `disabled`. Já `<a n-button>` e `<n-button>` **não** têm `disabled`
+> nativo — a desabilitação é aplicada via `data-disabled` (`pointer-events-none`),
+> `aria-disabled="true"` e `tabindex="-1"`, mantendo o comportamento acessível.
 
 ## Selector
 

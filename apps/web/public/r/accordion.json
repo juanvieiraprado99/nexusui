@@ -1,6 +1,7 @@
 {
   "name": "accordion",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/accordion",
   "dependencies": [
     "class-variance-authority"
@@ -31,7 +32,7 @@
     },
     {
       "name": "accordion.variants.ts",
-      "content": "import { cva, type VariantProps } from 'class-variance-authority';\r\n\r\nexport const accordionVariants = cva('w-full', {\r\n  variants: {\r\n    nVariant: {\r\n      default: 'border border-border rounded-md divide-y divide-border',\r\n      ghost:   'divide-y divide-border',\r\n      flush:   'divide-y divide-border [&_[data-slot=trigger]]:px-0 [&_[data-slot=content]]:px-0',\r\n    },\r\n    nSize: {\r\n      sm:      '[&_[data-slot=trigger]]:py-2 [&_[data-slot=trigger]]:text-sm [&_[data-slot=content]]:text-sm',\r\n      default: '',\r\n      lg:      '[&_[data-slot=trigger]]:py-5 [&_[data-slot=trigger]]:text-lg',\r\n    },\r\n  },\r\n  defaultVariants: { nVariant: 'default', nSize: 'default' },\r\n});\r\n\r\nexport type AccordionVariants = VariantProps<typeof accordionVariants>;\r\n"
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\r\n\r\nexport const accordionVariants = cva('w-full', {\r\n  variants: {\r\n    nVariant: {\r\n      default: 'border border-border rounded-md divide-y divide-border bg-card',\r\n      ghost:   'divide-y divide-border',\r\n      flush:   'divide-y divide-border [&_[data-slot=trigger]]:px-0 [&_[data-slot=content]]:px-0',\r\n    },\r\n    nSize: {\r\n      sm:      '[&_[data-slot=trigger]]:py-2 [&_[data-slot=trigger]]:text-sm [&_[data-slot=content]]:text-sm',\r\n      default: '',\r\n      lg:      '[&_[data-slot=trigger]]:py-5 [&_[data-slot=trigger]]:text-lg',\r\n    },\r\n  },\r\n  defaultVariants: { nVariant: 'default', nSize: 'default' },\r\n});\r\n\r\nexport type AccordionVariants = VariantProps<typeof accordionVariants>;\r\n"
     },
     {
       "name": "index.ts",

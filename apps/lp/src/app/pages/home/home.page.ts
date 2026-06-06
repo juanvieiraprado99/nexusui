@@ -18,10 +18,10 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
         aria-hidden="true"
       ></div>
 
-      <div class="mx-auto flex max-w-3xl flex-col items-center px-6 pt-20 pb-16 text-center">
-        <a routerLink="/components" class="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-medium text-foreground/80 backdrop-blur transition-colors hover:bg-card">
+      <div class="mx-auto flex max-w-3xl flex-col items-center px-6 pt-24 pb-20 text-center">
+        <a routerLink="/components" class="group mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-medium text-foreground/80 backdrop-blur transition-colors hover:bg-card">
           New preset commands
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          <svg class="transition-transform group-hover:translate-x-0.5" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
         <h1 class="text-balance text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
           The Foundation for your <span class="bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-transparent">Design System</span>
@@ -30,7 +30,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           A set of beautifully designed Angular components that you can customize, extend, and build on. Start here then make it your own. Open Source. Open Code.
         </p>
         <div class="mt-7 flex items-center gap-3">
-          <button n-button type="button">New Project</button>
+          <a n-button routerLink="/get-started">Get Started</a>
           <a n-button nVariant="ghost" routerLink="/components">View Components</a>
         </div>
       </div>
@@ -38,22 +38,22 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
       <div class="mx-auto max-w-screen-2xl px-6 pb-20">
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <!-- card 1: payment -->
-          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm">
+          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border">
             <h3 class="text-sm font-semibold">Payment Method</h3>
             <p class="mt-1 text-xs text-muted-foreground">All transactions are secure and encrypted.</p>
             <div class="mt-4 space-y-3 text-xs">
               <div>
-                <label class="block text-muted-foreground">Name on Card</label>
-                <div class="mt-1 h-9 rounded-md border border-border bg-background px-3 leading-9 text-foreground/80">John Doe</div>
+                <label class="mb-1 block text-muted-foreground">Name on Card</label>
+                <n-input nPlaceholder="John Doe" nSize="sm" />
               </div>
-              <div class="grid grid-cols-[1fr_auto] gap-2">
+              <div class="grid grid-cols-[1fr_5rem] gap-2">
                 <div>
-                  <label class="block text-muted-foreground">Card Number</label>
-                  <div class="mt-1 h-9 rounded-md border border-border bg-background px-3 leading-9 text-foreground/80">1234 5678 9012 3456</div>
+                  <label class="mb-1 block text-muted-foreground">Card Number</label>
+                  <n-input nPlaceholder="1234 5678 9012 3456" nSize="sm" />
                 </div>
                 <div>
-                  <label class="block text-muted-foreground">CVV</label>
-                  <div class="mt-1 h-9 w-20 rounded-md border border-border bg-background px-3 leading-9 text-foreground/80">123</div>
+                  <label class="mb-1 block text-muted-foreground">CVV</label>
+                  <n-input nPlaceholder="123" nSize="sm" />
                 </div>
               </div>
               <div class="flex gap-2 pt-2">
@@ -64,7 +64,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           </div>
 
           <!-- card 2: team -->
-          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm flex flex-col">
+          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border flex flex-col">
             <div class="flex flex-col items-center text-center my-auto">
               <div class="flex -space-x-2 mb-3">
                 <span class="h-8 w-8 rounded-full bg-muted border-2 border-card"></span>
@@ -78,7 +78,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           </div>
 
           <!-- card 3: settings -->
-          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm space-y-3">
+          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border space-y-3">
             <div class="flex items-center justify-between rounded-md border border-border/60 px-3 py-2 text-xs">
               <span class="text-muted-foreground">https://</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9 17 14 18 22 12 18 6 22 7 14 2 9 9 9 12 2"/></svg>
@@ -102,7 +102,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           </div>
 
           <!-- card 4: ask -->
-          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm flex flex-col">
+          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border flex flex-col">
             <button class="self-start text-xs text-muted-foreground rounded-md border border-border/60 px-2 py-1">+ Add context</button>
             <p class="mt-3 text-xs text-foreground/80">Ask, search, or make anything…</p>
             <div class="mt-auto flex items-center justify-between pt-6">
@@ -117,7 +117,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           </div>
 
           <!-- card 5: input / search members -->
-          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm space-y-3">
+          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border space-y-3">
             <h3 class="text-sm font-semibold">Search Members</h3>
             <n-input nPlaceholder="Search by name or email…" nSize="sm">
               <svg slot="prefix" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -141,7 +141,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           </div>
 
           <!-- card 6: checkbox / notifications -->
-          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm space-y-3">
+          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border space-y-3">
             <h3 class="text-sm font-semibold">Notifications</h3>
             <p class="text-xs text-muted-foreground">Choose what updates you receive.</p>
             <div class="space-y-2 pt-1">
@@ -152,7 +152,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           </div>
 
           <!-- card 7: select / assign role -->
-          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm space-y-3">
+          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border space-y-3">
             <h3 class="text-sm font-semibold">Assign Role</h3>
             <p class="text-xs text-muted-foreground">Set access level for this workspace member.</p>
             <n-select nPlaceholder="Select a role" nLabel="Role">
@@ -168,7 +168,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           </div>
 
           <!-- card 8: skeleton / recent activity -->
-          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm space-y-3">
+          <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="text-sm font-semibold">Recent Activity</h3>
               <n-skeleton class="h-4 w-16" />

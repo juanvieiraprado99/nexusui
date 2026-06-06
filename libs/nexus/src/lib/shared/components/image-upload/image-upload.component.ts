@@ -25,7 +25,7 @@ let _idCounter = 0;
   standalone: true,
   imports: [ButtonComponent, LabelComponent, ImageUploadCropComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'contents' },
+  host: { class: 'contents min-w-0' },
   template: `
     <div [class]="wrapperClasses()" data-slot="root">
 
@@ -50,7 +50,7 @@ let _idCounter = 0;
           (keydown.space)="onActivateKey($event, fileInput)"
           (dragenter)="onDragEnter($event)"
           (dragover)="onDragOver($event)"
-          (dragleave)="onDragLeave($event)"
+          (dragleave)="onDragLeave()"
           (drop)="onDrop($event)"
         >
           <input
@@ -86,9 +86,9 @@ let _idCounter = 0;
               </div>
             </div>
           } @else {
-            <div class="w-full flex flex-col gap-2" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+            <div class="w-full min-w-0 flex flex-col gap-2" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
 
-              @for (file of nValue(); track file.name + file.size; let i = $index) {
+              @for (file of nValue(); track file.id; let i = $index) {
                 <div class="flex items-center gap-3 rounded-md border border-border bg-background/80 p-2.5" data-slot="item">
 
                   @if (nPreview() === 'image') {
@@ -106,9 +106,9 @@ let _idCounter = 0;
                   <div class="flex-1 min-w-0">
                     <p class="text-sm font-medium text-foreground truncate leading-tight">{{ file.name }}</p>
                     <p class="text-xs text-muted-foreground mt-0.5">{{ formatSize(file.size) }}</p>
-                    @if (nProgress() >= 0) {
+                    @if (fileProgress(file) >= 0) {
                       <div class="mt-1.5 h-1.5 w-full rounded-full bg-muted overflow-hidden" data-slot="progress">
-                        <div class="h-full rounded-full bg-primary transition-all duration-300" [style.width.%]="nProgress()"></div>
+                        <div class="h-full rounded-full bg-primary transition-all duration-300" [style.width.%]="fileProgress(file)"></div>
                       </div>
                     }
                   </div>
@@ -282,6 +282,7 @@ export class ImageUploadComponent implements ControlValueAccessor {
   private readonly _staticId   = `n-image-upload-${++_idCounter}`;
 
   protected readonly _cropTarget = signal<UploadFile | null>(null);
+  protected readonly _isDragging = signal(false);
   private _dragCounter = 0;
 
   protected readonly isDisabled  = computed(() => this.nDisabled() || this._form.disabledByForm());
@@ -297,15 +298,17 @@ export class ImageUploadComponent implements ControlValueAccessor {
   });
 
   protected readonly wrapperClasses = computed(() =>
-    mergeClasses('flex flex-col gap-1.5', this.nClass()),
+    mergeClasses('flex flex-col gap-1.5 min-w-0', this.nClass()),
   );
 
   protected readonly dropzoneClasses = computed(() =>
     mergeClasses(
       imageUploadVariants({ nVariant: 'dropzone', nSize: this.nSize() }),
+      'min-w-0 max-w-full overflow-hidden',
       this.hasError() && 'border-destructive',
       this.isDisabled() && 'cursor-not-allowed opacity-50',
       this.nValue().length > 0 && 'items-stretch justify-start',
+      this._isDragging() && 'border-primary bg-primary/5',
     ),
   );
 
@@ -340,30 +343,33 @@ export class ImageUploadComponent implements ControlValueAccessor {
   protected onDragEnter(e: DragEvent): void {
     e.preventDefault();
     this._dragCounter++;
-    if (!this.isDisabled()) {
-      (e.currentTarget as HTMLElement).classList.add('border-primary', 'bg-primary/5');
-    }
+    if (!this.isDisabled()) this._isDragging.set(true);
   }
 
   protected onDragOver(e: DragEvent): void {
     e.preventDefault();
+    if (e.dataTransfer && !this.isDisabled()) e.dataTransfer.dropEffect = 'copy';
   }
 
-  protected onDragLeave(e: DragEvent): void {
+  protected onDragLeave(): void {
     this._dragCounter--;
     if (this._dragCounter <= 0) {
       this._dragCounter = 0;
-      (e.currentTarget as HTMLElement).classList.remove('border-primary', 'bg-primary/5');
+      this._isDragging.set(false);
     }
   }
 
   protected onDrop(e: DragEvent): void {
     e.preventDefault();
     this._dragCounter = 0;
-    (e.currentTarget as HTMLElement).classList.remove('border-primary', 'bg-primary/5');
+    this._isDragging.set(false);
     if (this.isDisabled()) return;
     const files = e.dataTransfer?.files;
     if (files?.length) void this._processFiles(files);
+  }
+
+  protected fileProgress(file: UploadFile): number {
+    return file.progress ?? this.nProgress();
   }
 
   protected onFileInput(e: Event): void {
@@ -390,7 +396,7 @@ export class ImageUploadComponent implements ControlValueAccessor {
 
     const croppedFile = new File([blob], target.name, { type: blob.type });
     const preview     = URL.createObjectURL(blob);
-    const updated: UploadFile = { file: croppedFile, preview, name: target.name, size: blob.size, type: blob.type };
+    const updated: UploadFile = { id: target.id, file: croppedFile, preview, name: target.name, size: blob.size, type: blob.type, progress: target.progress };
 
     URL.revokeObjectURL(target.preview);
     const files = this.nValue().map(f => f === target ? updated : f);
@@ -424,23 +430,27 @@ export class ImageUploadComponent implements ControlValueAccessor {
       file, reason: 'count', message: `Limite de ${this.nMaxFiles()} arquivo(s) atingido.`,
     }));
 
-    const accepted: UploadFile[] = [];
+    const checks = await Promise.all(
+      candidates.map(async (file): Promise<UploadFile | UploadError> => {
+        if (!this._matchesAccept(file)) {
+          return { file, reason: 'type', message: `Tipo "${file.type}" não é aceito.` };
+        }
+        if (this.nMaxSize() > 0 && file.size > this.nMaxSize()) {
+          return { file, reason: 'size', message: `Arquivo excede ${this.formatSize(this.nMaxSize())}.` };
+        }
+        if (file.type.startsWith('image/') && (this.nMinWidth() || this.nMinHeight() || this.nMaxWidth() || this.nMaxHeight())) {
+          const dimErr = await this._checkDimensions(file);
+          if (dimErr) return { file, reason: 'dimensions', message: dimErr };
+        }
+        const preview = URL.createObjectURL(file);
+        return { id: crypto.randomUUID(), file, preview, name: file.name, size: file.size, type: file.type };
+      }),
+    );
 
-    for (const file of candidates) {
-      if (!this._matchesAccept(file)) {
-        rejected.push({ file, reason: 'type', message: `Tipo "${file.type}" não é aceito.` });
-        continue;
-      }
-      if (this.nMaxSize() > 0 && file.size > this.nMaxSize()) {
-        rejected.push({ file, reason: 'size', message: `Arquivo excede ${this.formatSize(this.nMaxSize())}.` });
-        continue;
-      }
-      if (file.type.startsWith('image/') && (this.nMinWidth() || this.nMinHeight() || this.nMaxWidth() || this.nMaxHeight())) {
-        const dimErr = await this._checkDimensions(file);
-        if (dimErr) { rejected.push({ file, reason: 'dimensions', message: dimErr }); continue; }
-      }
-      const preview = URL.createObjectURL(file);
-      accepted.push({ file, preview, name: file.name, size: file.size, type: file.type });
+    const accepted: UploadFile[] = [];
+    for (const result of checks) {
+      if ('reason' in result) rejected.push(result);
+      else accepted.push(result);
     }
 
     if (rejected.length) this.nFileReject.emit(rejected);

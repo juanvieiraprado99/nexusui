@@ -186,6 +186,16 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/components/tabs/tabs-doc.page').then((m) => m.TabsDocPage),
   },
   {
+    path: 'directives/ripple',
+    loadComponent: () =>
+      import('./pages/directives/ripple/ripple-doc.page').then((m) => m.RippleDocPage),
+  },
+  {
+    path: 'directives/tooltip',
+    loadComponent: () =>
+      import('./pages/directives/tooltip/tooltip-doc.page').then((m) => m.TooltipDocPage),
+  },
+  {
     path: 'cli',
     loadComponent: () => import('./pages/cli/cli.page').then((m) => m.CliPage),
   },

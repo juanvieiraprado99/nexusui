@@ -3,6 +3,7 @@ import type { ComponentRegistry } from './types';
 export const overlaysRegistry: ComponentRegistry[] = [
   {
     name: 'dialog',
+    version: '1.1.0',
     basePath: 'components/dialog',
     registryDependencies: ['utils', 'button'],
     dependencies: ['class-variance-authority', '@angular/cdk'],
@@ -22,6 +23,7 @@ export const overlaysRegistry: ComponentRegistry[] = [
   },
   {
     name: 'drawer',
+    version: '1.1.0',
     basePath: 'components/drawer',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', '@angular/cdk'],
@@ -41,6 +43,7 @@ export const overlaysRegistry: ComponentRegistry[] = [
   },
   {
     name: 'popover',
+    version: '1.0.0',
     basePath: 'components/popover',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', '@angular/cdk'],
@@ -56,6 +59,7 @@ export const overlaysRegistry: ComponentRegistry[] = [
   },
   {
     name: 'dropdown-menu',
+    version: '1.0.0',
     basePath: 'components/dropdown-menu',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', '@angular/cdk'],
@@ -78,6 +82,7 @@ export const overlaysRegistry: ComponentRegistry[] = [
   },
   {
     name: 'context-menu',
+    version: '1.0.0',
     basePath: 'components/context-menu',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', '@angular/cdk'],
@@ -103,6 +108,7 @@ export const overlaysRegistry: ComponentRegistry[] = [
   },
   {
     name: 'tooltip',
+    version: '1.0.0',
     basePath: 'components/tooltip',
     registryDependencies: ['utils'],
     dependencies: ['@angular/cdk'],

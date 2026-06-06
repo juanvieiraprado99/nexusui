@@ -1,7 +1,6 @@
 import { A11yModule, FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -21,6 +20,16 @@ import {
 import { mergeClasses } from '../../utils/merge-classes';
 import { DRAWER_CONTEXT } from './drawer.context';
 import { drawerContentVariants, type DrawerContentVariants } from './drawer.variants';
+
+/** Sincronizado com `duration-300` no CVA — controla o atraso de desmontagem do overlay. */
+const DRAWER_ANIM_MS = 300;
+
+const OFF_SCREEN: Record<string, string> = {
+  left:   '-translate-x-full',
+  right:  'translate-x-full',
+  top:    '-translate-y-full',
+  bottom: 'translate-y-full',
+};
 
 @Component({
   selector: 'n-drawer-content',
@@ -43,8 +52,8 @@ import { drawerContentVariants, type DrawerContentVariants } from './drawer.vari
         [id]="ctx.drawerId()"
         [attr.role]="ctx.role()"
         aria-modal="true"
-        [attr.aria-labelledby]="ctx.titleId()"
-        [attr.aria-describedby]="ctx.descriptionId()"
+        [attr.aria-labelledby]="ctx.hasTitle() ? ctx.titleId() : null"
+        [attr.aria-describedby]="ctx.hasDescription() ? ctx.descriptionId() : null"
         [attr.data-position]="nPosition()"
         [attr.data-shaking]="shaking() ? '' : null"
         data-slot="content"
@@ -105,7 +114,6 @@ export class DrawerContentComponent implements AfterViewInit, OnDestroy {
   private readonly _overlay          = inject(Overlay);
   private readonly _vcr              = inject(ViewContainerRef);
   private readonly _focusTrapFactory = inject(FocusTrapFactory);
-  private readonly _document         = inject(DOCUMENT);
 
   @ViewChild('panel', { static: true }) private _panelTpl!: TemplateRef<unknown>;
   @ViewChild('panelEl') private _panelEl?: ElementRef<HTMLElement>;
@@ -114,6 +122,7 @@ export class DrawerContentComponent implements AfterViewInit, OnDestroy {
   private _portal: TemplatePortal | null = null;
   private _focusTrap: FocusTrap | null = null;
   private _detachTimer?: ReturnType<typeof setTimeout>;
+  private _shakeTimer?: ReturnType<typeof setTimeout>;
 
   protected readonly isVisible  = signal(false);
   protected readonly isClosing  = signal(false);
@@ -121,26 +130,11 @@ export class DrawerContentComponent implements AfterViewInit, OnDestroy {
 
   protected readonly classes = computed(() => {
     const pos = this.nPosition() ?? 'right';
-    const size = this.nSize();
     const visible = this.isVisible() && !this.isClosing();
 
-    const horizontal = pos === 'left' || pos === 'right';
-    const sizeMap: Record<string, string> = horizontal
-      ? { sm: 'w-64', md: 'w-80', lg: 'w-96', xl: 'w-[28rem]', full: 'w-full' }
-      : { sm: 'h-48', md: 'h-72', lg: 'h-96', xl: 'h-[28rem]', full: 'h-full' };
-
-    const offScreen: Record<string, string> = {
-      left:   '-translate-x-full',
-      right:  'translate-x-full',
-      top:    '-translate-y-full',
-      bottom: 'translate-y-full',
-    };
-
     return mergeClasses(
-      drawerContentVariants({ nPosition: pos }),
-      sizeMap[size],
-      'transition-transform duration-300',
-      visible ? 'translate-x-0 translate-y-0 ease-out' : `${offScreen[pos]} ease-in`,
+      drawerContentVariants({ nPosition: pos, nSize: this.nSize() }),
+      visible ? 'translate-x-0 translate-y-0 ease-out' : `${OFF_SCREEN[pos]} ease-in`,
       this.nScrollable() && 'overflow-hidden',
       this.nClass(),
     );
@@ -163,6 +157,7 @@ export class DrawerContentComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearTimeout(this._detachTimer);
+    clearTimeout(this._shakeTimer);
     this._forceDetach();
   }
 
@@ -179,7 +174,6 @@ export class DrawerContentComponent implements AfterViewInit, OnDestroy {
 
     this._overlayRef = this._overlay.create(config);
     this._overlayRef.attach(this._portal);
-    this._document.body.classList.add('overflow-hidden');
 
     queueMicrotask(() => {
       this.isVisible.set(true);
@@ -204,11 +198,10 @@ export class DrawerContentComponent implements AfterViewInit, OnDestroy {
     this._detachTimer = setTimeout(() => {
       this.isClosing.set(false);
       this._forceDetach();
-    }, 310);
+    }, DRAWER_ANIM_MS + 10);
   }
 
   private _forceDetach(): void {
-    this._document.body.classList.remove('overflow-hidden');
     this._overlayRef?.dispose();
     this._overlayRef = null;
   }
@@ -227,7 +220,8 @@ export class DrawerContentComponent implements AfterViewInit, OnDestroy {
   }
 
   private _shake(): void {
+    clearTimeout(this._shakeTimer);
     this.shaking.set(true);
-    setTimeout(() => this.shaking.set(false), 450);
+    this._shakeTimer = setTimeout(() => this.shaking.set(false), 450);
   }
 }

@@ -25,21 +25,15 @@ import { BreadcrumbEllipsisComponent } from '../breadcrumb.component';
         <n-breadcrumb-item>
           <a n-breadcrumb-link href="#">Home</a>
         </n-breadcrumb-item>
-        <n-breadcrumb-item>
-          <n-breadcrumb-separator>/</n-breadcrumb-separator>
-        </n-breadcrumb-item>
+        <n-breadcrumb-separator />
         <n-breadcrumb-item>
           <n-breadcrumb-ellipsis />
         </n-breadcrumb-item>
-        <n-breadcrumb-item>
-          <n-breadcrumb-separator>/</n-breadcrumb-separator>
-        </n-breadcrumb-item>
+        <n-breadcrumb-separator />
         <n-breadcrumb-item>
           <a n-breadcrumb-link href="#">Category</a>
         </n-breadcrumb-item>
-        <n-breadcrumb-item>
-          <n-breadcrumb-separator>/</n-breadcrumb-separator>
-        </n-breadcrumb-item>
+        <n-breadcrumb-separator />
         <n-breadcrumb-item>
           <n-breadcrumb-page>Item</n-breadcrumb-page>
         </n-breadcrumb-item>

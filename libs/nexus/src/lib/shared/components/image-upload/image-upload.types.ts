@@ -1,9 +1,11 @@
 export interface UploadFile {
+  id: string;
   file: File;
   preview: string;
   name: string;
   size: number;
   type: string;
+  progress?: number;
 }
 
 export interface UploadError {

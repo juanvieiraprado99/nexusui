@@ -1,6 +1,7 @@
 {
   "name": "alert",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/alert",
   "dependencies": [
     "class-variance-authority"

@@ -3,6 +3,7 @@ import type { ComponentRegistry } from './types';
 export const formsRegistry: ComponentRegistry[] = [
   {
     name: 'form',
+    version: '1.0.0',
     basePath: 'components/form',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -10,6 +11,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'input',
+    version: '1.0.0',
     basePath: 'components/input',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -17,6 +19,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'input-otp',
+    version: '1.0.0',
     basePath: 'components/input-otp',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -24,6 +27,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'combobox',
+    version: '1.0.0',
     basePath: 'components/combobox',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms', '@angular/cdk'],
@@ -42,6 +46,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'checkbox',
+    version: '1.0.0',
     basePath: 'components/checkbox',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -49,6 +54,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'radio',
+    version: '1.0.0',
     basePath: 'components/radio',
     registryDependencies: ['utils', 'skeleton'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -62,6 +68,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'switch',
+    version: '1.0.0',
     basePath: 'components/switch',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -69,6 +76,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'select',
+    version: '1.0.0',
     basePath: 'components/select',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms', '@angular/cdk'],
@@ -87,6 +95,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'textarea',
+    version: '1.0.0',
     basePath: 'components/textarea',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -95,6 +104,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'slider',
+    version: '1.0.0',
     basePath: 'components/slider',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -102,6 +112,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'datepicker',
+    version: '1.0.0',
     basePath: 'components/datepicker',
     registryDependencies: ['utils', 'label', 'calendar'],
     dependencies: ['class-variance-authority', '@angular/forms', '@angular/cdk'],
@@ -115,6 +126,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'calendar',
+    version: '1.0.0',
     basePath: 'components/calendar',
     registryDependencies: ['utils', 'button'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -130,6 +142,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'signature',
+    version: '1.0.0',
     basePath: 'components/signature',
     registryDependencies: ['utils', 'label'],
     dependencies: ['@angular/forms'],
@@ -142,6 +155,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'color-picker',
+    version: '1.0.0',
     basePath: 'components/color-picker',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms', '@angular/cdk'],
@@ -160,6 +174,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'image-upload',
+    version: '1.0.0',
     basePath: 'components/image-upload',
     registryDependencies: ['utils', 'label', 'button'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -174,6 +189,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'input-group',
+    version: '1.0.0',
     basePath: 'components/input-group',
     registryDependencies: ['utils', 'input'],
     dependencies: ['class-variance-authority', 'rxjs'],

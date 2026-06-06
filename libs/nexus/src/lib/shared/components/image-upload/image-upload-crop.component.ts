@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   ElementRef,
   inject,
   input,
@@ -30,8 +31,13 @@ interface CropRect { x: number; y: number; w: number; h: number }
   host: {
     class: 'fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm',
     tabindex: '-1',
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-label': 'Recortar imagem',
     '(keydown.escape)': 'cancel.emit()',
     '(keydown.enter)': '$event.preventDefault(); confirmCrop()',
+    '(keydown.tab)': 'onTab($event)',
+    '(keydown.shift.tab)': 'onTab($event)',
   },
   template: `
     <div class="bg-background rounded-xl shadow-2xl p-4 flex flex-col gap-4 max-w-2xl w-full mx-4 max-h-[90vh] overflow-auto">
@@ -74,7 +80,9 @@ export class ImageUploadCropComponent {
   readonly cancel  = output<void>();
 
   private readonly _canvasRef  = viewChild.required<ElementRef<HTMLCanvasElement>>('cropCanvas');
+  private readonly _hostRef    = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly _platformId = inject(PLATFORM_ID);
+  private readonly _destroyRef = inject(DestroyRef);
 
   private _img: HTMLImageElement | null = null;
   private _ctx: CanvasRenderingContext2D | null = null;
@@ -83,6 +91,9 @@ export class ImageUploadCropComponent {
   private _dragStartX = 0;
   private _dragStartY = 0;
   private _dragStartCrop: CropRect = { x: 0, y: 0, w: 0, h: 0 };
+  private _rafId: number | null = null;
+  private _destroyed = false;
+  private _previousFocus: HTMLElement | null = null;
 
   protected readonly aspectRatioLabel = computed(() => {
     const r = this.nAspectRatio();
@@ -98,15 +109,38 @@ export class ImageUploadCropComponent {
   });
 
   constructor() {
+    if (isPlatformBrowser(this._platformId)) {
+      this._previousFocus = document.activeElement as HTMLElement | null;
+    }
     afterNextRender(() => {
       if (!isPlatformBrowser(this._platformId)) return;
       this._loadImage();
     });
+    this._destroyRef.onDestroy(() => {
+      this._destroyed = true;
+      if (this._rafId !== null) cancelAnimationFrame(this._rafId);
+      this._previousFocus?.focus?.();
+    });
+  }
+
+  protected onTab(e: Event): void {
+    const focusable = this._hostRef.nativeElement.querySelectorAll<HTMLElement>('button:not([disabled])');
+    if (focusable.length === 0) return;
+    const first  = focusable[0];
+    const last   = focusable[focusable.length - 1];
+    const active = document.activeElement;
+    if ((e as KeyboardEvent).shiftKey) {
+      if (active === first || active === this._hostRef.nativeElement) { e.preventDefault(); last.focus(); }
+    } else if (active === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 
   private _loadImage(): void {
     const img = new Image();
     img.onload = () => {
+      if (this._destroyed) return;
       this._img = img;
       const canvas = this._canvasRef().nativeElement;
       const scale = Math.min(1, MAX_W / img.naturalWidth, MAX_H / img.naturalHeight);
@@ -221,11 +255,19 @@ export class ImageUploadCropComponent {
     if (ny + nh > ch)   nh = ch - ny;
 
     this._crop = { x: nx, y: ny, w: Math.max(MIN, nw), h: Math.max(MIN, nh) };
-    this._draw();
+    this._scheduleDraw();
   }
 
   protected onPointerUp(): void {
     this._dragHandle = null;
+  }
+
+  private _scheduleDraw(): void {
+    if (this._rafId !== null) return;
+    this._rafId = requestAnimationFrame(() => {
+      this._rafId = null;
+      this._draw();
+    });
   }
 
   private _draw(): void {
@@ -288,6 +330,8 @@ export class ImageUploadCropComponent {
     offscreen.height = sh;
     const ctx = offscreen.getContext('2d')!;
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
-    offscreen.toBlob(blob => { if (blob) this.confirm.emit(blob); }, 'image/jpeg', 0.92);
+    const srcType = this.nFile().type;
+    const mime = srcType === 'image/png' || srcType === 'image/webp' ? srcType : 'image/jpeg';
+    offscreen.toBlob(blob => { if (blob) this.confirm.emit(blob); }, mime, 0.92);
   }
 }

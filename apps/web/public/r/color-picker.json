@@ -1,6 +1,7 @@
 {
   "name": "color-picker",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/color-picker",
   "dependencies": [
     "class-variance-authority",

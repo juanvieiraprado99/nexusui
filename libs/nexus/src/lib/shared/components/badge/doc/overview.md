@@ -25,15 +25,27 @@ import { BadgeComponent } from '@/shared/components/badge';
 <n-badge nVariant="warning">Warning</n-badge>
 ```
 
-### Com Avatar
-
-O `n-avatar-badge` usa `BadgeComponent` internamente para renderizar o indicador de status no avatar.
+### Sizes
 
 ```html
-<n-avatar nName="João Prado">
-  <n-avatar-badge nStatus="online" />
-</n-avatar>
+<n-badge nSize="sm">Small</n-badge>
+<n-badge nSize="default">Default</n-badge>
+<n-badge nSize="lg">Large</n-badge>
+```
 
-<!-- status como badge de texto ao lado -->
+### As Link
+
+O seletor de atributo `a[n-badge]` renderiza um badge clicável usando uma âncora — útil para tags, versões ou links de categoria.
+
+```html
+<a n-badge href="/docs" nVariant="outline">Docs</a>
+```
+
+### Com Avatar
+
+O `n-avatar` já possui um indicador de status embutido via input `nStatus` (`online | offline | away | busy`). Use o badge de texto ao lado para complementar.
+
+```html
+<n-avatar nName="João Prado" nStatus="online" />
 <n-badge nVariant="success">Online</n-badge>
 ```

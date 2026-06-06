@@ -49,7 +49,7 @@ interface ApiRow {
         <header>
           <p class="text-xs uppercase tracking-wide text-muted-foreground">Components</p>
           <h1 class="mt-1 text-3xl font-bold tracking-tight">Dialog</h1>
-          <p class="mt-2 text-muted-foreground">A modal dialog built with CDK Overlay and focus trap. Supports multiple sizes, scrollable content, alert role, and persistent mode with shake animation.</p>
+          <p class="mt-2 text-muted-foreground">A modal dialog built with CDK Overlay and focus trap. Animates open and close with a fade + zoom transition (honoring <code class="bg-muted rounded px-1 font-mono">prefers-reduced-motion</code>). Supports multiple sizes, scrollable content, alert role, and persistent mode with shake animation.</p>
         </header>
 
         <div class="mt-8">
@@ -74,6 +74,13 @@ interface ApiRow {
             </n-dialog>
           </app-example>
         </div>
+
+        <section class="mt-12">
+          <h2 class="text-xl font-semibold tracking-tight">Animation</h2>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Open and close animate with a CSS fade + zoom (<code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">opacity</code> + <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">scale</code>, 150ms) — no extra setup. The panel mounts at the enter state and transitions on the next frame, then reverses on close. Users with <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">prefers-reduced-motion</code> get an instant open/close.
+          </p>
+        </section>
 
         <section class="mt-12">
           <h2 class="text-xl font-semibold tracking-tight">Installation</h2>

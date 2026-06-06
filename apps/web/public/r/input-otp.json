@@ -1,6 +1,7 @@
 {
   "name": "input-otp",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/input-otp",
   "dependencies": [
     "class-variance-authority",

@@ -14,6 +14,7 @@ const config: Config = {
     utils: '@/shared/utils',
     components: '@/shared/components',
   },
+  components: {},
 };
 
 describe('transformContent', () => {

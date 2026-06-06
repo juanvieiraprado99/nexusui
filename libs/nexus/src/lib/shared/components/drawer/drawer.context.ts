@@ -8,9 +8,13 @@ export interface DrawerContext {
   readonly titleId: Signal<string>;
   readonly descriptionId: Signal<string>;
   readonly triggerEl: Signal<HTMLElement | null>;
+  readonly hasTitle: Signal<boolean>;
+  readonly hasDescription: Signal<boolean>;
   setOpen(value: boolean): void;
   close(): void;
   setTriggerEl(el: HTMLElement | null): void;
+  setHasTitle(value: boolean): void;
+  setHasDescription(value: boolean): void;
 }
 
 export const DRAWER_CONTEXT = new InjectionToken<DrawerContext>('DRAWER_CONTEXT');

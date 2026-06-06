@@ -94,6 +94,8 @@ import { SelectWithIconsDemo } from '@nexus/lib/shared/components/select/demo/wi
 import { BadgeDefaultDemo } from '@nexus/lib/shared/components/badge/demo/default';
 import { BadgeVariantsDemo } from '@nexus/lib/shared/components/badge/demo/variants';
 import { BadgeWithAvatarDemo } from '@nexus/lib/shared/components/badge/demo/with-avatar';
+import { BadgeSizesDemo } from '@nexus/lib/shared/components/badge/demo/sizes';
+import { BadgeAsLinkDemo } from '@nexus/lib/shared/components/badge/demo/as-link';
 
 // Avatar demos
 import { AvatarDefaultDemo } from '@nexus/lib/shared/components/avatar/demo/default';
@@ -167,6 +169,10 @@ import { DrawerDefaultDemo } from '@nexus/lib/shared/components/drawer/demo/defa
 import { DrawerNavigationDemo } from '@nexus/lib/shared/components/drawer/demo/navigation';
 import { DrawerPositionsDemo } from '@nexus/lib/shared/components/drawer/demo/positions';
 import { DrawerSizesDemo } from '@nexus/lib/shared/components/drawer/demo/sizes';
+import { DrawerPersistentDemo } from '@nexus/lib/shared/components/drawer/demo/persistent';
+import { DrawerControlledDemo } from '@nexus/lib/shared/components/drawer/demo/controlled';
+import { DrawerBackdropHandleDemo } from '@nexus/lib/shared/components/drawer/demo/backdrop-handle';
+import { DrawerScrollableDemo } from '@nexus/lib/shared/components/drawer/demo/scrollable';
 
 // Dialog demos
 import { DialogAlertDemo } from '@nexus/lib/shared/components/dialog/demo/alert-dialog';
@@ -293,6 +299,11 @@ import { ImageUploadVideosDemo } from '@nexus/lib/shared/components/image-upload
 import { ImageUploadAudioDemo } from '@nexus/lib/shared/components/image-upload/demo/audio';
 import { ImageUploadArchivesDemo } from '@nexus/lib/shared/components/image-upload/demo/archives';
 import { ImageUploadMixedDemo } from '@nexus/lib/shared/components/image-upload/demo/mixed';
+import { ImageUploadDimensionsDemo } from '@nexus/lib/shared/components/image-upload/demo/dimensions';
+import { ImageUploadDisabledDemo } from '@nexus/lib/shared/components/image-upload/demo/disabled';
+import { ImageUploadProgressMultipleDemo } from '@nexus/lib/shared/components/image-upload/demo/progress-multiple';
+import { ImageUploadErrorDemo } from '@nexus/lib/shared/components/image-upload/demo/error';
+import { ImageUploadSizesDemo } from '@nexus/lib/shared/components/image-upload/demo/sizes';
 
 // Image demos
 import { ImageDefaultDemo } from '@nexus/lib/shared/components/image/demo/default';
@@ -307,6 +318,13 @@ import { TooltipBasicDemo } from '@nexus/lib/shared/components/tooltip/demo/basi
 import { TooltipDiagonalsDemo } from '@nexus/lib/shared/components/tooltip/demo/diagonals';
 import { TooltipSidesDemo } from '@nexus/lib/shared/components/tooltip/demo/sides';
 import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/template';
+
+// Ripple demos
+import { RippleDefaultDemo } from '@nexus/lib/shared/components/ripple/demo/default';
+import { RippleOnButtonDemo } from '@nexus/lib/shared/components/ripple/demo/on-button';
+import { RippleColorsDemo } from '@nexus/lib/shared/components/ripple/demo/colors';
+import { RippleCenteredDemo } from '@nexus/lib/shared/components/ripple/demo/centered';
+import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/unbounded';
 
 @Component({
   selector: 'playground-page',
@@ -364,6 +382,10 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
     DrawerPositionsDemo,
     DrawerSizesDemo,
     DrawerNavigationDemo,
+    DrawerPersistentDemo,
+    DrawerControlledDemo,
+    DrawerBackdropHandleDemo,
+    DrawerScrollableDemo,
     DialogDefaultDemo,
     DialogSizesDemo,
     DialogScrollableDemo,
@@ -374,6 +396,8 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
     SkeletonShapesDemo,
     BadgeDefaultDemo,
     BadgeVariantsDemo,
+    BadgeSizesDemo,
+    BadgeAsLinkDemo,
     BadgeWithAvatarDemo,
     AvatarDefaultDemo,
     AvatarFallbackDemo,
@@ -535,10 +559,20 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
     ImageUploadAudioDemo,
     ImageUploadArchivesDemo,
     ImageUploadMixedDemo,
+    ImageUploadDimensionsDemo,
+    ImageUploadDisabledDemo,
+    ImageUploadProgressMultipleDemo,
+    ImageUploadErrorDemo,
+    ImageUploadSizesDemo,
     TooltipBasicDemo,
     TooltipDiagonalsDemo,
     TooltipSidesDemo,
     TooltipTemplateDemo,
+    RippleDefaultDemo,
+    RippleOnButtonDemo,
+    RippleColorsDemo,
+    RippleCenteredDemo,
+    RippleUnboundedDemo,
   ],
   template: `
     <div class="mx-auto max-w-5xl space-y-16 px-6 py-12">
@@ -549,6 +583,49 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
 
       <!-- Sonner (toaster único compartilhado por todas as demos) -->
       <n-sonner nPosition="bottom-right" [nCloseButton]="false" [nRichColors]="false" />
+
+      <!-- Ripple -->
+      <section id="ripple">
+        <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Ripple</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nRipple</code> em qualquer host — ondulação a partir do ponto do clique.
+            </p>
+            <div class="flex min-h-32 items-center justify-center">
+              <demo-ripple-default />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">On Button</span>
+            <p class="text-muted-foreground text-xs">
+              Combinado com <code class="bg-muted rounded px-1 font-mono">n-button</code> + cor customizada.
+            </p>
+            <div class="flex min-h-32 items-center justify-center">
+              <demo-ripple-on-button />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Colors</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nRippleColor</code> — qualquer cor CSS.</p>
+            <div class="flex min-h-32 items-center justify-center">
+              <demo-ripple-colors />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Centered &amp; Unbounded</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nRippleCentered</code> e
+              <code class="bg-muted rounded px-1 font-mono">nRippleUnbounded</code> — ideais para icon buttons.
+            </p>
+            <div class="flex min-h-32 items-center justify-center gap-6">
+              <demo-ripple-centered />
+              <demo-ripple-unbounded />
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Sonner -->
       <section id="sonner">
@@ -833,7 +910,7 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Icon</span>
-            <p class="text-muted-foreground text-xs">Ícone leading/trailing via <code class="bg-muted rounded px-1 font-mono">ng-content</code> + gap automático.</p>
+            <p class="text-muted-foreground text-xs">Ícone leading/trailing via <code class="bg-muted rounded px-1 font-mono">ng-content</code> + gap automático. Botões só de ícone: use <code class="bg-muted rounded px-1 font-mono">nAriaLabel</code>.</p>
             <div class="flex min-h-16 items-center justify-center">
               <demo-button-with-icon />
             </div>
@@ -885,7 +962,7 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
-            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nVariant</code> no grupo propaga para todos os botões.</p>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nVariant</code> no grupo propaga para todos os botões (inclui <code class="bg-muted rounded px-1 font-mono">success</code> / <code class="bg-muted rounded px-1 font-mono">warning</code>).</p>
             <div class="flex min-h-16 items-center justify-center">
               <demo-button-group-variants />
             </div>
@@ -1376,6 +1453,42 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
               <demo-drawer-navigation />
             </div>
           </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Persistent</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nPersistent</code> — backdrop/ESC apenas treme, não fecha.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-drawer-persistent />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Controlled</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">[(nOpen)]</code> — estado dirigido por signal externo.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-drawer-controlled />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Backdrop &amp; Handle</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">[nBackdrop]="false"</code> + toggle de <code class="bg-muted rounded px-1 font-mono">nHandle</code>.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-drawer-backdrop-handle />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Scrollable</span>
+            <p class="text-muted-foreground text-xs">
+              <code class="bg-muted rounded px-1 font-mono">nScrollable</code> — header/footer fixos, corpo rola.
+            </p>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-drawer-scrollable />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1385,7 +1498,7 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default</span>
-            <p class="text-muted-foreground text-xs">Dialog básico com header, body e footer.</p>
+            <p class="text-muted-foreground text-xs">Dialog básico com header, body e footer. Abre/fecha com animação fade + zoom (respeita <code class="bg-muted rounded px-1 font-mono">prefers-reduced-motion</code>).</p>
             <div class="flex min-h-16 items-center justify-center">
               <demo-dialog-default />
             </div>
@@ -1439,6 +1552,18 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Variants</span>
             <div class="flex min-h-16 items-center justify-center">
               <demo-badge-variants />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-badge-sizes />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">As Link</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <demo-badge-as-link />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
@@ -2277,6 +2402,41 @@ import { TooltipTemplateDemo } from '@nexus/lib/shared/components/tooltip/demo/t
             <p class="text-muted-foreground text-xs">String manual <code class="bg-muted rounded px-1 font-mono">"image/*,.pdf"</code> e preset <code class="bg-muted rounded px-1 font-mono">"all"</code> sem restrição.</p>
             <div class="flex min-h-40 items-start justify-start">
               <demo-image-upload-mixed />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Validação de dimensões</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nMinWidth</code>/<code class="bg-muted rounded px-1 font-mono">nMaxWidth</code> + altura — rejeita imagens fora da faixa com reason <code class="bg-muted rounded px-1 font-mono">'dimensions'</code>.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-dimensions class="w-full max-w-lg" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Desabilitado</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nDisabled</code> — dropzone e avatar sem interação, foco bloqueado.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-disabled class="w-full max-w-lg" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Progresso por arquivo</span>
+            <p class="text-muted-foreground text-xs">Barra independente por item via <code class="bg-muted rounded px-1 font-mono">UploadFile.progress</code>. Simulação paralela ao selecionar múltiplos.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-progress-multiple class="w-full max-w-lg" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Erro manual</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nError</code> — mensagem controlada pelo consumidor com <code class="bg-muted rounded px-1 font-mono">role="alert"</code> e borda destructive.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-error class="w-full max-w-lg" />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Tamanhos (dropzone)</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nSize</code> — sm · default · lg ajustam padding e altura mínima do dropzone.</p>
+            <div class="flex min-h-40 items-start justify-start">
+              <demo-image-upload-sizes class="w-full max-w-lg" />
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 {
   "name": "slider",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/slider",
   "dependencies": [
     "class-variance-authority",

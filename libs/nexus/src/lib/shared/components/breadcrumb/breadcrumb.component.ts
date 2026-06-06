@@ -111,7 +111,13 @@ export class BreadcrumbPageComponent {
   selector: 'n-breadcrumb-separator',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<ng-content />`,
+  template: `
+    <ng-content>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="m9 18 6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </ng-content>
+  `,
   host: {
     '[class]': 'classes()',
     '[attr.aria-hidden]': '"true"',
@@ -133,7 +139,7 @@ export class BreadcrumbSeparatorComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span aria-hidden="true">&#8230;</span>
-    <span class="sr-only">More pages</span>
+    <span class="sr-only">{{ nSrLabel() }}</span>
   `,
   host: {
     '[class]': 'classes()',
@@ -142,7 +148,8 @@ export class BreadcrumbSeparatorComponent {
   },
 })
 export class BreadcrumbEllipsisComponent {
-  readonly nClass = input<string>('');
+  readonly nSrLabel = input<string>('More pages');
+  readonly nClass   = input<string>('');
 
   protected readonly classes = computed(() =>
     mergeClasses('flex h-9 w-9 items-center justify-center', this.nClass()),

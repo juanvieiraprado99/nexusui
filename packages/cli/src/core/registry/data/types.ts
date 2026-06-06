@@ -1,5 +1,6 @@
 export type ComponentRegistry = {
   name: string;
+  version: string;
   basePath: string;
   dependencies?: string[];
   devDependencies?: string[];

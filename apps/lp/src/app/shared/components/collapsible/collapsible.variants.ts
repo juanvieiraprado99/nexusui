@@ -4,7 +4,7 @@ export const collapsibleVariants = cva('w-full', {
   variants: {
     nVariant: {
       default: '',
-      bordered: 'border border-border rounded-lg',
+      bordered: 'border border-border rounded-lg bg-card',
       card: 'border border-border rounded-lg bg-card shadow-sm',
     },
   },

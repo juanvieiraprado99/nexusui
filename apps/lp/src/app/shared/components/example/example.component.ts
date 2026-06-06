@@ -33,7 +33,10 @@ import { CodeBlockComponent } from '../code-block/code-block.component';
         }
       </div>
       @if (tab() === 'preview') {
-        <div class="flex min-h-60 items-center justify-center p-10 bg-zinc-50 dark:bg-zinc-950">
+        <div
+          class="flex min-h-60 items-center justify-center p-10 bg-background"
+          style="background-image: radial-gradient(color-mix(in oklab, var(--muted-foreground) 22%, transparent) 1px, transparent 1px); background-size: 16px 16px;"
+        >
           <ng-content />
         </div>
       } @else {

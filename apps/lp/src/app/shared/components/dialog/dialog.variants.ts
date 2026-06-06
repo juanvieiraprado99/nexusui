@@ -5,7 +5,7 @@ export const dialogContentVariants = cva(
     'relative bg-background rounded-lg shadow-lg border p-6',
     'flex flex-col gap-4',
     'transition-all duration-150 ease-out',
-    'opacity-100 scale-100',
+    'motion-reduce:transition-none motion-reduce:transform-none',
   ],
   {
     variants: {

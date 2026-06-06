@@ -7,6 +7,7 @@ export type RegistryFile = { name: string; content: string };
 export type RegistryItem = {
   name: string;
   type: string;
+  version?: string;
   basePath?: string;
   dependencies?: string[];
   registryDependencies?: string[];
@@ -21,6 +22,7 @@ export type RegistryIndex = {
   items: Array<{
     name: string;
     type: string;
+    version?: string;
     registryDependencies?: string[];
     files: string[];
   }>;

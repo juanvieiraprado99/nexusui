@@ -38,6 +38,26 @@ interface ApiRow {
           </app-example>
         </div>
 
+        <div class="mt-4">
+          <app-example title="Sizes" [code]="sizesCode">
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <n-badge nSize="sm">Small</n-badge>
+              <n-badge nSize="default">Default</n-badge>
+              <n-badge nSize="lg">Large</n-badge>
+            </div>
+          </app-example>
+        </div>
+
+        <div class="mt-4">
+          <app-example title="As link" [code]="asLinkCode">
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <a n-badge href="#" nVariant="default">Link</a>
+              <a n-badge href="#" nVariant="outline">Docs</a>
+              <a n-badge href="#" nVariant="secondary">v1.0.0</a>
+            </div>
+          </app-example>
+        </div>
+
         <section class="mt-12">
           <h2 class="text-xl font-semibold tracking-tight">Installation</h2>
           <div class="mt-3 rounded-lg border border-border/60 bg-card overflow-hidden">
@@ -168,6 +188,14 @@ export class BadgeDocPage {
 <n-badge nVariant="success">Success</n-badge>
 <n-badge nVariant="warning">Warning</n-badge>`;
 
+  protected readonly sizesCode = `<n-badge nSize="sm">Small</n-badge>
+<n-badge nSize="default">Default</n-badge>
+<n-badge nSize="lg">Large</n-badge>`;
+
+  protected readonly asLinkCode = `<a n-badge href="#" nVariant="default">Link</a>
+<a n-badge href="#" nVariant="outline">Docs</a>
+<a n-badge href="#" nVariant="secondary">v1.0.0</a>`;
+
   protected readonly withAvatarCode = `<div class="flex items-center gap-3">
   <div class="relative">
     <n-avatar nName="João Prado" />
@@ -194,6 +222,7 @@ export class MyPage {}`;
 
   protected readonly apiRows: ApiRow[] = [
     { prop: 'nVariant', type: "'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning'", default: "'default'", description: 'Visual style of the badge.' },
+    { prop: 'nSize', type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Size of the badge (padding + typography).' },
     { prop: 'nClass', type: 'string', default: "''", description: 'Extra Tailwind classes appended to the host.' },
   ];
 }

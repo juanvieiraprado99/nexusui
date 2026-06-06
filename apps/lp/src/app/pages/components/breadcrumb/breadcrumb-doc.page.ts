@@ -45,15 +45,11 @@ interface ApiRow { prop: string; type: string; default: string; description: str
                 <n-breadcrumb-item>
                   <a n-breadcrumb-link href="#">Home</a>
                 </n-breadcrumb-item>
-                <n-breadcrumb-item>
-                  <n-breadcrumb-separator>/</n-breadcrumb-separator>
-                </n-breadcrumb-item>
+                <n-breadcrumb-separator />
                 <n-breadcrumb-item>
                   <a n-breadcrumb-link href="#">Products</a>
                 </n-breadcrumb-item>
-                <n-breadcrumb-item>
-                  <n-breadcrumb-separator>/</n-breadcrumb-separator>
-                </n-breadcrumb-item>
+                <n-breadcrumb-separator />
                 <n-breadcrumb-item>
                   <n-breadcrumb-page>Laptop</n-breadcrumb-page>
                 </n-breadcrumb-item>
@@ -104,15 +100,11 @@ interface ApiRow { prop: string; type: string; default: string; description: str
                   <n-breadcrumb-item>
                     <a n-breadcrumb-link href="#">Home</a>
                   </n-breadcrumb-item>
-                  <n-breadcrumb-item>
-                    <n-breadcrumb-separator>›</n-breadcrumb-separator>
-                  </n-breadcrumb-item>
+                  <n-breadcrumb-separator>›</n-breadcrumb-separator>
                   <n-breadcrumb-item>
                     <a n-breadcrumb-link href="#">Settings</a>
                   </n-breadcrumb-item>
-                  <n-breadcrumb-item>
-                    <n-breadcrumb-separator>›</n-breadcrumb-separator>
-                  </n-breadcrumb-item>
+                  <n-breadcrumb-separator>›</n-breadcrumb-separator>
                   <n-breadcrumb-item>
                     <n-breadcrumb-page>General</n-breadcrumb-page>
                   </n-breadcrumb-item>
@@ -129,21 +121,15 @@ interface ApiRow { prop: string; type: string; default: string; description: str
                   <n-breadcrumb-item>
                     <a n-breadcrumb-link href="#">Home</a>
                   </n-breadcrumb-item>
-                  <n-breadcrumb-item>
-                    <n-breadcrumb-separator>/</n-breadcrumb-separator>
-                  </n-breadcrumb-item>
+                  <n-breadcrumb-separator />
                   <n-breadcrumb-item>
                     <n-breadcrumb-ellipsis />
                   </n-breadcrumb-item>
-                  <n-breadcrumb-item>
-                    <n-breadcrumb-separator>/</n-breadcrumb-separator>
-                  </n-breadcrumb-item>
+                  <n-breadcrumb-separator />
                   <n-breadcrumb-item>
                     <a n-breadcrumb-link href="#">Components</a>
                   </n-breadcrumb-item>
-                  <n-breadcrumb-item>
-                    <n-breadcrumb-separator>/</n-breadcrumb-separator>
-                  </n-breadcrumb-item>
+                  <n-breadcrumb-separator />
                   <n-breadcrumb-item>
                     <n-breadcrumb-page>Breadcrumb</n-breadcrumb-page>
                   </n-breadcrumb-item>
@@ -159,21 +145,21 @@ interface ApiRow { prop: string; type: string; default: string; description: str
                 <n-breadcrumb nSize="sm">
                   <n-breadcrumb-list>
                     <n-breadcrumb-item><a n-breadcrumb-link href="#">Home</a></n-breadcrumb-item>
-                    <n-breadcrumb-item><n-breadcrumb-separator>/</n-breadcrumb-separator></n-breadcrumb-item>
+                    <n-breadcrumb-separator />
                     <n-breadcrumb-item><n-breadcrumb-page>Small</n-breadcrumb-page></n-breadcrumb-item>
                   </n-breadcrumb-list>
                 </n-breadcrumb>
                 <n-breadcrumb nSize="default">
                   <n-breadcrumb-list>
                     <n-breadcrumb-item><a n-breadcrumb-link href="#">Home</a></n-breadcrumb-item>
-                    <n-breadcrumb-item><n-breadcrumb-separator>/</n-breadcrumb-separator></n-breadcrumb-item>
+                    <n-breadcrumb-separator />
                     <n-breadcrumb-item><n-breadcrumb-page>Default</n-breadcrumb-page></n-breadcrumb-item>
                   </n-breadcrumb-list>
                 </n-breadcrumb>
                 <n-breadcrumb nSize="lg">
                   <n-breadcrumb-list>
                     <n-breadcrumb-item><a n-breadcrumb-link href="#">Home</a></n-breadcrumb-item>
-                    <n-breadcrumb-item><n-breadcrumb-separator>/</n-breadcrumb-separator></n-breadcrumb-item>
+                    <n-breadcrumb-separator />
                     <n-breadcrumb-item><n-breadcrumb-page>Large</n-breadcrumb-page></n-breadcrumb-item>
                   </n-breadcrumb-list>
                 </n-breadcrumb>
@@ -189,9 +175,7 @@ interface ApiRow { prop: string; type: string; default: string; description: str
                   <n-breadcrumb-item>
                     <a n-breadcrumb-link href="#" [nDisabled]="true">Home</a>
                   </n-breadcrumb-item>
-                  <n-breadcrumb-item>
-                    <n-breadcrumb-separator>/</n-breadcrumb-separator>
-                  </n-breadcrumb-item>
+                  <n-breadcrumb-separator />
                   <n-breadcrumb-item>
                     <n-breadcrumb-page>Current Page</n-breadcrumb-page>
                   </n-breadcrumb-item>
@@ -262,35 +246,28 @@ export class BreadcrumbDocPage {
     <n-breadcrumb-item>
       <a n-breadcrumb-link href="#">Home</a>
     </n-breadcrumb-item>
-    <n-breadcrumb-item>
-      <n-breadcrumb-separator>/</n-breadcrumb-separator>
-    </n-breadcrumb-item>
+    <n-breadcrumb-separator />
     <n-breadcrumb-item>
       <a n-breadcrumb-link href="#">Products</a>
     </n-breadcrumb-item>
-    <n-breadcrumb-item>
-      <n-breadcrumb-separator>/</n-breadcrumb-separator>
-    </n-breadcrumb-item>
+    <n-breadcrumb-separator />
     <n-breadcrumb-item>
       <n-breadcrumb-page>Laptop</n-breadcrumb-page>
     </n-breadcrumb-item>
   </n-breadcrumb-list>
 </n-breadcrumb>`;
 
-  protected readonly customSeparatorCode = `<n-breadcrumb>
+  protected readonly customSeparatorCode = `<!-- omit content to use the default chevron, or pass your own -->
+<n-breadcrumb>
   <n-breadcrumb-list>
     <n-breadcrumb-item>
       <a n-breadcrumb-link href="#">Home</a>
     </n-breadcrumb-item>
-    <n-breadcrumb-item>
-      <n-breadcrumb-separator>›</n-breadcrumb-separator>
-    </n-breadcrumb-item>
+    <n-breadcrumb-separator>›</n-breadcrumb-separator>
     <n-breadcrumb-item>
       <a n-breadcrumb-link href="#">Settings</a>
     </n-breadcrumb-item>
-    <n-breadcrumb-item>
-      <n-breadcrumb-separator>›</n-breadcrumb-separator>
-    </n-breadcrumb-item>
+    <n-breadcrumb-separator>›</n-breadcrumb-separator>
     <n-breadcrumb-item>
       <n-breadcrumb-page>General</n-breadcrumb-page>
     </n-breadcrumb-item>
@@ -302,21 +279,15 @@ export class BreadcrumbDocPage {
     <n-breadcrumb-item>
       <a n-breadcrumb-link href="#">Home</a>
     </n-breadcrumb-item>
-    <n-breadcrumb-item>
-      <n-breadcrumb-separator>/</n-breadcrumb-separator>
-    </n-breadcrumb-item>
+    <n-breadcrumb-separator />
     <n-breadcrumb-item>
       <n-breadcrumb-ellipsis />
     </n-breadcrumb-item>
-    <n-breadcrumb-item>
-      <n-breadcrumb-separator>/</n-breadcrumb-separator>
-    </n-breadcrumb-item>
+    <n-breadcrumb-separator />
     <n-breadcrumb-item>
       <a n-breadcrumb-link href="#">Components</a>
     </n-breadcrumb-item>
-    <n-breadcrumb-item>
-      <n-breadcrumb-separator>/</n-breadcrumb-separator>
-    </n-breadcrumb-item>
+    <n-breadcrumb-separator />
     <n-breadcrumb-item>
       <n-breadcrumb-page>Breadcrumb</n-breadcrumb-page>
     </n-breadcrumb-item>
@@ -354,9 +325,7 @@ export class MyPage {}`;
     <n-breadcrumb-item>
       <a n-breadcrumb-link routerLink="/">Home</a>
     </n-breadcrumb-item>
-    <n-breadcrumb-item>
-      <n-breadcrumb-separator>/</n-breadcrumb-separator>
-    </n-breadcrumb-item>
+    <n-breadcrumb-separator />
     <n-breadcrumb-item>
       <n-breadcrumb-page>Current Page</n-breadcrumb-page>
     </n-breadcrumb-item>
@@ -371,10 +340,10 @@ export class MyPage {}`;
 
   protected readonly subComponentRows: { component: string; selector: string; description: string }[] = [
     { component: 'BreadcrumbListComponent', selector: 'n-breadcrumb-list', description: 'Ordered list wrapper for breadcrumb items.' },
-    { component: 'BreadcrumbItemComponent', selector: 'n-breadcrumb-item', description: 'List item wrapper — use for each segment including separators.' },
+    { component: 'BreadcrumbItemComponent', selector: 'n-breadcrumb-item', description: 'List item wrapper — one per segment (link, page, or ellipsis).' },
     { component: 'BreadcrumbLinkComponent', selector: 'a[n-breadcrumb-link]', description: 'Anchor link within a breadcrumb item. Accepts nDisabled.' },
     { component: 'BreadcrumbPageComponent', selector: 'n-breadcrumb-page', description: 'Current page indicator (aria-current="page", non-interactive).' },
-    { component: 'BreadcrumbSeparatorComponent', selector: 'n-breadcrumb-separator', description: 'Visual separator between items. Slot default content or provide custom text/icon.' },
-    { component: 'BreadcrumbEllipsisComponent', selector: 'n-breadcrumb-ellipsis', description: 'Collapsed middle items indicator (…).' },
+    { component: 'BreadcrumbSeparatorComponent', selector: 'n-breadcrumb-separator', description: 'Visual separator — sibling of items, not inside one. Renders a chevron by default; project text/icon to override.' },
+    { component: 'BreadcrumbEllipsisComponent', selector: 'n-breadcrumb-ellipsis', description: 'Collapsed middle items indicator (…). nSrLabel sets the screen-reader text.' },
   ];
 }

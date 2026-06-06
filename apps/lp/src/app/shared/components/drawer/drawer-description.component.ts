@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, computed, inject, input } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { DRAWER_CONTEXT } from './drawer.context';
 
@@ -13,11 +13,19 @@ import { DRAWER_CONTEXT } from './drawer.context';
     '[class]': 'classes()',
   },
 })
-export class DrawerDescriptionComponent {
+export class DrawerDescriptionComponent implements OnDestroy {
   protected readonly ctx = inject(DRAWER_CONTEXT);
   readonly nClass = input<string>('');
 
   protected readonly classes = computed(() =>
     mergeClasses('text-sm text-muted-foreground', this.nClass()),
   );
+
+  constructor() {
+    this.ctx.setHasDescription(true);
+  }
+
+  ngOnDestroy(): void {
+    this.ctx.setHasDescription(false);
+  }
 }

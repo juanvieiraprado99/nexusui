@@ -26,9 +26,7 @@ import { BreadcrumbSeparatorComponent } from '../breadcrumb.component';
             <n-breadcrumb-item>
               <a n-breadcrumb-link href="#">Home</a>
             </n-breadcrumb-item>
-            <n-breadcrumb-item>
-              <n-breadcrumb-separator>/</n-breadcrumb-separator>
-            </n-breadcrumb-item>
+            <n-breadcrumb-separator />
             <n-breadcrumb-item>
               <n-breadcrumb-page>Page</n-breadcrumb-page>
             </n-breadcrumb-item>
@@ -42,9 +40,7 @@ import { BreadcrumbSeparatorComponent } from '../breadcrumb.component';
             <n-breadcrumb-item>
               <a n-breadcrumb-link href="#">Home</a>
             </n-breadcrumb-item>
-            <n-breadcrumb-item>
-              <n-breadcrumb-separator>/</n-breadcrumb-separator>
-            </n-breadcrumb-item>
+            <n-breadcrumb-separator />
             <n-breadcrumb-item>
               <n-breadcrumb-page>Page</n-breadcrumb-page>
             </n-breadcrumb-item>
@@ -58,9 +54,7 @@ import { BreadcrumbSeparatorComponent } from '../breadcrumb.component';
             <n-breadcrumb-item>
               <a n-breadcrumb-link href="#">Home</a>
             </n-breadcrumb-item>
-            <n-breadcrumb-item>
-              <n-breadcrumb-separator>/</n-breadcrumb-separator>
-            </n-breadcrumb-item>
+            <n-breadcrumb-separator />
             <n-breadcrumb-item>
               <n-breadcrumb-page>Page</n-breadcrumb-page>
             </n-breadcrumb-item>

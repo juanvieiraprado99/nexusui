@@ -1,6 +1,7 @@
 {
   "name": "pagination",
   "type": "registry:component",
+  "version": "1.0.0",
   "basePath": "components/pagination",
   "dependencies": [
     "class-variance-authority"
