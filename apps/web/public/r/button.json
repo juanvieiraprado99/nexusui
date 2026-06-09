@@ -30,7 +30,7 @@
   "demos": [
     {
       "name": "as-link.ts",
-      "content": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '../button.component';\n\n@Component({\n  selector: 'demo-button-as-link',\n  standalone: true,\n  imports: [ButtonComponent],\n  template: `\n    <div class=\"flex items-center gap-4 flex-wrap\">\n      <a n-button href=\"https://nexus-ui.dev\" target=\"_blank\" rel=\"noopener\">Docs</a>\n      <a n-button nVariant=\"outline\" href=\"https://nexus-ui.dev\" target=\"_blank\" rel=\"noopener\">External</a>\n      <a n-button nVariant=\"link\" href=\"https://nexus-ui.dev\" target=\"_blank\" rel=\"noopener\">Link style</a>\n    </div>\n  `,\n})\nexport class ButtonDemoAsLink {}\n"
+      "content": "import { Component } from '@angular/core';\r\nimport { ButtonComponent } from '../button.component';\r\n\r\n@Component({\r\n  selector: 'demo-button-as-link',\r\n  standalone: true,\r\n  imports: [ButtonComponent],\r\n  template: `\r\n    <div class=\"flex items-center gap-4 flex-wrap\">\r\n      <a n-button href=\"https://nexus-ui.dev\" target=\"_blank\" rel=\"noopener\">Docs</a>\r\n      <a n-button nVariant=\"outline\" href=\"https://nexus-ui.dev\" target=\"_blank\" rel=\"noopener\">External</a>\r\n      <a n-button nVariant=\"link\" href=\"https://nexus-ui.dev\" target=\"_blank\" rel=\"noopener\">Link style</a>\r\n    </div>\r\n  `,\r\n})\r\nexport class ButtonDemoAsLink {}\r\n"
     },
     {
       "name": "default.ts",
@@ -38,15 +38,15 @@
     },
     {
       "name": "disabled.ts",
-      "content": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '../button.component';\n\n@Component({\n  selector: 'demo-button-disabled',\n  standalone: true,\n  imports: [ButtonComponent],\n  template: `\n    <div class=\"flex items-center gap-4 flex-wrap\">\n      <n-button [nDisabled]=\"true\">Default</n-button>\n      <n-button nVariant=\"destructive\" [nDisabled]=\"true\">Destructive</n-button>\n      <n-button nVariant=\"outline\" [nDisabled]=\"true\">Outline</n-button>\n      <a n-button nVariant=\"link\" href=\"#\" [nDisabled]=\"true\">Link</a>\n    </div>\n  `,\n})\nexport class ButtonDemoDisabled {}\n"
+      "content": "import { Component } from '@angular/core';\r\nimport { ButtonComponent } from '../button.component';\r\n\r\n@Component({\r\n  selector: 'demo-button-disabled',\r\n  standalone: true,\r\n  imports: [ButtonComponent],\r\n  template: `\r\n    <div class=\"flex items-center gap-4 flex-wrap\">\r\n      <n-button [nDisabled]=\"true\">Default</n-button>\r\n      <n-button nVariant=\"destructive\" [nDisabled]=\"true\">Destructive</n-button>\r\n      <n-button nVariant=\"outline\" [nDisabled]=\"true\">Outline</n-button>\r\n      <a n-button nVariant=\"link\" href=\"#\" [nDisabled]=\"true\">Link</a>\r\n    </div>\r\n  `,\r\n})\r\nexport class ButtonDemoDisabled {}\r\n"
     },
     {
       "name": "host-types.ts",
-      "content": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '../button.component';\n\n@Component({\n  selector: 'demo-button-host-types',\n  standalone: true,\n  imports: [ButtonComponent],\n  template: `\n    <div class=\"flex items-center gap-4 flex-wrap\">\n      <n-button>n-button</n-button>\n      <button n-button nVariant=\"secondary\" type=\"submit\">button[n-button]</button>\n      <a n-button nVariant=\"outline\" href=\"#\">a[n-button]</a>\n    </div>\n  `,\n})\nexport class ButtonDemoHostTypes {}\n"
+      "content": "import { Component } from '@angular/core';\r\nimport { ButtonComponent } from '../button.component';\r\n\r\n@Component({\r\n  selector: 'demo-button-host-types',\r\n  standalone: true,\r\n  imports: [ButtonComponent],\r\n  template: `\r\n    <div class=\"flex items-center gap-4 flex-wrap\">\r\n      <n-button>n-button</n-button>\r\n      <button n-button nVariant=\"secondary\" type=\"submit\">button[n-button]</button>\r\n      <a n-button nVariant=\"outline\" href=\"#\">a[n-button]</a>\r\n    </div>\r\n  `,\r\n})\r\nexport class ButtonDemoHostTypes {}\r\n"
     },
     {
       "name": "loading.ts",
-      "content": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '../button.component';\n\n@Component({\n  selector: 'demo-button-loading',\n  standalone: true,\n  imports: [ButtonComponent],\n  template: `<n-button [nLoading]=\"true\">Salvando...</n-button>`,\n})\nexport class ButtonDemoLoading {}\n"
+      "content": "import { Component } from '@angular/core';\r\nimport { ButtonComponent } from '../button.component';\r\n\r\n@Component({\r\n  selector: 'demo-button-loading',\r\n  standalone: true,\r\n  imports: [ButtonComponent],\r\n  template: `<n-button [nLoading]=\"true\">Salvando...</n-button>`,\r\n})\r\nexport class ButtonDemoLoading {}\r\n"
     },
     {
       "name": "size.ts",
@@ -58,7 +58,7 @@
     },
     {
       "name": "with-icon.ts",
-      "content": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '../button.component';\n\n@Component({\n  selector: 'demo-button-with-icon',\n  standalone: true,\n  imports: [ButtonComponent],\n  template: `\n    <div class=\"flex items-center gap-4 flex-wrap\">\n      <n-button>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"\n          stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n          <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n        </svg>\n        Continue\n      </n-button>\n      <n-button nVariant=\"outline\">\n        Download\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"\n          stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n          <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3\"/>\n        </svg>\n      </n-button>\n    </div>\n  `,\n})\nexport class ButtonDemoWithIcon {}\n"
+      "content": "import { Component } from '@angular/core';\r\nimport { ButtonComponent } from '../button.component';\r\n\r\n@Component({\r\n  selector: 'demo-button-with-icon',\r\n  standalone: true,\r\n  imports: [ButtonComponent],\r\n  template: `\r\n    <div class=\"flex items-center gap-4 flex-wrap\">\r\n      <n-button>\r\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"\r\n          stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\r\n          <path d=\"M5 12h14M12 5l7 7-7 7\"/>\r\n        </svg>\r\n        Continue\r\n      </n-button>\r\n      <n-button nVariant=\"outline\">\r\n        Download\r\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\"\r\n          stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\r\n          <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3\"/>\r\n        </svg>\r\n      </n-button>\r\n    </div>\r\n  `,\r\n})\r\nexport class ButtonDemoWithIcon {}\r\n"
     }
   ]
 }

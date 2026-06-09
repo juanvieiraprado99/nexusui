@@ -27,7 +27,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'combobox',
-    version: '1.0.0',
+    version: '1.2.3',
     basePath: 'components/combobox',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms', '@angular/cdk'],

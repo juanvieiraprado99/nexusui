@@ -1,19 +1,30 @@
 # Combobox
 
-An input with a filterable dropdown. Supports single-select, multi-select, async search, groups, and form integration.
+A trigger with a dropdown. The trigger shows the selected value. Set `nSearch` on
+`n-combobox-content` to reveal a search box at the top (command-palette style) that filters
+the list as you type — it is **off by default** (plain listbox). Supports single-select,
+multi-select, async search, groups, and form integration.
+
+Keyboard: `Enter` / `Space` / `ArrowDown` open the panel and focus the search box;
+`ArrowUp` / `ArrowDown` move the active option (virtual focus via `aria-activedescendant`,
+DOM focus stays on the search input); `Enter` selects the active option; `Escape` closes.
 
 ## Basic usage
 
 ```html
 <n-combobox [(nValue)]="value">
   <n-combobox-trigger nPlaceholder="Select a framework..." />
-  <n-combobox-content>
+  <n-combobox-content [nSearch]="true" nSearchPlaceholder="Search frameworks...">
     <n-combobox-item nValue="angular" nLabel="Angular">Angular</n-combobox-item>
     <n-combobox-item nValue="react" nLabel="React">React</n-combobox-item>
     <n-combobox-item nValue="vue" nLabel="Vue">Vue</n-combobox-item>
   </n-combobox-content>
 </n-combobox>
 ```
+
+> `nSearch` enables the in-panel search box (off by default).
+> `nPlaceholder` is the **trigger** text shown when nothing is selected.
+> `nSearchPlaceholder` is the placeholder of the **search box** inside the open panel.
 
 ## Multi-select
 

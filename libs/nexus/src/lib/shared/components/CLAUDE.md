@@ -182,6 +182,8 @@ Componentes **compostos** (mais de um nó relevante no template) marcam cada slo
 | `description`         | descrição longa (cards, modais)                              |
 | `trigger`             | botão/elemento que abre overlay (popover, combobox, dialog)  |
 | `content`             | painel/portal aberto pelo trigger                            |
+| `search`              | caixa de busca no topo de um overlay (combobox/command)      |
+| `list`                | container rolável de itens dentro de um `content`            |
 | `item`                | item de lista (option, menu item, accordion item)            |
 | `sub-trigger`         | item que abre submenu (dropdown-menu, navigation-menu)       |
 | `sub-content`         | painel de submenu aberto a partir de `sub-trigger`           |

@@ -70,7 +70,7 @@ export const primitivesRegistry: ComponentRegistry[] = [
   },
   {
     name: 'card',
-    version: '1.0.0',
+    version: '1.1.0',
     basePath: 'components/card',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],

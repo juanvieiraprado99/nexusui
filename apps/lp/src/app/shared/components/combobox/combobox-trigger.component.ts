@@ -4,11 +4,10 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  ViewChild,
   computed,
-  effect,
   inject,
   input,
+  viewChild,
 } from '@angular/core';
 import { mergeClasses } from '@/shared/utils/merge-classes';
 import { COMBOBOX_CONTEXT } from './combobox.tokens';
@@ -39,24 +38,9 @@ import { comboboxTriggerVariants, type ComboboxTriggerVariants } from './combobo
       (click)="handleClick()"
       (keydown)="handleTriggerKeydown($event)"
     >
-      @if (ctx.open()) {
-        <input
-          #searchInput
-          type="text"
-          [value]="ctx.query()"
-          aria-autocomplete="list"
-          autocomplete="off"
-          class="flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
-          [placeholder]="nPlaceholder()"
-          (input)="handleSearchInput($event)"
-          (keydown)="handleSearchKeydown($event)"
-          (click)="$event.stopPropagation()"
-        />
-      } @else {
-        <span class="flex-1 truncate" [class.text-muted-foreground]="!hasValue()">
-          {{ displayText() }}
-        </span>
-      }
+      <span class="flex-1 truncate text-left" data-slot="value" [class.text-muted-foreground]="!hasValue()">
+        {{ displayText() }}
+      </span>
 
       <div class="ml-auto flex shrink-0 items-center gap-1">
         @if (ctx.clearable() && hasValue() && !ctx.loading()) {
@@ -95,8 +79,7 @@ export class ComboboxTriggerComponent implements AfterViewInit, OnDestroy {
 
   protected readonly ctx = inject(COMBOBOX_CONTEXT);
 
-  @ViewChild('triggerDiv') private _triggerDivRef!: ElementRef<HTMLElement>;
-  @ViewChild('searchInput') private _searchInputRef?: ElementRef<HTMLInputElement>;
+  private readonly _triggerDivRef = viewChild.required<ElementRef<HTMLElement>>('triggerDiv');
 
   protected readonly classes = computed(() =>
     mergeClasses(comboboxTriggerVariants({ nSize: this.nSize() }), this.nClass()),
@@ -114,16 +97,8 @@ export class ComboboxTriggerComponent implements AfterViewInit, OnDestroy {
     return this.ctx.selectedLabel() || this.ctx.value() || this.nPlaceholder();
   });
 
-  constructor() {
-    effect(() => {
-      if (this.ctx.open()) {
-        queueMicrotask(() => this._searchInputRef?.nativeElement.focus());
-      }
-    });
-  }
-
   ngAfterViewInit(): void {
-    this.ctx.setTriggerEl(this._triggerDivRef.nativeElement);
+    this.ctx.setTriggerEl(this._triggerDivRef().nativeElement);
   }
 
   ngOnDestroy(): void {
@@ -143,30 +118,6 @@ export class ComboboxTriggerComponent implements AfterViewInit, OnDestroy {
         this.ctx.openPanel();
       }
     }
-  }
-
-  protected handleSearchKeydown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        this.ctx.navigateItems(1);
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-        this.ctx.navigateItems(-1);
-        break;
-      case 'Escape':
-        event.preventDefault();
-        this.ctx.closePanel(true);
-        break;
-      case 'Tab':
-        this.ctx.closePanel(false);
-        break;
-    }
-  }
-
-  protected handleSearchInput(event: Event): void {
-    this.ctx.setQuery((event.target as HTMLInputElement).value);
   }
 
   protected handleClear(event: Event): void {

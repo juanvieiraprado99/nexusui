@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, input } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { collapsibleTriggerVariants } from './collapsible.variants';
 import { COLLAPSIBLE_CONTEXT } from './collapsible.tokens';
@@ -26,6 +26,8 @@ import { COLLAPSIBLE_CONTEXT } from './collapsible.tokens';
   host: {
     '[class]': 'classes()',
     '[attr.id]': 'ctx.triggerId',
+    '[attr.role]': '_isNativeButton ? null : "button"',
+    '[attr.tabindex]': '_isNativeButton ? null : (ctx.isDisabled() ? -1 : 0)',
     '[attr.aria-expanded]': 'ctx.isOpen()',
     '[attr.aria-controls]': 'ctx.contentId',
     '[attr.disabled]': 'ctx.isDisabled() ? true : null',
@@ -41,6 +43,11 @@ import { COLLAPSIBLE_CONTEXT } from './collapsible.tokens';
 export class CollapsibleTriggerComponent {
   protected readonly ctx = inject(COLLAPSIBLE_CONTEXT);
 
+  // Native <button> handles Enter/Space activation itself; the element form
+  // (n-collapsible-trigger) needs role/tabindex + manual keyboard handling.
+  protected readonly _isNativeButton =
+    inject(ElementRef).nativeElement.tagName === 'BUTTON';
+
   readonly nClass = input<string>('');
 
   protected readonly classes = computed(() =>
@@ -52,6 +59,8 @@ export class CollapsibleTriggerComponent {
   }
 
   protected handleKeydown(event: Event): void {
+    // Native buttons activate via the synthesized click — avoid double-toggle.
+    if (this._isNativeButton) return;
     if (!this.ctx.isDisabled()) {
       event.preventDefault();
       this.ctx.toggle();

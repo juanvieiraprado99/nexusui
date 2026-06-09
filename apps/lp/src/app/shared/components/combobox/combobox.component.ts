@@ -84,14 +84,30 @@ export class ComboboxComponent implements ControlValueAccessor {
   private readonly _form       = injectFormControl<string | string[]>(this);
   private readonly _open       = signal(false);
   private readonly _query      = signal('');
+  private readonly _activeId   = signal<string | null>(null);
   private readonly _triggerEl  = signal<HTMLElement | null>(null);
-  private readonly _selectedLabel = signal('');
-  private readonly _visibilityFns = signal<Array<() => boolean>>([]);
+  // value -> label map populated by items, used to display the selected label
+  // even when the value is set programmatically (form patch / reload).
+  private readonly _labelMap = new Map<string, string>();
+  private readonly _labelVersion = signal(0);
+  // Set of item visibility predicates. A Set gives O(1) register/unregister
+  // (the previous array spread was O(n²) on init); a version signal triggers
+  // recomputation of visibleCount when the set membership changes.
+  private readonly _visibilityFns = new Set<() => boolean>();
+  private readonly _visVersion = signal(0);
   protected readonly _isDisabled = computed(() => this.nDisabled() || this._form.disabledByForm());
-  private readonly _visibleCount = computed(() =>
-    this._visibilityFns().reduce((n, fn) => n + (fn() ? 1 : 0), 0),
-  );
+  private readonly _selectedLabel = computed(() => {
+    this._labelVersion();
+    return this._labelMap.get(this.nValue()) ?? '';
+  });
+  private readonly _visibleCount = computed(() => {
+    this._visVersion();
+    let n = 0;
+    this._visibilityFns.forEach(fn => { if (fn()) n++; });
+    return n;
+  });
   private _navigateHandler: ((direction: 1 | -1) => void) | null = null;
+  private _activeHandler: ((value: string | null) => void) | null = null;
 
   protected readonly comboboxId = computed(() => this.nId() || this._staticId);
   protected readonly labelId    = computed(() => `${this.comboboxId()}-label`);
@@ -115,9 +131,10 @@ export class ComboboxComponent implements ControlValueAccessor {
     loading: this.nLoading,
     clearable: this.nClearable,
     visibleCount: this._visibleCount,
+    activeId: this._activeId.asReadonly(),
     value: this.nValue,
     values: this.nValues,
-    selectedLabel: this._selectedLabel.asReadonly(),
+    selectedLabel: this._selectedLabel,
     triggerEl: this._triggerEl.asReadonly(),
     hasError:    this.hasError,
     required:    this.isRequired,
@@ -130,17 +147,25 @@ export class ComboboxComponent implements ControlValueAccessor {
     get contentId() {
       return '';
     },
-    openPanel: () => this._open.set(true),
+    openPanel: () => {
+      // Reset the query on open (not on close) so the filtered list does not
+      // reflow underneath the exit animation.
+      this._query.set('');
+      this._activeId.set(null);
+      this._open.set(true);
+    },
     closePanel: (returnFocus = true) => {
       this._open.set(false);
-      this._query.set('');
+      this._form.notifyTouched();
       if (returnFocus) this._triggerEl()?.focus();
     },
     togglePanel: () => {
       if (this._open()) this.context.closePanel(false);
-      else this._open.set(true);
+      else this.context.openPanel();
     },
     selectItem: (value, label) => {
+      this._labelMap.set(value, label);
+      this._labelVersion.update(v => v + 1);
       if (this.nMultiple()) {
         const current = this.nValues();
         const next = current.includes(value)
@@ -150,7 +175,6 @@ export class ComboboxComponent implements ControlValueAccessor {
         this._form.notifyChange(next);
       } else {
         this.nValue.set(value);
-        this._selectedLabel.set(label);
         this._form.notifyChange(value);
         this.context.closePanel(true);
       }
@@ -161,27 +185,42 @@ export class ComboboxComponent implements ControlValueAccessor {
         this._form.notifyChange([]);
       } else {
         this.nValue.set('');
-        this._selectedLabel.set('');
         this._form.notifyChange('');
       }
     },
     setQuery: (q) => {
       this._query.set(q);
-      if (q) this.nFilterChange.emit(q);
+      this.nFilterChange.emit(q);
     },
     setTriggerEl: (el) => this._triggerEl.set(el),
     isSelected: (value) =>
       this.nMultiple() ? this.nValues().includes(value) : this.nValue() === value,
     registerItemVisibility: (visible) => {
-      this._visibilityFns.update(fns => [...fns, visible]);
+      this._visibilityFns.add(visible);
+      this._visVersion.update(v => v + 1);
       return () => {
-        this._visibilityFns.update(fns => fns.filter(f => f !== visible));
+        this._visibilityFns.delete(visible);
+        this._visVersion.update(v => v + 1);
       };
+    },
+    registerItemLabel: (value, label) => {
+      // Labels are kept even after the item is destroyed (items only exist
+      // while the overlay is attached) so the trigger keeps showing the
+      // selected label after the panel closes. The map is bounded by the
+      // number of distinct option values.
+      this._labelMap.set(value, label);
+      this._labelVersion.update(v => v + 1);
+      return () => {};
     },
     navigateItems: (direction) => this._navigateHandler?.(direction),
     setNavigateHandler: (fn) => {
       this._navigateHandler = fn;
     },
+    setActiveItem: (value) => this._activeHandler?.(value),
+    setActiveHandler: (fn) => {
+      this._activeHandler = fn;
+    },
+    setActiveId: (id) => this._activeId.set(id),
   };
 
   constructor() {

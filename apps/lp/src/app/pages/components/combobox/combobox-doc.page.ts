@@ -38,7 +38,7 @@ const ALL_FRAMEWORKS = [
         <header>
           <p class="text-xs uppercase tracking-wide text-muted-foreground">Components</p>
           <h1 class="mt-1 text-3xl font-bold tracking-tight">Combobox</h1>
-          <p class="mt-2 text-muted-foreground">A searchable dropdown for selecting from a list. Supports single and multi-select.</p>
+          <p class="mt-2 text-muted-foreground">A searchable dropdown for selecting from a list. The trigger shows the selected value; opening the panel reveals a command-palette style search box that filters the list as you type. Supports single and multi-select.</p>
         </header>
 
         <div class="mt-8">
@@ -46,7 +46,7 @@ const ALL_FRAMEWORKS = [
             <div class="w-full max-w-xs">
               <n-combobox nLabel="Framework" [(nValue)]="framework">
                 <n-combobox-trigger nPlaceholder="Select a framework..." />
-                <n-combobox-content>
+                <n-combobox-content [nSearch]="true" nSearchPlaceholder="Search frameworks...">
                   <n-combobox-item nValue="angular" nLabel="Angular">Angular</n-combobox-item>
                   <n-combobox-item nValue="react" nLabel="React">React</n-combobox-item>
                   <n-combobox-item nValue="vue" nLabel="Vue">Vue</n-combobox-item>
@@ -140,7 +140,7 @@ const ALL_FRAMEWORKS = [
               <div class="w-full max-w-xs">
                 <n-combobox [(nValue)]="asyncValue" [nLoading]="asyncLoading()" (nFilterChange)="onAsyncFilter($event)">
                   <n-combobox-trigger nPlaceholder="Search frameworks..." />
-                  <n-combobox-content>
+                  <n-combobox-content [nSearch]="true">
                     @for (item of asyncItems(); track item.value) {
                       <n-combobox-item [nValue]="item.value" [nLabel]="item.label">{{ item.label }}</n-combobox-item>
                     }
@@ -242,6 +242,29 @@ const ALL_FRAMEWORKS = [
               </tbody>
             </table>
           </div>
+          <h3 class="mt-6 text-sm font-semibold">n-combobox-content</h3>
+          <div class="mt-3 overflow-x-auto rounded-lg border border-border/60">
+            <table class="w-full text-sm">
+              <thead class="bg-muted/40 text-muted-foreground">
+                <tr>
+                  <th class="px-4 py-2 text-left font-medium">Prop</th>
+                  <th class="px-4 py-2 text-left font-medium">Type</th>
+                  <th class="px-4 py-2 text-left font-medium">Default</th>
+                  <th class="px-4 py-2 text-left font-medium">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of contentApiRows; track row.prop) {
+                  <tr class="border-t border-border/60">
+                    <td class="px-4 py-2 font-mono text-xs text-foreground">{{ row.prop }}</td>
+                    <td class="px-4 py-2 font-mono text-xs text-muted-foreground">{{ row.type }}</td>
+                    <td class="px-4 py-2 font-mono text-xs text-muted-foreground">{{ row.default }}</td>
+                    <td class="px-4 py-2 text-muted-foreground">{{ row.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </section>
       </article>
     </app-docs-layout>
@@ -273,7 +296,7 @@ export class ComboboxDocPage {
 // template
 <n-combobox nLabel="Framework" [(nValue)]="framework">
   <n-combobox-trigger nPlaceholder="Select a framework..." />
-  <n-combobox-content>
+  <n-combobox-content [nSearch]="true" nSearchPlaceholder="Search frameworks...">
     <n-combobox-item nValue="angular" nLabel="Angular">Angular</n-combobox-item>
     <n-combobox-item nValue="react" nLabel="React">React</n-combobox-item>
     <n-combobox-empty>No framework found.</n-combobox-empty>
@@ -382,5 +405,15 @@ export class MyPage {
     { prop: 'nPlaceholder', type: 'string', default: "'Select an option...'", description: 'Placeholder shown when no value is selected.' },
     { prop: 'nSize', type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Size of the trigger button.' },
     { prop: 'nClass', type: 'string', default: "''", description: 'Extra Tailwind classes on the trigger.' },
+  ];
+
+  protected readonly contentApiRows: ApiRow[] = [
+    { prop: 'nSearch', type: 'boolean', default: 'false', description: 'Shows the in-panel filterable search box. Off by default (plain listbox).' },
+    { prop: 'nSearchPlaceholder', type: 'string', default: "'Search...'", description: 'Placeholder for the in-panel search box.' },
+    { prop: 'nSide', type: "'top' | 'bottom' | 'left' | 'right'", default: "'bottom'", description: 'Preferred side to open the panel.' },
+    { prop: 'nAlign', type: "'start' | 'center' | 'end'", default: "'start'", description: 'Alignment of the panel relative to the trigger.' },
+    { prop: 'nSideOffset', type: 'number', default: '4', description: 'Offset from the trigger in pixels.' },
+    { prop: 'nAlignOffset', type: 'number', default: '0', description: 'Alignment offset in pixels.' },
+    { prop: 'nClass', type: 'string', default: "''", description: 'Extra Tailwind classes on the panel.' },
   ];
 }

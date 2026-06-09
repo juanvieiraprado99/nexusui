@@ -20,7 +20,7 @@ import { ComboboxTriggerComponent } from '../combobox-trigger.component';
   template: `
     <n-combobox [(nValue)]="value" class="w-64">
       <n-combobox-trigger nPlaceholder="Select a language..." />
-      <n-combobox-content>
+      <n-combobox-content [nSearch]="true" nSearchPlaceholder="Search languages...">
         <n-combobox-group nLabel="Frontend">
           <n-combobox-item nValue="typescript" nLabel="TypeScript">TypeScript</n-combobox-item>
           <n-combobox-item nValue="javascript" nLabel="JavaScript">JavaScript</n-combobox-item>

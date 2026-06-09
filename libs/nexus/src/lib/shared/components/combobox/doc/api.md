@@ -32,6 +32,8 @@
 | `nAlign` | `'start' \| 'center' \| 'end'` | `'start'` | Alignment |
 | `nSideOffset` | `input<number>` | `4` | Offset from trigger (px) |
 | `nAlignOffset` | `input<number>` | `0` | Alignment offset (px) |
+| `nSearch` | `input<boolean>` | `false` | Show the in-panel search box (filterable). When `false` the panel is a plain listbox |
+| `nSearchPlaceholder` | `input<string>` | `'Search...'` | Placeholder for the in-panel search box |
 | `nClass` | `input<string>` | `''` | Additional CSS classes |
 
 ## `n-combobox-item`
@@ -60,7 +62,10 @@ No inputs. Shown automatically when `query.length > 0` and no items are visible.
 |---|---|---|
 | `root` | `n-combobox` host | Root container |
 | `trigger` | trigger `<div>` | Combobox trigger button |
+| `value` | trigger `<span>` | Selected value / placeholder text in the trigger |
 | `content` | listbox `<div>` | Dropdown panel |
+| `search` | search `<div>` | In-panel search box wrapper |
+| `list` | scroll `<div>` | Scrollable options container |
 | `item` | `n-combobox-item` host | List option |
 | `group` | `n-combobox-group` host | Option group |
 | `group-label` | group label `<div>` | Group heading |

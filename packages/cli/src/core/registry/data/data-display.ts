@@ -43,7 +43,7 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
   },
   {
     name: 'collapsible',
-    version: '1.0.0',
+    version: '1.0.1',
     basePath: 'components/collapsible',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],

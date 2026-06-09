@@ -38,7 +38,7 @@ interface ApiRow {
 
         <div class="mt-8">
           <app-example title="Default" [code]="defaultCode">
-            <n-card class="w-full max-w-sm">
+            <n-card nClass="w-full max-w-sm">
               <n-card-header>
                 <n-card-title>Card title</n-card-title>
                 <n-card-description>A short description of the card content.</n-card-description>
@@ -111,6 +111,37 @@ interface ApiRow {
             </app-example>
           </div>
 
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Sizes</h3>
+          <div class="mt-3">
+            <app-example title="nSize: sm · default · lg" [code]="sizesCode">
+              <div class="flex flex-col gap-3 w-full max-w-sm">
+                @for (s of sizes; track s) {
+                  <n-card [nSize]="s">
+                    <n-card-header nClass="pb-0">
+                      <n-card-title class="text-sm">nSize="{{ s }}"</n-card-title>
+                      <n-card-description>Padding {{ s }}</n-card-description>
+                    </n-card-header>
+                  </n-card>
+                }
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Slot customization</h3>
+          <div class="mt-3">
+            <app-example title="nClass + data-slot" [code]="slotCode">
+              <n-card nClass="w-full max-w-sm [&_[data-slot=card-header]]:border-b [&_[data-slot=card-header]]:pb-4">
+                <n-card-header>
+                  <n-card-title>Bordered header</n-card-title>
+                  <n-card-description>Header styled via data-slot target.</n-card-description>
+                </n-card-header>
+                <n-card-content>
+                  <p class="text-sm text-muted-foreground">Style internal parts without extra inputs.</p>
+                </n-card-content>
+              </n-card>
+            </app-example>
+          </div>
+
           <h3 class="mt-8 text-sm font-medium text-muted-foreground">Clickable</h3>
           <div class="mt-3">
             <app-example title="nClickable + nSelected" [code]="clickableCode">
@@ -134,7 +165,7 @@ interface ApiRow {
           <h3 class="mt-8 text-sm font-medium text-muted-foreground">Loading</h3>
           <div class="mt-3">
             <app-example title="nLoading" [code]="loadingCode">
-              <n-card [nLoading]="true" class="w-full max-w-sm">
+              <n-card [nLoading]="true" nClass="w-full max-w-sm">
                 <n-card-header>
                   <n-card-title>Loading card</n-card-title>
                   <n-card-description>Content is being fetched.</n-card-description>
@@ -172,6 +203,36 @@ interface ApiRow {
               </tbody>
             </table>
           </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Sub-components</h3>
+          <p class="mt-2 text-sm text-muted-foreground">
+            <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">n-card-header</code>,
+            <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">n-card-title</code>,
+            <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">n-card-description</code>,
+            <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">n-card-content</code> and
+            <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">n-card-footer</code>
+            each expose a single <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">nClass</code> input and render a <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">data-slot</code> hook for styling.
+          </p>
+          <div class="mt-3 overflow-x-auto rounded-lg border border-border/60">
+            <table class="w-full text-sm">
+              <thead class="bg-muted/40 text-muted-foreground">
+                <tr>
+                  <th class="px-4 py-2 text-left font-medium">Selector</th>
+                  <th class="px-4 py-2 text-left font-medium">data-slot</th>
+                  <th class="px-4 py-2 text-left font-medium">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of subRows; track row.selector) {
+                  <tr class="border-t border-border/60">
+                    <td class="px-4 py-2 font-mono text-xs text-foreground">{{ row.selector }}</td>
+                    <td class="px-4 py-2 font-mono text-xs text-muted-foreground">{{ row.slot }}</td>
+                    <td class="px-4 py-2 text-muted-foreground">{{ row.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </section>
       </article>
     </app-docs-layout>
@@ -180,6 +241,8 @@ interface ApiRow {
 export class CardDocPage {
   protected readonly installTab = signal<'cli' | 'manual'>('cli');
   protected readonly selectedPlan = signal<string>('starter');
+
+  protected readonly sizes = ['sm', 'default', 'lg'] as const;
 
   protected readonly plans = [
     { id: 'starter', name: 'Starter', price: 'Free forever' },
@@ -223,6 +286,18 @@ export class CardDocPage {
   <n-card-content>Content...</n-card-content>
 </n-card>`;
 
+  protected readonly sizesCode = `<n-card nSize="sm">...</n-card>
+<n-card nSize="default">...</n-card>
+<n-card nSize="lg">...</n-card>`;
+
+  protected readonly slotCode = `<!-- Style internal slots via Tailwind targeting data-slot -->
+<n-card nClass="[&_[data-slot=card-header]]:border-b [&_[data-slot=card-header]]:pb-4">
+  <n-card-header>
+    <n-card-title>Bordered header</n-card-title>
+  </n-card-header>
+  <n-card-content>...</n-card-content>
+</n-card>`;
+
   protected readonly importCode = `import { Component } from '@angular/core';
 import {
   CardComponent,
@@ -260,5 +335,13 @@ export class MyPage {}`;
     { prop: 'nLoading', type: 'boolean', default: 'false', description: 'Shows an animated overlay on top of the content.' },
     { prop: 'nClass', type: 'string', default: "''", description: 'Extra Tailwind classes appended to the host.' },
     { prop: '(nClick)', type: 'EventEmitter<MouseEvent | KeyboardEvent>', default: '—', description: 'Emitted when the clickable card is activated.' },
+  ];
+
+  protected readonly subRows = [
+    { selector: 'n-card-header', slot: 'card-header', description: 'Top section — wraps title + description.' },
+    { selector: 'n-card-title', slot: 'card-title', description: 'Heading (role="heading", aria-level 3).' },
+    { selector: 'n-card-description', slot: 'card-description', description: 'Muted supporting text.' },
+    { selector: 'n-card-content', slot: 'card-content', description: 'Main body region.' },
+    { selector: 'n-card-footer', slot: 'card-footer', description: 'Actions row (flex, gap-2).' },
   ];
 }

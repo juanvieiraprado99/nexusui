@@ -33,7 +33,7 @@ const ALL_ITEMS = [
       class="w-64"
     >
       <n-combobox-trigger nPlaceholder="Search frameworks..." />
-      <n-combobox-content>
+      <n-combobox-content [nSearch]="true" nSearchPlaceholder="Search frameworks...">
         @for (item of items(); track item.value) {
           <n-combobox-item [nValue]="item.value" [nLabel]="item.label">
             {{ item.label }}

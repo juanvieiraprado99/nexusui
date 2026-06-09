@@ -21,7 +21,12 @@ import { CollapsibleContentComponent } from '../collapsible-content.component';
         </button>
       </div>
       <n-collapsible [(nOpen)]="isOpen">
-        <button n-collapsible-trigger>Detalhes técnicos</button>
+        <button
+          n-collapsible-trigger
+          nClass="rounded-md border border-border px-4 hover:bg-accent hover:no-underline"
+        >
+          Detalhes técnicos
+        </button>
         <n-collapsible-content>
           <p class="text-sm text-muted-foreground">
             Modo controlado via

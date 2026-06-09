@@ -32,24 +32,24 @@
     "hash": "5d091839106a96732d6aff000597df14fe41f79da8a1d28d273593941f486c0d"
   },
   "card": {
-    "version": "1.0.0",
-    "hash": "a4acb356b082f55e7d266500801b9d4bc5568c9da08642657b579f53269451b3"
+    "version": "1.1.0",
+    "hash": "6ea464f5972701f6097879c0c3e248a2fa33b2a1940ccb04d8bbdbd746b0491e"
   },
   "checkbox": {
     "version": "1.0.0",
     "hash": "052b4b9c697073218e82db9fdc5475e61e1e2c98df05a096d2f599146937dd85"
   },
   "collapsible": {
-    "version": "1.0.0",
-    "hash": "e9ec96fee423e6edcc43461bd0ae51f1f43346682e935f963bf78846670e5ace"
+    "version": "1.0.1",
+    "hash": "05e9d070d177b712b27563b545169626dd38508052079b01dc59613e193df8cd"
   },
   "color-picker": {
     "version": "1.0.0",
     "hash": "edd1c73f79bb3c0f8a2da9ab5d49ba3d803bb302af1e97a5f8a15b2a568d0169"
   },
   "combobox": {
-    "version": "1.0.0",
-    "hash": "44721d4e1441208a981986b836474c9530a9ec8152cdc955a00a1b0454d57b5a"
+    "version": "1.2.3",
+    "hash": "c4ad41f8b04571c666a6c2960b9ba73437d915d357ca4d744e6f98e4fabd8528"
   },
   "context-menu": {
     "version": "1.0.0",

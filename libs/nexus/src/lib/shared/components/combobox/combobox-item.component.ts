@@ -1,10 +1,10 @@
-import { FocusableOption } from '@angular/cdk/a11y';
+import { Highlightable } from '@angular/cdk/a11y';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostListener,
   OnDestroy,
+  afterNextRender,
   computed,
   inject,
   input,
@@ -32,6 +32,7 @@ import { comboboxItemVariants, type ComboboxItemVariants } from './combobox.vari
     role: 'option',
     tabindex: '-1',
     'data-slot': 'item',
+    '[id]': 'itemId()',
     '[class]': 'classes()',
     '[hidden]': 'hidden()',
     '[attr.aria-selected]': 'isSelected()',
@@ -39,12 +40,11 @@ import { comboboxItemVariants, type ComboboxItemVariants } from './combobox.vari
     '[attr.data-disabled]': 'nDisabled() ? "" : null',
     '[attr.data-highlighted]': 'highlighted() ? "" : null',
     '(click)': 'handleSelect()',
-    '(keydown)': 'handleKeydown($event)',
-    '(mouseenter)': 'setHighlighted(true)',
+    '(mouseenter)': 'handleMouseEnter()',
     '(mouseleave)': 'setHighlighted(false)',
   },
 })
-export class ComboboxItemComponent implements FocusableOption, OnDestroy {
+export class ComboboxItemComponent implements Highlightable, OnDestroy {
   readonly nValue = input.required<string>();
   readonly nLabel = input<string>('');
   readonly nDisabled = input<boolean>(false);
@@ -58,6 +58,7 @@ export class ComboboxItemComponent implements FocusableOption, OnDestroy {
 
   readonly highlighted = this._highlighted.asReadonly();
 
+  readonly itemId = computed(() => `${this.ctx.contentId}-opt-${this.nValue()}`);
   readonly isSelected = computed(() => this.ctx.isSelected(this.nValue()));
   readonly hidden = computed(() => {
     const q = this.ctx.query().toLowerCase();
@@ -70,10 +71,6 @@ export class ComboboxItemComponent implements FocusableOption, OnDestroy {
     return this.nDisabled();
   }
 
-  focus(): void {
-    this.host.nativeElement.focus({ preventScroll: true });
-  }
-
   getLabel(): string {
     return this.nLabel() || (this.host.nativeElement.textContent?.trim() ?? '');
   }
@@ -84,38 +81,40 @@ export class ComboboxItemComponent implements FocusableOption, OnDestroy {
 
   constructor() {
     this._unregister = this.ctx.registerItemVisibility(() => !this.hidden());
+    // Register the value -> label mapping once the projected content has
+    // rendered (the textContent fallback needs the DOM to exist).
+    afterNextRender(() => this.ctx.registerItemLabel(this.nValue(), this.getLabel()));
   }
 
   ngOnDestroy(): void {
     this._unregister();
   }
 
+  // --- Highlightable (ActiveDescendantKeyManager) -------------------------
+  // Virtual focus: DOM focus stays on the search input; the active option is
+  // highlighted via [data-highlighted] + aria-activedescendant.
+  setActiveStyles(): void {
+    this._highlighted.set(true);
+    this.host.nativeElement.scrollIntoView({ block: 'nearest' });
+  }
+
+  setInactiveStyles(): void {
+    this._highlighted.set(false);
+  }
+
   setHighlighted(value: boolean): void {
     if (this.nDisabled()) return;
     this._highlighted.set(value);
-    if (value) this.host.nativeElement.focus({ preventScroll: true });
+  }
+
+  protected handleMouseEnter(): void {
+    if (this.nDisabled()) return;
+    this._highlighted.set(true);
+    this.ctx.setActiveItem(this.nValue());
   }
 
   protected handleSelect(): void {
     if (this.nDisabled()) return;
     this.ctx.selectItem(this.nValue(), this.getLabel());
-  }
-
-  protected handleKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      this.handleSelect();
-    } else if (event.key === 'Escape') {
-      event.preventDefault();
-      this.ctx.closePanel(true);
-    }
-  }
-
-  @HostListener('focus') onFocus(): void {
-    if (!this.nDisabled()) this._highlighted.set(true);
-  }
-
-  @HostListener('blur') onBlur(): void {
-    this._highlighted.set(false);
   }
 }

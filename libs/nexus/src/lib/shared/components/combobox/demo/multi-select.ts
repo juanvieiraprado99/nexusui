@@ -16,7 +16,7 @@ import { ComboboxTriggerComponent } from '../combobox-trigger.component';
   template: `
     <n-combobox [(nValues)]="values" [nMultiple]="true" class="w-64">
       <n-combobox-trigger nPlaceholder="Select skills..." />
-      <n-combobox-content>
+      <n-combobox-content [nSearch]="true" nSearchPlaceholder="Search skills...">
         <n-combobox-item nValue="angular" nLabel="Angular">Angular</n-combobox-item>
         <n-combobox-item nValue="react" nLabel="React">React</n-combobox-item>
         <n-combobox-item nValue="vue" nLabel="Vue">Vue</n-combobox-item>

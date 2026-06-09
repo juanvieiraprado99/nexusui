@@ -10,6 +10,7 @@ export interface ComboboxContext {
   readonly loading: Signal<boolean>;
   readonly clearable: Signal<boolean>;
   readonly visibleCount: Signal<number>;
+  readonly activeId: Signal<string | null>;
   readonly value: ModelSignal<string>;
   readonly values: ModelSignal<string[]>;
   readonly selectedLabel: Signal<string>;
@@ -28,8 +29,14 @@ export interface ComboboxContext {
   setTriggerEl(el: HTMLElement | null): void;
   isSelected(value: string): boolean;
   registerItemVisibility(visible: () => boolean): () => void;
+  registerItemLabel(value: string, label: string): () => void;
   navigateItems(direction: 1 | -1): void;
   setNavigateHandler(fn: ((direction: 1 | -1) => void) | null): void;
+  /** Sync the keyboard-navigation active item (e.g. on mouse hover). */
+  setActiveItem(value: string | null): void;
+  setActiveHandler(fn: ((value: string | null) => void) | null): void;
+  /** Set the id of the currently active option for aria-activedescendant. */
+  setActiveId(id: string | null): void;
 }
 
 export const COMBOBOX_CONTEXT = new InjectionToken<ComboboxContext>('COMBOBOX_CONTEXT');

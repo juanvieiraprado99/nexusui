@@ -10,7 +10,11 @@ import { ControlValueAccessor } from '@angular/forms';
 import { injectFormControl } from '../../utils/form-control';
 import { mergeClasses } from '../../utils/merge-classes';
 import { LabelComponent } from '../label';
-import { checkboxVariants, type CheckboxVariants } from './checkbox.variants';
+import {
+  checkboxVariants,
+  checkboxIconVariants,
+  type CheckboxVariants,
+} from './checkbox.variants';
 
 let _checkboxIdCounter = 0;
 
@@ -29,6 +33,8 @@ let _checkboxIdCounter = 0;
             [indeterminate]="nIndeterminate()"
             [disabled]="isDisabled()"
             [required]="nRequired()"
+            [attr.data-state]="dataState()"
+            [attr.aria-checked]="nIndeterminate() ? 'mixed' : null"
             [attr.aria-label]="nLabel() ? null : nAriaLabel() || null"
             [attr.aria-describedby]="describedBy()"
             [attr.aria-invalid]="hasError() ? true : null"
@@ -135,12 +141,13 @@ export class CheckboxComponent implements ControlValueAccessor {
     mergeClasses(checkboxVariants({ nSize: this.nSize() })),
   );
 
-  protected readonly iconSizeClasses = computed(() => {
-    const size = this.nSize();
-    if (size === 'sm') return 'h-2.5 w-2.5';
-    if (size === 'lg') return 'h-3.5 w-3.5';
-    return 'h-3 w-3';
-  });
+  protected readonly iconSizeClasses = computed(() =>
+    checkboxIconVariants({ nSize: this.nSize() }),
+  );
+
+  protected readonly dataState = computed(() =>
+    this.nIndeterminate() ? 'indeterminate' : this.nChecked() ? 'checked' : 'unchecked',
+  );
 
   protected handleChange(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;

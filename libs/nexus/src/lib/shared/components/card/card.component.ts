@@ -12,12 +12,21 @@ import { cardVariants, type CardVariants } from './card.variants';
     <ng-content />
     @if (nLoading()) {
       <div
-        class="absolute inset-0 rounded-[inherit] pointer-events-none animate-pulse bg-foreground/5"
+        class="absolute inset-0 rounded-[inherit] pointer-events-none animate-pulse bg-foreground/5 flex items-center justify-center"
         aria-hidden="true"
         data-slot="loading-overlay"
-      ></div>
+      >
+        <svg class="size-5 animate-spin text-muted-foreground" viewBox="0 0 24 24" fill="none">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"></path>
+        </svg>
+      </div>
+      <span class="sr-only">Loading</span>
     }
   `,
+  // a11y: nClickable torna o card inteiro role="button". NÃO combine nClickable com
+  // controles interativos internos (botões, links, inputs) — botão dentro de role="button"
+  // é nesting inválido. Use card estático com botões no footer, OU card clickable sem controles.
   host: {
     '[class]': 'classes()',
     '[attr.role]':      'nClickable() ? "button" : null',

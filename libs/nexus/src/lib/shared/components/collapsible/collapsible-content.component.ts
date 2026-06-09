@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import { collapsibleContentVariants } from './collapsible.variants';
 import { COLLAPSIBLE_CONTEXT } from './collapsible.tokens';
@@ -42,23 +34,13 @@ export class CollapsibleContentComponent {
 
   readonly nClass = input<string>('');
 
-  private readonly _hasBeenOpened = signal(false);
-
+  // Non-lazy content stays mounted (hidden via grid-rows 0fr + overflow-hidden)
+  // so state is preserved; lazy content mounts only while open.
   protected readonly shouldRender = computed(() =>
-    this.ctx.isLazy()
-      ? this.ctx.isOpen()
-      : this._hasBeenOpened() || this.ctx.isOpen(),
+    this.ctx.isLazy() ? this.ctx.isOpen() : true,
   );
 
   protected readonly contentClasses = computed(() =>
     mergeClasses(collapsibleContentVariants({ nVariant: this.ctx.variant() }), this.nClass()),
   );
-
-  constructor() {
-    effect(() => {
-      if (this.ctx.isOpen() && !this._hasBeenOpened()) {
-        this._hasBeenOpened.set(true);
-      }
-    });
-  }
 }

@@ -136,7 +136,8 @@ interface ApiRow {
                 @for (v of ['default', 'bordered', 'card']; track v) {
                   <n-collapsible [nVariant]="$any(v)">
                     <button n-collapsible-trigger type="button"
-                      class="flex w-full items-center justify-between rounded-md px-4 py-3 text-sm font-medium hover:bg-accent">
+                      class="flex w-full items-center justify-between rounded-md px-4 py-3 text-sm font-medium hover:bg-accent hover:no-underline"
+                      [class.border]="v === 'default'" [class.border-border]="v === 'default'">
                       {{ v }} variant
                     </button>
                     <n-collapsible-content>

@@ -9,7 +9,12 @@ import { CollapsibleContentComponent } from '../collapsible-content.component';
   imports: [CollapsibleComponent, CollapsibleTriggerComponent, CollapsibleContentComponent],
   template: `
     <n-collapsible class="w-80" [nLazy]="true">
-      <button n-collapsible-trigger>Conteúdo com montagem lazy</button>
+      <button
+        n-collapsible-trigger
+        nClass="rounded-md border border-border px-4 hover:bg-accent hover:no-underline"
+      >
+        Conteúdo com montagem lazy
+      </button>
       <n-collapsible-content>
         <p class="text-sm text-muted-foreground">
           Com <code class="rounded bg-muted px-1 font-mono">nLazy=true</code> o conteúdo é

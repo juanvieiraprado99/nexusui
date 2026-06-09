@@ -110,7 +110,7 @@
     {
       "name": "card",
       "type": "registry:component",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "registryDependencies": [
         "utils"
       ],
@@ -174,7 +174,7 @@
     {
       "name": "combobox",
       "type": "registry:component",
-      "version": "1.0.0",
+      "version": "1.2.3",
       "registryDependencies": [
         "utils",
         "label"
@@ -561,7 +561,7 @@
     {
       "name": "collapsible",
       "type": "registry:component",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "registryDependencies": [
         "utils"
       ],

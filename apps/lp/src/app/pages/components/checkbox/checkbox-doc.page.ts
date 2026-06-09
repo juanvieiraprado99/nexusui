@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CheckboxComponent } from '../../../shared/components/checkbox';
 import { DocsLayoutComponent } from '../../../shared/layout/docs-layout.component';
@@ -73,9 +73,26 @@ interface ApiRow { prop: string; type: string; default: string; description: str
             </app-example>
           </div>
           <h3 class="mt-8 text-sm font-medium text-muted-foreground">Indeterminate</h3>
+          <p class="mt-1 text-sm text-muted-foreground">A parent checkbox shows a filled box with a dash when only some children are selected.</p>
           <div class="mt-3">
             <app-example title="nIndeterminate" [code]="indeterminateCode">
-              <n-checkbox nLabel="Partially selected" [nIndeterminate]="true" />
+              <div class="flex flex-col gap-3">
+                <n-checkbox
+                  nLabel="Select all"
+                  [nChecked]="allChecked()"
+                  [nIndeterminate]="someChecked()"
+                  (nChange)="toggleAll($event)"
+                />
+                <div class="ml-6 flex flex-col gap-2">
+                  @for (item of items(); track item.id) {
+                    <n-checkbox
+                      [nLabel]="item.label"
+                      [nChecked]="item.checked"
+                      (nChange)="toggle(item.id, $event)"
+                    />
+                  }
+                </div>
+              </div>
             </app-example>
           </div>
           <h3 class="mt-8 text-sm font-medium text-muted-foreground">With hint and error</h3>
@@ -170,6 +187,22 @@ export class CheckboxDocPage {
   });
   protected readonly termsSubmitted = signal(false);
 
+  protected readonly items = signal([
+    { id: 1, label: 'Dashboard access', checked: true },
+    { id: 2, label: 'Settings access', checked: false },
+    { id: 3, label: 'Reports access', checked: true },
+  ]);
+  protected readonly allChecked = computed(() => this.items().every((i) => i.checked));
+  protected readonly someChecked = computed(() => !this.allChecked() && this.items().some((i) => i.checked));
+
+  protected toggle(id: number, checked: boolean): void {
+    this.items.update((items) => items.map((i) => (i.id === id ? { ...i, checked } : i)));
+  }
+
+  protected toggleAll(checked: boolean): void {
+    this.items.update((items) => items.map((i) => ({ ...i, checked })));
+  }
+
   protected termsError(): string | null {
     const ctrl = this.termsForm.get('terms');
     if (ctrl?.invalid && (ctrl.touched || this.termsSubmitted())) return 'You must accept the terms.';
@@ -189,7 +222,23 @@ export class CheckboxDocPage {
 <n-checkbox nLabel="Default" />
 <n-checkbox nSize="lg" nLabel="Large" />`;
 
-  protected readonly indeterminateCode = `<n-checkbox nLabel="Partially selected" [nIndeterminate]="true" />`;
+  protected readonly indeterminateCode = `items = signal([
+  { id: 1, label: 'Dashboard access', checked: true },
+  { id: 2, label: 'Settings access', checked: false },
+  { id: 3, label: 'Reports access', checked: true },
+]);
+allChecked  = computed(() => this.items().every((i) => i.checked));
+someChecked = computed(() => !this.allChecked() && this.items().some((i) => i.checked));
+// template
+<n-checkbox
+  nLabel="Select all"
+  [nChecked]="allChecked()"
+  [nIndeterminate]="someChecked()"
+  (nChange)="toggleAll($event)"
+/>
+@for (item of items(); track item.id) {
+  <n-checkbox [nLabel]="item.label" [nChecked]="item.checked" (nChange)="toggle(item.id, $event)" />
+}`;
 
   protected readonly hintErrorCode = `<n-checkbox nLabel="Subscribe to newsletter" nHint="We'll send weekly updates." />
 <n-checkbox nLabel="Accept terms" nError="You must accept the terms to continue." />`;

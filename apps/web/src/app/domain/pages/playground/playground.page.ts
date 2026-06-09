@@ -41,6 +41,7 @@ import { SkeletonDefaultDemo } from '@nexus/lib/shared/components/skeleton/demo/
 import { SkeletonShapesDemo } from '@nexus/lib/shared/components/skeleton/demo/shapes';
 
 // Checkbox demos
+import { CheckboxComponent } from '@nexus/lib/shared/components/checkbox';
 import { CheckboxDemoDefault } from '@nexus/lib/shared/components/checkbox/demo/default';
 import { CheckboxDemoDisabled } from '@nexus/lib/shared/components/checkbox/demo/disabled';
 import { CheckboxDemoIndeterminate } from '@nexus/lib/shared/components/checkbox/demo/indeterminate';
@@ -162,6 +163,7 @@ import { AlertVariantsDemo } from '@nexus/lib/shared/components/alert/demo/varia
 import { CardDemoClickable } from '@nexus/lib/shared/components/card/demo/clickable';
 import { CardDemoDefault } from '@nexus/lib/shared/components/card/demo/default';
 import { CardDemoLoading } from '@nexus/lib/shared/components/card/demo/loading';
+import { CardDemoSizes } from '@nexus/lib/shared/components/card/demo/sizes';
 import { CardDemoVariants } from '@nexus/lib/shared/components/card/demo/variants';
 
 // Drawer demos
@@ -358,6 +360,7 @@ import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/un
     ComboboxMultiSelectDemo,
     ComboboxWithFormDemo,
     ComboboxWithGroupsDemo,
+    CheckboxComponent,
     CheckboxDemoDefault,
     CheckboxDemoWithLabel,
     CheckboxDemoIndeterminate,
@@ -378,6 +381,7 @@ import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/un
     CardDemoVariants,
     CardDemoClickable,
     CardDemoLoading,
+    CardDemoSizes,
     DrawerDefaultDemo,
     DrawerPositionsDemo,
     DrawerSizesDemo,
@@ -723,9 +727,16 @@ import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/un
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Loading</span>
-            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nLoading</code> — overlay animado sobre conteúdo existente.</p>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nLoading</code> — overlay animado com spinner sobre conteúdo existente.</p>
             <div class="flex min-h-40 items-center justify-center">
               <demo-card-loading />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Sizes</span>
+            <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nSize</code> — sm · default · lg (padding).</p>
+            <div class="flex min-h-40 items-center justify-center">
+              <demo-card-sizes />
             </div>
           </div>
         </div>
@@ -1329,6 +1340,15 @@ import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/un
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">With Form</span>
             <div class="flex min-h-16 items-center justify-center">
               <demo-checkbox-with-form />
+            </div>
+          </div>
+          <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
+            <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Hint &amp; Error</span>
+            <div class="flex min-h-16 items-center justify-center">
+              <div class="flex flex-col gap-4">
+                <n-checkbox nLabel="Subscribe to newsletter" nHint="We'll send weekly updates." />
+                <n-checkbox nLabel="Accept terms" nError="You must accept the terms to continue." />
+              </div>
             </div>
           </div>
         </div>
