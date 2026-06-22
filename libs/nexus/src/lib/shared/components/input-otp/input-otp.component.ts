@@ -5,6 +5,7 @@ import {
   computed,
   effect,
   input,
+  linkedSignal,
   model,
   output,
   signal,
@@ -124,8 +125,14 @@ export class InputOtpComponent implements ControlValueAccessor {
   private readonly _staticId = `n-input-otp-${++_inputOtpIdCounter}`;
   private readonly _slotRefs = viewChildren<ElementRef<HTMLInputElement>>('slotInput');
 
-  protected readonly slots       = signal<string[]>([]);
+  protected readonly slots = linkedSignal<string[]>(() => {
+    const len   = this.nLength();
+    const chars = this.nValue().split('').slice(0, len);
+    return Array.from({ length: len }, (_, i) => chars[i] ?? '');
+  });
   protected readonly activeIndex = signal<number>(-1);
+
+  private _wasComplete = false;
 
   protected readonly isDisabled  = computed(() => this.nDisabled() || this._form.disabledByForm());
   protected readonly hasError    = computed(() =>
@@ -152,13 +159,6 @@ export class InputOtpComponent implements ControlValueAccessor {
 
   constructor() {
     effect(() => {
-      const value = this.nValue();
-      const len   = this.nLength();
-      const chars = value.split('').slice(0, len);
-      this.slots.set(Array.from({ length: len }, (_, i) => chars[i] ?? ''));
-    });
-
-    effect(() => {
       if (this.nAutofocus()) queueMicrotask(() => this._focusSlot(0));
     });
   }
@@ -174,7 +174,10 @@ export class InputOtpComponent implements ControlValueAccessor {
     this.nValue.set(joined);
     this._form.notifyChange(joined);
     this.nChange.emit(joined);
-    if (current.every(s => s !== '')) this.nComplete.emit(joined);
+
+    const complete = current.every(s => s !== '');
+    if (complete && !this._wasComplete) this.nComplete.emit(joined);
+    this._wasComplete = complete;
   }
 
   protected onKeyDown(event: KeyboardEvent, index: number): void {
@@ -232,18 +235,27 @@ export class InputOtpComponent implements ControlValueAccessor {
   protected onInput(event: Event, index: number): void {
     if (this.isDisabled()) return;
 
-    const el    = event.target as HTMLInputElement;
-    const raw   = el.value;
-    const regex = PATTERN_REGEX[this.nPattern()];
-    const char  = raw.length > 1 ? raw[raw.length - 1] : raw;
+    const el  = event.target as HTMLInputElement;
+    const raw = el.value;
 
-    if (!char || !regex.test(char)) {
+    // Multi-char input: SMS one-time-code autofill or autocomplete dumps the whole
+    // code into a single slot. Distribute it across slots instead of keeping the
+    // last char only.
+    if (raw.length > 1) {
+      this._fillFrom(raw.split(''), index);
       el.value = this.slots()[index];
       return;
     }
 
-    this.slots.update(s => s.map((v, i) => i === index ? char : v));
-    el.value = char;
+    const regex = PATTERN_REGEX[this.nPattern()];
+
+    if (!raw || !regex.test(raw)) {
+      el.value = this.slots()[index];
+      return;
+    }
+
+    this.slots.update(s => s.map((v, i) => i === index ? raw : v));
+    el.value = raw;
     this._syncValue();
 
     if (index < this.nLength() - 1) {
@@ -256,8 +268,13 @@ export class InputOtpComponent implements ControlValueAccessor {
     event.preventDefault();
 
     const pasted = event.clipboardData?.getData('text') ?? '';
-    const regex  = PATTERN_REGEX[this.nPattern()];
-    const valid  = pasted.split('').filter(c => regex.test(c));
+    this._fillFrom(pasted.split(''), startIndex);
+  }
+
+  /** Distributes a sequence of chars into slots from `startIndex`, filtering by pattern. */
+  private _fillFrom(chars: string[], startIndex: number): void {
+    const regex = PATTERN_REGEX[this.nPattern()];
+    const valid = chars.filter(c => regex.test(c));
 
     if (!valid.length) return;
 

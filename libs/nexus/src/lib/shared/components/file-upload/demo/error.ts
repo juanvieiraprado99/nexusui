@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-error',
+  selector: 'demo-file-upload-error',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
-    <n-image-upload
+    <n-file-upload
       class="w-full max-w-lg"
       nLabel="Comprovante"
       nAccept="images"
@@ -15,4 +15,4 @@ import { ImageUploadComponent } from '../image-upload.component';
     />
   `,
 })
-export class ImageUploadErrorDemo {}
+export class FileUploadErrorDemo {}

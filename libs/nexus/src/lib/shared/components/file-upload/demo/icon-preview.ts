@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-icon-preview',
+  selector: 'demo-file-upload-icon-preview',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
     <div class="flex flex-col gap-4 w-full max-w-lg">
-      <n-image-upload
+      <n-file-upload
         nLabel="Documentos"
         nPreview="icon"
         nAccept="documents"
@@ -15,7 +15,7 @@ import { ImageUploadComponent } from '../image-upload.component';
         [nMaxFiles]="5"
         nHint="PDF, DOC, DOCX, TXT · múltiplos"
       />
-      <n-image-upload
+      <n-file-upload
         nLabel="Planilhas"
         nPreview="icon"
         nAccept="spreadsheets"
@@ -25,4 +25,4 @@ import { ImageUploadComponent } from '../image-upload.component';
     </div>
   `,
 })
-export class ImageUploadIconPreviewDemo {}
+export class FileUploadIconPreviewDemo {}

@@ -18,6 +18,7 @@ interface ApiRow { prop: string; type: string; default: string; description: str
           <p class="text-xs uppercase tracking-wide text-muted-foreground">Components</p>
           <h1 class="mt-1 text-3xl font-bold tracking-tight">Input OTP</h1>
           <p class="mt-2 text-muted-foreground">A one-time password input with individual character slots, auto-advance, paste support, and reactive forms integration.</p>
+          <p class="mt-2 text-sm text-muted-foreground">Supports SMS one-time-code autofill (<code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">autocomplete="one-time-code"</code>) and pasting a full code into any slot — the digits are distributed across the remaining slots automatically.</p>
         </header>
 
         <div class="mt-8">
@@ -79,6 +80,13 @@ interface ApiRow { prop: string; type: string; default: string; description: str
           <div class="mt-3">
             <app-example title="nMask" [code]="maskedCode">
               <n-input-otp [nMask]="true" [nLength]="4" nPattern="numeric" nLabel="PIN" nHint="Your PIN is hidden for security." />
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Alphanumeric pattern</h3>
+          <div class="mt-3">
+            <app-example title="nPattern" [code]="alphanumericCode">
+              <n-input-otp nPattern="alphanumeric" [nLength]="6" nLabel="Coupon code" nHint="Letters and digits allowed." />
             </app-example>
           </div>
 
@@ -193,6 +201,8 @@ export class InputOtpDocPage {
 <n-input-otp nSize="lg"  nLabel="Large"   [nLength]="6" />`;
 
   protected readonly maskedCode = `<n-input-otp [nMask]="true" [nLength]="4" nPattern="numeric" nLabel="PIN" nHint="Your PIN is hidden for security." />`;
+
+  protected readonly alphanumericCode = `<n-input-otp nPattern="alphanumeric" [nLength]="6" nLabel="Coupon code" nHint="Letters and digits allowed." />`;
 
   protected readonly separatorCode = `<n-input-otp [nLength]="6" [nSeparatorIndex]="3" nLabel="3 + 3 groups" />
 <n-input-otp [nLength]="8" [nSeparatorIndex]="4" nLabel="4 + 4 groups" />`;

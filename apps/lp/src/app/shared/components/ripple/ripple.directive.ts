@@ -1,6 +1,7 @@
 import {
   Directive,
   ElementRef,
+  NgZone,
   OnDestroy,
   Renderer2,
   inject,
@@ -40,9 +41,12 @@ export class RippleDirective implements OnDestroy {
 
   private readonly _host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly _renderer = inject(Renderer2);
+  private readonly _zone = inject(NgZone);
 
   /** In-flight animations — cancelled on destroy to avoid orphan callbacks. */
   private readonly _running = new Set<Animation>();
+  /** Host already prepared (position/overflow) — avoids `getComputedStyle` per click. */
+  private _prepared = false;
 
   protected _spawn(event: PointerEvent): void {
     if (this.nRippleDisabled() || event.button !== 0) return;
@@ -80,23 +84,30 @@ export class RippleDirective implements OnDestroy {
 
     this._renderer.appendChild(host, ripple);
 
-    const animation = ripple.animate(
-      [
-        { transform: 'scale(0)', opacity: 0.35 },
-        { transform: 'scale(1)', opacity: 0 },
-      ],
-      { duration: this.nRippleDuration(), easing: 'cubic-bezier(0.4, 0, 0.2, 1)' },
-    );
+    // Pure DOM/WAAPI work — running outside the zone avoids triggering
+    // app-wide change detection on every `pointerdown`.
+    this._zone.runOutsideAngular(() => {
+      const animation = ripple.animate(
+        [
+          { transform: 'scale(0)', opacity: 0.35 },
+          { transform: 'scale(1)', opacity: 0 },
+        ],
+        { duration: this.nRippleDuration(), easing: 'cubic-bezier(0.4, 0, 0.2, 1)' },
+      );
 
-    this._running.add(animation);
-    animation.onfinish = () => {
-      this._running.delete(animation);
-      this._renderer.removeChild(host, ripple);
-    };
+      this._running.add(animation);
+      animation.onfinish = () => {
+        this._running.delete(animation);
+        this._renderer.removeChild(host, ripple);
+      };
+    });
   }
 
-  /** Ensure positionable host and (unless unbounded) ripple clipping. */
+  /** Ensure positionable host and (unless unbounded) ripple clipping. Runs once per host. */
   private _prepareHost(host: HTMLElement): void {
+    if (this._prepared) return;
+    this._prepared = true;
+
     const computed = getComputedStyle(host);
     if (computed.position === 'static') {
       this._renderer.setStyle(host, 'position', 'relative');

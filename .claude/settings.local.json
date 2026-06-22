@@ -133,5 +133,8 @@
       "PowerShell(Head *)",
       "Bash(Select-Object FullName, PSIsContainer)"
     ]
+  },
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true
   }
 }

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-mixed',
+  selector: 'demo-file-upload-mixed',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
     <div class="flex flex-col gap-4 w-full max-w-lg">
-      <n-image-upload
+      <n-file-upload
         nLabel="Imagem ou PDF"
         nAccept="image/*,.pdf"
         nPreview="icon"
@@ -15,7 +15,7 @@ import { ImageUploadComponent } from '../image-upload.component';
         [nMaxFiles]="5"
         nHint="Aceita imagens e PDF · string manual"
       />
-      <n-image-upload
+      <n-file-upload
         nLabel="Qualquer arquivo"
         nAccept="all"
         nPreview="icon"
@@ -24,4 +24,4 @@ import { ImageUploadComponent } from '../image-upload.component';
     </div>
   `,
 })
-export class ImageUploadMixedDemo {}
+export class FileUploadMixedDemo {}

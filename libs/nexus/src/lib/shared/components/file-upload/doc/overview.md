@@ -1,11 +1,11 @@
-# Image Upload
+# File Upload
 
-Componente para seleção e upload de imagens com suporte a drag & drop, preview, recorte (crop) e integração com ReactiveForms.
+Componente para seleção e upload de arquivos (imagens, vídeos, áudio, documentos, arquivos compactados) com suporte a drag & drop, preview, recorte de imagem (crop) e integração com ReactiveForms.
 
 ## Uso básico
 
 ```html
-<n-image-upload
+<n-file-upload
   nLabel="Foto de capa"
   nHint="PNG, JPG ou WebP · máximo 5 MB"
   [nMaxSize]="5 * 1024 * 1024"
@@ -16,7 +16,7 @@ Componente para seleção e upload de imagens com suporte a drag & drop, preview
 ## Avatar circular
 
 ```html
-<n-image-upload
+<n-file-upload
   nVariant="avatar"
   nLabel="Foto de perfil"
   [nCrop]="true"
@@ -27,7 +27,7 @@ Componente para seleção e upload de imagens com suporte a drag & drop, preview
 ## Múltiplos arquivos
 
 ```html
-<n-image-upload
+<n-file-upload
   [nMultiple]="true"
   [nMaxFiles]="5"
   nLabel="Galeria"
@@ -37,7 +37,7 @@ Componente para seleção e upload de imagens com suporte a drag & drop, preview
 ## Com recorte forçado
 
 ```html
-<n-image-upload
+<n-file-upload
   [nCrop]="true"
   [nCropAspectRatio]="16 / 9"
   nLabel="Banner"
@@ -48,7 +48,7 @@ Componente para seleção e upload de imagens com suporte a drag & drop, preview
 ## Com ícone em vez de preview
 
 ```html
-<n-image-upload nPreview="icon" nLabel="Documento" nAccept=".jpg,.png,.pdf" />
+<n-file-upload nPreview="icon" nLabel="Documento" nAccept=".jpg,.png,.pdf" />
 ```
 
 ## ReactiveForm
@@ -60,13 +60,13 @@ form = new FormGroup({
 ```
 
 ```html
-<n-image-upload nLabel="Foto" [formControl]="form.controls.photo" />
+<n-file-upload nLabel="Foto" [formControl]="form.controls.photo" />
 ```
 
 ## Progresso de upload
 
 ```html
-<n-image-upload
+<n-file-upload
   [nProgress]="uploadProgress()"
   (nFileSelect)="startUpload($event)"
 />

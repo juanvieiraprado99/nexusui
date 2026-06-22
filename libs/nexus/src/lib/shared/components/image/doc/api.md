@@ -15,6 +15,7 @@
 | `nSkeleton` | `boolean` | `true` | Show animated skeleton placeholder while loading. |
 | `nFallbackSrc` | `string` | `undefined` | Fallback image URL shown when `nSrc` fails to load. |
 | `nLoaderParams` | `Record<string, string \| number>` | `{}` | Extra parameters forwarded to the configured CDN loader. |
+| `nSizes` | `string` | `undefined` | `sizes` attribute forwarded to `ngSrc` for responsive `srcset` (e.g. `"100vw"`, `"(max-width: 768px) 100vw, 50vw"`). Recommended for `nFill` / fluid layouts. |
 | `nRatio` | `'auto' \| 'square' \| 'video' \| 'portrait' \| 'landscape'` | `'auto'` | Aspect ratio applied to the wrapper element. |
 | `nRounded` | `'none' \| 'sm' \| 'default' \| 'lg' \| 'xl' \| 'full'` | `'none'` | Border radius applied to the wrapper element. |
 | `nFit` | `'cover' \| 'contain' \| 'fill' \| 'none'` | `'cover'` | Object-fit applied to the `<img>` element. |

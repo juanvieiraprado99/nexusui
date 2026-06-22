@@ -10,6 +10,7 @@ export const inputOtpSlotVariants = cva(
     'disabled:opacity-50 disabled:cursor-not-allowed',
     'aria-invalid:border-destructive aria-invalid:ring-destructive',
     'data-[filled=true]:border-foreground/30',
+    'data-[active=true]:border-ring data-[active=true]:ring-2 data-[active=true]:ring-ring data-[active=true]:ring-offset-2',
   ],
   {
     variants: {

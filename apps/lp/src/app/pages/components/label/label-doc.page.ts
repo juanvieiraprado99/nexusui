@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { LabelComponent } from '../../../shared/components/label';
+import { InputComponent } from '../../../shared/components/input';
 import { DocsLayoutComponent } from '../../../shared/layout/docs-layout.component';
 import { CodeBlockComponent } from '../../../shared/components/code-block/code-block.component';
 import { ExampleComponent } from '../../../shared/components/example/example.component';
@@ -8,7 +9,7 @@ interface ApiRow { prop: string; type: string; default: string; description: str
 
 @Component({
   selector: 'app-label-doc-page',
-  imports: [LabelComponent, DocsLayoutComponent, CodeBlockComponent, ExampleComponent],
+  imports: [LabelComponent, InputComponent, DocsLayoutComponent, CodeBlockComponent, ExampleComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-docs-layout>
@@ -62,16 +63,36 @@ interface ApiRow { prop: string; type: string; default: string; description: str
 
         <section class="mt-12">
           <h2 class="text-xl font-semibold tracking-tight">Examples</h2>
-          <h3 class="mt-6 text-sm font-medium text-muted-foreground">Required indicator</h3>
+
+          <h3 class="mt-6 text-sm font-medium text-muted-foreground">With form control</h3>
+          <div class="mt-3">
+            <app-example title="nFor + control association" [code]="withControlCode">
+              <div class="flex flex-col gap-1">
+                <n-label nFor="email" [nRequired]="true">Email</n-label>
+                <n-input nId="email" [(nValue)]="emailValue" nPlaceholder="you@example.com" />
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Required indicator</h3>
           <div class="mt-3">
             <app-example title="nRequired" [code]="requiredCode">
               <n-label [nRequired]="true">Required field</n-label>
             </app-example>
           </div>
+
           <h3 class="mt-8 text-sm font-medium text-muted-foreground">Disabled</h3>
           <div class="mt-3">
             <app-example title="nDisabled" [code]="disabledCode">
               <n-label [nDisabled]="true">Disabled label</n-label>
+            </app-example>
+            <p class="mt-2 text-xs text-muted-foreground">Emits a <code class="rounded bg-muted px-1 py-0.5 font-mono">data-disabled</code> attribute for custom styling.</p>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Custom class</h3>
+          <div class="mt-3">
+            <app-example title="nClass" [code]="customClassCode">
+              <n-label nClass="text-base text-primary">Styled label</n-label>
             </app-example>
           </div>
         </section>
@@ -107,13 +128,20 @@ interface ApiRow { prop: string; type: string; default: string; description: str
 })
 export class LabelDocPage {
   protected readonly installTab = signal<'cli' | 'manual'>('cli');
+  protected readonly emailValue = signal('');
 
   protected readonly defaultCode = `<n-label>Email address</n-label>
 <n-label [nRequired]="true">Password</n-label>
 <n-label [nDisabled]="true">Disabled label</n-label>`;
 
+  protected readonly withControlCode = `<div class="flex flex-col gap-1">
+  <n-label nFor="email" [nRequired]="true">Email</n-label>
+  <n-input nId="email" [(nValue)]="emailValue" nPlaceholder="you@example.com" />
+</div>`;
+
   protected readonly requiredCode = `<n-label [nRequired]="true">Required field</n-label>`;
   protected readonly disabledCode = `<n-label [nDisabled]="true">Disabled label</n-label>`;
+  protected readonly customClassCode = `<n-label nClass="text-base text-primary">Styled label</n-label>`;
 
   protected readonly importCode = `import { Component } from '@angular/core';
 import { LabelComponent } from './shared/components/label';

@@ -85,9 +85,10 @@
     {
       "name": "image",
       "type": "registry:component",
-      "version": "1.0.0",
+      "version": "1.1.1",
       "registryDependencies": [
-        "utils"
+        "utils",
+        "skeleton"
       ],
       "files": [
         "image.component.ts",
@@ -98,7 +99,7 @@
     {
       "name": "label",
       "type": "registry:component",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "registryDependencies": [
         "utils"
       ],
@@ -124,6 +125,7 @@
       "name": "ripple",
       "type": "registry:component",
       "version": "1.0.0",
+      "registryDependencies": [],
       "files": [
         "ripple.directive.ts",
         "index.ts"
@@ -160,7 +162,7 @@
     {
       "name": "input-otp",
       "type": "registry:component",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "registryDependencies": [
         "utils",
         "label"
@@ -353,7 +355,7 @@
       ]
     },
     {
-      "name": "image-upload",
+      "name": "file-upload",
       "type": "registry:component",
       "version": "1.0.0",
       "registryDependencies": [
@@ -362,10 +364,10 @@
         "button"
       ],
       "files": [
-        "image-upload.component.ts",
-        "image-upload-crop.component.ts",
-        "image-upload.variants.ts",
-        "image-upload.types.ts",
+        "file-upload.component.ts",
+        "file-upload-crop.component.ts",
+        "file-upload.variants.ts",
+        "file-upload.types.ts",
         "index.ts"
       ]
     },
@@ -430,7 +432,7 @@
     {
       "name": "popover",
       "type": "registry:component",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "registryDependencies": [
         "utils"
       ],
@@ -594,7 +596,7 @@
     {
       "name": "pagination",
       "type": "registry:component",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "registryDependencies": [
         "utils",
         "select"

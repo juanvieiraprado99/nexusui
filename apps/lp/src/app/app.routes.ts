@@ -37,6 +37,11 @@ export const routes: Routes = [
       import('./pages/components/dropdown-menu/dropdown-menu-doc.page').then((m) => m.DropdownMenuDocPage),
   },
   {
+    path: 'components/file-upload',
+    loadComponent: () =>
+      import('./pages/components/file-upload/file-upload-doc.page').then((m) => m.FileUploadDocPage),
+  },
+  {
     path: 'components/image',
     loadComponent: () =>
       import('./pages/components/image/image-doc.page').then((m) => m.ImageDocPage),
@@ -45,6 +50,11 @@ export const routes: Routes = [
     path: 'components/input',
     loadComponent: () =>
       import('./pages/components/input/input-doc.page').then((m) => m.InputDocPage),
+  },
+  {
+    path: 'components/input-group',
+    loadComponent: () =>
+      import('./pages/components/input-group/input-group-doc.page').then((m) => m.InputGroupDocPage),
   },
   {
     path: 'components/input-otp',

@@ -6,7 +6,7 @@ Layout primitives for composing accessible form fields. Each piece is independen
 
 | Component | Selector | Role |
 |---|---|---|
-| `NFormFieldComponent` | `n-form-field` | Grid wrapper. Provides field context (auto ID, description/message IDs). |
+| `NFormFieldComponent` | `n-form-field` | Grid wrapper. Provides field context (auto ID, description/message IDs, invalid/required state). Accepts `nId`, `nInvalid`, `nRequired`. |
 | `NFormLabelComponent` | `label[n-form-label]` | Label with optional required asterisk. Auto-binds `for` from context. |
 | `NFormControlComponent` | `n-form-control` | Structural wrapper for the control. Exposes `fieldId`, `descriptionId`, `messageId` signals via template ref. |
 | `NFormDescriptionComponent` | `n-form-description` | Hint text. Auto-receives `id` from context for `aria-describedby`. |
@@ -29,23 +29,21 @@ Use `#ctrl` on `n-form-control` to get the generated `fieldId()` and bind it to 
 ## Required fields
 
 ```html
-<n-form-field>
-  <label n-form-label nRequired>Email</label>
+<n-form-field nRequired>
+  <label n-form-label>Email</label>
   <n-form-control #ctrl>
     <input [id]="ctrl.fieldId()" type="email" required />
   </n-form-control>
 </n-form-field>
 ```
 
-`nRequired` renders a `*` asterisk (aria-hidden) and applies the required variant style to the label.
+`nRequired` on the field renders a `*` asterisk (aria-hidden) and applies the required variant style to the label. You can also set `nRequired` directly on the label to override per-label.
 
 ## Validation messages
 
 ```html
-<n-form-field>
-  <label n-form-label [nRequired]="true" [nInvalid]="email.invalid && email.touched">
-    Email
-  </label>
+<n-form-field nRequired [nInvalid]="email.invalid && email.touched">
+  <label n-form-label>Email</label>
   <n-form-control #ctrl>
     <input
       [id]="ctrl.fieldId()"

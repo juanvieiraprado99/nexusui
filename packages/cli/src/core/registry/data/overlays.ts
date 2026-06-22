@@ -43,7 +43,7 @@ export const overlaysRegistry: ComponentRegistry[] = [
   },
   {
     name: 'popover',
-    version: '1.0.0',
+    version: '1.1.0',
     basePath: 'components/popover',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority', '@angular/cdk'],

@@ -6,7 +6,6 @@ import {
   NFormDescriptionComponent,
   NFormFieldComponent,
   NFormLabelComponent,
-  NFormMessageComponent,
 } from '../form.component';
 
 @Component({
@@ -19,12 +18,11 @@ import {
     NFormLabelComponent,
     NFormControlComponent,
     NFormDescriptionComponent,
-    NFormMessageComponent,
   ],
   template: `
     <div class="w-80 space-y-4">
-      <n-form-field>
-        <label n-form-label nRequired [nInvalid]="isInvalid()">Email</label>
+      <n-form-field [nInvalid]="isInvalid()" nRequired>
+        <label n-form-label>Email</label>
         <n-form-control #ctrl>
           <n-input
             [nId]="ctrl.fieldId()"

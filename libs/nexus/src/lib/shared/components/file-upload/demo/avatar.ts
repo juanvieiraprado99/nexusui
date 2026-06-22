@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-avatar',
+  selector: 'demo-file-upload-avatar',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
     <div class="flex items-center gap-6">
-      <n-image-upload nVariant="avatar" nSize="sm" nLabel="Avatar" />
-      <n-image-upload nVariant="avatar" nSize="default" nLabel="Avatar" [nCrop]="true" [nCropAspectRatio]="1" />
-      <n-image-upload nVariant="avatar" nSize="lg" nLabel="Avatar" />
+      <n-file-upload nVariant="avatar" nSize="sm" nLabel="Avatar" />
+      <n-file-upload nVariant="avatar" nSize="default" nLabel="Avatar" [nCrop]="true" [nCropAspectRatio]="1" />
+      <n-file-upload nVariant="avatar" nSize="lg" nLabel="Avatar" />
     </div>
   `,
 })
-export class ImageUploadAvatarDemo {}
+export class FileUploadAvatarDemo {}

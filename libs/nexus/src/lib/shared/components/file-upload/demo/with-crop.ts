@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-with-crop',
+  selector: 'demo-file-upload-with-crop',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
-    <n-image-upload
+    <n-file-upload
       nLabel="Banner"
       nHint="Proporção 16:9 · imagem será recortada antes de enviar"
       [nCrop]="true"
@@ -15,7 +15,7 @@ import { ImageUploadComponent } from '../image-upload.component';
     />
   `,
 })
-export class ImageUploadWithCropDemo {
+export class FileUploadWithCropDemo {
   onCrop(blob: Blob): void {
     console.log('Recortado:', (blob.size / 1024).toFixed(1), 'KB');
   }

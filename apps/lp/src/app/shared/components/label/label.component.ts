@@ -9,6 +9,7 @@ import { mergeClasses } from '@/shared/utils/merge-classes';
       [attr.for]="nFor() || null"
       [attr.id]="nId() || null"
       [class]="classes()"
+      [attr.data-disabled]="nDisabled() ? '' : null"
       data-slot="label"
     >
       <ng-content />

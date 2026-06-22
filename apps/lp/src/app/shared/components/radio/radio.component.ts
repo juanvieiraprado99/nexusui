@@ -53,7 +53,7 @@ let _radioIdCounter = 0;
           data-slot="control"
           [class]="controlClasses()"
           (change)="handleChange()"
-          (focus)="handleFocus()"
+          (focus)="handleFocus($event)"
           (blur)="handleBlur($event)"
           (keydown)="handleKeydown($event)"
         />
@@ -231,8 +231,8 @@ export class RadioComponent<T = string> implements ControlValueAccessor, RadioIt
     this.nChange.emit(this.nValue());
   }
 
-  protected handleFocus(): void {
-    this.nFocus.emit(new FocusEvent('focus'));
+  protected handleFocus(event: FocusEvent): void {
+    this.nFocus.emit(event);
   }
 
   protected handleBlur(event: FocusEvent): void {

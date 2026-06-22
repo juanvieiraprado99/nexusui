@@ -1,6 +1,7 @@
 import {
   Directive,
   ElementRef,
+  NgZone,
   OnDestroy,
   Renderer2,
   inject,
@@ -42,9 +43,12 @@ export class RippleDirective implements OnDestroy {
 
   private readonly _host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly _renderer = inject(Renderer2);
+  private readonly _zone = inject(NgZone);
 
   /** Animações em andamento — canceladas no destroy para evitar callbacks órfãos. */
   private readonly _running = new Set<Animation>();
+  /** Host já preparado (position/overflow) — evita `getComputedStyle` a cada clique. */
+  private _prepared = false;
 
   protected _spawn(event: PointerEvent): void {
     if (this.nRippleDisabled() || event.button !== 0) return;
@@ -82,23 +86,30 @@ export class RippleDirective implements OnDestroy {
 
     this._renderer.appendChild(host, ripple);
 
-    const animation = ripple.animate(
-      [
-        { transform: 'scale(0)', opacity: 0.35 },
-        { transform: 'scale(1)', opacity: 0 },
-      ],
-      { duration: this.nRippleDuration(), easing: 'cubic-bezier(0.4, 0, 0.2, 1)' },
-    );
+    // Animação é puro trabalho de DOM/WAAPI — fora da zona evita disparar
+    // change detection em toda a app a cada `pointerdown`.
+    this._zone.runOutsideAngular(() => {
+      const animation = ripple.animate(
+        [
+          { transform: 'scale(0)', opacity: 0.35 },
+          { transform: 'scale(1)', opacity: 0 },
+        ],
+        { duration: this.nRippleDuration(), easing: 'cubic-bezier(0.4, 0, 0.2, 1)' },
+      );
 
-    this._running.add(animation);
-    animation.onfinish = () => {
-      this._running.delete(animation);
-      this._renderer.removeChild(host, ripple);
-    };
+      this._running.add(animation);
+      animation.onfinish = () => {
+        this._running.delete(animation);
+        this._renderer.removeChild(host, ripple);
+      };
+    });
   }
 
-  /** Garante `position` posicionável e (salvo unbounded) recorte do ripple. */
+  /** Garante `position` posicionável e (salvo unbounded) recorte do ripple. Roda uma vez por host. */
   private _prepareHost(host: HTMLElement): void {
+    if (this._prepared) return;
+    this._prepared = true;
+
     const computed = getComputedStyle(host);
     if (computed.position === 'static') {
       this._renderer.setStyle(host, 'position', 'relative');

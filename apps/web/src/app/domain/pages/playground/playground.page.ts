@@ -289,23 +289,23 @@ import { RadioRichDescriptionDemo } from '@nexus/lib/shared/components/radio/dem
 import { RadioSizesDemo } from '@nexus/lib/shared/components/radio/demo/sizes';
 
 // Image Upload demos
-import { ImageUploadDefaultDemo } from '@nexus/lib/shared/components/image-upload/demo/default';
-import { ImageUploadAvatarDemo } from '@nexus/lib/shared/components/image-upload/demo/avatar';
-import { ImageUploadMultipleDemo } from '@nexus/lib/shared/components/image-upload/demo/multiple';
-import { ImageUploadWithCropDemo } from '@nexus/lib/shared/components/image-upload/demo/with-crop';
-import { ImageUploadAcceptPresetsDemo } from '@nexus/lib/shared/components/image-upload/demo/accept-presets';
-import { ImageUploadProgressDemo } from '@nexus/lib/shared/components/image-upload/demo/progress';
-import { ImageUploadIconPreviewDemo } from '@nexus/lib/shared/components/image-upload/demo/icon-preview';
-import { ImageUploadReactiveFormDemo } from '@nexus/lib/shared/components/image-upload/demo/reactive-form';
-import { ImageUploadVideosDemo } from '@nexus/lib/shared/components/image-upload/demo/videos';
-import { ImageUploadAudioDemo } from '@nexus/lib/shared/components/image-upload/demo/audio';
-import { ImageUploadArchivesDemo } from '@nexus/lib/shared/components/image-upload/demo/archives';
-import { ImageUploadMixedDemo } from '@nexus/lib/shared/components/image-upload/demo/mixed';
-import { ImageUploadDimensionsDemo } from '@nexus/lib/shared/components/image-upload/demo/dimensions';
-import { ImageUploadDisabledDemo } from '@nexus/lib/shared/components/image-upload/demo/disabled';
-import { ImageUploadProgressMultipleDemo } from '@nexus/lib/shared/components/image-upload/demo/progress-multiple';
-import { ImageUploadErrorDemo } from '@nexus/lib/shared/components/image-upload/demo/error';
-import { ImageUploadSizesDemo } from '@nexus/lib/shared/components/image-upload/demo/sizes';
+import { FileUploadDefaultDemo } from '@nexus/lib/shared/components/file-upload/demo/default';
+import { FileUploadAvatarDemo } from '@nexus/lib/shared/components/file-upload/demo/avatar';
+import { FileUploadMultipleDemo } from '@nexus/lib/shared/components/file-upload/demo/multiple';
+import { FileUploadWithCropDemo } from '@nexus/lib/shared/components/file-upload/demo/with-crop';
+import { FileUploadAcceptPresetsDemo } from '@nexus/lib/shared/components/file-upload/demo/accept-presets';
+import { FileUploadProgressDemo } from '@nexus/lib/shared/components/file-upload/demo/progress';
+import { FileUploadIconPreviewDemo } from '@nexus/lib/shared/components/file-upload/demo/icon-preview';
+import { FileUploadReactiveFormDemo } from '@nexus/lib/shared/components/file-upload/demo/reactive-form';
+import { FileUploadVideosDemo } from '@nexus/lib/shared/components/file-upload/demo/videos';
+import { FileUploadAudioDemo } from '@nexus/lib/shared/components/file-upload/demo/audio';
+import { FileUploadArchivesDemo } from '@nexus/lib/shared/components/file-upload/demo/archives';
+import { FileUploadMixedDemo } from '@nexus/lib/shared/components/file-upload/demo/mixed';
+import { FileUploadDimensionsDemo } from '@nexus/lib/shared/components/file-upload/demo/dimensions';
+import { FileUploadDisabledDemo } from '@nexus/lib/shared/components/file-upload/demo/disabled';
+import { FileUploadProgressMultipleDemo } from '@nexus/lib/shared/components/file-upload/demo/progress-multiple';
+import { FileUploadErrorDemo } from '@nexus/lib/shared/components/file-upload/demo/error';
+import { FileUploadSizesDemo } from '@nexus/lib/shared/components/file-upload/demo/sizes';
 
 // Image demos
 import { ImageDefaultDemo } from '@nexus/lib/shared/components/image/demo/default';
@@ -551,23 +551,23 @@ import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/un
     ImageSkeletonDemo,
     ImageFallbackDemo,
     ImageCdnDemo,
-    ImageUploadDefaultDemo,
-    ImageUploadAvatarDemo,
-    ImageUploadMultipleDemo,
-    ImageUploadWithCropDemo,
-    ImageUploadAcceptPresetsDemo,
-    ImageUploadProgressDemo,
-    ImageUploadIconPreviewDemo,
-    ImageUploadReactiveFormDemo,
-    ImageUploadVideosDemo,
-    ImageUploadAudioDemo,
-    ImageUploadArchivesDemo,
-    ImageUploadMixedDemo,
-    ImageUploadDimensionsDemo,
-    ImageUploadDisabledDemo,
-    ImageUploadProgressMultipleDemo,
-    ImageUploadErrorDemo,
-    ImageUploadSizesDemo,
+    FileUploadDefaultDemo,
+    FileUploadAvatarDemo,
+    FileUploadMultipleDemo,
+    FileUploadWithCropDemo,
+    FileUploadAcceptPresetsDemo,
+    FileUploadProgressDemo,
+    FileUploadIconPreviewDemo,
+    FileUploadReactiveFormDemo,
+    FileUploadVideosDemo,
+    FileUploadAudioDemo,
+    FileUploadArchivesDemo,
+    FileUploadMixedDemo,
+    FileUploadDimensionsDemo,
+    FileUploadDisabledDemo,
+    FileUploadProgressMultipleDemo,
+    FileUploadErrorDemo,
+    FileUploadSizesDemo,
     TooltipBasicDemo,
     TooltipDiagonalsDemo,
     TooltipSidesDemo,
@@ -2079,7 +2079,7 @@ import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/un
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Required</span>
             <p class="text-muted-foreground text-xs">
-              <code class="bg-muted rounded px-1 font-mono">nRequired</code> no label — asterisco visual, sem lógica de validação no componente.
+              <code class="bg-muted rounded px-1 font-mono">nRequired</code> no <code class="bg-muted rounded px-1 font-mono">n-form-field</code> — asterisco visual no label via context, sem lógica de validação no componente.
             </p>
             <div class="flex min-h-20 items-center justify-center">
               <demo-form-required />
@@ -2091,7 +2091,7 @@ import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/un
               Reactive form com
               <code class="bg-muted rounded px-1 font-mono">nType="error"</code> no
               <code class="bg-muted rounded px-1 font-mono">n-form-message</code>.
-              Label com <code class="bg-muted rounded px-1 font-mono">nInvalid</code>.
+              <code class="bg-muted rounded px-1 font-mono">n-form-field</code> com <code class="bg-muted rounded px-1 font-mono">nInvalid</code> — label herda estado via context.
               ARIA <code class="bg-muted rounded px-1 font-mono">aria-describedby</code> via
               <code class="bg-muted rounded px-1 font-mono">ctrl.messageId()</code>.
             </p>
@@ -2337,126 +2337,126 @@ import { RippleUnboundedDemo } from '@nexus/lib/shared/components/ripple/demo/un
       </section>
 
       <!-- Image Upload -->
-      <section id="image-upload">
+      <section id="file-upload">
         <h2 class="border-border mb-6 border-b pb-2 text-xl font-semibold">Image Upload</h2>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Default (Dropzone)</span>
             <p class="text-muted-foreground text-xs">Drag & drop ou clique. Validação de tipo e tamanho máximo. Preview de thumbnail.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-default class="w-full max-w-lg" />
+              <demo-file-upload-default class="w-full max-w-lg" />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Avatar</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nVariant="avatar"</code> — circular. Botão de edição sobreposto. Tamanhos sm · default · lg. Versão central com crop 1:1.</p>
             <div class="flex min-h-32 items-center justify-center">
-              <demo-image-upload-avatar />
+              <demo-file-upload-avatar />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Multiple</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nMultiple</code> + <code class="bg-muted rounded px-1 font-mono">nMaxFiles</code> — lista de arquivos com botão "Adicionar mais".</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-multiple class="w-full" />
+              <demo-file-upload-multiple class="w-full" />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Com Crop</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nCrop</code> + <code class="bg-muted rounded px-1 font-mono">nCropAspectRatio</code> — overlay canvas com regra dos terços, handles de canto e lock de proporção 16:9.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-with-crop class="w-full max-w-lg" />
+              <demo-file-upload-with-crop class="w-full max-w-lg" />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Accept Presets</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAccept</code> aceita presets nomeados (<code class="bg-muted rounded px-1 font-mono">'images'</code>, <code class="bg-muted rounded px-1 font-mono">'spreadsheets'</code>, <code class="bg-muted rounded px-1 font-mono">'documents'</code>...) ou string manual. Label do tipo exibida no empty state.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-accept-presets />
+              <demo-file-upload-accept-presets />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Progresso</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nProgress</code> — barra de upload controlada pelo consumidor. Simulação automática ao selecionar.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-progress />
+              <demo-file-upload-progress />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Icon Preview</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nPreview="icon"</code> — ícone genérico em vez de thumbnail. Ideal para documentos e planilhas.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-icon-preview />
+              <demo-file-upload-icon-preview />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">ReactiveForm</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">[formControl]</code> — integração nativa com ReactiveForms. Validação required + markAllAsTouched no submit.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-reactive-form />
+              <demo-file-upload-reactive-form />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Vídeos</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAccept="videos"</code> — MP4, MOV, AVI. Ícone genérico, limite de 100 MB.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-videos />
+              <demo-file-upload-videos />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Áudio</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAccept="audio"</code> — MP3, WAV, AAC. Múltiplos arquivos, limite por arquivo.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-audio />
+              <demo-file-upload-audio />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Arquivos compactados</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nAccept="archives"</code> — ZIP, RAR, TAR, 7Z. Limite de 500 MB.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-archives />
+              <demo-file-upload-archives />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Misto / Manual</span>
             <p class="text-muted-foreground text-xs">String manual <code class="bg-muted rounded px-1 font-mono">"image/*,.pdf"</code> e preset <code class="bg-muted rounded px-1 font-mono">"all"</code> sem restrição.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-mixed />
+              <demo-file-upload-mixed />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Validação de dimensões</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nMinWidth</code>/<code class="bg-muted rounded px-1 font-mono">nMaxWidth</code> + altura — rejeita imagens fora da faixa com reason <code class="bg-muted rounded px-1 font-mono">'dimensions'</code>.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-dimensions class="w-full max-w-lg" />
+              <demo-file-upload-dimensions class="w-full max-w-lg" />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Desabilitado</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nDisabled</code> — dropzone e avatar sem interação, foco bloqueado.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-disabled class="w-full max-w-lg" />
+              <demo-file-upload-disabled class="w-full max-w-lg" />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6 sm:col-span-2">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Progresso por arquivo</span>
             <p class="text-muted-foreground text-xs">Barra independente por item via <code class="bg-muted rounded px-1 font-mono">UploadFile.progress</code>. Simulação paralela ao selecionar múltiplos.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-progress-multiple class="w-full max-w-lg" />
+              <demo-file-upload-progress-multiple class="w-full max-w-lg" />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Erro manual</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nError</code> — mensagem controlada pelo consumidor com <code class="bg-muted rounded px-1 font-mono">role="alert"</code> e borda destructive.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-error class="w-full max-w-lg" />
+              <demo-file-upload-error class="w-full max-w-lg" />
             </div>
           </div>
           <div class="border-border flex flex-col gap-3 rounded-lg border p-6">
             <span class="text-muted-foreground text-xs font-medium tracking-wide uppercase">Tamanhos (dropzone)</span>
             <p class="text-muted-foreground text-xs"><code class="bg-muted rounded px-1 font-mono">nSize</code> — sm · default · lg ajustam padding e altura mínima do dropzone.</p>
             <div class="flex min-h-40 items-start justify-start">
-              <demo-image-upload-sizes class="w-full max-w-lg" />
+              <demo-file-upload-sizes class="w-full max-w-lg" />
             </div>
           </div>
         </div>

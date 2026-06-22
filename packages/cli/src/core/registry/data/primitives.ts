@@ -55,15 +55,15 @@ export const primitivesRegistry: ComponentRegistry[] = [
   },
   {
     name: 'image',
-    version: '1.0.0',
+    version: '1.1.1',
     basePath: 'components/image',
-    registryDependencies: ['utils'],
+    registryDependencies: ['utils', 'skeleton'],
     dependencies: ['class-variance-authority', '@angular/common'],
     files: ['image.component.ts', 'image.variants.ts', 'index.ts'],
   },
   {
     name: 'label',
-    version: '1.0.0',
+    version: '1.0.1',
     basePath: 'components/label',
     registryDependencies: ['utils'],
     files: ['label.component.ts', 'index.ts'],
@@ -80,6 +80,8 @@ export const primitivesRegistry: ComponentRegistry[] = [
     name: 'ripple',
     version: '1.0.0',
     basePath: 'components/ripple',
+    registryDependencies: [],
+    dependencies: [],
     files: ['ripple.directive.ts', 'index.ts'],
   },
 ];

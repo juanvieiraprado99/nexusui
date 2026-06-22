@@ -105,6 +105,47 @@ interface ApiRow { prop: string; type: string; default: string; description: str
               </div>
             </app-example>
           </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Variants</h3>
+          <div class="mt-3">
+            <app-example title="nVariant: default | outline | ghost" [code]="variantsCode">
+              <div class="flex flex-col gap-4">
+                <n-pagination nVariant="default" [nTotalPages]="10" />
+                <n-pagination nVariant="outline" [nTotalPages]="10" />
+                <n-pagination nVariant="ghost"   [nTotalPages]="10" />
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">From total items</h3>
+          <div class="mt-3">
+            <app-example title="nTotalItems" [code]="totalItemsCode">
+              <div class="flex flex-col gap-3">
+                <n-pagination [nTotalItems]="243" [nPageSize]="10" [(nPage)]="totalItemsPage" />
+                <p class="text-sm text-muted-foreground">
+                  243 items / 10 per page &rarr; page
+                  <span class="font-medium text-foreground">{{ totalItemsPage() }}</span> of 25
+                </p>
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Siblings &amp; boundaries</h3>
+          <div class="mt-3">
+            <app-example title="nSiblingCount &amp; nBoundaryCount" [code]="siblingsCode">
+              <div class="flex flex-col gap-4">
+                <n-pagination [nTotalPages]="20" [nSiblingCount]="2" [(nPage)]="siblingsPage" />
+                <n-pagination [nTotalPages]="20" [nBoundaryCount]="2" [(nPage)]="siblingsPage" />
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Without first/last</h3>
+          <div class="mt-3">
+            <app-example title="nShowFirstLast" [code]="firstLastCode">
+              <n-pagination [nShowFirstLast]="false" [nTotalPages]="10" [(nPage)]="firstLastPage" />
+            </app-example>
+          </div>
         </section>
 
         <section class="mt-12">
@@ -141,6 +182,9 @@ export class PaginationDocPage {
   protected readonly page        = signal(1);
   protected readonly pageSizePage = signal(1);
   protected readonly pageSize    = signal(10);
+  protected readonly totalItemsPage = signal(1);
+  protected readonly siblingsPage = signal(10);
+  protected readonly firstLastPage = signal(1);
 
   protected readonly defaultCode = `<n-pagination [nTotalPages]="10" [(nPage)]="page" />`;
 
@@ -158,6 +202,17 @@ export class PaginationDocPage {
   [(nPage)]="page"
   [(nPageSize)]="pageSize"
 />`;
+
+  protected readonly variantsCode = `<n-pagination nVariant="default" [nTotalPages]="10" />
+<n-pagination nVariant="outline" [nTotalPages]="10" />
+<n-pagination nVariant="ghost"   [nTotalPages]="10" />`;
+
+  protected readonly totalItemsCode = `<n-pagination [nTotalItems]="243" [nPageSize]="10" [(nPage)]="page" />`;
+
+  protected readonly siblingsCode = `<n-pagination [nTotalPages]="20" [nSiblingCount]="2" [(nPage)]="page" />
+<n-pagination [nTotalPages]="20" [nBoundaryCount]="2" [(nPage)]="page" />`;
+
+  protected readonly firstLastCode = `<n-pagination [nShowFirstLast]="false" [nTotalPages]="10" [(nPage)]="page" />`;
 
   protected readonly importCode = `import { Component, signal } from '@angular/core';
 import { PaginationComponent } from './shared/components/pagination';

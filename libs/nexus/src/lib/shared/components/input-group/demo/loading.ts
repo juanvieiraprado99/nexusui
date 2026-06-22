@@ -9,7 +9,7 @@ import { InputGroupControlDirective } from '../input-group-control.directive';
   imports: [InputGroupComponent, InputGroupControlDirective],
   template: `
     <n-input-group nAddonBefore="@" nLoading>
-      <input nInputGroup type="text" placeholder="usuario" disabled />
+      <input nInputGroup type="text" placeholder="usuario" />
     </n-input-group>
   `,
 })

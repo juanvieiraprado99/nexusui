@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
-import type { UploadFile, UploadError } from '../image-upload.types';
+import { FileUploadComponent } from '../file-upload.component';
+import type { UploadFile, UploadError } from '../file-upload.types';
 
 @Component({
-  selector: 'demo-image-upload-default',
+  selector: 'demo-file-upload-default',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
-    <n-image-upload
+    <n-file-upload
       nLabel="Imagem"
       nHint="PNG, JPG ou WebP · máximo 5 MB"
       [nMaxSize]="5 * 1024 * 1024"
@@ -16,7 +16,7 @@ import type { UploadFile, UploadError } from '../image-upload.types';
     />
   `,
 })
-export class ImageUploadDefaultDemo {
+export class FileUploadDefaultDemo {
   onSelect(files: File[]): void {
     console.log('Selecionados:', files.map(f => f.name));
   }

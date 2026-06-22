@@ -368,6 +368,7 @@ export const appConfig: ApplicationConfig = {
     { prop: 'nSkeleton', type: 'boolean', default: 'true', description: 'Show animated skeleton placeholder while loading.' },
     { prop: 'nFallbackSrc', type: 'string', default: 'undefined', description: 'Fallback image URL shown when nSrc fails to load.' },
     { prop: 'nLoaderParams', type: "Record<string, string | number>", default: '{}', description: 'Extra parameters forwarded to the configured CDN loader.' },
+    { prop: 'nSizes', type: 'string', default: 'undefined', description: 'sizes attribute forwarded to ngSrc for responsive srcset (e.g. "100vw"). Recommended for nFill / fluid layouts.' },
     { prop: 'nRatio', type: "'auto' | 'square' | 'video' | 'portrait' | 'landscape'", default: "'auto'", description: 'Aspect ratio applied to the wrapper element.' },
     { prop: 'nRounded', type: "'none' | 'sm' | 'default' | 'lg' | 'xl' | 'full'", default: "'none'", description: 'Border radius applied to the wrapper element.' },
     { prop: 'nFit', type: "'cover' | 'contain' | 'fill' | 'none'", default: "'cover'", description: 'Object-fit applied to the img element.' },

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-audio',
+  selector: 'demo-file-upload-audio',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
-    <n-image-upload
+    <n-file-upload
       class="w-full max-w-lg"
       nLabel="Áudio"
       nAccept="audio"
@@ -18,4 +18,4 @@ import { ImageUploadComponent } from '../image-upload.component';
     />
   `,
 })
-export class ImageUploadAudioDemo {}
+export class FileUploadAudioDemo {}

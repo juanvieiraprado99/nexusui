@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-progress',
+  selector: 'demo-file-upload-progress',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
-    <n-image-upload
+    <n-file-upload
       class="w-full max-w-lg"
       nLabel="Upload com progresso"
       nHint="Selecione uma imagem para simular o upload"
@@ -16,7 +16,7 @@ import { ImageUploadComponent } from '../image-upload.component';
     />
   `,
 })
-export class ImageUploadProgressDemo {
+export class FileUploadProgressDemo {
   readonly progress = signal(-1);
 
   simulate(): void {

@@ -5,7 +5,6 @@ import {
   computed,
   inject,
   input,
-  signal,
 } from '@angular/core';
 import { mergeClasses } from '../../utils/merge-classes';
 import {
@@ -29,12 +28,17 @@ let _fieldIdCounter = 0;
 })
 export class NFormFieldComponent implements NFormFieldContext {
   readonly nClass = input<string>('');
+  readonly nId = input<string>('');
+  readonly nInvalid = input(false, { transform: booleanAttribute });
+  readonly nRequired = input(false, { transform: booleanAttribute });
 
   private readonly _staticId = `n-field-${++_fieldIdCounter}`;
 
-  readonly fieldId = signal(this._staticId);
+  readonly fieldId = computed(() => this.nId() || this._staticId);
   readonly descriptionId = computed(() => `${this.fieldId()}-description`);
   readonly messageId = computed(() => `${this.fieldId()}-message`);
+  readonly invalid = computed(() => this.nInvalid());
+  readonly required = computed(() => this.nRequired());
 
   protected readonly classes = computed(() =>
     mergeClasses(formFieldVariants(), this.nClass()),
@@ -45,7 +49,7 @@ export class NFormFieldComponent implements NFormFieldContext {
   selector: 'label[n-form-label]',
   template: `
     <ng-content />
-    @if (nRequired()) {
+    @if (required()) {
       <span class="ml-0.5 text-destructive" aria-hidden="true">*</span>
     }
   `,
@@ -65,9 +69,13 @@ export class NFormLabelComponent {
 
   protected readonly forAttr = computed(() => this.nFor() || this._ctx?.fieldId() || null);
 
+  // Own input OR field context — set state once on n-form-field, or override per-label.
+  protected readonly required = computed(() => this.nRequired() || (this._ctx?.required() ?? false));
+  protected readonly invalid = computed(() => this.nInvalid() || (this._ctx?.invalid() ?? false));
+
   protected readonly classes = computed(() =>
     mergeClasses(
-      formLabelVariants({ nRequired: this.nRequired(), nInvalid: this.nInvalid() }),
+      formLabelVariants({ nRequired: this.required(), nInvalid: this.invalid() }),
       this.nClass(),
     ),
   );

@@ -47,6 +47,10 @@
       "content": "import { Component } from '@angular/core';\r\nimport { InputComponent } from '../input.component';\r\n\r\n@Component({\r\n  selector: 'demo-input-loading',\r\n  standalone: true,\r\n  imports: [InputComponent],\r\n  template: `<n-input [nLoading]=\"true\" nLabel=\"Search\" nType=\"search\" nPlaceholder=\"Searching...\" />`,\r\n})\r\nexport class InputDemoLoading {}\r\n"
     },
     {
+      "name": "readonly.ts",
+      "content": "import { Component, signal } from '@angular/core';\nimport { InputComponent } from '../input.component';\n\n@Component({\n  selector: 'demo-input-readonly',\n  standalone: true,\n  imports: [InputComponent],\n  template: `<n-input nLabel=\"Username\" [(nValue)]=\"value\" [nReadonly]=\"true\" />`,\n})\nexport class InputDemoReadonly {\n  value = signal('johndoe');\n}\n"
+    },
+    {
       "name": "sizes.ts",
       "content": "import { Component } from '@angular/core';\r\nimport { InputComponent } from '../input.component';\r\n\r\n@Component({\r\n  selector: 'demo-input-sizes',\r\n  standalone: true,\r\n  imports: [InputComponent],\r\n  template: `\r\n    <div class=\"flex w-72 flex-col gap-4\">\r\n      <n-input nSize=\"sm\" nLabel=\"Small\" nPlaceholder=\"Small\" />\r\n      <n-input nLabel=\"Default\" nPlaceholder=\"Default\" />\r\n      <n-input nSize=\"lg\" nLabel=\"Large\" nPlaceholder=\"Large\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class InputDemoSizes {}\r\n"
     },

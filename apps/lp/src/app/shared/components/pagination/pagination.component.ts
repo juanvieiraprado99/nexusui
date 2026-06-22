@@ -26,7 +26,7 @@ import { paginationItemVariants, type PaginationItemVariants } from './paginatio
           [nValue]="pageSizeStr()"
           (nValueChange)="onPageSizeChange($event)"
           [nDisabled]="nDisabled()"
-          class="w-18">
+          class="w-[4.5rem]">
           <n-select-trigger [nSize]="nSize()" />
           <n-select-content>
             @for (opt of nPageSizeOptions(); track opt) {
@@ -42,7 +42,7 @@ import { paginationItemVariants, type PaginationItemVariants } from './paginatio
       @if (nShowFirstLast()) {
         <button
           type="button"
-          [class]="itemClasses(false)"
+          [class]="inactiveItemClasses()"
           [disabled]="nDisabled() || nPage() <= 1"
           aria-label="Go to first page"
           (click)="goToPage(1)">
@@ -55,7 +55,7 @@ import { paginationItemVariants, type PaginationItemVariants } from './paginatio
 
       <button
         type="button"
-        [class]="itemClasses(false)"
+        [class]="inactiveItemClasses()"
         [disabled]="nDisabled() || nPage() <= 1"
         aria-label="Go to previous page"
         (click)="goToPage(nPage() - 1)">
@@ -75,7 +75,7 @@ import { paginationItemVariants, type PaginationItemVariants } from './paginatio
           } @else {
             <button
               type="button"
-              [class]="itemClasses(item === nPage())"
+              [class]="item === nPage() ? activeItemClasses() : inactiveItemClasses()"
               [disabled]="nDisabled() || item === nPage()"
               [attr.aria-label]="'Page ' + item"
               [attr.aria-current]="item === nPage() ? 'page' : null"
@@ -88,7 +88,7 @@ import { paginationItemVariants, type PaginationItemVariants } from './paginatio
 
       <button
         type="button"
-        [class]="itemClasses(false)"
+        [class]="inactiveItemClasses()"
         [disabled]="nDisabled() || nPage() >= totalPages()"
         aria-label="Go to next page"
         (click)="goToPage(nPage() + 1)">
@@ -100,7 +100,7 @@ import { paginationItemVariants, type PaginationItemVariants } from './paginatio
       @if (nShowFirstLast()) {
         <button
           type="button"
-          [class]="itemClasses(false)"
+          [class]="inactiveItemClasses()"
           [disabled]="nDisabled() || nPage() >= totalPages()"
           aria-label="Go to last page"
           (click)="goToPage(totalPages())">
@@ -197,14 +197,20 @@ export class PaginationComponent {
       if (this.nPage() > max) {
         this.nPage.set(max);
       }
-    }, { allowSignalWrites: true });
+    });
   }
 
-  protected itemClasses(active: boolean): string {
-    return mergeClasses(
-      paginationItemVariants({ nVariant: this.nVariant(), nSize: this.nSize(), nActive: active }),
-    );
-  }
+  protected readonly inactiveItemClasses = computed(() =>
+    mergeClasses(
+      paginationItemVariants({ nVariant: this.nVariant(), nSize: this.nSize(), nActive: false }),
+    ),
+  );
+
+  protected readonly activeItemClasses = computed(() =>
+    mergeClasses(
+      paginationItemVariants({ nVariant: this.nVariant(), nSize: this.nSize(), nActive: true }),
+    ),
+  );
 
   protected goToPage(page: number): void {
     const clamped = Math.max(1, Math.min(page, this.totalPages()));

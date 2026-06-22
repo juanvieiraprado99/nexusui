@@ -1,12 +1,23 @@
-import { Component, ChangeDetectionStrategy, input, output, computed, linkedSignal } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ElementRef,
+  inject,
+  input,
+  output,
+  computed,
+  linkedSignal,
+  afterRenderEffect,
+} from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { mergeClasses } from '../../utils/merge-classes';
+import { SkeletonComponent } from '../skeleton';
 import { imageWrapperVariants, imageFitVariants, type ImageVariants } from './image.variants';
 
 @Component({
   selector: 'n-image',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, SkeletonComponent],
   host: { class: 'contents' },
   template: `
     <div data-slot="root" [class]="wrapperClasses()">
@@ -18,6 +29,7 @@ import { imageWrapperVariants, imageFitVariants, type ImageVariants } from './im
             [fill]="true"
             [priority]="nPriority()"
             [loaderParams]="nLoaderParams()"
+            [sizes]="nSizes()"
             [class]="imgClasses()"
             (load)="handleLoad()"
             (error)="handleError()"
@@ -30,6 +42,7 @@ import { imageWrapperVariants, imageFitVariants, type ImageVariants } from './im
             [height]="nHeight()!"
             [priority]="nPriority()"
             [loaderParams]="nLoaderParams()"
+            [sizes]="nSizes()"
             [class]="imgClasses()"
             (load)="handleLoad()"
             (error)="handleError()"
@@ -38,12 +51,21 @@ import { imageWrapperVariants, imageFitVariants, type ImageVariants } from './im
       }
 
       @if (showSkeleton()) {
-        <div data-slot="skeleton" class="absolute inset-0 animate-pulse bg-muted" aria-hidden="true"></div>
+        <n-skeleton data-slot="skeleton" nClass="absolute inset-0 rounded-none" aria-hidden="true" />
       }
 
       @if (imageError()) {
         @if (nFallbackSrc()) {
-          <img data-slot="fallback" [src]="nFallbackSrc()!" [alt]="nAlt()" [class]="imgClasses()" />
+          <img
+            data-slot="fallback"
+            [src]="nFallbackSrc()!"
+            [alt]="nAlt()"
+            [width]="nWidth()"
+            [height]="nHeight()"
+            [class]="imgClasses()"
+            loading="lazy"
+            decoding="async"
+          />
         } @else {
           <ng-content select="[nImageFallback]" />
         }
@@ -61,6 +83,7 @@ export class ImageComponent {
   readonly nSkeleton = input<boolean>(true);
   readonly nFallbackSrc = input<string>();
   readonly nLoaderParams = input<Record<string, string | number>>({});
+  readonly nSizes = input<string>();
   readonly nRatio = input<ImageVariants['nRatio']>('auto');
   readonly nRounded = input<ImageVariants['nRounded']>('none');
   readonly nFit = input<ImageVariants['nFit']>('cover');
@@ -68,6 +91,31 @@ export class ImageComponent {
 
   readonly nLoad = output<void>();
   readonly nError = output<void>();
+
+  private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+
+  constructor() {
+    // Browser-only (afterRenderEffect never runs on the server) — SSR-safe.
+    // Covers cache hits and SSR hydration: the (load) event does NOT refire for
+    // an <img> that is already `complete`, so the skeleton would otherwise stay
+    // stuck on top of a fully loaded image. Re-runs whenever nSrc changes.
+    afterRenderEffect(() => {
+      this.nSrc();
+      this.syncLoadedState();
+    });
+  }
+
+  private syncLoadedState(): void {
+    const img = this.elementRef.nativeElement.querySelector<HTMLImageElement>(
+      'img:not([data-slot="fallback"])',
+    );
+    if (!img || !img.complete) return;
+    if (img.naturalWidth > 0) {
+      this.handleLoad();
+    } else {
+      this.handleError();
+    }
+  }
 
   protected readonly imageLoaded = linkedSignal<boolean>(() => {
     void this.nSrc();

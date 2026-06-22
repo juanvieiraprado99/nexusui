@@ -60,8 +60,8 @@ interface ApiRow { prop: string; type: string; default: string; description: str
         <div class="mt-6">
           <app-example title="Required field" [code]="requiredCode">
             <div class="w-full max-w-sm">
-              <n-form-field>
-                <label n-form-label nRequired>Username</label>
+              <n-form-field nRequired>
+                <label n-form-label>Username</label>
                 <n-form-control>
                   <n-input nPlaceholder="john_doe" [(nValue)]="usernameValue" />
                 </n-form-control>
@@ -75,8 +75,8 @@ interface ApiRow { prop: string; type: string; default: string; description: str
         <div class="mt-6">
           <app-example title="Error state" [code]="errorCode">
             <div class="w-full max-w-sm">
-              <n-form-field>
-                <label n-form-label nRequired nInvalid>Password</label>
+              <n-form-field nRequired nInvalid>
+                <label n-form-label>Password</label>
                 <n-form-control>
                   <n-input nType="password" nPlaceholder="••••••••" nError="Password is required" [(nValue)]="passwordValue" />
                 </n-form-control>
@@ -97,8 +97,8 @@ interface ApiRow { prop: string; type: string; default: string; description: str
                 </n-form-control>
                 <n-form-message nType="default">This is a default hint message.</n-form-message>
               </n-form-field>
-              <n-form-field>
-                <label n-form-label nInvalid>Error message</label>
+              <n-form-field nInvalid>
+                <label n-form-label>Error message</label>
                 <n-form-control>
                   <n-input nPlaceholder="Enter value" nError="Required" [(nValue)]="msg2" />
                 </n-form-control>
@@ -126,14 +126,14 @@ interface ApiRow { prop: string; type: string; default: string; description: str
         <div class="mt-6">
           <app-example title="Multiple fields" [code]="multipleCode">
             <div class="w-full max-w-sm space-y-4">
-              <n-form-field>
-                <label n-form-label nRequired>First name</label>
+              <n-form-field nRequired>
+                <label n-form-label>First name</label>
                 <n-form-control>
                   <n-input nPlaceholder="John" [(nValue)]="firstName" />
                 </n-form-control>
               </n-form-field>
-              <n-form-field>
-                <label n-form-label nRequired>Last name</label>
+              <n-form-field nRequired>
+                <label n-form-label>Last name</label>
                 <n-form-control>
                   <n-input nPlaceholder="Doe" [(nValue)]="lastName" />
                 </n-form-control>
@@ -293,16 +293,16 @@ export class FormDocPage {
   <n-form-description>We'll never share your email.</n-form-description>
 </n-form-field>`;
 
-  protected readonly requiredCode = `<n-form-field>
-  <label n-form-label nRequired>Username</label>
+  protected readonly requiredCode = `<n-form-field nRequired>
+  <label n-form-label>Username</label>
   <n-form-control>
     <n-input nPlaceholder="john_doe" [(nValue)]="username" />
   </n-form-control>
   <n-form-description>This will be your public display name.</n-form-description>
 </n-form-field>`;
 
-  protected readonly errorCode = `<n-form-field>
-  <label n-form-label nRequired nInvalid>Password</label>
+  protected readonly errorCode = `<n-form-field nRequired nInvalid>
+  <label n-form-label>Password</label>
   <n-form-control>
     <n-input nType="password" nPlaceholder="••••••••" nError="Password is required" [(nValue)]="password" />
   </n-form-control>
@@ -322,15 +322,15 @@ export class FormDocPage {
 <n-form-message nType="warning">This action cannot be undone.</n-form-message>`;
 
   protected readonly multipleCode = `<div class="space-y-4">
-  <n-form-field>
-    <label n-form-label nRequired>First name</label>
+  <n-form-field nRequired>
+    <label n-form-label>First name</label>
     <n-form-control>
       <n-input nPlaceholder="John" [(nValue)]="firstName" />
     </n-form-control>
   </n-form-field>
 
-  <n-form-field>
-    <label n-form-label nRequired>Last name</label>
+  <n-form-field nRequired>
+    <label n-form-label>Last name</label>
     <n-form-control>
       <n-input nPlaceholder="Doe" [(nValue)]="lastName" />
     </n-form-control>
@@ -354,8 +354,8 @@ export class FormDocPage {
 } from '@/shared/components/form';
 import { InputComponent } from '@/shared/components/input';`;
 
-  protected readonly usageCode = `<n-form-field>
-  <label n-form-label nRequired>Email</label>
+  protected readonly usageCode = `<n-form-field nRequired [nInvalid]="email.invalid && email.touched">
+  <label n-form-label>Email</label>
   <n-form-control>
     <n-input nType="email" nPlaceholder="you@example.com" [(nValue)]="email" />
   </n-form-control>
@@ -364,6 +364,9 @@ import { InputComponent } from '@/shared/components/input';`;
 </n-form-field>`;
 
   protected readonly fieldApiRows: ApiRow[] = [
+    { prop: 'nId', type: 'string', default: "''", description: 'Explicit base field id (SSR-stable). Auto-generated when omitted; descendants derive description/message ids from it.' },
+    { prop: 'nInvalid', type: 'boolean', default: 'false', description: 'Field-level invalid state. Descendant labels read it from context (no need to repeat nInvalid per label).' },
+    { prop: 'nRequired', type: 'boolean', default: 'false', description: 'Field-level required state. Descendant labels render the asterisk (*) automatically.' },
     { prop: 'nClass', type: 'string', default: "''", description: 'Extra Tailwind classes merged onto the host element.' },
   ];
 

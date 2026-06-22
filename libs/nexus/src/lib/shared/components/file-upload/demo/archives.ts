@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-archives',
+  selector: 'demo-file-upload-archives',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
-    <n-image-upload
+    <n-file-upload
       class="w-full max-w-lg"
       nLabel="Arquivo compactado"
       nAccept="archives"
@@ -16,4 +16,4 @@ import { ImageUploadComponent } from '../image-upload.component';
     />
   `,
 })
-export class ImageUploadArchivesDemo {}
+export class FileUploadArchivesDemo {}

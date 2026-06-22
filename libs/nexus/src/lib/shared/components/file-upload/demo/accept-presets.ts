@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
-import type { AcceptPreset } from '../image-upload.types';
+import { FileUploadComponent } from '../file-upload.component';
+import type { AcceptPreset } from '../file-upload.types';
 
 const PRESETS: { value: AcceptPreset | string; label: string }[] = [
   { value: 'images',       label: 'images' },
@@ -13,9 +13,9 @@ const PRESETS: { value: AcceptPreset | string; label: string }[] = [
 ];
 
 @Component({
-  selector: 'demo-image-upload-accept-presets',
+  selector: 'demo-file-upload-accept-presets',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
     <div class="flex flex-col gap-4 w-full max-w-lg">
       <div class="flex flex-wrap gap-2">
@@ -29,7 +29,7 @@ const PRESETS: { value: AcceptPreset | string; label: string }[] = [
           >{{ p.label }}</button>
         }
       </div>
-      <n-image-upload
+      <n-file-upload
         nLabel="Arquivo"
         [nAccept]="active()"
         [nHint]="hint()"
@@ -37,7 +37,7 @@ const PRESETS: { value: AcceptPreset | string; label: string }[] = [
     </div>
   `,
 })
-export class ImageUploadAcceptPresetsDemo {
+export class FileUploadAcceptPresetsDemo {
   readonly presets = PRESETS;
   readonly active  = signal<AcceptPreset | string>('images');
   readonly hint    = computed(() => `nAccept='${this.active()}'`);

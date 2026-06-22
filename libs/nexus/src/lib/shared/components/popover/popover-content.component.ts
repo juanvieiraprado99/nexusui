@@ -12,7 +12,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  NgZone,
   OnDestroy,
+  PLATFORM_ID,
   TemplateRef,
   ViewContainerRef,
   computed,
@@ -23,6 +25,7 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { mergeClasses } from '../../utils/merge-classes';
 import { POPOVER_CONTEXT } from './popover.context';
@@ -73,6 +76,8 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
   private readonly _overlay = inject(Overlay);
   private readonly _vcr = inject(ViewContainerRef);
   private readonly _focusTrapFactory = inject(FocusTrapFactory);
+  private readonly _zone = inject(NgZone);
+  private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   private readonly _panelTpl = viewChild.required<TemplateRef<unknown>>('panel');
   private readonly _panelEl = viewChild<ElementRef<HTMLElement>>('panelEl');
@@ -84,6 +89,7 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
   private _positionSub?: Subscription;
   private _detachTimer?: ReturnType<typeof setTimeout>;
   private _hoverDocHandler?: (e: MouseEvent) => void;
+  private _focusDocHandler?: () => void;
 
   protected readonly isClosing = signal(false);
   protected readonly actualSide = signal<Side>('bottom');
@@ -133,6 +139,7 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
   }
 
   private _attach(): void {
+    if (!this._isBrowser) return;
     const trigger = this.ctx.triggerEl();
     if (!trigger || !this._portal) return;
     if (this._overlayRef?.hasAttached()) return;
@@ -175,23 +182,45 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
       });
     }
 
+    const isFocus = this.ctx.triggerMode() === 'focus';
+
     queueMicrotask(() => {
       const el = this._panelEl()?.nativeElement;
       if (!el) return;
       this.ctx.setPanelEl(el);
 
       if (isHover) {
-        // Track mouse globally: keep popover open while over trigger or panel
-        this._hoverDocHandler = (e: MouseEvent) => {
+        // Track mouse globally: keep popover open while over trigger or panel.
+        // Runs outside Angular so per-mouseover work doesn't trigger change detection;
+        // re-enter the zone only when we actually mutate the open state.
+        const hoverHandler = (e: MouseEvent) => {
           const target = e.target as Node;
           const triggerEl = this.ctx.triggerEl();
           if (el.contains(target) || triggerEl?.contains(target)) {
             this.ctx.cancelScheduledClose();
           } else {
-            this.ctx.scheduleClose(false, 150);
+            this._zone.run(() => this.ctx.scheduleClose(false, 150));
           }
         };
-        document.addEventListener('mouseover', this._hoverDocHandler);
+        this._hoverDocHandler = hoverHandler;
+        this._zone.runOutsideAngular(() =>
+          document.addEventListener('mouseover', hoverHandler, { passive: true }),
+        );
+      } else if (isFocus) {
+        // Focus trigger: do NOT move focus into the panel — that would blur the trigger
+        // and fire its (blur) scheduleClose, closing the popover immediately. Instead
+        // keep it open while focus stays within trigger or panel.
+        const focusHandler = () => {
+          const active = document.activeElement;
+          const triggerEl = this.ctx.triggerEl();
+          if (el.contains(active) || triggerEl?.contains(active)) {
+            this.ctx.cancelScheduledClose();
+          } else {
+            this._zone.run(() => this.ctx.scheduleClose(false, 150));
+          }
+        };
+        this._focusDocHandler = focusHandler;
+        this._zone.runOutsideAngular(() => document.addEventListener('focusin', focusHandler));
       } else if (this.ctx.modal()) {
         this._focusTrap = this._focusTrapFactory.create(el);
         this._focusTrap.focusInitialElementWhenReady();
@@ -205,7 +234,7 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
     clearTimeout(this._detachTimer);
     this.isClosing.set(true);
     this.ctx.setPanelEl(null);
-    this._removeHoverDocHandler();
+    this._removeDocHandlers();
 
     const triggerEl = untracked(() => this.ctx.triggerEl());
     if (triggerEl && this.ctx.modal()) triggerEl.focus({ preventScroll: true });
@@ -220,7 +249,7 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
   }
 
   private _forceDetach(): void {
-    this._removeHoverDocHandler();
+    this._removeDocHandlers();
     this._backdropSub?.unsubscribe();
     this._backdropSub = undefined;
     this._positionSub?.unsubscribe();
@@ -229,10 +258,14 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
     this._overlayRef = null;
   }
 
-  private _removeHoverDocHandler(): void {
+  private _removeDocHandlers(): void {
     if (this._hoverDocHandler) {
       document.removeEventListener('mouseover', this._hoverDocHandler);
       this._hoverDocHandler = undefined;
+    }
+    if (this._focusDocHandler) {
+      document.removeEventListener('focusin', this._focusDocHandler);
+      this._focusDocHandler = undefined;
     }
   }
 

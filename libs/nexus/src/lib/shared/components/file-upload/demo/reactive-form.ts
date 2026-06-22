@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ImageUploadComponent } from '../image-upload.component';
-import type { UploadFile } from '../image-upload.types';
+import { FileUploadComponent } from '../file-upload.component';
+import type { UploadFile } from '../file-upload.types';
 
 @Component({
-  selector: 'demo-image-upload-reactive-form',
+  selector: 'demo-file-upload-reactive-form',
   standalone: true,
-  imports: [ReactiveFormsModule, ImageUploadComponent],
+  imports: [ReactiveFormsModule, FileUploadComponent],
   template: `
     <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4 w-full max-w-lg">
-      <n-image-upload
+      <n-file-upload
         nLabel="Foto de perfil"
         nAccept="images-raster"
         nHint="JPG, PNG ou WebP · máximo 2 MB"
@@ -37,7 +37,7 @@ import type { UploadFile } from '../image-upload.types';
     </form>
   `,
 })
-export class ImageUploadReactiveFormDemo {
+export class FileUploadReactiveFormDemo {
   readonly form = new FormGroup({
     photo: new FormControl<UploadFile[]>([], {
       validators: [Validators.required, Validators.minLength(1)],

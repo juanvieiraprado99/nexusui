@@ -1,4 +1,4 @@
-# API — Image Upload
+# API — File Upload
 
 ## Inputs
 

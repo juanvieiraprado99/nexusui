@@ -6,7 +6,7 @@ import { POPOVER_CONTEXT } from './popover.context';
   standalone: true,
   host: {
     'data-slot': 'trigger',
-    'aria-haspopup': 'dialog',
+    '[attr.aria-haspopup]': "ctx.modal() ? 'dialog' : 'true'",
     '[id]': 'ctx.triggerId',
     '[attr.aria-expanded]': 'ctx.open()',
     '[attr.aria-controls]': 'ctx.open() ? ctx.contentId : null',

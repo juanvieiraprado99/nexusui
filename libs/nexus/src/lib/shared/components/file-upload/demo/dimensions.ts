@@ -1,14 +1,14 @@
 import { Component, signal } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
-import type { UploadError } from '../image-upload.types';
+import { FileUploadComponent } from '../file-upload.component';
+import type { UploadError } from '../file-upload.types';
 
 @Component({
-  selector: 'demo-image-upload-dimensions',
+  selector: 'demo-file-upload-dimensions',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
     <div class="flex flex-col gap-3 w-full max-w-lg">
-      <n-image-upload
+      <n-file-upload
         nLabel="Logo"
         nAccept="images"
         nHint="Mínimo 200×200px · máximo 1024×1024px"
@@ -24,7 +24,7 @@ import type { UploadError } from '../image-upload.types';
     </div>
   `,
 })
-export class ImageUploadDimensionsDemo {
+export class FileUploadDimensionsDemo {
   readonly lastError = signal<string>('');
 
   onReject(errors: UploadError[]): void {

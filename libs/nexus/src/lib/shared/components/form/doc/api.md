@@ -5,8 +5,12 @@
 | Input | Type | Default | Description |
 |---|---|---|---|
 | `nClass` | `string` | `''` | Extra classes merged onto the host. |
+| `nId` | `string` | `''` | Explicit base field ID. Set for SSR-stable IDs; otherwise auto-generated. |
+| `nInvalid` | `boolean` | `false` | Field-level invalid state. Descendant labels read it from context. |
+| `nRequired` | `boolean` | `false` | Field-level required state. Descendant labels render the `*` asterisk. |
 
-Provides `N_FORM_FIELD_CONTEXT` to all descendant components.
+Provides `N_FORM_FIELD_CONTEXT` to all descendant components. Set `nInvalid`/`nRequired` once on
+the field instead of repeating them on the label.
 
 ## NFormLabelComponent `label[n-form-label]`
 
@@ -56,4 +60,4 @@ Sets `role="alert"` automatically when `nType="error"`.
 
 ## Context token
 
-`N_FORM_FIELD_CONTEXT` (`InjectionToken<NFormFieldContext>`) — inject in custom controls nested inside `n-form-field` to access `fieldId`, `descriptionId`, and `messageId` signals.
+`N_FORM_FIELD_CONTEXT` (`InjectionToken<NFormFieldContext>`) — inject in custom controls nested inside `n-form-field` to access `fieldId`, `descriptionId`, `messageId`, `invalid`, and `required` signals.

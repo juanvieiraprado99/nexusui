@@ -103,6 +103,14 @@ interface ApiRow { prop: string; type: string; default: string; description: str
               </div>
             </app-example>
           </div>
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Read-only</h3>
+          <div class="mt-3">
+            <app-example title="nReadonly" [code]="readonlyCode">
+              <div class="w-full max-w-sm">
+                <n-input nLabel="Username" [(nValue)]="readonlyValue" [nReadonly]="true" />
+              </div>
+            </app-example>
+          </div>
           <h3 class="mt-8 text-sm font-medium text-muted-foreground">With label</h3>
           <div class="mt-3">
             <app-example title="nLabel / nHint / nRequired" [code]="withLabelCode">
@@ -163,6 +171,7 @@ interface ApiRow { prop: string; type: string; default: string; description: str
 export class InputDocPage {
   protected readonly installTab = signal<'cli' | 'manual'>('cli');
   protected readonly emailValue = signal('');
+  protected readonly readonlyValue = signal('johndoe');
   protected readonly emailForm = new FormGroup({
     email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
   });
@@ -175,6 +184,7 @@ export class InputDocPage {
   protected readonly errorCode = `<n-input nLabel="Email" nPlaceholder="you@example.com" nError="Please enter a valid email address." />`;
   protected readonly loadingCode = `<n-input nLabel="Search" nPlaceholder="Searching..." [nLoading]="true" />`;
   protected readonly disabledCode = `<n-input nLabel="Read only" nPlaceholder="Disabled" [nDisabled]="true" />`;
+  protected readonly readonlyCode = `<n-input nLabel="Username" [(nValue)]="username" [nReadonly]="true" />`;
   protected readonly withLabelCode = `<n-input nLabel="Username" nPlaceholder="johndoe" [nRequired]="true" />
 <n-input nLabel="Email" nType="email" nPlaceholder="name@example.com" nHint="We'll never share your email." />
 <n-input nLabel="Password" nType="password" nPlaceholder="••••••••" [nRequired]="true" />`;
@@ -221,6 +231,9 @@ export class MyPage {
     { prop: 'nRequired', type: 'boolean', default: 'false', description: 'Marks the input as required.' },
     { prop: 'nLoading', type: 'boolean', default: 'false', description: 'Shows a spinner and disables the input.' },
     { prop: 'nDisabled', type: 'boolean', default: 'false', description: 'Disables the input.' },
+    { prop: 'nReadonly', type: 'boolean', default: 'false', description: 'Makes the input read-only — focusable and still submitted with the form.' },
+    { prop: 'nAriaLabel', type: 'string', default: "''", description: 'Accessible label used when no visible nLabel is set.' },
+    { prop: 'nId', type: 'string', default: "''", description: 'Stable id override; otherwise an auto-generated id is used.' },
     { prop: 'nValue', type: 'string (model)', default: "''", description: 'Two-way bindable value of the input.' },
     { prop: '(nChange)', type: 'EventEmitter<string>', default: '—', description: 'Emitted on each input event with the new value.' },
     { prop: '(nBlur)', type: 'EventEmitter<FocusEvent>', default: '—', description: 'Emitted when the input loses focus.' },

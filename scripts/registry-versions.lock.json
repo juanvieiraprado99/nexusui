@@ -75,17 +75,17 @@
     "version": "1.0.0",
     "hash": "2988ccb2a8c1a405f7d861a500b5a825876c32b64e8e029343687572b5dee874"
   },
+  "file-upload": {
+    "version": "1.0.0",
+    "hash": "ac4a089c2329ae093163d1d6ab663bbe7ba041252d64f838ec60bfc9c3e8c82e"
+  },
   "form": {
     "version": "1.0.0",
     "hash": "e06d354f937e9633e3c5c3ab0a54effc0af1f5075cd967c6c9285be2e2124029"
   },
   "image": {
-    "version": "1.0.0",
-    "hash": "5037ff47740e7cccb7abf0058f43bc0b0d95b17ac5a853b8fd77b88d5408d5da"
-  },
-  "image-upload": {
-    "version": "1.0.0",
-    "hash": "275499959d7fc1dd98a307e5474a8da30308bb6a9f0088a66208d5184fe53c76"
+    "version": "1.1.1",
+    "hash": "c5b557de6993a6889e7a34d42ab26cb8275cac47174110c141bc54479556a82f"
   },
   "input": {
     "version": "1.0.0",
@@ -96,20 +96,20 @@
     "hash": "25019e9acfe2f523a26b483554936f82dc4c5b74fc2de20ffc4da65421136291"
   },
   "input-otp": {
-    "version": "1.0.0",
-    "hash": "7416e84f2c1c1bd20992dad23d3917f85c7adf1db62e7279d46b5f9095d62851"
+    "version": "1.1.0",
+    "hash": "2dbf324547ec03fe7b0ab014b30ce125fc10bc81138b5b08352ce7ba07aee80d"
   },
   "label": {
-    "version": "1.0.0",
-    "hash": "891afb15ee90a64a3d2c0b772cdfc0e06a56af1bc5b80e3f5dc0b5e3db664750"
+    "version": "1.0.1",
+    "hash": "985e1c8ff9cffc330c57efc7fb6dd6756b77fba7801c73a3379601eb09529411"
   },
   "pagination": {
-    "version": "1.0.0",
-    "hash": "b70c9f64cd623665dd249f81d362807c270ed3ded7e7c9c29e9881e479f1006f"
+    "version": "1.0.1",
+    "hash": "64745c15001a4fefe1949dfd816d70dc67f0365c6e59afb240bead23fe137be5"
   },
   "popover": {
-    "version": "1.0.0",
-    "hash": "36e06fdf93c777ba3ee1d385e92fd0dc331c36a5fd5b92f3912aab4a32f9d86a"
+    "version": "1.1.0",
+    "hash": "9933570d5e2dff95fade60b1fb1a1d17031c0ea9ca8300d274eed41bf418d244"
   },
   "progress-bar": {
     "version": "1.0.0",

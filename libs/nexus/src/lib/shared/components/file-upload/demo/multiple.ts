@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
-import type { UploadError } from '../image-upload.types';
+import { FileUploadComponent } from '../file-upload.component';
+import type { UploadError } from '../file-upload.types';
 
 @Component({
-  selector: 'demo-image-upload-multiple',
+  selector: 'demo-file-upload-multiple',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
-    <n-image-upload
+    <n-file-upload
       nLabel="Galeria"
       nHint="Até 5 imagens · máximo 10 MB cada"
       [nMultiple]="true"
@@ -17,7 +17,7 @@ import type { UploadError } from '../image-upload.types';
     />
   `,
 })
-export class ImageUploadMultipleDemo {
+export class FileUploadMultipleDemo {
   onReject(errors: UploadError[]): void {
     console.warn('Rejeitados:', errors);
   }

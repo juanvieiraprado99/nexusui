@@ -21,8 +21,8 @@ import {
   ],
   template: `
     <div class="w-80 space-y-4">
-      <n-form-field>
-        <label n-form-label nRequired>Full name</label>
+      <n-form-field nRequired>
+        <label n-form-label>Full name</label>
         <n-form-control #ctrl>
           <n-input [nId]="ctrl.fieldId()" nPlaceholder="John Doe" [nRequired]="true" />
         </n-form-control>

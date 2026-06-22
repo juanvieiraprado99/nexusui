@@ -1,13 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
-import type { UploadFile } from '../image-upload.types';
+import { FileUploadComponent } from '../file-upload.component';
+import type { UploadFile } from '../file-upload.types';
 
 @Component({
-  selector: 'demo-image-upload-progress-multiple',
+  selector: 'demo-file-upload-progress-multiple',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
-    <n-image-upload
+    <n-file-upload
       class="w-full max-w-lg"
       nLabel="Upload paralelo"
       nHint="Cada arquivo tem sua própria barra de progresso"
@@ -19,7 +19,7 @@ import type { UploadFile } from '../image-upload.types';
     />
   `,
 })
-export class ImageUploadProgressMultipleDemo {
+export class FileUploadProgressMultipleDemo {
   readonly files = signal<UploadFile[]>([]);
 
   simulate(): void {

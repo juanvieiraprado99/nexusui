@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { ImageUploadComponent } from '../image-upload.component';
+import { FileUploadComponent } from '../file-upload.component';
 
 @Component({
-  selector: 'demo-image-upload-disabled',
+  selector: 'demo-file-upload-disabled',
   standalone: true,
-  imports: [ImageUploadComponent],
+  imports: [FileUploadComponent],
   template: `
     <div class="flex flex-col gap-6 w-full max-w-lg">
-      <n-image-upload
+      <n-file-upload
         nLabel="Dropzone desabilitado"
         nHint="Não aceita interação"
         [nDisabled]="true"
       />
-      <n-image-upload
+      <n-file-upload
         nVariant="avatar"
         nLabel="Avatar desabilitado"
         [nDisabled]="true"
@@ -20,4 +20,4 @@ import { ImageUploadComponent } from '../image-upload.component';
     </div>
   `,
 })
-export class ImageUploadDisabledDemo {}
+export class FileUploadDisabledDemo {}

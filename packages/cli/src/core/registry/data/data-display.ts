@@ -74,7 +74,7 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
   },
   {
     name: 'pagination',
-    version: '1.0.0',
+    version: '1.0.1',
     basePath: 'components/pagination',
     registryDependencies: ['utils', 'select'],
     dependencies: ['class-variance-authority'],

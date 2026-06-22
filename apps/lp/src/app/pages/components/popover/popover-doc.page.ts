@@ -42,6 +42,7 @@ interface ApiRow {
                   <div class="flex flex-col gap-2">
                     <h4 class="font-semibold leading-none">Dimensions</h4>
                     <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+                    <button n-button nVariant="ghost" nSize="sm" n-popover-close type="button" class="mt-2 w-full">Close</button>
                   </div>
                 </n-popover-content>
               </n-popover>
@@ -96,6 +97,20 @@ interface ApiRow {
                   <button n-button nVariant="outline" n-popover-trigger type="button">Hover me</button>
                   <n-popover-content>
                     <p class="text-sm">Opens on hover, closes on mouse leave.</p>
+                  </n-popover-content>
+                </n-popover>
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Focus trigger</h3>
+          <div class="mt-3">
+            <app-example title='nTrigger="focus"' [code]="focusCode">
+              <div class="flex items-center justify-center min-h-24">
+                <n-popover nTrigger="focus">
+                  <button n-button nVariant="outline" n-popover-trigger type="button">Focus me</button>
+                  <n-popover-content>
+                    <p class="text-sm">Opens on focus, stays open while focus is inside, closes when focus leaves.</p>
                   </n-popover-content>
                 </n-popover>
               </div>
@@ -204,6 +219,9 @@ export class PopoverDocPage {
   <n-popover-content>
     <h4 class="font-semibold">Title</h4>
     <p class="text-sm text-muted-foreground">Description text.</p>
+    <button n-button nVariant="ghost" nSize="sm" n-popover-close type="button">
+      Close
+    </button>
   </n-popover-content>
 </n-popover>`;
 
@@ -211,6 +229,13 @@ export class PopoverDocPage {
   <button n-button n-popover-trigger type="button">Hover me</button>
   <n-popover-content>
     <p class="text-sm">Opens on hover.</p>
+  </n-popover-content>
+</n-popover>`;
+
+  protected readonly focusCode = `<n-popover nTrigger="focus">
+  <button n-button n-popover-trigger type="button">Focus me</button>
+  <n-popover-content>
+    <p class="text-sm">Opens on focus, closes when focus leaves.</p>
   </n-popover-content>
 </n-popover>`;
 
