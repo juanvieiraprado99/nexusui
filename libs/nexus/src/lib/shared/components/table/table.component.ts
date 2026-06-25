@@ -141,11 +141,18 @@ export class TableCaptionComponent {
   standalone: true,
   template: `<ng-content />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class]': 'classes()' },
+  host: {
+    '[class]': 'classes()',
+    // Scrollable region must be keyboard-focusable so it can be scrolled with arrow keys (WCAG 2.1.1).
+    tabindex: '0',
+    '[attr.role]': 'nLabel() ? "region" : null',
+    '[attr.aria-label]': 'nLabel() || null',
+  },
   exportAs: 'nTableScroll',
 })
 export class TableScrollComponent {
   readonly nClass = input<string>('');
+  readonly nLabel = input<string>('');
 
   protected readonly classes = computed(() => mergeClasses(tableScrollVariants(), this.nClass()));
 }

@@ -34,7 +34,7 @@ export const primitivesRegistry: ComponentRegistry[] = [
   },
   {
     name: 'skeleton',
-    version: '1.0.0',
+    version: '2.0.0',
     basePath: 'components/skeleton',
     registryDependencies: ['utils'],
     files: ['skeleton.component.ts', 'index.ts'],

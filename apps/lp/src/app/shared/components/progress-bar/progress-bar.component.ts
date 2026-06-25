@@ -55,7 +55,6 @@ export class ProgressBarComponent {
   readonly nShowValue = input<boolean>(false);
   readonly nAnimated = input<boolean>(true);
   readonly nClass = input<string>('');
-  readonly nBarClass = input<string>('');
 
   protected readonly clampedValue = computed(() => Math.min(100, Math.max(0, this.nValue())));
 
@@ -73,14 +72,12 @@ export class ProgressBarComponent {
 
     return mergeClasses(
       progressBarFillVariants({ nVariant: this.nVariant() }),
-      'h-full rounded-full',
       striped && 'progress-bar-striped',
       striped && (isIndeterminate || animated) && 'progress-bar-striped-animated',
       !isIndeterminate && animated && 'transition-[width] duration-500 ease-in-out',
       isIndeterminate && animation === 'slide' && 'animate-progress-indeterminate w-1/2',
       isIndeterminate && animation === 'bounce' && 'animate-progress-bounce w-1/2',
       isIndeterminate && animation === 'pulse' && 'animate-progress-pulse w-full',
-      this.nBarClass(),
     );
   });
 }

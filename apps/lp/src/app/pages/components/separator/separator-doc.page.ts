@@ -123,6 +123,39 @@ interface ApiRow { prop: string; type: string; default: string; description: str
               </div>
             </app-example>
           </div>
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Between content sections</h3>
+          <div class="mt-3">
+            <app-example title="Card sections" [code]="sectionsCode">
+              <div class="w-full max-w-sm rounded-lg border border-border bg-card text-card-foreground">
+                <div class="p-4">
+                  <p class="text-sm font-medium">Profile</p>
+                  <p class="text-xs text-muted-foreground">Manage your public details.</p>
+                </div>
+                <n-separator />
+                <div class="p-4">
+                  <p class="text-sm font-medium">Notifications</p>
+                  <p class="text-xs text-muted-foreground">Choose what you get notified about.</p>
+                </div>
+                <n-separator />
+                <div class="p-4">
+                  <p class="text-sm font-medium">Billing</p>
+                  <p class="text-xs text-muted-foreground">Update your payment method.</p>
+                </div>
+              </div>
+            </app-example>
+          </div>
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Inline toolbar (vertical)</h3>
+          <div class="mt-3">
+            <app-example title="Vertical between actions" [code]="toolbarCode">
+              <div class="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2 text-sm">
+                <button type="button" class="text-muted-foreground hover:text-foreground transition-colors">Edit</button>
+                <n-separator nOrientation="vertical" nClass="h-4" />
+                <button type="button" class="text-muted-foreground hover:text-foreground transition-colors">Duplicate</button>
+                <n-separator nOrientation="vertical" nClass="h-4" />
+                <button type="button" class="text-destructive hover:opacity-80 transition-opacity">Delete</button>
+              </div>
+            </app-example>
+          </div>
         </section>
 
         <section class="mt-12">
@@ -174,6 +207,22 @@ export class SeparatorDocPage {
 <n-separator nVariant="dashed" />
 <n-separator nVariant="dotted" />
 <n-separator nSize="lg" nIntensity="strong" />`;
+
+  protected readonly sectionsCode = `<div class="rounded-lg border bg-card">
+  <div class="p-4">Profile</div>
+  <n-separator />
+  <div class="p-4">Notifications</div>
+  <n-separator />
+  <div class="p-4">Billing</div>
+</div>`;
+
+  protected readonly toolbarCode = `<div class="flex items-center gap-3">
+  <button>Edit</button>
+  <n-separator nOrientation="vertical" nClass="h-4" />
+  <button>Duplicate</button>
+  <n-separator nOrientation="vertical" nClass="h-4" />
+  <button>Delete</button>
+</div>`;
 
   protected readonly importCode = `import { Component } from '@angular/core';
 import { SeparatorComponent } from './shared/components/separator';

@@ -50,6 +50,27 @@ export const sliderTrackActiveVariants = cva(
   },
 );
 
+export const sliderMarkDotVariants = cva(
+  'block w-1.5 h-1.5 rounded-full',
+  {
+    variants: {
+      nActive: {
+        true:  '',
+        false: 'bg-border',
+      },
+      nVariant: {
+        default: '',
+        accent:  '',
+      },
+    },
+    compoundVariants: [
+      { nActive: true, nVariant: 'default', class: 'bg-primary'     },
+      { nActive: true, nVariant: 'accent',  class: 'bg-violet-500'  },
+    ],
+    defaultVariants: { nActive: false, nVariant: 'default' },
+  },
+);
+
 export type SliderVariants = {
   nVariant: NonNullable<VariantProps<typeof sliderThumbVariants>['nVariant']>;
   nSize:    NonNullable<VariantProps<typeof sliderThumbVariants>['nSize']>;

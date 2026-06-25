@@ -285,6 +285,7 @@ export class MyPage {
     { prop: 'nError', type: 'string | null', default: 'null', description: 'Error message. Hides hint when set.' },
     { prop: 'nRequired', type: 'boolean', default: 'false', description: 'Marks the field as required.' },
     { prop: 'nDisabled', type: 'boolean', default: 'false', description: 'Disables the textarea.' },
+    { prop: 'nReadonly', type: 'boolean', default: 'false', description: 'Renders the textarea read-only (still focusable and submitted in forms).' },
     { prop: 'nValue', type: 'string (model)', default: "''", description: 'Two-way bindable value via [(nValue)].' },
     { prop: '(nChange)', type: 'EventEmitter<string>', default: '—', description: 'Emitted on each input event.' },
     { prop: '(nBlur)', type: 'EventEmitter<FocusEvent>', default: '—', description: 'Emitted when the textarea loses focus.' },

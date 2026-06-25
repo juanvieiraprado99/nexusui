@@ -55,5 +55,8 @@ marks: SliderMark[] = [
 |-----|--------|
 | `ArrowRight` / `ArrowUp` | Increase by step |
 | `ArrowLeft` / `ArrowDown` | Decrease by step |
+| `PageUp` / `PageDown` | Increase / decrease by 10× step |
 | `Home` | Jump to minimum |
 | `End` | Jump to maximum |
+
+When `nShowTooltip` is enabled the value tooltip appears while dragging **and** when a thumb has keyboard focus. With `nShowInputs`, pressing `Enter` in a side input commits its value (it also commits on blur).

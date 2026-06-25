@@ -171,28 +171,28 @@ import { SkeletonComponent } from '../../shared/components/skeleton';
           <div class="rounded-lg border border-border/60 bg-card p-5 shadow-sm transition-colors hover:border-border space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="text-sm font-semibold">Recent Activity</h3>
-              <n-skeleton class="h-4 w-16" />
+              <n-skeleton nClass="h-4 w-16" />
             </div>
             <div class="space-y-3">
               <div class="flex items-center gap-3">
-                <n-skeleton class="h-8 w-8 shrink-0 rounded-full" />
+                <n-skeleton nShape="circle" nClass="h-8 w-8 shrink-0" />
                 <div class="flex-1 space-y-1.5">
-                  <n-skeleton class="h-3 w-3/4" />
-                  <n-skeleton class="h-3 w-1/2" />
+                  <n-skeleton nClass="h-3 w-3/4" />
+                  <n-skeleton nClass="h-3 w-1/2" />
                 </div>
               </div>
               <div class="flex items-center gap-3">
-                <n-skeleton class="h-8 w-8 shrink-0 rounded-full" />
+                <n-skeleton nShape="circle" nClass="h-8 w-8 shrink-0" />
                 <div class="flex-1 space-y-1.5">
-                  <n-skeleton class="h-3 w-2/3" />
-                  <n-skeleton class="h-3 w-2/5" />
+                  <n-skeleton nClass="h-3 w-2/3" />
+                  <n-skeleton nClass="h-3 w-2/5" />
                 </div>
               </div>
               <div class="flex items-center gap-3">
-                <n-skeleton class="h-8 w-8 shrink-0 rounded-full" />
+                <n-skeleton nShape="circle" nClass="h-8 w-8 shrink-0" />
                 <div class="flex-1 space-y-1.5">
-                  <n-skeleton class="h-3 w-1/2" />
-                  <n-skeleton class="h-3 w-1/3" />
+                  <n-skeleton nClass="h-3 w-1/2" />
+                  <n-skeleton nClass="h-3 w-1/3" />
                 </div>
               </div>
             </div>

@@ -71,6 +71,18 @@ interface ApiRow { prop: string; type: string; default: string; description: str
               </div>
             </app-example>
           </div>
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Colors</h3>
+          <div class="mt-3">
+            <app-example title="nColor: any CSS color" [code]="colorsCode">
+              <div class="flex flex-col gap-3 w-full max-w-sm">
+                <n-skeleton nClass="h-4 w-full" />
+                <n-skeleton nColor="#f87171" nClass="h-4 w-full" />
+                <n-skeleton nColor="rgb(167 139 250)" nClass="h-4 w-3/4" />
+                <n-skeleton nColor="oklch(0.7 0.12 200)" nClass="h-4 w-2/3" />
+                <n-skeleton nColor="#34d399" nClass="h-4 w-1/2" />
+              </div>
+            </app-example>
+          </div>
           <h3 class="mt-8 text-sm font-medium text-muted-foreground">Card skeleton</h3>
           <div class="mt-3">
             <app-example title="Composite layout" [code]="cardCode">
@@ -143,9 +155,17 @@ import { SkeletonComponent } from './shared/components/skeleton';
 export class MyPage {}`;
 
   protected readonly usageCode = `<n-skeleton nClass="h-4 w-full" />
-<n-skeleton nShape="circle" nClass="h-10 w-10" />`;
+<n-skeleton nShape="circle" nClass="h-10 w-10" />
+<n-skeleton nColor="#f87171" nClass="h-4 w-full" />`;
+
+  protected readonly colorsCode = `<n-skeleton nClass="h-4 w-full" />
+<n-skeleton nColor="#f87171" nClass="h-4 w-full" />
+<n-skeleton nColor="rgb(167 139 250)" nClass="h-4 w-3/4" />
+<n-skeleton nColor="oklch(0.7 0.12 200)" nClass="h-4 w-2/3" />
+<n-skeleton nColor="#34d399" nClass="h-4 w-1/2" />`;
 
   protected readonly apiRows: ApiRow[] = [
+    { prop: 'nColor', type: 'string', default: "''", description: 'Any CSS color, applied as inline background-color. Empty falls back to bg-muted.' },
     { prop: 'nShape', type: "'default' | 'circle'", default: "'default'", description: "Shape of the skeleton. 'circle' applies rounded-full." },
     { prop: 'nClass', type: 'string', default: "''", description: 'Tailwind classes for size and additional styling (e.g. h-4 w-full).' },
   ];

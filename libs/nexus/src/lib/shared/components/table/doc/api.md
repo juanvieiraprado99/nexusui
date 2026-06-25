@@ -52,8 +52,9 @@
 
 ## `n-table-scroll`
 
-Responsive wrapper with `overflow-x-auto`. Wrap any `table[n-table]` to enable horizontal scrolling on narrow viewports.
+Responsive wrapper with `overflow-x-auto`. Wrap any `table[n-table]` to enable horizontal scrolling on narrow viewports. The wrapper is keyboard-focusable (`tabindex="0"`) so the overflow can be scrolled with arrow keys (WCAG 2.1.1). Set `nLabel` to expose it as a named ARIA `region` for screen readers.
 
 | Input | Type | Default | Description |
 |---|---|---|---|
+| `nLabel` | `string` | `''` | Accessible name. When set, the wrapper becomes `role="region"` with this `aria-label`. |
 | `nClass` | `string` | `''` | Extra Tailwind classes |

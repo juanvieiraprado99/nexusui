@@ -3,7 +3,7 @@ import type { ComponentRegistry } from './types';
 export const dataDisplayRegistry: ComponentRegistry[] = [
   {
     name: 'table',
-    version: '1.0.0',
+    version: '1.1.0',
     basePath: 'components/table',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],
@@ -58,7 +58,7 @@ export const dataDisplayRegistry: ComponentRegistry[] = [
   },
   {
     name: 'tabs',
-    version: '1.0.0',
+    version: '1.1.0',
     basePath: 'components/tabs',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],

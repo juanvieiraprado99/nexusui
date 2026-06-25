@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
-  afterEveryRender,
+  afterNextRender,
+  afterRenderEffect,
   computed,
   inject,
   input,
@@ -38,7 +40,8 @@ import { tabsListVariants } from './tabs.variants';
   },
 })
 export class TabsListComponent {
-  private readonly _el  = inject(ElementRef<HTMLElement>);
+  private readonly _el         = inject(ElementRef<HTMLElement>);
+  private readonly _destroyRef = inject(DestroyRef);
   protected readonly ctx = inject(TABS_CONTEXT);
 
   readonly nClass = input<string>('');
@@ -90,9 +93,27 @@ export class TabsListComponent {
   });
 
   constructor() {
-    afterEveryRender(() => {
+    // Re-measure only when the active tab / variant / orientation actually changes
+    // (afterRenderEffect runs after the DOM is committed and re-runs when the signals
+    // read in its body change — not on every change-detection cycle).
+    afterRenderEffect(() => {
+      this.ctx.activeValue();
+      this.ctx.orientation();
+      this.ctx.variant();
+      this.ctx.stretch();
       if (!this.showIndicator()) return;
       this._measure();
+    });
+
+    // Keep the indicator aligned when the list resizes or fonts finish loading
+    // (resize does not trigger change detection in zoneless apps). Browser-only.
+    afterNextRender(() => {
+      if (typeof ResizeObserver === 'undefined') return;
+      const ro = new ResizeObserver(() => {
+        if (this.showIndicator()) this._measure();
+      });
+      ro.observe(this._el.nativeElement);
+      this._destroyRef.onDestroy(() => ro.disconnect());
     });
   }
 

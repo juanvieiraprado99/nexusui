@@ -42,3 +42,12 @@ import { SkeletonComponent } from '@/shared/components/skeleton';
   </div>
 </div>
 ```
+
+### Colors
+
+```html
+<n-skeleton nColor="#f87171" nClass="h-4 w-full" />
+<n-skeleton nColor="rgb(167 139 250)" nClass="h-4 w-3/4" />
+<n-skeleton nColor="oklch(0.7 0.12 200)" nShape="circle" nClass="h-12 w-12" />
+<n-skeleton nColor="#34d399" nClass="h-4 w-1/2" />
+```

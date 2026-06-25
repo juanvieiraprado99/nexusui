@@ -156,6 +156,25 @@ interface ApiRow {
               </div>
             </app-example>
           </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">Disabled</h3>
+          <div class="mt-3">
+            <app-example title="nDisabled" [code]="disabledCode">
+              <div class="w-72">
+                <n-slider nLabel="Disabled" [nValue]="40" [nDisabled]="true" />
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-8 text-sm font-medium text-muted-foreground">States</h3>
+          <div class="mt-3">
+            <app-example title="nHint / nError" [code]="statesCode">
+              <div class="w-72 space-y-6">
+                <n-slider nLabel="Brightness" [nValue]="50" nHint="Drag to adjust the screen brightness." />
+                <n-slider nLabel="Budget" [nValue]="90" nError="Value exceeds the allowed maximum." />
+              </div>
+            </app-example>
+          </div>
         </section>
 
         <section class="mt-12">
@@ -255,6 +274,11 @@ export class MyPage {
 
   protected readonly variantsCode = `<n-slider nVariant="default" nLabel="Default" />
 <n-slider nVariant="accent" nLabel="Accent" />`;
+
+  protected readonly disabledCode = `<n-slider nLabel="Disabled" [nValue]="40" [nDisabled]="true" />`;
+
+  protected readonly statesCode = `<n-slider nLabel="Brightness" [nValue]="50" nHint="Drag to adjust the screen brightness." />
+<n-slider nLabel="Budget" [nValue]="90" nError="Value exceeds the allowed maximum." />`;
 
   protected readonly apiRows: ApiRow[] = [
     { prop: 'nValue', type: 'number | [number, number] (model)', default: '0', description: 'Current value. Use a tuple [min, max] when nRange is true.' },

@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   computed,
   forwardRef,
+  inject,
   input,
   model,
   output,
@@ -255,6 +257,7 @@ export class SelectComponent implements ControlValueAccessor {
   constructor() {
     Object.defineProperty(this.context, 'triggerId', { get: () => `${this.selectId()}-trigger` });
     Object.defineProperty(this.context, 'contentId', { get: () => `${this.selectId()}-content` });
+    inject(DestroyRef).onDestroy(() => this._clearTypeAhead());
   }
 
   private _registerLabel(value: string, label: string): void {

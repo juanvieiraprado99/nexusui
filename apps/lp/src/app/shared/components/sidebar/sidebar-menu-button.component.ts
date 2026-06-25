@@ -21,6 +21,7 @@ import { sidebarMenuButtonVariants, type SidebarMenuButtonVariants } from './sid
   host: {
     '[class]': 'classes()',
     '[attr.data-active]': 'nActive() ? "" : null',
+    '[attr.aria-current]': 'nActive() ? "page" : null',
     '[attr.title]': 'ctx.collapsed() && nTooltip() ? nTooltip() : null',
     'data-slot': 'menu-button',
   },

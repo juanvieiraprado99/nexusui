@@ -19,6 +19,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { injectFormControl } from '../../utils/form-control';
 import { mergeClasses } from '../../utils/merge-classes';
 import { LabelComponent } from '../label';
+import { ButtonComponent } from '../button';
 import type { SignatureOutputFormat, SignaturePoint, SignatureStroke } from './signature.types';
 
 let _signatureIdCounter = 0;
@@ -26,7 +27,7 @@ let _signatureIdCounter = 0;
 @Component({
   selector: 'n-signature',
   standalone: true,
-  imports: [LabelComponent],
+  imports: [LabelComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'contents' },
   template: `
@@ -60,9 +61,11 @@ let _signatureIdCounter = 0;
           <div class="flex justify-end gap-1.5">
             @if (!isEmpty()) {
               <button
-                type="button"
+                n-button
+                nVariant="outline"
+                nSize="sm"
+                nClass="h-7 gap-1.5 px-2 text-xs text-muted-foreground"
                 (click)="undo()"
-                class="inline-flex h-7 items-center gap-1.5 rounded-md border border-input bg-background px-2 text-xs text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
                 aria-label="Desfazer último traço"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
@@ -70,9 +73,11 @@ let _signatureIdCounter = 0;
               </button>
             }
             <button
-              type="button"
+              n-button
+              nVariant="outline"
+              nSize="sm"
+              nClass="h-7 px-2 text-xs text-muted-foreground"
               (click)="clear()"
-              class="inline-flex h-7 items-center rounded-md border border-input bg-background px-2 text-xs text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
               aria-label="Limpar assinatura"
             >
               {{ nClearLabel() }}

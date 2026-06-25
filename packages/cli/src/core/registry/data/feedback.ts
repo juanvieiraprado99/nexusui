@@ -19,7 +19,7 @@ export const feedbackRegistry: ComponentRegistry[] = [
   },
   {
     name: 'progress-bar',
-    version: '1.0.0',
+    version: '1.1.0',
     basePath: 'components/progress-bar',
     registryDependencies: ['utils'],
     dependencies: ['class-variance-authority'],

@@ -55,7 +55,7 @@ interface ApiRow {
                   </li>
                   <li class="pt-3">Copy <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">progress-bar.component.ts</code>, <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">progress-bar.variants.ts</code>, and <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">index.ts</code> into <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">src/app/shared/components/progress-bar/</code>.</li>
                   <li class="pt-3">Ensure <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">mergeClasses</code> util exists at <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground font-mono">src/app/shared/utils/merge-classes.ts</code>.</li>
-                  <li class="pt-3">Add the indeterminate keyframes to your global CSS:
+                  <li class="pt-3">Add the animation keyframes to your global CSS:
                     <div class="mt-2 ml-5"><app-code-block [code]="indeterminateCssCode" language="css" /></div>
                   </li>
                 </ol>
@@ -255,9 +255,51 @@ export class MyPage {}`;
   0%   { transform: translateX(-100%); }
   100% { transform: translateX(250%); }
 }
-
 .animate-progress-indeterminate {
   animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-bounce {
+  0%, 100% { transform: translateX(-100%); }
+  50%      { transform: translateX(200%); }
+}
+.animate-progress-bounce {
+  animation: progress-bounce 2s ease-in-out infinite;
+}
+
+@keyframes progress-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+.animate-progress-pulse {
+  animation: progress-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-stripes {
+  0%   { background-position: 1rem 0; }
+  100% { background-position: 0 0; }
+}
+.progress-bar-striped {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent
+  );
+  background-size: 1rem 1rem;
+}
+.progress-bar-striped-animated {
+  animation: progress-stripes 1s linear infinite;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-progress-indeterminate,
+  .animate-progress-bounce,
+  .animate-progress-pulse,
+  .progress-bar-striped-animated {
+    animation: none;
+  }
 }`;
 
   protected readonly apiRows: ApiRow[] = [
@@ -271,6 +313,5 @@ export class MyPage {}`;
     { prop: 'nShowValue', type: 'boolean', default: 'false', description: 'Renders the percentage text below the track.' },
     { prop: 'nAnimated', type: 'boolean', default: 'true', description: 'Enables CSS width transition on value change.' },
     { prop: 'nClass', type: 'string', default: "''", description: 'Extra Tailwind classes appended to the host wrapper.' },
-    { prop: 'nBarClass', type: 'string', default: "''", description: 'Extra Tailwind classes appended to the fill element.' },
   ];
 }

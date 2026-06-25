@@ -293,6 +293,15 @@ html {
   animation: progress-stripes 1s linear infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-progress-indeterminate,
+  .animate-progress-bounce,
+  .animate-progress-pulse,
+  .progress-bar-striped-animated {
+    animation: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

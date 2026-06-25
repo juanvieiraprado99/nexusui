@@ -11,7 +11,7 @@
 | `nRange` | `boolean` | `false` | Enable two-thumb range mode |
 | `nOrientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Track direction |
 | `nMarks` | `SliderMark[]` | `[]` | Tick marks with optional labels |
-| `nShowTooltip` | `boolean` | `true` | Show value tooltip while dragging |
+| `nShowTooltip` | `boolean` | `true` | Show value tooltip while dragging or when a thumb is focused |
 | `nShowInputs` | `boolean` | `false` | Show numeric input(s) beside the track |
 | `nDisabled` | `boolean` | `false` | Disabled state |
 | `nSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | Track and thumb size |

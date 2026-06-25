@@ -309,7 +309,7 @@ interface Invoice {
           <h3 class="mt-8 text-sm font-medium text-muted-foreground">Scrollable</h3>
           <div class="mt-3">
             <app-example title="n-table-scroll wrapper" [code]="scrollableCode">
-              <n-table-scroll>
+              <n-table-scroll nLabel="Invoices">
                 <table n-table>
                   <thead n-table-header>
                     <tr n-table-row>
@@ -443,7 +443,8 @@ export class TableDocPage {
   </tfoot>
 </table>`;
 
-  protected readonly scrollableCode = `<n-table-scroll>
+  protected readonly scrollableCode = `<!-- nLabel makes it a focusable, announced scroll region (keyboard + SR) -->
+<n-table-scroll nLabel="Invoices">
   <table n-table>
     ...many columns...
   </table>
@@ -496,6 +497,6 @@ export class TableDocPage {
     { element: 'TableHeadComponent', selector: 'th[n-table-head]', inputs: 'nClass', description: 'Table header cell.' },
     { element: 'TableCellComponent', selector: 'td[n-table-cell]', inputs: 'nClass', description: 'Table data cell.' },
     { element: 'TableCaptionComponent', selector: 'caption[n-table-caption]', inputs: 'nClass', description: 'Table caption, displayed below the table.' },
-    { element: 'TableScrollComponent', selector: 'n-table-scroll', inputs: 'nClass', description: 'Responsive horizontal scroll container.' },
+    { element: 'TableScrollComponent', selector: 'n-table-scroll', inputs: 'nLabel, nClass', description: 'Responsive horizontal scroll container. Keyboard-focusable; set nLabel to expose it as a named ARIA region.' },
   ];
 }

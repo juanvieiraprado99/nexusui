@@ -14,6 +14,7 @@ import { injectFormControl } from '../../utils/form-control';
 import { mergeClasses } from '../../utils/merge-classes';
 import { LabelComponent } from '../label';
 import {
+  sliderMarkDotVariants,
   sliderThumbVariants,
   sliderTrackActiveVariants,
   sliderTrackVariants,
@@ -32,7 +33,6 @@ let _sliderIdCounter = 0;
   host: { class: 'contents' },
   template: `
     <div data-slot="root" [class]="rootClasses()">
-
       @if (nLabel()) {
         <n-label [nFor]="sliderId()" [nRequired]="nRequired()" [nDisabled]="isDisabled()">
           {{ nLabel() }}
@@ -40,45 +40,28 @@ let _sliderIdCounter = 0;
       }
 
       <div data-slot="control-wrapper" [class]="controlWrapperClasses()">
-
         @if (nShowInputs()) {
           <input
             type="text"
-            inputmode="numeric"
+            inputmode="decimal"
             data-slot="input-start"
             [value]="inputStartDisplay()"
             [disabled]="isDisabled()"
             [attr.aria-label]="nRange() ? 'Minimum value' : 'Value'"
             [class]="sideInputClasses()"
             (input)="onInputFilter($event)"
+            (keydown.enter)="onInputCommit($event, 0)"
             (blur)="onInputStartBlur($event)"
           />
         }
 
         <div data-slot="track-wrapper" [class]="trackWrapperClasses()">
-          <div
-            #trackEl
-            data-slot="track"
-            [class]="trackClasses()"
-            (pointerdown)="onTrackPointerDown($event)"
-          >
-            <div
-              data-slot="track-active"
-              [class]="trackActiveClasses()"
-              [style]="activeTrackStyle()"
-            ></div>
+          <div #trackEl data-slot="track" [class]="trackClasses()" (pointerdown)="onTrackPointerDown($event)">
+            <div data-slot="track-active" [class]="trackActiveClasses()" [style]="activeTrackStyle()"></div>
 
             @for (mark of nMarks(); track mark.value) {
-              <span
-                data-slot="mark"
-                class="absolute"
-                [style]="markOffsetStyle(mark.value)"
-              >
-                <span
-                  data-slot="mark-dot"
-                  class="block w-1.5 h-1.5 rounded-full"
-                  [class]="isMarkActive(mark) ? markActiveDotClass() : 'bg-border'"
-                ></span>
+              <span data-slot="mark" class="absolute" [style]="markOffsetStyle(mark.value)">
+                <span data-slot="mark-dot" [class]="markDotClasses(mark)"></span>
                 @if (mark.label) {
                   <span data-slot="mark-label" [class]="markLabelClasses()">{{ mark.label }}</span>
                 }
@@ -87,7 +70,7 @@ let _sliderIdCounter = 0;
 
             <div
               data-slot="thumb-0"
-              tabindex="0"
+              [attr.tabindex]="isDisabled() ? -1 : 0"
               role="slider"
               [attr.id]="sliderId()"
               [attr.aria-valuenow]="thumbValues()[0]"
@@ -96,7 +79,7 @@ let _sliderIdCounter = 0;
               [attr.aria-valuetext]="'' + thumbValues()[0]"
               [attr.aria-orientation]="nOrientation()"
               [attr.aria-disabled]="isDisabled() ? true : null"
-              [attr.aria-label]="nRange() ? 'Minimum' : (nAriaLabel() || nLabel() || null)"
+              [attr.aria-label]="nRange() ? 'Minimum' : nAriaLabel() || nLabel() || null"
               [attr.aria-describedby]="describedBy()"
               [class]="thumbClasses()"
               [style]="thumbOffsetStyle(0)"
@@ -104,8 +87,10 @@ let _sliderIdCounter = 0;
               (pointermove)="onThumbMove($event, 0)"
               (pointerup)="onThumbUp($event)"
               (keydown)="onThumbKey($event, 0)"
+              (focus)="onThumbFocus(0)"
+              (blur)="onThumbBlur()"
             >
-              @if (nShowTooltip() && isDragging() && activeThumb() === 0) {
+              @if (nShowTooltip() && isThumbVisible(0)) {
                 <div data-slot="tooltip-0" [class]="tooltipClasses()">{{ thumbValues()[0] }}</div>
               }
             </div>
@@ -113,7 +98,7 @@ let _sliderIdCounter = 0;
             @if (nRange()) {
               <div
                 data-slot="thumb-1"
-                tabindex="0"
+                [attr.tabindex]="isDisabled() ? -1 : 0"
                 role="slider"
                 [attr.aria-valuenow]="thumbValues()[1]"
                 [attr.aria-valuemin]="thumbValues()[0]"
@@ -128,8 +113,10 @@ let _sliderIdCounter = 0;
                 (pointermove)="onThumbMove($event, 1)"
                 (pointerup)="onThumbUp($event)"
                 (keydown)="onThumbKey($event, 1)"
+                (focus)="onThumbFocus(1)"
+                (blur)="onThumbBlur()"
               >
-                @if (nShowTooltip() && isDragging() && activeThumb() === 1) {
+                @if (nShowTooltip() && isThumbVisible(1)) {
                   <div data-slot="tooltip-1" [class]="tooltipClasses()">{{ thumbValues()[1] }}</div>
                 }
               </div>
@@ -140,69 +127,74 @@ let _sliderIdCounter = 0;
         @if (nShowInputs() && nRange()) {
           <input
             type="text"
-            inputmode="numeric"
+            inputmode="decimal"
             data-slot="input-end"
             [value]="inputEndDisplay()"
             [disabled]="isDisabled()"
             aria-label="Maximum value"
             [class]="sideInputClasses()"
             (input)="onInputFilter($event)"
+            (keydown.enter)="onInputCommit($event, 1)"
             (blur)="onInputEndBlur($event)"
           />
         }
-
       </div>
 
       @if (hasError()) {
-        <p [id]="errorId()" class="mt-1 text-xs text-destructive" role="alert" data-slot="error">
+        <p [id]="errorId()" class="text-destructive mt-1 text-xs" role="alert" data-slot="error">
           {{ nError() }}
         </p>
       }
 
       @if (nHint() && !hasError()) {
-        <p [id]="hintId()" class="mt-1 text-xs text-muted-foreground" data-slot="hint">
+        <p [id]="hintId()" class="text-muted-foreground mt-1 text-xs" data-slot="hint">
           {{ nHint() }}
         </p>
       }
-
     </div>
   `,
 })
 export class SliderComponent implements ControlValueAccessor {
-  readonly nValue       = model<number | [number, number]>(0);
-  readonly nMin         = input<number>(0);
-  readonly nMax         = input<number>(100);
-  readonly nStep        = input<number>(1);
-  readonly nRange       = input<boolean>(false);
+  readonly nValue = model<number | [number, number]>(0);
+  readonly nMin = input<number>(0);
+  readonly nMax = input<number>(100);
+  readonly nStep = input<number>(1);
+  readonly nRange = input<boolean>(false);
   readonly nOrientation = input<'horizontal' | 'vertical'>('horizontal');
-  readonly nMarks       = input<SliderMark[]>([]);
+  readonly nMarks = input<SliderMark[]>([]);
   readonly nShowTooltip = input<boolean>(true);
-  readonly nShowInputs  = input<boolean>(false);
-  readonly nDisabled    = input<boolean>(false);
-  readonly nSize        = input<SliderVariants['nSize']>('md');
-  readonly nVariant     = input<SliderVariants['nVariant']>('default');
-  readonly nClass       = input<string>('');
-  readonly nId          = input<string>('');
-  readonly nLabel       = input<string>('');
-  readonly nError       = input<string | null>(null);
-  readonly nHint        = input<string | null>(null);
-  readonly nRequired    = input<boolean>(false);
-  readonly nAriaLabel   = input<string>('');
+  readonly nShowInputs = input<boolean>(false);
+  readonly nDisabled = input<boolean>(false);
+  readonly nSize = input<SliderVariants['nSize']>('md');
+  readonly nVariant = input<SliderVariants['nVariant']>('default');
+  readonly nClass = input<string>('');
+  readonly nId = input<string>('');
+  readonly nLabel = input<string>('');
+  readonly nError = input<string | null>(null);
+  readonly nHint = input<string | null>(null);
+  readonly nRequired = input<boolean>(false);
+  readonly nAriaLabel = input<string>('');
 
   readonly nChange = output<number | [number, number]>();
 
-  private readonly _form     = injectFormControl<number | [number, number]>(this);
+  private readonly _form = injectFormControl<number | [number, number]>(this);
   private readonly _staticId = `n-slider-${++_sliderIdCounter}`;
   private readonly _trackRef = viewChild<ElementRef<HTMLDivElement>>('trackEl');
 
-  protected readonly isDragging  = signal(false);
+  protected readonly isDragging = signal(false);
   protected readonly activeThumb = signal<0 | 1>(0);
+  protected readonly focusedThumb = signal<0 | 1 | null>(null);
 
-  protected readonly isDisabled  = computed(() => this.nDisabled() || this._form.disabledByForm());
-  protected readonly hasError    = computed(() => !!this.nError() || (this._form.controlInvalid() && this._form.controlTouched()));
-  protected readonly sliderId    = computed(() => this.nId() || this._staticId);
-  protected readonly errorId     = computed(() => `${this.sliderId()}-error`);
-  protected readonly hintId      = computed(() => `${this.sliderId()}-hint`);
+  /** Track rect cached on pointer-down to avoid layout reads on every pointermove. */
+  private _cachedRect: DOMRect | null = null;
+
+  protected readonly isDisabled = computed(() => this.nDisabled() || this._form.disabledByForm());
+  protected readonly hasError = computed(
+    () => !!this.nError() || (this._form.controlInvalid() && this._form.controlTouched())
+  );
+  protected readonly sliderId = computed(() => this.nId() || this._staticId);
+  protected readonly errorId = computed(() => `${this.sliderId()}-error`);
+  protected readonly hintId = computed(() => `${this.sliderId()}-hint`);
   protected readonly describedBy = computed(() => {
     if (this.hasError()) return this.errorId();
     if (this.nHint()) return this.hintId();
@@ -216,7 +208,7 @@ export class SliderComponent implements ControlValueAccessor {
   });
 
   protected readonly inputStartDisplay = computed(() => String(this.thumbValues()[0]));
-  protected readonly inputEndDisplay   = computed(() => String(this.thumbValues()[1]));
+  protected readonly inputEndDisplay = computed(() => String(this.thumbValues()[1]));
 
   // ── Styles ──────────────────────────────────────────────────────────────────
 
@@ -252,42 +244,35 @@ export class SliderComponent implements ControlValueAccessor {
 
   // ── Classes ──────────────────────────────────────────────────────────────────
 
-  protected readonly rootClasses = computed(() =>
-    mergeClasses('flex flex-col w-full', this.nClass()),
-  );
+  protected readonly rootClasses = computed(() => mergeClasses('flex flex-col w-full', this.nClass()));
 
   protected readonly controlWrapperClasses = computed(() =>
-    mergeClasses(
-      'flex items-center gap-3',
-      this.nOrientation() === 'vertical' && 'flex-col',
-    ),
+    mergeClasses('flex items-center gap-3', this.nOrientation() === 'vertical' && 'flex-col')
   );
 
   protected readonly trackWrapperClasses = computed(() =>
     mergeClasses(
       'relative',
-      this.nOrientation() === 'vertical'
-        ? 'flex justify-center h-40'
-        : 'flex items-center h-5 flex-1',
-    ),
+      this.nOrientation() === 'vertical' ? 'flex justify-center h-40' : 'flex items-center h-5 flex-1'
+    )
   );
 
   protected readonly trackClasses = computed(() =>
     mergeClasses(
       sliderTrackVariants({ nSize: this.nSize(), nOrientation: this.nOrientation() }),
-      !this.isDisabled() && 'cursor-pointer',
-    ),
+      !this.isDisabled() && 'cursor-pointer'
+    )
   );
 
   protected readonly trackActiveClasses = computed(() =>
-    mergeClasses(sliderTrackActiveVariants({ nVariant: this.nVariant() })),
+    mergeClasses(sliderTrackActiveVariants({ nVariant: this.nVariant() }))
   );
 
   protected readonly thumbClasses = computed(() =>
     mergeClasses(
       sliderThumbVariants({ nSize: this.nSize(), nVariant: this.nVariant() }),
-      this.isDisabled() && 'opacity-50 pointer-events-none cursor-not-allowed',
-    ),
+      this.isDisabled() && 'opacity-50 pointer-events-none cursor-not-allowed'
+    )
   );
 
   protected readonly tooltipClasses = computed(() =>
@@ -295,28 +280,29 @@ export class SliderComponent implements ControlValueAccessor {
       'absolute rounded bg-popover text-popover-foreground text-xs font-medium px-2 py-1 shadow-md whitespace-nowrap pointer-events-none z-20',
       this.nOrientation() === 'vertical'
         ? 'left-6 top-1/2 -translate-y-1/2'
-        : 'bottom-full left-1/2 -translate-x-1/2 mb-1',
-    ),
+        : 'bottom-full left-1/2 -translate-x-1/2 mb-1'
+    )
   );
 
+  // Side inputs use a bare <input> rather than n-input on purpose: n-input is a composed
+  // form-field (label + error/hint + spinner, string value) and is too heavy for a compact
+  // numeric box beside the track. LabelComponent is reused for the slider's own label.
   protected readonly sideInputClasses = computed(() =>
     mergeClasses(
       'w-16 h-8 px-2 text-sm border border-input rounded-md bg-background text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring',
-      this.isDisabled() && 'opacity-50 cursor-not-allowed',
-    ),
+      this.isDisabled() && 'opacity-50 cursor-not-allowed'
+    )
   );
 
-  protected readonly markActiveDotClass = computed(() =>
-    this.nVariant() === 'accent' ? 'bg-violet-500' : 'bg-primary',
-  );
+  protected markDotClasses(mark: SliderMark): string {
+    return sliderMarkDotVariants({ nActive: this.isMarkActive(mark), nVariant: this.nVariant() });
+  }
 
   protected readonly markLabelClasses = computed(() =>
     mergeClasses(
       'absolute text-xs text-muted-foreground whitespace-nowrap',
-      this.nOrientation() === 'vertical'
-        ? 'left-3 top-0 -translate-y-1/2'
-        : 'top-3 left-0 -translate-x-1/2',
-    ),
+      this.nOrientation() === 'vertical' ? 'left-3 top-0 -translate-y-1/2' : 'top-3 left-0 -translate-x-1/2'
+    )
   );
 
   // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -339,9 +325,8 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   private _pointerToValue(e: PointerEvent): number | null {
-    const track = this._trackRef()?.nativeElement;
-    if (!track) return null;
-    const rect = track.getBoundingClientRect();
+    const rect = this._cachedRect ?? this._trackRef()?.nativeElement.getBoundingClientRect();
+    if (!rect) return null;
     let ratio: number;
     if (this.nOrientation() === 'vertical') {
       ratio = 1 - (e.clientY - rect.top) / rect.height;
@@ -377,6 +362,7 @@ export class SliderComponent implements ControlValueAccessor {
     const slot = (e.target as HTMLElement).dataset['slot'] ?? '';
     if (slot.startsWith('thumb')) return;
 
+    this._cachedRect = this._trackRef()?.nativeElement.getBoundingClientRect() ?? null;
     const newValue = this._pointerToValue(e);
     if (newValue === null) return;
 
@@ -388,6 +374,7 @@ export class SliderComponent implements ControlValueAccessor {
       this._updateThumb(0, newValue);
     }
 
+    this._cachedRect = null;
     this._form.notifyTouched();
     this._emit();
   }
@@ -399,6 +386,7 @@ export class SliderComponent implements ControlValueAccessor {
     e.preventDefault();
     e.stopPropagation();
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    this._cachedRect = this._trackRef()?.nativeElement.getBoundingClientRect() ?? null;
     this.isDragging.set(true);
     this.activeThumb.set(thumbIndex);
   }
@@ -413,8 +401,22 @@ export class SliderComponent implements ControlValueAccessor {
   protected onThumbUp(_e: PointerEvent): void {
     if (!this.isDragging()) return;
     this.isDragging.set(false);
+    this._cachedRect = null;
     this._form.notifyTouched();
     this._emit();
+  }
+
+  protected onThumbFocus(thumbIndex: 0 | 1): void {
+    this.focusedThumb.set(thumbIndex);
+  }
+
+  protected onThumbBlur(): void {
+    this.focusedThumb.set(null);
+  }
+
+  /** Tooltip is visible while dragging or when the thumb has keyboard focus. */
+  protected isThumbVisible(thumbIndex: 0 | 1): boolean {
+    return (this.isDragging() && this.activeThumb() === thumbIndex) || this.focusedThumb() === thumbIndex;
   }
 
   // ── Keyboard ─────────────────────────────────────────────────────────────────
@@ -422,17 +424,21 @@ export class SliderComponent implements ControlValueAccessor {
   protected onThumbKey(e: KeyboardEvent, thumbIndex: 0 | 1): void {
     if (this.isDisabled()) return;
     const step = this.nStep();
+    const bigStep = step * 10;
     const current = this.thumbValues()[thumbIndex];
-    let next: number | null = null;
+    let next: number;
 
-    if (e.key === 'ArrowRight' || e.key === 'ArrowUp')   next = current + step;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') next = current + step;
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') next = current - step;
+    else if (e.key === 'PageUp') next = current + bigStep;
+    else if (e.key === 'PageDown') next = current - bigStep;
     else if (e.key === 'Home') next = this.nMin();
-    else if (e.key === 'End')  next = this.nMax();
+    else if (e.key === 'End') next = this.nMax();
     else return;
 
     e.preventDefault();
     this._updateThumb(thumbIndex, next);
+    this._form.notifyTouched();
     this._emit();
   }
 
@@ -443,22 +449,21 @@ export class SliderComponent implements ControlValueAccessor {
     el.value = el.value.replace(/[^0-9.-]/g, '');
   }
 
-  protected onInputStartBlur(e: FocusEvent): void {
+  protected onInputCommit(e: Event, index: 0 | 1): void {
     const raw = parseFloat((e.target as HTMLInputElement).value);
     if (!isNaN(raw)) {
-      this._updateThumb(0, raw);
+      this._updateThumb(index, raw);
       this._form.notifyTouched();
       this._emit();
     }
   }
 
+  protected onInputStartBlur(e: FocusEvent): void {
+    this.onInputCommit(e, 0);
+  }
+
   protected onInputEndBlur(e: FocusEvent): void {
-    const raw = parseFloat((e.target as HTMLInputElement).value);
-    if (!isNaN(raw)) {
-      this._updateThumb(1, raw);
-      this._form.notifyTouched();
-      this._emit();
-    }
+    this.onInputCommit(e, 1);
   }
 
   // ── ControlValueAccessor ──────────────────────────────────────────────────────

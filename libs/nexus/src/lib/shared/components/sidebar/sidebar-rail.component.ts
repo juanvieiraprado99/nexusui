@@ -9,17 +9,27 @@ import { SIDEBAR_CONTEXT } from './sidebar.context';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class]': 'classes()',
+    'role': 'button',
     '[attr.aria-label]': '"Toggle sidebar"',
+    '[attr.aria-expanded]': 'ctx.open()',
     '[attr.title]': '"Toggle sidebar"',
     'data-slot': 'rail',
-    'tabindex': '-1',
+    'tabindex': '0',
     '(click)': 'ctx.toggle()',
+    '(keydown)': 'onKeydown($event)',
   },
 })
 export class SidebarRailComponent {
   readonly nClass = input<string>('');
 
   protected readonly ctx = inject(SIDEBAR_CONTEXT);
+
+  protected onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.ctx.toggle();
+    }
+  }
 
   protected readonly classes = computed(() =>
     mergeClasses(

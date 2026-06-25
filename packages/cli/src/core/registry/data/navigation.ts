@@ -5,7 +5,7 @@ export const navigationRegistry: ComponentRegistry[] = [
     name: 'sidebar',
     version: '1.0.0',
     basePath: 'components/sidebar',
-    registryDependencies: ['utils'],
+    registryDependencies: ['utils', 'separator'],
     dependencies: ['class-variance-authority', '@angular/common'],
     files: [
       'sidebar.context.ts',

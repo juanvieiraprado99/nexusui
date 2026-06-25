@@ -67,10 +67,10 @@ A set of composable table primitives for displaying structured data. Use `n-tabl
 
 ## Scrollable (responsive)
 
-Wrap in `n-table-scroll` to enable horizontal scroll on small screens:
+Wrap in `n-table-scroll` to enable horizontal scroll on small screens. The wrapper is keyboard-focusable; pass `nLabel` to expose it as a named ARIA region for screen readers:
 
 ```html
-<n-table-scroll>
+<n-table-scroll nLabel="Invoices">
   <table n-table>
     ...
   </table>

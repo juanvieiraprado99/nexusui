@@ -1,21 +1,27 @@
-﻿import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { mergeClasses } from '@/shared/utils/merge-classes';
+import { skeletonVariants, type SkeletonVariants } from './skeleton.variants';
 
 @Component({
   selector: 'n-skeleton',
   standalone: true,
   template: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class]': 'classes()' },
+  host: {
+    '[class]': 'classes()',
+    '[style.background-color]': 'nColor() || null',
+    '[attr.aria-hidden]': 'true',
+  },
 })
 export class SkeletonComponent {
-  readonly nShape = input<'default' | 'circle'>('default');
+  /** Any CSS color (e.g. '#f87171', 'rgb(...)', 'oklch(...)'). Empty falls back to `bg-muted`. */
+  readonly nColor = input<string>('');
+  readonly nShape = input<SkeletonVariants['nShape']>('default');
   readonly nClass = input<string>('');
 
   protected readonly classes = computed(() =>
     mergeClasses(
-      'block animate-pulse bg-muted',
-      this.nShape() === 'circle' ? 'rounded-full' : 'rounded-md',
+      skeletonVariants({ nShape: this.nShape() }),
       this.nClass(),
     ),
   );

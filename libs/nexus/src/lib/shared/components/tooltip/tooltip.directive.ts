@@ -52,7 +52,7 @@ interface TaggedPosition {
     '(mouseleave)': '_hide()',
     '(focus)': '_show()',
     '(blur)': '_hide()',
-    '(keydown.escape)': '_hide()',
+    '(keydown.escape)': '_onEscape($event)',
   },
 })
 export class TooltipDirective implements OnDestroy {
@@ -125,6 +125,12 @@ export class TooltipDirective implements OnDestroy {
     this._overlayRef = null;
     this._compRef = null;
     this._isOpen.set(false);
+  }
+
+  _onEscape(event: Event): void {
+    if (!this._isOpen()) return;
+    event.stopPropagation();
+    this._hide();
   }
 
   ngOnDestroy(): void {

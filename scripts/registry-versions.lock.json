@@ -108,12 +108,12 @@
     "hash": "64745c15001a4fefe1949dfd816d70dc67f0365c6e59afb240bead23fe137be5"
   },
   "popover": {
-    "version": "1.1.0",
-    "hash": "9933570d5e2dff95fade60b1fb1a1d17031c0ea9ca8300d274eed41bf418d244"
+    "version": "1.1.2",
+    "hash": "e5513f010dafa640e4d8fa93b8401690241060281feaa58f54bc06dd577983ef"
   },
   "progress-bar": {
-    "version": "1.0.0",
-    "hash": "675d1dba77c6b53d1b9de4e96ba568c6ac8a66939fc68666b6fd550ca4d845ba"
+    "version": "1.1.0",
+    "hash": "852bf71c9ad347f3bd000023bb0448e9a5048918d3242b83767d44a776b5ea66"
   },
   "radio": {
     "version": "1.0.0",
@@ -136,32 +136,32 @@
     "hash": "5fd43f55867d55b6a3f5139b2e6731bd26ee60ff56e35143bf7b8c63ecf507e6"
   },
   "signature": {
-    "version": "1.0.0",
-    "hash": "c0d2b7195a0d3c3888b67fea9f7c7dc94763c6ff797c73e5ca59dc4352e17e9c"
+    "version": "1.0.1",
+    "hash": "8abc7058921a50ea29dde10786408fe2649dedcd71a814a5cc33c9a6f2d0b028"
   },
   "skeleton": {
-    "version": "1.0.0",
-    "hash": "7261ba90a9b616e478bf3c6d13aaf6990062226ca4ffb3d7f87b6951d77acdc0"
+    "version": "2.0.0",
+    "hash": "17bf63ce6d7057bb2f0a97e5c8f73d9377276523dd7ae2f1b7e59450682f5634"
   },
   "slider": {
-    "version": "1.0.0",
-    "hash": "460c4c5494f4bd598ebf93aeb60b99d2743082efe49cfb83b908cb0731fcefb4"
+    "version": "1.1.0",
+    "hash": "98789773d6b61c328b3e715944cd8e9992afdaedcdf21aff088bca95384561a1"
   },
   "sonner": {
     "version": "1.0.0",
     "hash": "82f1824a7c000e16084ad15ea730e7db3a857458624cf85b2e80a11326158b36"
   },
   "switch": {
-    "version": "1.0.0",
-    "hash": "17fcbde82f4d81b6664bdbca9d5477c1c62ec00151f370f00c3c861f4dbbf78e"
+    "version": "1.1.0",
+    "hash": "69afe5ccdd9dc92c735a54b6a3642179588369fc2ddbb2415e10f2e93c8895bd"
   },
   "table": {
-    "version": "1.0.0",
-    "hash": "71089d6f0d37c23744a6f399068d1ed7e7233b0473613090773cea7459cf8f7c"
+    "version": "1.1.0",
+    "hash": "03543e8864303fa7c28a2d2f2244a0ed68319b54c3eecf2e0e766c7414ea284b"
   },
   "tabs": {
-    "version": "1.0.0",
-    "hash": "b77429ca8815da6948b34702fff76a944c0a86eb8ea73757dabe0e364835e3a2"
+    "version": "1.1.0",
+    "hash": "264a30418e99805ffedb9e65a43e291edb2893018edc93740f25d7b3e4d1cd6a"
   },
   "textarea": {
     "version": "1.0.0",

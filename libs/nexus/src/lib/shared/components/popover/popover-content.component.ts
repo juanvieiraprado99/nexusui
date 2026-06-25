@@ -90,6 +90,8 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
   private _detachTimer?: ReturnType<typeof setTimeout>;
   private _hoverDocHandler?: (e: MouseEvent) => void;
   private _focusDocHandler?: () => void;
+  private _exitEndHandler?: (e: AnimationEvent) => void;
+  private _exitEndEl?: HTMLElement;
 
   protected readonly isClosing = signal(false);
   protected readonly actualSide = signal<Side>('bottom');
@@ -97,7 +99,9 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
   protected readonly classes = computed(() =>
     mergeClasses(
       popoverContentVariants({ nSize: this.nSize() }),
-      this.isClosing() && 'animate-out fade-out-0 zoom-out-95',
+      this.isClosing()
+        ? 'animate-out fade-out-0 zoom-out-95 fill-mode-forwards data-[side=top]:slide-out-to-bottom-2 data-[side=bottom]:slide-out-to-top-2 data-[side=left]:slide-out-to-right-2 data-[side=right]:slide-out-to-left-2'
+        : 'animate-in fade-in-0 zoom-in-95 data-[side=top]:slide-in-from-bottom-2 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2',
       this.nClass(),
     ),
   );
@@ -121,6 +125,7 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
     effect(() => {
       if (this.ctx.open()) {
         clearTimeout(this._detachTimer);
+        this._removeExitEndHandler();
         this.isClosing.set(false);
         this._attach();
       } else if (this._overlayRef) {
@@ -232,6 +237,7 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
 
   private _beginDetach(): void {
     clearTimeout(this._detachTimer);
+    this._removeExitEndHandler();
     this.isClosing.set(true);
     this.ctx.setPanelEl(null);
     this._removeDocHandlers();
@@ -242,20 +248,48 @@ export class PopoverContentComponent implements AfterViewInit, OnDestroy {
     this._focusTrap?.destroy();
     this._focusTrap = null;
 
+    // Detach when the exit animation actually ends — not on a fixed timer that races
+    // the animation. tailwindcss-animate's exit has no fill-mode, so if the element is
+    // still mounted after the animation completes it snaps back to fully visible (blink).
+    // The `fill-mode-forwards` class holds the end-state; this listener disposes exactly
+    // when the animation finishes. The timer below is only a fallback (reduced-motion,
+    // missing utility, or no animation runs).
+    const el = this._panelEl()?.nativeElement;
+    if (el) {
+      const handler = (e: AnimationEvent) => {
+        if (e.target !== el) return; // ignore bubbling from children
+        this._forceDetach();
+      };
+      this._exitEndHandler = handler;
+      this._exitEndEl = el;
+      this._zone.runOutsideAngular(() => el.addEventListener('animationend', handler));
+    }
+
     this._detachTimer = setTimeout(() => {
-      this.isClosing.set(false);
       this._forceDetach();
-    }, 150);
+    }, 250);
   }
 
   private _forceDetach(): void {
+    if (!this._overlayRef) return; // idempotent: animationend + fallback timer may both fire
+    clearTimeout(this._detachTimer);
+    this._removeExitEndHandler();
     this._removeDocHandlers();
     this._backdropSub?.unsubscribe();
     this._backdropSub = undefined;
     this._positionSub?.unsubscribe();
     this._positionSub = undefined;
-    this._overlayRef?.dispose();
+    this._overlayRef.dispose();
     this._overlayRef = null;
+    this.isClosing.set(false);
+  }
+
+  private _removeExitEndHandler(): void {
+    if (this._exitEndHandler && this._exitEndEl) {
+      this._exitEndEl.removeEventListener('animationend', this._exitEndHandler);
+    }
+    this._exitEndHandler = undefined;
+    this._exitEndEl = undefined;
   }
 
   private _removeDocHandlers(): void {

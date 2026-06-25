@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   afterNextRender,
   computed,
+  inject,
   input,
   signal,
   viewChild,
@@ -51,6 +53,7 @@ import {
     '[attr.role]': 'nDecorative() ? "none" : "separator"',
     '[attr.aria-orientation]':
       'nDecorative() ? null : (nOrientation() === "vertical" ? "vertical" : null)',
+    '[attr.aria-label]': 'nDecorative() ? null : (nLabel() || null)',
   },
 })
 export class SeparatorComponent {
@@ -66,6 +69,7 @@ export class SeparatorComponent {
 
   private readonly _contentSlot = viewChild<ElementRef<HTMLElement>>('contentSlot');
   private readonly _hasProjected = signal(false);
+  private readonly _destroyRef = inject(DestroyRef);
 
   protected readonly hasMiddle = computed(
     () => !!this.nLabel() || this._hasProjected(),
@@ -89,11 +93,19 @@ export class SeparatorComponent {
   );
 
   constructor() {
+    // Browser-only. Detects projected content and keeps tracking it, so the
+    // separator reacts to content added/removed after init (e.g. an @if icon).
     afterNextRender(() => {
       const el = this._contentSlot()?.nativeElement;
-      const has = !!el && (el.childNodes.length > 0 && (el.textContent?.trim().length ?? 0) > 0
-        || (el?.childElementCount ?? 0) > 0);
-      this._hasProjected.set(has);
+      if (!el) return;
+      const update = () =>
+        this._hasProjected.set(
+          (el.textContent?.trim().length ?? 0) > 0 || el.childElementCount > 0,
+        );
+      update();
+      const observer = new MutationObserver(update);
+      observer.observe(el, { childList: true, subtree: true, characterData: true });
+      this._destroyRef.onDestroy(() => observer.disconnect());
     });
   }
 }

@@ -68,7 +68,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'switch',
-    version: '1.0.0',
+    version: '1.1.0',
     basePath: 'components/switch',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -104,7 +104,7 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'slider',
-    version: '1.0.0',
+    version: '1.1.0',
     basePath: 'components/slider',
     registryDependencies: ['utils', 'label'],
     dependencies: ['class-variance-authority', '@angular/forms'],
@@ -142,9 +142,9 @@ export const formsRegistry: ComponentRegistry[] = [
   },
   {
     name: 'signature',
-    version: '1.0.0',
+    version: '1.0.1',
     basePath: 'components/signature',
-    registryDependencies: ['utils', 'label'],
+    registryDependencies: ['utils', 'label', 'button'],
     dependencies: ['@angular/forms'],
     devDependencies: [],
     files: [

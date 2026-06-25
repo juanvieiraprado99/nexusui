@@ -8,11 +8,12 @@
 | `nVariant`       | `'default' \| 'success' \| 'warning' \| 'destructive'` | `'default'`   | Fill color variant.                                  |
 | `nSize`          | `'sm' \| 'default' \| 'lg'`                            | `'default'`   | Track height.                                        |
 | `nIndeterminate` | `boolean`                                               | `false`       | Animated state for unknown-duration progress.        |
+| `nAnimation`     | `'slide' \| 'bounce' \| 'pulse'`                       | `'slide'`     | Indeterminate animation style. Only applies when `nIndeterminate` is `true`. |
+| `nStriped`       | `boolean`                                               | `false`       | Adds a diagonal stripe pattern to the fill. Stripes animate when `nAnimated` or `nIndeterminate`. |
 | `nLabel`         | `string`                                                | `''`          | Accessible label (`aria-label` on the track).        |
 | `nShowValue`     | `boolean`                                               | `false`       | Renders the percentage text below the track.         |
 | `nAnimated`      | `boolean`                                               | `true`        | Enables CSS width transition on value change.        |
 | `nClass`         | `string`                                                | `''`          | Extra Tailwind classes appended to the host wrapper. |
-| `nBarClass`      | `string`                                                | `''`          | Extra Tailwind classes appended to the fill element. |
 
 ## Selector
 

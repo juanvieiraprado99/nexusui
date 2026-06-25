@@ -24,7 +24,8 @@ export class SidebarMenuActionComponent {
       'hover:bg-accent hover:text-accent-foreground',
       'focus-visible:ring-2',
       '[&>svg]:size-4',
-      this.nShowOnHover() && 'opacity-0 group-hover/menu-item:opacity-100',
+      this.nShowOnHover() &&
+        'opacity-0 group-hover/menu-item:opacity-100 group-focus-within/menu-item:opacity-100 focus-visible:opacity-100',
       'peer-hover/menu-button:text-accent-foreground',
       this.nClass(),
     ),

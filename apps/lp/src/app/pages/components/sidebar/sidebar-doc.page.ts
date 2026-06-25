@@ -6,12 +6,15 @@ import {
   SidebarRailComponent,
   SidebarHeaderComponent,
   SidebarContentComponent,
+  SidebarFooterComponent,
   SidebarGroupComponent,
   SidebarGroupLabelComponent,
+  SidebarGroupActionComponent,
   SidebarMenuComponent,
   SidebarMenuItemComponent,
   SidebarMenuButtonComponent,
   SidebarMenuBadgeComponent,
+  SidebarMenuActionComponent,
   SidebarSeparatorComponent,
 } from '../../../shared/components/sidebar';
 import { DocsLayoutComponent } from '../../../shared/layout/docs-layout.component';
@@ -36,10 +39,10 @@ interface NavItem {
   selector: 'app-sidebar-doc-page',
   imports: [
     SidebarProviderComponent, SidebarComponent, SidebarTriggerComponent, SidebarRailComponent,
-    SidebarHeaderComponent, SidebarContentComponent,
-    SidebarGroupComponent, SidebarGroupLabelComponent,
+    SidebarHeaderComponent, SidebarContentComponent, SidebarFooterComponent,
+    SidebarGroupComponent, SidebarGroupLabelComponent, SidebarGroupActionComponent,
     SidebarMenuComponent, SidebarMenuItemComponent, SidebarMenuButtonComponent,
-    SidebarMenuBadgeComponent, SidebarSeparatorComponent,
+    SidebarMenuBadgeComponent, SidebarMenuActionComponent, SidebarSeparatorComponent,
     DocsLayoutComponent, CodeBlockComponent, ExampleComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -175,6 +178,120 @@ interface NavItem {
               </div>
             </app-example>
           </div>
+
+          <h3 class="mt-10 text-sm font-medium text-muted-foreground">Footer & row actions</h3>
+          <p class="mt-1 text-sm text-muted-foreground">A group action, per-item action (revealed on hover or keyboard focus), and a footer.</p>
+          <div class="mt-3">
+            <app-example title="Footer & actions" [code]="actionsCode">
+              <div class="h-80 w-full overflow-hidden rounded-lg border border-border">
+                <n-sidebar-provider [nDefaultOpen]="true">
+                  <n-sidebar nCollapsible="none">
+                    <n-sidebar-content>
+                      <n-sidebar-group>
+                        <n-sidebar-group-label>Projects</n-sidebar-group-label>
+                        <button n-sidebar-group-action nAriaLabel="Add project">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                        <n-sidebar-menu>
+                          @for (item of projectItems; track item.label) {
+                            <n-sidebar-menu-item class="group/menu-item relative">
+                              <n-sidebar-menu-button [nActive]="item.active ?? false">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [innerHTML]="item.icon" aria-hidden="true"></svg>
+                                <span>{{ item.label }}</span>
+                              </n-sidebar-menu-button>
+                              <button n-sidebar-menu-action [nShowOnHover]="true" nAriaLabel="More options for {{ item.label }}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                              </button>
+                            </n-sidebar-menu-item>
+                          }
+                        </n-sidebar-menu>
+                      </n-sidebar-group>
+                    </n-sidebar-content>
+                    <n-sidebar-separator />
+                    <n-sidebar-footer>
+                      <n-sidebar-menu>
+                        <n-sidebar-menu-item>
+                          <n-sidebar-menu-button>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <span>Account</span>
+                          </n-sidebar-menu-button>
+                        </n-sidebar-menu-item>
+                      </n-sidebar-menu>
+                    </n-sidebar-footer>
+                  </n-sidebar>
+                  <main class="flex flex-1 flex-col gap-4 p-4">
+                    <span class="text-sm text-muted-foreground">Tab through the menu — each row's action appears on focus.</span>
+                  </main>
+                </n-sidebar-provider>
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-10 text-sm font-medium text-muted-foreground">Right side</h3>
+          <div class="mt-3">
+            <app-example title='nSide="right"' [code]="rightCode">
+              <div class="h-80 w-full overflow-hidden rounded-lg border border-border">
+                <n-sidebar-provider [nDefaultOpen]="true">
+                  <main class="flex flex-1 flex-col gap-4 p-4">
+                    <div class="flex items-center gap-2">
+                      <n-sidebar-trigger />
+                      <span class="text-sm text-muted-foreground">Sidebar docks to the right edge.</span>
+                    </div>
+                  </main>
+                  <n-sidebar nSide="right" nCollapsible="icon">
+                    <n-sidebar-content>
+                      <n-sidebar-group>
+                        <n-sidebar-group-label>Navigation</n-sidebar-group-label>
+                        <n-sidebar-menu>
+                          @for (item of navItems; track item.label) {
+                            <n-sidebar-menu-item>
+                              <n-sidebar-menu-button [nActive]="item.active ?? false">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [innerHTML]="item.icon" aria-hidden="true"></svg>
+                                <span>{{ item.label }}</span>
+                              </n-sidebar-menu-button>
+                            </n-sidebar-menu-item>
+                          }
+                        </n-sidebar-menu>
+                      </n-sidebar-group>
+                    </n-sidebar-content>
+                    <n-sidebar-rail />
+                  </n-sidebar>
+                </n-sidebar-provider>
+              </div>
+            </app-example>
+          </div>
+
+          <h3 class="mt-10 text-sm font-medium text-muted-foreground">Floating & inset variants</h3>
+          <div class="mt-3">
+            <app-example title='nVariant="floating"' [code]="floatingCode">
+              <div class="h-80 w-full overflow-hidden rounded-lg border border-border bg-muted/20">
+                <n-sidebar-provider [nDefaultOpen]="true">
+                  <n-sidebar nVariant="floating" nCollapsible="icon">
+                    <n-sidebar-content>
+                      <n-sidebar-group>
+                        <n-sidebar-group-label>Navigation</n-sidebar-group-label>
+                        <n-sidebar-menu>
+                          @for (item of navItems; track item.label) {
+                            <n-sidebar-menu-item>
+                              <n-sidebar-menu-button [nActive]="item.active ?? false">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [innerHTML]="item.icon" aria-hidden="true"></svg>
+                                <span>{{ item.label }}</span>
+                              </n-sidebar-menu-button>
+                            </n-sidebar-menu-item>
+                          }
+                        </n-sidebar-menu>
+                      </n-sidebar-group>
+                    </n-sidebar-content>
+                    <n-sidebar-rail />
+                  </n-sidebar>
+                  <main class="flex flex-1 flex-col gap-4 p-4">
+                    <n-sidebar-trigger />
+                    <span class="text-sm text-muted-foreground">Floating panel detaches from the edge.</span>
+                  </main>
+                </n-sidebar-provider>
+              </div>
+            </app-example>
+          </div>
         </section>
 
         <section class="mt-12">
@@ -239,6 +356,12 @@ export class SidebarDocPage {
     { label: 'Settings', icon: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>' },
   ];
 
+  protected readonly projectItems: NavItem[] = [
+    { label: 'Design system', icon: '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>', active: true },
+    { label: 'Marketing site', icon: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>' },
+    { label: 'Mobile app', icon: '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/>' },
+  ];
+
   protected readonly navGroups = [
     {
       title: 'Main',
@@ -296,6 +419,53 @@ export class SidebarDocPage {
     <!-- page content -->
   </main>
 </n-sidebar-provider>`;
+
+  protected readonly actionsCode = `<n-sidebar nCollapsible="none">
+  <n-sidebar-content>
+    <n-sidebar-group>
+      <n-sidebar-group-label>Projects</n-sidebar-group-label>
+      <button n-sidebar-group-action nAriaLabel="Add project">+</button>
+      <n-sidebar-menu>
+        <n-sidebar-menu-item class="group/menu-item relative">
+          <n-sidebar-menu-button>Design system</n-sidebar-menu-button>
+          <button n-sidebar-menu-action [nShowOnHover]="true" nAriaLabel="More">…</button>
+        </n-sidebar-menu-item>
+      </n-sidebar-menu>
+    </n-sidebar-group>
+  </n-sidebar-content>
+  <n-sidebar-separator />
+  <n-sidebar-footer>
+    <n-sidebar-menu>
+      <n-sidebar-menu-item>
+        <n-sidebar-menu-button>Account</n-sidebar-menu-button>
+      </n-sidebar-menu-item>
+    </n-sidebar-menu>
+  </n-sidebar-footer>
+</n-sidebar>`;
+
+  protected readonly rightCode = `<n-sidebar-provider [nDefaultOpen]="true">
+  <main class="flex flex-1 flex-col">
+    <n-sidebar-trigger />
+    <!-- page content -->
+  </main>
+  <n-sidebar nSide="right" nCollapsible="icon">
+    <n-sidebar-content>...</n-sidebar-content>
+    <n-sidebar-rail />
+  </n-sidebar>
+</n-sidebar-provider>`;
+
+  protected readonly floatingCode = `<n-sidebar nVariant="floating" nCollapsible="icon">
+  <n-sidebar-content>
+    <n-sidebar-group>
+      <n-sidebar-menu>
+        <n-sidebar-menu-item>
+          <n-sidebar-menu-button [nActive]="true">Dashboard</n-sidebar-menu-button>
+        </n-sidebar-menu-item>
+      </n-sidebar-menu>
+    </n-sidebar-group>
+  </n-sidebar-content>
+  <n-sidebar-rail />
+</n-sidebar>`;
 
   protected readonly importCode = `import { Component } from '@angular/core';
 import {

@@ -3,16 +3,13 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  PLATFORM_ID,
   WritableSignal,
-  computed,
+  afterNextRender,
   effect,
   forwardRef,
-  inject,
   input,
   signal,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import {
   SIDEBAR_CONTEXT,
   type SidebarCollapsible,
@@ -53,14 +50,15 @@ export class SidebarProviderComponent implements OnInit, OnDestroy {
   readonly nStorageKey = input<string>('');
   readonly nKeyboardShortcut = input<string>('b');
 
-  private readonly _platformId = inject(PLATFORM_ID);
-  private readonly _isBrowser = isPlatformBrowser(this._platformId);
   private readonly _staticId = `n-sidebar-${++_sidebarIdCounter}`;
 
   protected readonly _open = signal<boolean>(true);
   private readonly _collapsed = signal<boolean>(false);
   protected readonly _isMobile = signal<boolean>(false);
   private readonly _collapsible: WritableSignal<SidebarCollapsible> = signal('offcanvas');
+  // Stays false during SSR + first client render so hydration matches the server.
+  // Browser-only state (matchMedia, localStorage) is applied after, via afterNextRender.
+  private readonly _hydrated = signal<boolean>(false);
 
   private _mediaQuery?: MediaQueryList;
   private _mobileListener?: () => void;
@@ -78,32 +76,39 @@ export class SidebarProviderComponent implements OnInit, OnDestroy {
   };
 
   constructor() {
-    if (this._isBrowser) {
+    // Persist only after hydration — otherwise the first effect run on the client
+    // would write the default state over the stored value before we read it.
+    effect(() => {
+      const key = this.nStorageKey();
+      if (!key || !this._hydrated()) return;
+      localStorage.setItem(`${key}-open`, String(this._open()));
+      localStorage.setItem(`${key}-collapsed`, String(this._collapsed()));
+    });
+
+    // Browser-only: runs after the first render, so server HTML and the first
+    // client paint are identical (defaults). Stored/responsive state applies after.
+    afterNextRender(() => {
       this._mediaQuery = window.matchMedia('(max-width: 767px)');
       this._isMobile.set(this._mediaQuery.matches);
       this._mobileListener = () => this._isMobile.set(this._mediaQuery!.matches);
       this._mediaQuery.addEventListener('change', this._mobileListener);
-    }
 
-    effect(() => {
       const key = this.nStorageKey();
-      if (!key || !this._isBrowser) return;
-      localStorage.setItem(`${key}-open`, String(this._open()));
-      localStorage.setItem(`${key}-collapsed`, String(this._collapsed()));
+      if (key) {
+        const storedOpen = localStorage.getItem(`${key}-open`);
+        const storedCollapsed = localStorage.getItem(`${key}-collapsed`);
+        if (storedOpen !== null) this._open.set(storedOpen === 'true');
+        if (storedCollapsed !== null) this._collapsed.set(storedCollapsed === 'true');
+      }
+
+      this._hydrated.set(true);
     });
   }
 
+  // Deterministic on both server and client (no browser APIs) so hydration matches.
   ngOnInit(): void {
-    const key = this.nStorageKey();
-    if (key && this._isBrowser) {
-      const storedOpen = localStorage.getItem(`${key}-open`);
-      const storedCollapsed = localStorage.getItem(`${key}-collapsed`);
-      this._open.set(storedOpen !== null ? storedOpen === 'true' : this.nDefaultOpen());
-      this._collapsed.set(storedCollapsed !== null ? storedCollapsed === 'true' : this.nDefaultCollapsed());
-    } else {
-      this._open.set(this.nDefaultOpen());
-      this._collapsed.set(this.nDefaultCollapsed());
-    }
+    this._open.set(this.nDefaultOpen());
+    this._collapsed.set(this.nDefaultCollapsed());
   }
 
   ngOnDestroy(): void {

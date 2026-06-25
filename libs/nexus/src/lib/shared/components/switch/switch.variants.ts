@@ -45,3 +45,26 @@ export const switchThumbVariants = cva(
 );
 
 export type SwitchVariants = VariantProps<typeof switchVariants>;
+
+type SwitchSize = NonNullable<SwitchVariants['nSize']>;
+
+/** Thumb x-translate when checked, keyed by size. `label` = wider track when nShowTrackLabel. */
+export const switchThumbTranslate: Record<SwitchSize, { normal: string; label: string }> = {
+  sm:      { normal: 'translate-x-4', label: 'translate-x-9'  },
+  default: { normal: 'translate-x-5', label: 'translate-x-10' },
+  lg:      { normal: 'translate-x-7', label: 'translate-x-11' },
+};
+
+/** Extra track width when nShowTrackLabel is enabled, keyed by size. */
+export const switchTrackLabelWidth: Record<SwitchSize, string> = {
+  sm:      'w-[3.5rem]',
+  default: 'w-16',
+  lg:      'w-[4.5rem]',
+};
+
+/** Spinner size inside the thumb, keyed by size. */
+export const switchSpinnerSize: Record<SwitchSize, string> = {
+  sm:      'size-2.5',
+  default: 'size-3',
+  lg:      'size-4',
+};

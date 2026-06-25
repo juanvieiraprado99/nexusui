@@ -10,7 +10,14 @@ import { ControlValueAccessor } from '@angular/forms';
 import { injectFormControl } from '../../utils/form-control';
 import { mergeClasses } from '../../utils/merge-classes';
 import { LabelComponent } from '../label';
-import { switchVariants, switchThumbVariants, type SwitchVariants } from './switch.variants';
+import {
+  switchVariants,
+  switchThumbVariants,
+  switchThumbTranslate,
+  switchTrackLabelWidth,
+  switchSpinnerSize,
+  type SwitchVariants,
+} from './switch.variants';
 
 let _switchIdCounter = 0;
 
@@ -147,11 +154,8 @@ export class SwitchComponent implements ControlValueAccessor {
   );
 
   protected readonly trackClasses = computed(() => {
-    const hasLabel = this.nShowTrackLabel();
     const size = this.nSize() ?? 'default';
-    const extraWidth = hasLabel
-      ? size === 'sm' ? 'w-[3.5rem]' : size === 'lg' ? 'w-[4.5rem]' : 'w-16'
-      : '';
+    const extraWidth = this.nShowTrackLabel() ? switchTrackLabelWidth[size] : '';
     return mergeClasses(
       switchVariants({ nSize: this.nSize(), nColor: this.nColor() }),
       extraWidth,
@@ -159,27 +163,16 @@ export class SwitchComponent implements ControlValueAccessor {
   });
 
   protected readonly thumbClasses = computed(() => {
-    const hasLabel = this.nShowTrackLabel();
     const size = this.nSize() ?? 'default';
-    const checked = this.nChecked();
-
-    const translateMap: Record<string, { normal: string; label: string }> = {
-      sm:      { normal: 'translate-x-4',  label: 'translate-x-9'  },
-      default: { normal: 'translate-x-5',  label: 'translate-x-10' },
-      lg:      { normal: 'translate-x-7',  label: 'translate-x-11' },
-    };
-    const t = translateMap[size] ?? translateMap['default'];
-    const translate = checked ? (hasLabel ? t.label : t.normal) : 'translate-x-0';
+    const t = switchThumbTranslate[size];
+    const translate = this.nChecked()
+      ? (this.nShowTrackLabel() ? t.label : t.normal)
+      : 'translate-x-0';
 
     return mergeClasses(switchThumbVariants({ nSize: this.nSize() }), translate);
   });
 
-  protected readonly spinnerSizeClasses = computed(() => {
-    const size = this.nSize() ?? 'default';
-    if (size === 'sm') return 'size-2.5';
-    if (size === 'lg') return 'size-4';
-    return 'size-3';
-  });
+  protected readonly spinnerSizeClasses = computed(() => switchSpinnerSize[this.nSize() ?? 'default']);
 
   protected toggle(): void {
     const next = !this.nChecked();

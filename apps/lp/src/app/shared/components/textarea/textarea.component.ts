@@ -1,11 +1,18 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  PLATFORM_ID,
+  afterNextRender,
   computed,
+  effect,
+  inject,
   input,
   model,
   output,
+  viewChild,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ControlValueAccessor } from '@angular/forms';
 import { injectFormControl } from '@/shared/utils/form-control';
 import { mergeClasses } from '@/shared/utils/merge-classes';
@@ -28,15 +35,18 @@ let _textareaIdCounter = 0;
 
       <div class="relative" data-slot="control-wrapper">
         <textarea
+          #control
           [id]="textareaId()"
           [placeholder]="nPlaceholder()"
           [disabled]="isDisabled()"
+          [readonly]="nReadonly()"
           [required]="nRequired()"
           [rows]="nAutoResize() ? nMinRows() : nRows()"
           [attr.maxlength]="nMaxLength() > 0 ? nMaxLength() : null"
           [attr.aria-label]="nLabel() ? null : nAriaLabel() || null"
           [attr.aria-describedby]="describedBy()"
           [attr.aria-invalid]="hasError() ? true : null"
+          [attr.aria-readonly]="nReadonly() ? true : null"
           [attr.aria-required]="nRequired() ? true : null"
           data-slot="control"
           [class]="textareaClasses()"
@@ -78,6 +88,7 @@ export class TextareaComponent implements ControlValueAccessor {
   readonly nLabel       = input<string>('');
   readonly nPlaceholder = input<string>('');
   readonly nDisabled    = input<boolean>(false);
+  readonly nReadonly    = input<boolean>(false);
   readonly nRequired    = input<boolean>(false);
   readonly nError       = input<string | null>(null);
   readonly nHint        = input<string | null>(null);
@@ -95,8 +106,18 @@ export class TextareaComponent implements ControlValueAccessor {
   readonly nBlur   = output<FocusEvent>();
   readonly nChange = output<string>();
 
-  private readonly _form     = injectFormControl<string>(this);
-  private readonly _staticId = `n-textarea-${++_textareaIdCounter}`;
+  private readonly _form       = injectFormControl<string>(this);
+  private readonly _platformId = inject(PLATFORM_ID);
+  private readonly _staticId   = `n-textarea-${++_textareaIdCounter}`;
+  private readonly _control    = viewChild<ElementRef<HTMLTextAreaElement>>('control');
+
+  constructor() {
+    afterNextRender(() => this._maybeAutoResize());
+    effect(() => {
+      this.nValue();
+      this._maybeAutoResize();
+    });
+  }
 
   protected readonly isDisabled  = computed(() => this.nDisabled() || this._form.disabledByForm());
   protected readonly hasError    = computed(() => !!this.nError() || (this._form.controlInvalid() && this._form.controlTouched()));
@@ -140,7 +161,14 @@ export class TextareaComponent implements ControlValueAccessor {
     this.nBlur.emit(event);
   }
 
+  private _maybeAutoResize(): void {
+    if (!this.nAutoResize()) return;
+    const el = this._control()?.nativeElement;
+    if (el) this._adjustHeight(el);
+  }
+
   private _adjustHeight(el: HTMLTextAreaElement): void {
+    if (!isPlatformBrowser(this._platformId)) return;
     el.style.height = 'auto';
     const style      = getComputedStyle(el);
     const lineHeight = parseFloat(style.lineHeight) || 20;
