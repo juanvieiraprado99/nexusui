@@ -1,6 +1,11 @@
 ---
 name: nexus-developer
-description: "Build and use nexus-ui components, a shadcn/ui-style Angular component library. Activate when creating new components in libs/nexus, adding components to an Angular project via @nexuslabs/cli, or when the user mentions nexus-ui, n-button, n-input, or any n- prefixed selector."
+description: Build and use nexus-ui components in Angular 21. Activate when creating components in libs/nexus, adding components via @nexuslabs/cli, or when the user mentions nexus-ui, n-button, n-input, or any n- prefixed selector.
+license: MIT
+metadata:
+  author: Juan Prado <juanprado99@gmail.com>
+  version: '1.0.0'
+  homepage: https://github.com/juanvieiraprado99/nexusui
 ---
 
 # nexus-developer
