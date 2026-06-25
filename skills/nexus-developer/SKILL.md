@@ -1,6 +1,6 @@
 ---
 name: nexus-developer
-description: Build and use nexus-ui components — a shadcn/ui-style Angular component library. Activate when creating new components in libs/nexus, adding components to an Angular project via @nexuslabs/cli, or when the user mentions nexus-ui, n-button, n-input, or any n-* selector.
+description: "Build and use nexus-ui components, a shadcn/ui-style Angular component library. Activate when creating new components in libs/nexus, adding components to an Angular project via @nexuslabs/cli, or when the user mentions nexus-ui, n-button, n-input, or any n- prefixed selector."
 ---
 
 # nexus-developer
