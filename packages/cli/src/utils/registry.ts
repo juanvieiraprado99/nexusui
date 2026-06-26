@@ -105,9 +105,9 @@ export function transformContent(content: string, config: Config): string {
     (_match, p: string) => `from '${aliases.utils}/${p}'`,
   );
 
-  // ../component-name → configured components alias
+  // ../component-name or ../component-name/file → configured components alias
   out = out.replace(
-    /from ['"]\.\.\/([\w\-]+)['"]/g,
+    /from ['"]\.\.\/([\w\-./]+)['"]/g,
     (_match, p: string) => `from '${aliases.components}/${p}'`,
   );
 

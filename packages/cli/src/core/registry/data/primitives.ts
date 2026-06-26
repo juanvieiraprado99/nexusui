@@ -12,7 +12,7 @@ export const primitivesRegistry: ComponentRegistry[] = [
     name: 'button',
     version: '1.1.0',
     basePath: 'components/button',
-    registryDependencies: ['utils'],
+    registryDependencies: ['utils', 'button-group'],
     dependencies: ['class-variance-authority'],
     files: ['button.component.ts', 'button.variants.ts', 'index.ts'],
   },
